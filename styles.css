@@ -215,7 +215,7 @@ tbody tr.dayrow td { padding: 17px 8px 7px; border-bottom: 1px solid var(--borde
   white-space: nowrap; max-inline-size: 46ch;
 }
 .what .v { font-size: 11.5px; color: var(--muted); display: flex; gap: 7px; flex-wrap: wrap }
-.what .v i { font-style: normal; color: var(--muted) }
+.what .v i { font-style: normal; color: var(--border) }
 
 /* ── chips ────────────────────────────────────────────────────────────── */
 .vibe { display: flex; gap: 4px; flex-wrap: wrap }

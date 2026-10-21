@@ -28,7 +28,7 @@ const leaveLine = ev => (Number.isFinite(ev.drive_min)
 const venueName = (ev, venues) => (venues ?? {})[ev.venue_id]?.name ?? '';
 
 const location = (ev, venues) => [venueName(ev, venues), ev.city, driveLabel(ev)]
-  .filter(Boolean).map(part => `<bdi>${esc(part)}</bdi>`).join('<i>|</i>');
+  .filter(Boolean).map(part => `<bdi>${esc(part)}</bdi>`).join('<i aria-hidden="true">|</i>');
 
 const notes = ev => (ev.notes ?? []).filter(Boolean);
 

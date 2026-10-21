@@ -48,6 +48,10 @@ export function initMap(el, { styleUrl = MAP_STYLE_URL } = {}) {
   });
   // The static credit sits bottom-right; the legal links go bottom-left so they do not overlap.
   map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
+  // MapLibre ships an English UI table; its toggle is a Tab stop, so name it in Hebrew here.
+  const attribToggle = map.getContainer().querySelector('.maplibregl-ctrl-attrib-button');
+  attribToggle?.setAttribute('aria-label', 'מידע על מפת הרקע');
+  attribToggle?.setAttribute('title', 'מידע על מפת הרקע');
   map.getCanvas().setAttribute('aria-label', 'מפת האירועים');
 
   // Close the open popup on a background click; a marker owns its own popup.

@@ -165,7 +165,9 @@ git commit -m "feat: project skeleton and pure formatting module"
 
 - [ ] **Step 1: Generate fixtures from the research capture**
 
-Source: `docs/research/2026-10-21/leaan-events.json` and `geo-drive.json`. Select 13 records with distinct titles across ≥8 cities, preserving real titles, venues, prices and drive minutes. Add one Popit free event from `popit.xml` and one record whose fields are almost entirely absent (used by Task 5's sparse test).
+Source: `docs/research/2026-10-21/leaan-events.json` and `geo-drive.json`. Select 13 records with distinct titles across ≥8 cities, preserving real titles, venues, prices and drive minutes. Add one Popit event from `popit.xml`.
+
+**Do not invent data** (controller rulings R-A/R-B): no record may set `free: true` unless the source states it — the capture never does, so the Popit record carries `free: false` and `price_from: null`. Do not manufacture a sparse record by nulling real fields; Task 5 builds its own sparse object inside its test. `expensive` is p90 of the fixture set at `Math.floor(0.9 * n)`, or ≥ ₪200.
 
 Write them into `data/<date>.json` grouped by **the date the event belongs to** — its start date in `Asia/Jerusalem`, except a start between 00:00 and 05:59, which belongs to the previous day (spec §7.4.1). Then write `data/index.json` listing those dates with counts and `generated_at`. Venue identity comes from `venue/venues.json`; do not invent a venue that is not in it.
 

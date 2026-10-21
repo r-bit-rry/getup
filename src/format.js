@@ -28,6 +28,10 @@ export function timeRange(startUnix, endUnix) {
   return `${clock.format(new Date(startUnix * 1000))}–${clock.format(new Date(end * 1000))}`;
 }
 
+export function startTime(startUnix) {
+  return clock.format(new Date(startUnix * 1000));
+}
+
 export function leaveBy(startUnix, driveMin) {
   return clock.format(new Date(startUnix * 1000 - (driveMin + 30) * 60000));
 }

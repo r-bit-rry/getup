@@ -64,3 +64,54 @@ test('a sold-out event carries the badge and no live ticket link', () => {
   assert.match(html, /אזלו הכרטיסים/);
   assert.doesNotMatch(html, /href=/);
 });
+
+const venues = { v: { id: 'v', name: 'בית ציוני אמריקה (מאירהוף)' } };
+const sourced = { ...base, source: { class: 'ticketing', name: 'leaan' } };
+
+test('the location slot names the venue and city, never the ticket seller', () => {
+  const ev = { ...sourced, id: '6', day: '2026-10-23', title: 'אירוע' };
+  const html = tableHTML([ev], '2026-10-18', venues);
+  assert.match(html, /<bdi>בית ציוני אמריקה \(מאירהוף\)<\/bdi>/);
+  assert.match(html, /<bdi>תל אביב<\/bdi>/);
+  assert.match(html, /<bdi>29 דק׳ נסיעה<\/bdi>/);
+  assert.doesNotMatch(html, /leaan/);
+  const card = cardsHTML([ev], '2026-10-18', venues);
+  assert.match(card, /בית ציוני אמריקה \(מאירהוף\)/);
+  assert.doesNotMatch(card, /leaan/);
+});
+
+test('an unknown venue falls back to the city alone', () => {
+  const html = tableHTML([two[0]], '2026-10-18', {});
+  assert.match(html, /<span class="v"><bdi>תל אביב<\/bdi>/);
+  assert.doesNotMatch(html, /<i>\|<\/i><bdi>תל אביב/);
+});
+
+test('an unknown end renders a single start time, not a zero-length span', () => {
+  const ev = { ...base, id: '7', day: '2026-10-23', title: 'אירוע', end: null };
+  const html = tableHTML([ev], '2026-10-18');
+  assert.match(html, />21:30</);
+  assert.doesNotMatch(html, /21:30–21:30/);
+  const card = cardsHTML([ev], '2026-10-18');
+  assert.match(card, />21:30</);
+  assert.doesNotMatch(card, /21:30–21:30/);
+});
+
+test('a card reveals its notes and the info affordance is a real button', () => {
+  const ev = { ...base, id: '8', day: '2026-10-23', title: 'אירוע', notes: ['חניה חופשית', 'שער פתיחה 20:30'] };
+  const card = cardsHTML([ev], '2026-10-18');
+  assert.match(card, /<p class="note">חניה חופשית<br>שער פתיחה 20:30<\/p>/);
+  assert.match(card, /<button type="button" class="ico" aria-label="מידע נוסף"/);
+});
+
+test('an event without notes emits no note block and no info button', () => {
+  const card = cardsHTML([{ ...base, id: '9', day: '2026-10-23', title: 'אירוע' }], '2026-10-18');
+  assert.doesNotMatch(card, /class="note"/);
+  assert.doesNotMatch(card, /class="ico"/);
+});
+
+test('a javascript: ticket URL never reaches href', () => {
+  const ev = { ...base, id: '10', day: '2026-10-23', title: 'אירוע', urls: { tickets: 'javascript:alert(1)' } };
+  const html = tableHTML([ev], '2026-10-18');
+  assert.doesNotMatch(html, /javascript:/);
+  assert.match(html, /href="#"/);
+});

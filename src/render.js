@@ -1,15 +1,40 @@
-import { relDay, dayLabel, timeRange, leaveBy, priceLabel } from './format.js';
+import { relDay, dayLabel, timeRange, startTime, leaveBy, priceLabel } from './format.js';
 import { chipsHTML } from './chips.js';
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
 
+// Only http(s) and in-site links may reach an href; a scraped scheme is not trusted.
+const safeUrl = u => {
+  if (typeof u !== 'string') return '#';
+  try {
+    const { protocol } = new URL(u);
+    if (protocol === 'http:' || protocol === 'https:') return u;
+  } catch { /* relative or fragment, checked below */ }
+  return u.startsWith('/') || u.startsWith('#') ? u : '#';
+};
+
 const countLabel = n => (n === 1 ? 'אירוע אחד' : `${n} אירועים`);
 
-const driveLine = ev => (Number.isFinite(ev.drive_min)
-  ? `${ev.drive_min} דק׳ נסיעה · צא ${leaveBy(ev.start, ev.drive_min)}`
+const timeLabel = ev => (Number.isFinite(ev.end) && ev.end > ev.start
+  ? timeRange(ev.start, ev.end)
+  : startTime(ev.start));
+
+const driveLabel = ev => (Number.isFinite(ev.drive_min) ? `${ev.drive_min} דק׳ נסיעה` : '');
+
+const leaveLine = ev => (Number.isFinite(ev.drive_min)
+  ? `צא ${leaveBy(ev.start, ev.drive_min)}`
   : 'זמן נסיעה לא ידוע');
 
-const noteText = ev => (ev.notes ?? []).filter(Boolean).join(' · ');
+const venueName = (ev, venues) => (venues ?? {})[ev.venue_id]?.name ?? '';
+
+const location = (ev, venues) => [venueName(ev, venues), ev.city, driveLabel(ev)]
+  .filter(Boolean).map(part => `<bdi>${esc(part)}</bdi>`).join('<i>|</i>');
+
+const notes = ev => (ev.notes ?? []).filter(Boolean);
+
+const infoButton = ev => (notes(ev).length
+  ? `<button type="button" class="ico" aria-label="מידע נוסף" title="${esc(notes(ev).join(' · '))}">i</button>`
+  : '');
 
 const priceCell = ev => {
   const { text, kind } = priceLabel(ev);
@@ -18,25 +43,23 @@ const priceCell = ev => {
   return `<span class="price ${kind}">${esc(text)}</span>${until}${sold}`;
 };
 
-const acts = ev => {
-  const note = noteText(ev);
+const links = ev => {
   const ticket = ev.soldout
     ? '<span class="act gone">אזל</span>'
     : ev.urls?.tickets
-      ? `<a class="act" href="${esc(ev.urls.tickets)}" target="_blank" rel="noopener">כרטיס</a>`
+      ? `<a class="act" href="${esc(safeUrl(ev.urls.tickets))}" target="_blank" rel="noopener">כרטיס</a>`
       : '';
   const comm = ev.urls?.community
-    ? `<a class="act comm" href="${esc(ev.urls.community)}" target="_blank" rel="noopener">קבוצה</a>`
+    ? `<a class="act comm" href="${esc(safeUrl(ev.urls.community))}" target="_blank" rel="noopener">קבוצה</a>`
     : '';
-  const info = note ? `<span class="ico" title="${esc(note)}">i</span>` : '';
-  return `<span class="acts">${ticket}${comm}${info}</span>`;
+  return ticket + comm;
 };
 
-const where = ev => [ev.city, ev.source?.name].filter(Boolean).map(esc).join('<i>|</i>');
+const acts = ev => `<span class="acts">${links(ev)}${infoButton(ev)}</span>`;
 
-const rowHTML = ev => `<tr class="row">
-<td><span class="when"><span class="h num">${timeRange(ev.start, ev.end ?? ev.start)}</span><span class="r">${driveLine(ev)}</span></span></td>
-<td><span class="what"><span class="t"><bdi>${esc(ev.title)}</bdi></span><span class="v">${where(ev)}</span></span></td>
+const rowHTML = (ev, venues) => `<tr class="row">
+<td><span class="when"><span class="h num">${timeLabel(ev)}</span><span class="r">${leaveLine(ev)}</span></span></td>
+<td><span class="what"><span class="t"><bdi>${esc(ev.title)}</bdi></span><span class="v">${location(ev, venues)}</span></span></td>
 <td><span class="vibe">${chipsHTML(ev)}</span></td>
 <td>${priceCell(ev)}</td>
 <td>${acts(ev)}</td>
@@ -60,9 +83,9 @@ const dayRowHTML = (day, count, today) => {
     + `<span class="n">${countLabel(count)}</span></div></td></tr>`;
 };
 
-export function tableHTML(events, today) {
+export function tableHTML(events, today, venues) {
   const body = [...groupByDay(events ?? [])]
-    .map(([day, list]) => dayRowHTML(day, list.length, today) + list.map(rowHTML).join(''))
+    .map(([day, list]) => dayRowHTML(day, list.length, today) + list.map(ev => rowHTML(ev, venues)).join(''))
     .join('');
   return `<div class="tbl"><table>
 <colgroup><col style="width:122px"><col style="width:auto"><col style="width:30%"><col style="width:104px"><col style="width:132px"></colgroup>
@@ -70,19 +93,20 @@ export function tableHTML(events, today) {
 <tbody>${body}</tbody></table></div>`;
 }
 
-const cardHTML = (ev, today) => {
+const cardHTML = (ev, today, venues) => {
   const { text, kind } = priceLabel(ev);
   return `<article class="card">
-<div class="c1"><span class="rel2">${esc(relDay(ev.day, today) ?? dayLabel(ev.day))}</span><span class="time2 num">${timeRange(ev.start, ev.end ?? ev.start)}</span><span class="p2 ${kind}">${esc(text)}</span></div>
+<div class="c1"><span class="rel2">${esc(relDay(ev.day, today) ?? dayLabel(ev.day))}</span><span class="time2 num">${timeLabel(ev)}</span><span class="p2 ${kind}">${esc(text)}</span></div>
 <h3 class="t2"><bdi>${esc(ev.title)}</bdi></h3>
-<div class="v2"><span>${where(ev)}</span><span class="leave">${driveLine(ev)}</span></div>
-<div class="strip">${chipsHTML(ev, 3)}</div>
+<div class="v2"><span>${location(ev, venues)}</span><span class="leave">${leaveLine(ev)}</span></div>
+<div class="strip">${chipsHTML(ev, 3)}${infoButton(ev)}</div>
 ${ev.soldout ? '<div class="sold">אזלו הכרטיסים</div>' : ''}
-<div class="cta">${acts(ev)}</div></article>`;
+${notes(ev).length ? `<p class="note">${notes(ev).map(esc).join('<br>')}</p>` : ''}
+<div class="cta"><span class="acts">${links(ev)}</span></div></article>`;
 };
 
-export function cardsHTML(events, today) {
-  return `<div class="cards">${(events ?? []).map(ev => cardHTML(ev, today)).join('')}</div>`;
+export function cardsHTML(events, today, venues) {
+  return `<div class="cards">${(events ?? []).map(ev => cardHTML(ev, today, venues)).join('')}</div>`;
 }
 
 export function emptyHTML(manifest, today) {

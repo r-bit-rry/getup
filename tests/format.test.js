@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { relDay, dayLabel, timeRange, leaveBy, priceLabel, dataAge } from '../src/format.js';
+import { relDay, dayLabel, timeRange, startTime, leaveBy, priceLabel, dataAge } from '../src/format.js';
 
 const T0 = Date.UTC(2026, 9, 18, 21, 0); // 2026-10-18 21:00Z
 
@@ -21,6 +21,11 @@ test('leaveBy subtracts drive time and a 30 minute buffer', () => {
 test('timeRange never renders a negative span', () => {
   assert.equal(timeRange(T0 / 1000, T0 / 1000 + 7200), '00:00–02:00');
   assert.equal(timeRange(T0 / 1000, T0 / 1000), '00:00–00:00');
+});
+
+test('startTime renders one clock reading in Asia/Jerusalem', () => {
+  // 2026-10-23T18:30Z = 21:30 Asia/Jerusalem
+  assert.equal(startTime(Math.floor(new Date('2026-10-23T18:30:00Z').getTime() / 1000)), '21:30');
 });
 
 test('priceLabel distinguishes free, paid and unknown', () => {

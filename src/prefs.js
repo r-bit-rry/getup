@@ -13,9 +13,10 @@ const norm = (s) => String(s).trim().replace(/\s+/g, ' ').toLowerCase();
 
 // shortcut: artist is matched against the event title, exact after normalization, no fuzzy match
 const matches = (ev, rule) => {
-  if (typeof rule.venue_id === 'string' && rule.venue_id) return ev.venue_id === rule.venue_id;
-  if (typeof rule.artist === 'string' && norm(rule.artist)) return norm(ev.title ?? '') === norm(rule.artist);
-  return false;
+  const v = typeof rule.venue_id === 'string' && rule.venue_id;
+  const a = typeof rule.artist === 'string' && norm(rule.artist);
+  if (!v && !a) return false;
+  return (!v || ev.venue_id === rule.venue_id) && (!a || norm(ev.title ?? '') === a);
 };
 
 export async function loadPrefs(base = '.') {

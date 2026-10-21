@@ -40,6 +40,13 @@ test('artist rule does not fuzzy-match', () => {
   assert.equal(applyPrefs([ev({ title: 'The Cure' })], p).length, 1);
 });
 
+test('a rule with both venue_id and artist requires both to match', () => {
+  const p = { never: [{ venue_id: 'v1', artist: 'The Cure' }], always: [] };
+  assert.equal(applyPrefs([ev({ title: 'Other' })], p).length, 1);
+  assert.equal(applyPrefs([ev({ title: 'the  cure' })], p).length, 0);
+  assert.equal(applyPrefs([ev({ venue_id: 'v2', title: 'The Cure' })], p).length, 1);
+});
+
 test('a rule with neither venue_id nor artist is ignored', () => {
   const p = { never: [{}], always: [{}] };
   const e = ev({});

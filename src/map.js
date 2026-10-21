@@ -48,6 +48,7 @@ export function initMap(el, { styleUrl = MAP_STYLE_URL } = {}) {
   });
   // The static credit sits bottom-right; the legal links go bottom-left so they do not overlap.
   map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
+  map.getCanvas().setAttribute('aria-label', 'מפת האירועים');
 
   // Close the open popup on a background click; a marker owns its own popup.
   map.on('click', e => {

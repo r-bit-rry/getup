@@ -49,7 +49,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0 }
-html { -webkit-text-size-adjust: 100% }
+html { -webkit-text-size-adjust: 100%; scroll-padding-block-start: var(--bar-h, 0px) }
 body {
   font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', sans-serif;
   background: var(--bg); color: var(--text);
@@ -85,7 +85,6 @@ a { color: inherit; text-decoration: none }
 }
 .seg button {
   padding: 4px 11px; border-radius: 7px; font-size: 12.5px; color: var(--muted);
-  transition: background .12s, color .12s;
 }
 .seg button:hover { color: var(--text) }
 .seg button[aria-pressed="true"] {
@@ -98,13 +97,12 @@ a { color: inherit; text-decoration: none }
   border: 1px solid var(--border); background: var(--surface); border-radius: 999px;
   padding: 5px 9px; font-size: 12.5px; color: var(--muted);
   display: flex; align-items: center; gap: 6px;
-  transition: border-color .12s, color .12s, background .12s;
 }
 button.f:hover { border-color: var(--primary); color: var(--text) }
 button.f[aria-pressed="true"] {
   background: var(--primary); border-color: var(--primary); color: var(--on-primary); font-weight: 500;
 }
-.f .k { opacity: .75; font-size: 11.5px }
+.f .k { font-size: 11.5px }
 .f input[type="date"] {
   font: inherit; color: var(--text); background: none; border: 0; padding: 0;
   width: 7.6em; direction: ltr;
@@ -119,7 +117,6 @@ button.f[aria-pressed="true"] {
 .facets summary {
   list-style: none; cursor: pointer; border: 1px solid var(--border); background: var(--surface);
   border-radius: 999px; padding: 5px 11px; font-size: 12.5px; color: var(--muted);
-  transition: border-color .12s, color .12s;
 }
 .facets summary::-webkit-details-marker { display: none }
 .facets summary:hover { border-color: var(--primary); color: var(--text) }
@@ -194,6 +191,7 @@ main {
 }
 
 /* ONE table, fixed layout: column widths are declared in the renderer and cannot drift */
+.tbl { overflow-x: auto }
 table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed }
 thead th {
   font-size: 11px; font-weight: 500; color: var(--muted); text-align: start;
@@ -217,7 +215,7 @@ tbody tr.dayrow td { padding: 17px 8px 7px; border-bottom: 1px solid var(--borde
   white-space: nowrap; max-inline-size: 46ch;
 }
 .what .v { font-size: 11.5px; color: var(--muted); display: flex; gap: 7px; flex-wrap: wrap }
-.what .v i { font-style: normal; color: var(--border) }
+.what .v i { font-style: normal; color: var(--muted) }
 
 /* ── chips ────────────────────────────────────────────────────────────── */
 .vibe { display: flex; gap: 4px; flex-wrap: wrap }
@@ -251,7 +249,7 @@ tbody tr.dayrow td { padding: 17px 8px 7px; border-bottom: 1px solid var(--borde
 .act {
   display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 500;
   color: var(--blue); border: 1px solid color-mix(in srgb, var(--blue) 25%, transparent);
-  border-radius: 6px; padding: 4px 8px; transition: background .12s;
+  border-radius: 6px; padding: 4px 8px;
 }
 .act:hover { background: var(--blue-soft) }
 .act.comm {
@@ -332,6 +330,15 @@ body[data-view="mobile"] .cards { display: block }
   .mapwrap { display: none }
   /* the wrapped filter bar would eat a third of a phone screen if it stayed sticky */
   .bar { position: relative }
+  html { scroll-padding-block-start: 0 }
+}
+
+/* motion is opt-in: the transitions exist only where the user has not asked for less */
+@media (prefers-reduced-motion: no-preference) {
+  .seg button { transition: background .12s, color .12s }
+  .f { transition: border-color .12s, color .12s, background .12s }
+  .facets summary { transition: border-color .12s, color .12s }
+  .act { transition: background .12s }
 }
 
 @media (prefers-reduced-motion: reduce) {

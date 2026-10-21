@@ -160,6 +160,29 @@ main {
   font-size: 10.5px; color: var(--muted); background: var(--surface);
   border: 1px solid var(--border); border-radius: 6px; padding: 2px 7px;
 }
+.pin {
+  inline-size: 14px; block-size: 14px; padding: 0; border-radius: 50%;
+  background: var(--pin); border: 2px solid var(--surface); box-shadow: var(--shadow);
+}
+.pin:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px }
+.pinpop { display: grid; gap: 1px; max-inline-size: 230px; font-size: 12px; line-height: 1.4 }
+.pinpop strong { font-size: 13px; font-weight: 600 }
+.pinpop .sub { color: var(--muted) }
+/* a bare number range flips under RTL bidi, exactly as the table's time cell avoids */
+.pinpop .time { direction: ltr; text-align: end }
+/* MapLibre's popup chrome follows the page theme, not its hard-coded white */
+.maplibregl-popup-content {
+  font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px;
+}
+.maplibregl-popup-close-button { color: var(--muted) }
+/* shown while cached Netanya minutes stand in for a router that could not be reached */
+.distnote {
+  font-size: 12px; color: var(--warn); background: var(--warn-soft);
+  border: 1px solid color-mix(in srgb, var(--warn) 28%, transparent);
+  border-radius: var(--radius); padding: 6px 10px; margin-block-end: 10px;
+}
 
 /* ── day headers + table ──────────────────────────────────────────────── */
 .dayhead { display: flex; align-items: baseline; gap: 9px; position: relative }

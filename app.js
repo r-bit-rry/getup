@@ -5,6 +5,7 @@ import { applyFilters, sortEvents, defaultState, serializeState, deserializeStat
 import { tableHTML, cardsHTML, emptyHTML } from './src/render.js';
 import { dataAge } from './src/format.js';
 import { VOCAB } from './src/chips.js';
+import { recomputeDistances } from './src/distance.js';
 
 const TZ = 'Asia/Jerusalem';
 const KEY = { state: 'getup:state', view: 'getup:view', theme: 'getup:theme' };
@@ -36,6 +37,13 @@ try {
 const days = await Promise.all((manifest.dates ?? []).map(d => loadDate('.', d.date)));
 const all = applyPrefs(days.flat(), prefs);
 
+const DEFAULT_CENTRE = defaultState().centre;
+const isDefaultCentre = c => c.lat === DEFAULT_CENTRE.lat && c.lon === DEFAULT_CENTRE.lon;
+const drive = new Map(); // event id → minutes from a centre other than Netanya
+let distNote = ''; // visible while the cached Netanya minutes are all we have
+let map = null;
+let drawMap = () => {};
+
 function fatal() {
   const p = document.createElement('p');
   p.className = 'empty';
@@ -52,16 +60,63 @@ const currentPreset = () => (state.dateWindow !== 'range'
   : (state.range?.from === today && state.range?.to === monthEnd ? 'month' : null));
 
 // ── render ───────────────────────────────────────────────────────────────
+// Recomputed minutes override the cached ones; everything else still reads the record.
+const withDrive = list => (drive.size
+  ? list.map(ev => (drive.has(ev.id) ? { ...ev, drive_min: drive.get(ev.id) } : ev))
+  : list);
+const visible = () => sortEvents(applyFilters(withDrive(all), state, today));
+
+const distEl = document.createElement('p');
+distEl.id = 'dist-note';
+distEl.className = 'distnote';
+distEl.hidden = true;
+$('#list').before(distEl);
+const syncNote = () => { distEl.textContent = distNote; distEl.hidden = !distNote; };
+
 function render() {
   if (!ok) return;
-  const events = sortEvents(applyFilters(all, state, today));
+  const events = visible();
   $('#list').innerHTML = events.length
     ? tableHTML(events, today, venues) + cardsHTML(events, today, venues)
     : emptyHTML(manifest, today);
   $('#status').textContent = `${events.length} אירועים בתצוגה`;
+  syncNote();
   syncControls();
   write(KEY.state, serializeState(state));
+  drawMap(map, events.map(ev => ({ ...ev, venue: venues[ev.venue_id]?.name })));
 }
+
+// Cached drive_min already comes from Netanya: only a different centre needs the router.
+let centreSeq = 0;
+async function refreshDistances() {
+  const seq = ++centreSeq;
+  if (isDefaultCentre(state.centre)) {
+    drive.clear();
+    distNote = '';
+    render();
+    return;
+  }
+  const events = visible();
+  distNote = 'זמני הנסיעה יחסית לנתניה';
+  syncNote();
+  const mins = await recomputeDistances(events, state.centre);
+  if (seq !== centreSeq) return; // a newer centre made this answer stale
+  if (mins) {
+    events.forEach((ev, i) => { if (Number.isFinite(mins[i])) drive.set(ev.id, mins[i]); });
+    distNote = '';
+  } else {
+    drive.clear(); // keep the cached Netanya minutes; the visible note explains them
+  }
+  render();
+}
+
+const recentre = centre => {
+  state.centre = centre;
+  drive.clear();
+  distNote = '';
+  render();
+  return refreshDistances();
+};
 
 function syncControls() {
   const preset = currentPreset();
@@ -184,6 +239,8 @@ function applyView(view) {
 function setView(view) {
   applyView(view);
   write(KEY.view, view);
+  // the map container was display:none in mobile view; measure it again once layout settles
+  requestAnimationFrame(() => map?.resize());
 }
 function setTheme(theme) {
   document.body.dataset.theme = theme;
@@ -218,6 +275,18 @@ const syncBar = () => document.documentElement.style.setProperty('--bar-h', `${$
 new ResizeObserver(syncBar).observe($('.bar'));
 syncBar();
 
+// Mount the map after the bar is measured; a MapLibre failure must leave the list intact.
+try {
+  const { initMap, drawMarkers } = await import('./src/map.js');
+  map = initMap($('#map'));
+  drawMap = (m, evs) => {
+    try { drawMarkers(m, evs); } catch (err) { console.warn('getup: map draw failed', err?.message ?? err); }
+  };
+  map.resize();
+} catch (err) {
+  console.warn('getup: map unavailable', err?.message ?? err);
+}
+
 // ── footer ───────────────────────────────────────────────────────────────
 $('#data-age').textContent = dataAge(manifest.generated_at, new Date()) || 'מועד העדכון לא ידוע';
 const missed = (manifest.coverage?.missed ?? [])
@@ -228,4 +297,13 @@ $('#coverage').textContent = missed.length
   ? `לא נבדקו ב־14 הימים האחרונים: ${missed.join(' · ')}`
   : checked ? `כל ${checked} המקורות נבדקו` : 'אין מידע על כיסוי המקורות';
 
-if (ok) render(); else fatal();
+if (ok) {
+  render();
+  // A centre restored from localStorage was not computed by this page load.
+  if (!isDefaultCentre(state.centre)) refreshDistances();
+  // Geolocation overrides Netanya only when granted; denial leaves the correct cached minutes.
+  navigator.geolocation?.getCurrentPosition(
+    p => recentre({ lat: p.coords.latitude, lon: p.coords.longitude, label: 'המיקום שלי' }),
+    () => {},
+  );
+} else fatal();

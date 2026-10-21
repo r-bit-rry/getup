@@ -24,8 +24,10 @@ export async function recomputeDistances(events, centre, { fetchImpl } = {}) {
     const body = await res.json();
     const row = body?.durations?.[0];
     if (body?.code !== 'Ok' || !Array.isArray(row) || row.length !== list.length + 1) return null;
-    const minutes = row.slice(1).map(sec => Math.round(sec / 60));
-    return minutes.every(Number.isFinite) ? minutes : null;
+    // OSRM puts null in an unreachable cell; rounding it would turn "unknown" into a 0-minute drive.
+    const secs = row.slice(1);
+    if (!secs.every(Number.isFinite)) return null;
+    return secs.map(sec => Math.round(sec / 60));
   } catch {
     return null;
   }

@@ -40,7 +40,6 @@ const all = applyPrefs(days.flat(), prefs);
 const DEFAULT_CENTRE = defaultState().centre;
 const isDefaultCentre = c => c.lat === DEFAULT_CENTRE.lat && c.lon === DEFAULT_CENTRE.lon;
 const drive = new Map(); // event id → minutes from a centre other than Netanya
-let distNote = ''; // visible while the cached Netanya minutes are all we have
 let map = null;
 let drawMap = () => {};
 
@@ -65,13 +64,22 @@ const withDrive = list => (drive.size
   ? list.map(ev => (drive.has(ev.id) ? { ...ev, drive_min: drive.get(ev.id) } : ev))
   : list);
 const visible = () => sortEvents(applyFilters(withDrive(all), state, today));
+// The drive limit must not hide an event whose real drive is short: recompute over
+// everything the other filters allow, then let render() apply maxDriveMin.
+const forDistances = () => sortEvents(applyFilters(withDrive(all), { ...state, maxDriveMin: null }, today));
 
+const NOTE = 'זמני הנסיעה יחסית לנתניה';
 const distEl = document.createElement('p');
 distEl.id = 'dist-note';
 distEl.className = 'distnote';
+distEl.setAttribute('role', 'status');
 distEl.hidden = true;
 $('#list').before(distEl);
-const syncNote = () => { distEl.textContent = distNote; distEl.hidden = !distNote; };
+// The note follows the data, not a flag: it is up whenever a shown minute is still Netanya's.
+const syncNote = show => {
+  distEl.hidden = !show;
+  distEl.textContent = show ? NOTE : '';
+};
 
 function render() {
   if (!ok) return;
@@ -80,7 +88,7 @@ function render() {
     ? tableHTML(events, today, venues) + cardsHTML(events, today, venues)
     : emptyHTML(manifest, today);
   $('#status').textContent = `${events.length} אירועים בתצוגה`;
-  syncNote();
+  syncNote(!isDefaultCentre(state.centre) && events.some(ev => !drive.has(ev.id)));
   syncControls();
   write(KEY.state, serializeState(state));
   drawMap(map, events.map(ev => ({ ...ev, venue: venues[ev.venue_id]?.name })));
@@ -92,28 +100,30 @@ async function refreshDistances() {
   const seq = ++centreSeq;
   if (isDefaultCentre(state.centre)) {
     drive.clear();
-    distNote = '';
     render();
     return;
   }
-  const events = visible();
-  distNote = 'זמני הנסיעה יחסית לנתניה';
-  syncNote();
-  const mins = await recomputeDistances(events, state.centre);
-  if (seq !== centreSeq) return; // a newer centre made this answer stale
-  if (mins) {
-    events.forEach((ev, i) => { if (Number.isFinite(mins[i])) drive.set(ev.id, mins[i]); });
-    distNote = '';
-  } else {
-    drive.clear(); // keep the cached Netanya minutes; the visible note explains them
+  // Only ids without minutes for this centre cost a request: a filter change that
+  // adds events fetches just those, and one that removes them fetches nothing.
+  const events = forDistances().filter(ev => !drive.has(ev.id));
+  if (!events.length) {
+    render();
+    return;
   }
+  render(); // the note is up while these minutes are still Netanya's
+  const mins = await recomputeDistances(events, state.centre);
+  if (seq !== centreSeq) return; // a newer centre/filter made this answer stale
+  if (mins) events.forEach((ev, i) => { if (Number.isFinite(mins[i])) drive.set(ev.id, mins[i]); });
+  // null keeps the cached Netanya minutes; render leaves the note up for them
   render();
 }
+
+// A filter change can add events the last recompute never saw.
+const refilter = () => (isDefaultCentre(state.centre) ? render() : refreshDistances());
 
 const recentre = centre => {
   state.centre = centre;
   drive.clear();
-  distNote = '';
   render();
   return refreshDistances();
 };
@@ -164,7 +174,7 @@ for (const b of document.querySelectorAll('[data-window]')) {
       state.dateWindow = w;
       state.range = null;
     }
-    render();
+    refilter();
   });
 }
 
@@ -177,32 +187,33 @@ for (const id of ['#f-from', '#f-to']) {
     if (!from || !to) return; // a half-filled range keeps the last window
     state.dateWindow = 'range';
     state.range = from <= to ? { from, to } : { from: to, to: from };
-    render();
+    refilter();
   });
 }
 
-$('#f-free').addEventListener('click', () => { state.freeOnly = !state.freeOnly; render(); });
-$('#f-tickets').addEventListener('click', () => { state.hasTickets = !state.hasTickets; render(); });
-$('#f-gated').addEventListener('click', () => { state.includeGated = !state.includeGated; render(); });
+$('#f-free').addEventListener('click', () => { state.freeOnly = !state.freeOnly; refilter(); });
+$('#f-tickets').addEventListener('click', () => { state.hasTickets = !state.hasTickets; refilter(); });
+$('#f-gated').addEventListener('click', () => { state.includeGated = !state.includeGated; refilter(); });
 // The age rule only ever removes: an explicit 18+ restriction is hidden for a minor-safe view.
-$('#f-minor').addEventListener('click', () => { state.age = state.age == null ? 17 : null; render(); });
+$('#f-minor').addEventListener('click', () => { state.age = state.age == null ? 17 : null; refilter(); });
 
 // The slider's top value means "no limit" — the real price range tops out at ₪250.
 $('#f-price').addEventListener('input', e => {
   const max = Number(e.currentTarget.max);
   const v = Number(e.currentTarget.value);
   state.maxPrice = v >= max ? null : v;
-  render();
+  refilter();
 });
 
 $('#f-drive').addEventListener('change', e => {
   state.maxDriveMin = e.currentTarget.value === '' ? null : Number(e.currentTarget.value);
-  render();
+  refilter();
 });
 
 $('#f-clear').addEventListener('click', () => {
   state = defaultState();
-  render();
+  // The default-centre branch clears every recomputed minute and the note atomically.
+  refreshDistances();
 });
 
 const facetButton = (kind, label) => {
@@ -227,7 +238,7 @@ $('#facets').addEventListener('click', e => {
   const key = b.dataset.facet === 'scene' ? 'scenes' : 'crowds';
   const v = b.dataset.value;
   state[key] = state[key].includes(v) ? state[key].filter(x => x !== v) : [...state[key], v];
-  render();
+  refilter();
 });
 
 // ── chrome toggles ───────────────────────────────────────────────────────

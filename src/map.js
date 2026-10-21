@@ -74,19 +74,21 @@ export function drawMarkers(map, events) {
   const placed = [];
   for (const ev of events ?? []) {
     if (!Number.isFinite(ev?.lat) || !Number.isFinite(ev?.lon)) continue; // no coordinates, no pin, no error
-    const el = document.createElement('button');
-    el.type = 'button';
-    el.className = 'pin';
-    el.style.setProperty('--pin', colour(ev));
-    el.setAttribute('aria-label', [ev.title, ev.city].filter(Boolean).join(' — ') || 'אירוע');
-    const marker = new maplibregl.Marker({ element: el }).setLngLat([ev.lon, ev.lat]).addTo(map);
-    const popup = new maplibregl.Popup({ offset: 12, closeOnClick: false }).setDOMContent(popupNode(ev));
-    el.addEventListener('click', () => {
-      shown.get(map)?.remove();
-      popup.setLngLat(marker.getLngLat()).addTo(map);
-      shown.set(map, popup);
-    });
-    placed.push(marker);
+    try {
+      const el = document.createElement('button');
+      el.type = 'button';
+      el.className = 'pin';
+      el.style.setProperty('--pin', colour(ev));
+      el.setAttribute('aria-label', [ev.title, ev.city].filter(Boolean).join(' — ') || 'אירוע');
+      const marker = new maplibregl.Marker({ element: el }).setLngLat([ev.lon, ev.lat]).addTo(map);
+      placed.push(marker); // recorded before the popup, so a bad popup cannot leak it
+      const popup = new maplibregl.Popup({ offset: 12, closeOnClick: false }).setDOMContent(popupNode(ev));
+      el.addEventListener('click', () => {
+        shown.get(map)?.remove();
+        popup.setLngLat(marker.getLngLat()).addTo(map);
+        shown.set(map, popup);
+      });
+    } catch { /* one bad event must not stop the rest or leak a marker */ }
   }
   pins.set(map, placed);
 }

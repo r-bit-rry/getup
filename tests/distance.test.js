@@ -39,3 +39,17 @@ test('an unreachable destination is null, never a zero-minute drive', async () =
     { fetchImpl: async () => ({ ok: true, json: async () => ({ code: 'Ok', durations: [[0, null]] }) }) });
   assert.equal(r, null);
 });
+
+test('a durations row that does not match the destinations is rejected', async () => {
+  const r = await recomputeDistances([{ lat: 32.1, lon: 34.8 }], { lat: 32, lon: 34.7 },
+    { fetchImpl: async () => ({ ok: true, json: async () => ({ code: 'Ok', durations: [[0]] }) }) });
+  assert.equal(r, null);
+});
+
+test('an empty event list returns [] without touching the network', async () => {
+  let calls = 0;
+  const r = await recomputeDistances([], { lat: 32, lon: 34 },
+    { fetchImpl: async () => { calls += 1; return { ok: true, json: async () => ({ code: 'Ok', durations: [[]] }) }; } });
+  assert.deepEqual(r, []);
+  assert.equal(calls, 0);
+});

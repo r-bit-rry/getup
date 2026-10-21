@@ -28,13 +28,17 @@ let venues = {};
 let prefs = { never: [], always: [] };
 let ok = true;
 try {
-  manifest = await loadManifest('.');
+  const loaded = await loadManifest('.');
+  // A null/array/primitive manifest is a failed load, not a page with no events.
+  if (!loaded || typeof loaded !== 'object' || Array.isArray(loaded)) throw new TypeError('manifest is not an object');
+  manifest = loaded;
   venues = await loadVenues('.');
   prefs = await loadPrefs('.');
 } catch {
   ok = false;
 }
-const days = await Promise.all((manifest.dates ?? []).map(d => loadDate('.', d.date)));
+const dates = Array.isArray(manifest.dates) ? manifest.dates : [];
+const days = await Promise.all(dates.map(d => loadDate('.', d.date)));
 const all = applyPrefs(days.flat(), prefs);
 
 const DEFAULT_CENTRE = defaultState().centre;
@@ -108,7 +112,12 @@ async function refreshDistances() {
     render();
     return;
   }
-  if (inFlight) { rerun = true; return; }
+  if (inFlight) {
+    // Paint now with the cached minutes; the new centre's request covers this change when it lands.
+    rerun = true;
+    render();
+    return;
+  }
   // Only ids without minutes for this centre cost a request: a filter change that
   // adds events fetches just those, and one that removes them fetches nothing.
   const events = forDistances().filter(ev => !drive.has(ev.id));

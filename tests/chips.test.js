@@ -39,3 +39,26 @@ test('tags outside the vocabulary are dropped, valid ones still render', () => {
   assert.match(html, /title="רוק"/);
   assert.doesNotMatch(html, /סלסה/);
 });
+
+test('the three derived signals each reach the strip and lead it', () => {
+  for (const [field, value, label] of [
+    ['format', 'live_band', 'הופעה חיה'],
+    ['format', 'tribute', 'מופע מחווה'],
+    ['format', 'dj_set', 'DJ'],
+    ['format', 'orchestra', 'תזמורת'],
+    ['format', 'standup', 'סטנדאפ'],
+    ['format', 'theatre', 'תיאטרון'],
+    ['format', 'festival', 'פסטיבל'],
+    ['expensive', true, 'יקר'],
+    ['commitment', 'plan_ahead', 'תכנון מראש'],
+  ]) {
+    const html = chipsHTML({ scene: [], crowd: [], [field]: value });
+    assert.match(html, new RegExp(`>${label}<`), `${field}=${value}`);
+  }
+});
+
+test('a bare record emits no signal chip', () => {
+  const html = chipsHTML({ format: 'unknown', expensive: false, commitment: 'jump_in', scene: [], crowd: [] });
+  assert.equal(html, '');
+  assert.doesNotMatch(chipsHTML({ scene: ['רוק'] }), /יקר|תכנון מראש|הופעה חיה/);
+});

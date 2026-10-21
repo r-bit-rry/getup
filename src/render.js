@@ -56,7 +56,11 @@ const links = ev => {
   const comm = ev.urls?.community
     ? `<a class="act comm" href="${esc(safeUrl(ev.urls.community))}" target="_blank" rel="noopener">קבוצה</a>`
     : '';
-  return ticket + comm;
+  // A nightlife feed has no ticket and no community: its source page is the only way in.
+  const source = !ev.urls?.tickets && !ev.urls?.community && ev.urls?.source
+    ? `<a class="act" href="${esc(safeUrl(ev.urls.source))}" target="_blank" rel="noopener">מקור</a>`
+    : '';
+  return ticket + comm + source;
 };
 
 const acts = ev => `<span class="acts">${links(ev)}${infoButton(ev)}</span>`;
@@ -87,9 +91,24 @@ const dayRowHTML = (day, count, today) => {
     + `<span class="n">${countLabel(count)}</span></div></td></tr>`;
 };
 
+// One malformed record must not blank the whole list: build what can be built, name what was dropped once.
+const warned = new Set();
+const guarded = (build, ev) => {
+  try { return build(ev); } catch (err) {
+    if (!warned.has(ev?.id)) {
+      warned.add(ev?.id);
+      console.warn(`getup: skipped event ${ev?.id ?? '?'}`, err?.message ?? err);
+    }
+    return '';
+  }
+};
+
 export function tableHTML(events, today, venues) {
   const body = [...groupByDay(events ?? [])]
-    .map(([day, list]) => dayRowHTML(day, list.length, today) + list.map(ev => rowHTML(ev, venues)).join(''))
+    .map(([day, list]) => {
+      const rows = list.map(ev => guarded(e => rowHTML(e, venues), ev)).filter(Boolean);
+      return rows.length ? dayRowHTML(day, rows.length, today) + rows.join('') : '';
+    })
     .join('');
   return `<div class="tbl"><table>
 <colgroup><col style="width:122px"><col style="width:auto"><col style="width:30%"><col style="width:104px"><col style="width:132px"></colgroup>
@@ -110,7 +129,11 @@ ${noteBlock(ev)}
 };
 
 export function cardsHTML(events, today, venues) {
-  return `<div class="cards">${(events ?? []).map(ev => cardHTML(ev, today, venues)).join('')}</div>`;
+  const cards = (events ?? [])
+    .map(ev => guarded(e => cardHTML(e, today, venues), ev))
+    .filter(Boolean)
+    .join('');
+  return `<div class="cards">${cards}</div>`;
 }
 
 export function emptyHTML(manifest, today) {

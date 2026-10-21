@@ -119,3 +119,51 @@ test('a javascript: ticket URL never reaches href', () => {
   assert.doesNotMatch(html, /javascript:/);
   assert.match(html, /href="#"/);
 });
+
+test('format, expensive and plan-ahead reach the table cell and the card strip', () => {
+  const ev = { ...base, id: '11', day: '2026-10-23', title: 'עפרה', scene: ['תיאטרון'],
+    format: 'theatre', expensive: true, commitment: 'plan_ahead' };
+  for (const html of [tableHTML([ev], '2026-10-18'), cardsHTML([ev], '2026-10-18')]) {
+    assert.match(html, />תיאטרון</);
+    assert.match(html, />יקר</);
+    assert.match(html, />תכנון מראש</);
+  }
+});
+
+test('a record without the signals renders no signal chip', () => {
+  const ev = { ...base, id: '12', day: '2026-10-23', title: 'אירוע', scene: [], crowd: [],
+    format: 'unknown', expensive: false, commitment: 'jump_in' };
+  for (const html of [tableHTML([ev], '2026-10-18'), cardsHTML([ev], '2026-10-18')]) {
+    assert.doesNotMatch(html, /יקר|תכנון מראש|הופעה חיה|מופע מחווה|תזמורת|סטנדאפ|תיאטרון|פסטיבל/);
+  }
+});
+
+test('one malformed record is skipped by name; the rest still render', () => {
+  const warn = console.warn;
+  const calls = [];
+  console.warn = (...args) => calls.push(args.join(' '));
+  try {
+    const bad = { ...base, id: 'bad', title: 'רשומה שבורה', day: '2026-10-23', start: undefined };
+    const good = { ...base, id: 'good', title: 'רשומה תקינה', day: '2026-10-23' };
+    const table = tableHTML([bad, good], '2026-10-18');
+    assert.doesNotMatch(table, /רשומה שבורה/);
+    assert.match(table, /רשומה תקינה/);
+    assert.match(table, /אירוע אחד/);
+    const cards = cardsHTML([bad, good], '2026-10-18');
+    assert.doesNotMatch(cards, /רשומה שבורה/);
+    assert.match(cards, /רשומה תקינה/);
+  } finally {
+    console.warn = warn;
+  }
+  assert.ok(calls.some(line => line.includes('bad')), calls.join('\n'));
+});
+
+test('a record with no ticket and no community links to its source', () => {
+  const ev = { ...base, id: '13', day: '2026-10-23', title: '04 Haifa',
+    urls: { tickets: null, community: null, source: 'https://popit.events/event/04-haifa' } };
+  for (const html of [tableHTML([ev], '2026-10-18'), cardsHTML([ev], '2026-10-18')]) {
+    assert.match(html, /href="https:\/\/popit\.events\/event\/04-haifa"[^>]*>מקור</);
+  }
+  const bad = { ...ev, urls: { source: 'javascript:alert(1)' } };
+  assert.match(tableHTML([bad], '2026-10-18'), /href="#"/);
+});

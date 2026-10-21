@@ -53,3 +53,15 @@ test('an empty event list returns [] without touching the network', async () => 
   assert.deepEqual(r, []);
   assert.equal(calls, 0);
 });
+
+test('a hung router is aborted on timeout and returns null like any failure', async () => {
+  let aborted = false;
+  const r = await recomputeDistances([{ lat: 32.1, lon: 34.8 }], { lat: 32, lon: 34.7 }, {
+    timeoutMs: 20,
+    fetchImpl: (_url, { signal }) => new Promise((_, reject) => {
+      signal.addEventListener('abort', () => { aborted = true; reject(new Error('aborted')); });
+    }),
+  });
+  assert.equal(r, null);
+  assert.equal(aborted, true);
+});

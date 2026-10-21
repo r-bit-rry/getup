@@ -5,7 +5,10 @@ const OSRM = 'https://router.project-osrm.org/table/v1/driving';
 // return null rather than truncate: the caller keeps cached minutes and says so.
 const MAX_DESTS = 99;
 
-export async function recomputeDistances(events, centre, { fetchImpl } = {}) {
+// A public router may hang; past this the caller keeps its cached minutes and says so.
+const TIMEOUT_MS = 6000;
+
+export async function recomputeDistances(events, centre, { fetchImpl, timeoutMs = TIMEOUT_MS } = {}) {
   const list = Array.isArray(events) ? events : [];
   if (!list.length) return [];
   if (!Number.isFinite(centre?.lat) || !Number.isFinite(centre?.lon)) return null;
@@ -18,8 +21,10 @@ export async function recomputeDistances(events, centre, { fetchImpl } = {}) {
     .join(';');
   const url = `${OSRM}/${coords}?annotations=duration`;
 
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const res = await (fetchImpl ?? globalThis.fetch)(url);
+    const res = await (fetchImpl ?? globalThis.fetch)(url, { signal: controller.signal });
     if (!res?.ok) return null;
     const body = await res.json();
     const row = body?.durations?.[0];
@@ -29,6 +34,8 @@ export async function recomputeDistances(events, centre, { fetchImpl } = {}) {
     if (!secs.every(Number.isFinite)) return null;
     return secs.map(sec => Math.round(sec / 60));
   } catch {
-    return null;
+    return null; // offline, malformed, or aborted by the timeout
+  } finally {
+    clearTimeout(timer);
   }
 }

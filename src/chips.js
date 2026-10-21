@@ -19,11 +19,29 @@ export function chip(kind, label) {
   return `<span class="chip ${kind === 'scene' ? 's' : 'c'}" title="${esc(label)}">${svg}${esc(label)}</span>`;
 }
 
+// §7.5 signals the page promised: format, price pressure and plan-ahead. Absent values emit nothing.
+const FORMAT_LABEL = {
+  live_band: 'הופעה חיה', tribute: 'מופע מחווה', dj_set: 'DJ', orchestra: 'תזמורת',
+  standup: 'סטנדאפ', theatre: 'תיאטרון', festival: 'פסטיבל',
+};
+
+const signalItems = ev => [
+  ['scene', FORMAT_LABEL[ev.format]],
+  ['crowd', ev.expensive === true ? 'יקר' : null],
+  ['crowd', ev.commitment === 'plan_ahead' ? 'תכנון מראש' : null],
+].filter(([, label]) => label);
+
 export function chipsHTML(ev, max = 3) {
+  const seen = new Set();
   const items = [
+    ...signalItems(ev),
     ...(ev.scene ?? []).filter(t => VOCAB.scene.includes(t)).map(l => ['scene', l]),
     ...(ev.crowd ?? []).filter(t => VOCAB.crowd.includes(t)).map(l => ['crowd', l]),
-  ];
+  ].filter(([, label]) => {
+    if (seen.has(label)) return false;
+    seen.add(label);
+    return true;
+  });
   if (!items.length) return '';
   const shown = items.slice(0, max).map(([kind, label]) => chip(kind, label)).join('');
   const rest = items.slice(max).map(([, label]) => label);

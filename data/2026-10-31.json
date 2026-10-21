@@ -100,7 +100,7 @@
   ],
   "crowd": [],
   "daypart": "night",
-  "expensive": false,
+  "expensive": true,
   "notable": true,
   "commitment": "plan_ahead",
   "source": {

@@ -42,51 +42,15 @@
   "drive_min": 29
  },
  {
-  "id": "v_heichal_tarbut_rishon|2026-10-23|21:30",
-  "title": "אהבה בהפתעה",
-  "venue_id": "v_heichal_tarbut_rishon",
-  "city": null,
-  "start": 1792780200,
-  "end": null,
-  "price_from": null,
-  "price_max": null,
-  "free": false,
-  "free_until": null,
-  "soldout": false,
-  "format": "unknown",
-  "scene": [],
-  "crowd": [],
-  "daypart": "night",
-  "expensive": false,
-  "notable": false,
-  "commitment": "jump_in",
-  "source": {
-   "class": "ticketing",
-   "name": "leaan"
-  },
-  "urls": {
-   "tickets": null,
-   "community": null,
-   "source": null
-  },
-  "notes": [],
-  "desc": null,
-  "enrichment": [],
-  "seen": {},
-  "lat": null,
-  "lon": null,
-  "drive_min": null
- },
- {
   "id": "v_bar_shtenfeld_haifa|2026-10-23|23:00",
-  "title": "04 Haifa | Bar Shtenfeld B-Day",
+  "title": "04 Haifa | Bar Shtenfeld B-Day  — Makleff Mordechai St 1",
   "venue_id": "v_bar_shtenfeld_haifa",
   "city": "חיפה",
   "start": 1792785600,
   "end": null,
-  "price_from": 0,
-  "price_max": 0,
-  "free": true,
+  "price_from": null,
+  "price_max": null,
+  "free": false,
   "free_until": null,
   "soldout": false,
   "format": "dj_set",
@@ -107,7 +71,9 @@
    "community": null,
    "source": "https://popit.events/event/04-haifa-bar-shtenfeld-b-day-2304"
   },
-  "notes": [],
+  "notes": [
+   "לא פורסם מחיר או קישור לכרטיסים ב-Popit — ייתכן שהכניסה חופשית, לא אומת"
+  ],
   "desc": "04 Haifa Bar Shtenfeld B-Day היא מסיבת טכנו ב-Makleff Mordechai St 1, חיפה, ב-23 באוקטובר — חגיגת יום הולדת לבר שטיינפלד שמוביל את המקום. הרחבה נפתחת בשעה 23:00 ללילה שמוקדש לאיש שמחבר בין הקהל למוזיקה, באחת מאותן מסיבות בחיפה שמכנסות את הבליינים המקומיים. הערב יתמקד בצלילי techno מדויקים לאורך כל",
   "enrichment": [],
   "seen": {

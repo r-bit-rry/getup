@@ -95,7 +95,9 @@
   "scene": [
    "סטנדאפ"
   ],
-  "crowd": [],
+  "crowd": [
+   "18+"
+  ],
   "daypart": "night",
   "expensive": false,
   "notable": true,
@@ -136,7 +138,9 @@
   "scene": [
    "סטנדאפ"
   ],
-  "crowd": [],
+  "crowd": [
+   "18+"
+  ],
   "daypart": "night",
   "expensive": false,
   "notable": true,

@@ -1,17 +1,17 @@
 // Reads the committed JSON in the browser (fetch) and in Node tests (fs).
-const defaultRead = async (path) => {
+export const readJSON = async (path) => {
   if (typeof window !== 'undefined') return (await fetch(path)).json();
   const { readFile } = await import('node:fs/promises');
   return JSON.parse(await readFile(path, 'utf8'));
 };
 
-const join = (base, path) => `${base.replace(/\/+$/, '')}/${path}`;
+export const join = (base, path) => `${base.replace(/\/+$/, '')}/${path}`;
 
 // keyed by resolved path, so two bases cannot hand each other stale data
 const cache = new Map();
 
 export async function loadManifest(base = '.') {
-  return defaultRead(join(base, 'data/index.json'));
+  return readJSON(join(base, 'data/index.json'));
 }
 
 export async function loadDate(base, isoDate) {
@@ -21,7 +21,7 @@ export async function loadDate(base, isoDate) {
 
   let events;
   try {
-    events = await defaultRead(path);
+    events = await readJSON(path);
   } catch (err) {
     // a missing or malformed day must never blank the page
     console.warn(`getup: no data for ${isoDate}`, err.message);
@@ -34,5 +34,5 @@ export async function loadDate(base, isoDate) {
 }
 
 export async function loadVenues(base) {
-  return defaultRead(join(base, 'venue/venues.json'));
+  return readJSON(join(base, 'venue/venues.json'));
 }

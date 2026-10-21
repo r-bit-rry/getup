@@ -38,4 +38,6 @@ test('dataAge speaks Hebrew and never goes negative', () => {
   const now = new Date('2026-10-18T18:00:00Z');
   assert.equal(dataAge('2026-10-18T15:00:00Z', now), 'עודכן לפני 3 שעות');
   assert.equal(dataAge('2026-10-18T19:00:00Z', now), 'עודכן עכשיו');
+  assert.equal(dataAge('2026-10-18T17:00:00Z', now), 'עודכן לפני שעה');
+  assert.equal(dataAge('2026-10-18T16:00:00Z', now), 'עודכן לפני שעתיים');
 });

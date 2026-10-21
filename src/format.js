@@ -41,5 +41,7 @@ export function priceLabel(ev) {
 export function dataAge(generatedAt, now) {
   const hours = Math.floor((now - new Date(generatedAt)) / 3600000);
   if (hours < 1) return 'עודכן עכשיו';
+  if (hours === 1) return 'עודכן לפני שעה';
+  if (hours === 2) return 'עודכן לפני שעתיים';
   return `עודכן לפני ${hours} שעות`;
 }

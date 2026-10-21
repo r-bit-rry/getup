@@ -1,0 +1,76 @@
+// tests/filters.test.js
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { defaultState, applyFilters, sortEvents, serializeState, deserializeState } from '../src/filters.js';
+
+const TODAY = '2026-10-18';
+const ev = (o = {}) => ({ id: 'x', title: 't', venue_id: 'v', city: 'c', day: '2026-10-20',
+  start: 0, end: 0, drive_min: 20, price_from: 100, free: false, soldout: false,
+  notable: false, scene: [], crowd: [], urls: {}, ...o });
+
+test('defaults match the spec', () => {
+  const s = defaultState();
+  assert.equal(s.dateWindow, 'week');
+  assert.equal(s.maxDriveMin, 45);
+  assert.equal(s.centre.label, 'נתניה');
+});
+
+test('the week window keeps days 0..7 and drops the rest', () => {
+  const soon = ev({ id: 'soon', day: '2026-10-20' });
+  const late = ev({ id: 'late', day: '2026-11-15' });
+  const r = applyFilters([soon, late], defaultState(), TODAY);
+  assert.deepEqual(r.map(e => e.id), ['soon']);
+});
+
+test('unknown age never hides an event; a stated exclusion does', () => {
+  const unknown = ev({ crowd: [] });
+  const minorOnly = ev({ crowd: ['18+'] });
+  const s = { ...defaultState(), age: 16 };
+  assert.deepEqual(applyFilters([unknown], s, TODAY).map(e => e.id), ['x']);
+  assert.deepEqual(applyFilters([minorOnly], s, TODAY), []);
+});
+
+test('unknown price survives a max-price filter', () => {
+  assert.equal(applyFilters([ev({ price_from: null })], { ...defaultState(), maxPrice: 100 }, TODAY).length, 1);
+});
+
+test('free-only keeps free events and drops priced ones', () => {
+  const r = applyFilters([ev({ id: 'free', free: true, price_from: 0 }), ev({ price_from: 50 })],
+    { ...defaultState(), freeOnly: true }, TODAY);
+  assert.deepEqual(r.map(e => e.id), ['free']);
+});
+
+test('gated-community events follow the include toggle', () => {
+  const gated = ev({ id: 'g', urls: { community: 'https://facebook.com/groups/x' } });
+  assert.equal(applyFilters([gated], { ...defaultState(), includeGated: false }, TODAY).length, 0);
+  assert.equal(applyFilters([gated], { ...defaultState(), includeGated: true }, TODAY).length, 1);
+});
+
+test('scene and crowd filters match any selected tag', () => {
+  const rock = ev({ id: 'rock', scene: ['רוק'], crowd: ['30+'] });
+  const jazz = ev({ id: 'jazz', scene: ['ג׳אז'], crowd: [] });
+  assert.deepEqual(applyFilters([rock, jazz], { ...defaultState(), scenes: ['רוק'] }, TODAY).map(e => e.id), ['rock']);
+  assert.deepEqual(applyFilters([rock, jazz], { ...defaultState(), crowds: ['30+'] }, TODAY).map(e => e.id), ['rock']);
+});
+
+test('drive filter excludes only known-too-far events', () => {
+  const r = applyFilters([ev({ drive_min: 90 })], { ...defaultState(), maxDriveMin: 30 }, TODAY);
+  assert.deepEqual(r, []);
+  const missing = applyFilters([ev({ drive_min: null })], { ...defaultState(), maxDriveMin: 30 }, TODAY);
+  assert.equal(missing.length, 1, 'missing drive data is not "too far" — it must pass');
+});
+
+test('sort puts notable first within a day, then nearest', () => {
+  const a = ev({ id: 'a', day: '2026-10-20', drive_min: 10 });
+  const b = ev({ id: 'b', day: '2026-10-20', drive_min: 40, notable: true });
+  const c = ev({ id: 'c', day: '2026-10-20', drive_min: 5 });
+  const d = ev({ id: 'd', day: '2026-10-19', drive_min: 90 });
+  assert.deepEqual(sortEvents([a, b, c, d]).map(e => e.id), ['d', 'b', 'c', 'a']);
+});
+
+test('state round-trips and survives garbage', () => {
+  const s = { ...defaultState(), maxPrice: 120, scenes: ['רוק'] };
+  assert.deepEqual(deserializeState(serializeState(s)), s);
+  assert.deepEqual(deserializeState('{not json'), defaultState());
+  assert.equal(deserializeState('{"nonsense":1}').dateWindow, 'week');
+});

@@ -1,0 +1,43 @@
+[
+ {
+  "id": "v_ozen_tlv|2026-10-26|21:00",
+  "title": "לירית בלבן - בדיקת חומרים",
+  "venue_id": "v_ozen_tlv",
+  "city": "תל אביב",
+  "start": 1793041200,
+  "end": 1793048400,
+  "price_from": 55,
+  "price_max": null,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "standup",
+  "scene": [
+   "סטנדאפ"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": false,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a6f92fb508c2fdc0abaa46b",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a6f92fb508c2fdc0abaa46b"
+  },
+  "notes": [],
+  "desc": "לירית בלבן- בדיקת חומרים מופע ציני, חד ומטריף עם קטעים קורעים על החיים שלה ושל כולנו שמועברים בדרך ייחודית ביותר. אם יש דמות טלוויזיונית שאי אפשר לשכוח – זו נעמי כפית מ\"הבורר\" אם תרצו, אז תכלס גם פזית חכם מ\"חברות\" מאחורי הדמויות האלה עומדת האישה שהפכה אותן לבלתי נשכחות: לירית בלבן במופע ציני, חד ומטריף עם קטעים קורעים על החיים שלה ושל כולנו שמועברים בדרך ייחודית ביותר. יַאלְלָה בַּלָּבָן !!! משך ה",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "drive_min": 29
+ }
+]

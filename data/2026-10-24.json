@@ -1,0 +1,43 @@
+[
+ {
+  "id": "v_beit_yad_labanim_raanana|2026-10-24|21:00",
+  "title": "אורי ברויר",
+  "venue_id": "v_beit_yad_labanim_raanana",
+  "city": "רעננה",
+  "start": 1792864800,
+  "end": 1792872000,
+  "price_from": 105,
+  "price_max": null,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "standup",
+  "scene": [
+   "סטנדאפ"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a580cb20cf11c55961a02ee",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a580cb20cf11c55961a02ee"
+  },
+  "notes": [],
+  "desc": "אורי ברויר אורי ברויר במופע סטנדאפ מקורי, מבריק ובעיקר מצחיק! עם המראה החנוני הקלאסי והסגנון הייחודי, אורי לוקח אותנו אל תוך חייו האישיים והמצחיקים! עם הומור עצמי, איכויות במה ואלתורים הוא סוחף את הקהל לפרצי צחוק בלתי נגמרים... אורי ברויר מוכר לנו מתכניות הטלוויזיה הרבות בהן השתתף, ביניהן: \"היפה החנון\", \"צחוק מהעבודה\" \"החברים של נאור\" ועוד. משך המופע 75 דק",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.1860244,
+  "lon": 34.8678359,
+  "drive_min": 22
+ }
+]

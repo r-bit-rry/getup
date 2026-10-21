@@ -1,0 +1,126 @@
+[
+ {
+  "id": "v_heichal_tarbut_petah_tikva|2026-10-31|20:30",
+  "title": "זוגיות AI",
+  "venue_id": "v_heichal_tarbut_petah_tikva",
+  "city": "פתח תקווה",
+  "start": 1793471400,
+  "end": 1793478600,
+  "price_from": 149,
+  "price_max": null,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "theatre",
+  "scene": [
+   "תיאטרון"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a7329972440f2b32f5f50cc",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a7329972440f2b32f5f50cc"
+  },
+  "notes": [],
+  "desc": "קומדיה מטורפת בכיכובו של יגאל עדיקא, שצוחקת על כל מה שהולך לקרות לזוגיות שלנו בעידן ה AI. גבר שנימצא בהליכי פרידה מאשתו, מחליט לרכוש לעצמו אשה מכאנית שמבוססת על בינה מלאכותית. אחת כזו שרק תשמח אותו, שתעשה כל מה שהוא רוצה ובעיקר לא תתלונן כל היום. אך המציאות יוצאת מכלל שליטה, והאשה המלאכותית מטריפה את כל מי שנימצא בסביבה. משתתפים: יגאל עדיקא, דין הפנר, שרון מלכי, פיני טבגר, מיכאל וילוז׳ני. מאת: עוז",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.0877639,
+  "lon": 34.8859985,
+  "drive_min": 34
+ },
+ {
+  "id": "v_beit_yad_labanim_raanana|2026-10-31|20:30",
+  "title": "קרניבנד במחווה לבילי ג'ואל",
+  "venue_id": "v_beit_yad_labanim_raanana",
+  "city": "רעננה",
+  "start": 1793471400,
+  "end": 1793478600,
+  "price_from": 125,
+  "price_max": null,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "tribute",
+  "scene": [
+   "רוק",
+   "מופע מחווה"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": false,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/69ba866b7971de7ffcb0ed81",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/69ba866b7971de7ffcb0ed81"
+  },
+  "notes": [],
+  "desc": "מופע \"Piano Man\" - הצדעה ל\"בילי ג'ואל\" להקת \"קרניבנד\" המופלאה מגיעה עם מופע מחווה ענק לאומן בילי ג'ואל !!! מופע לייב עצום שלא היה כמותו בישראל לזמר, פסנתרן ומלחין יהודי אמריקאי שנקרא \"בילי ג'ואל\". להקת קרניבנד בכיכובו של הזמר המרגש IDAN TENDLER. מופע חלומי עם העיבודים המקוריים של השירים. שעתיים של עונג אמיתי. מופע מושקע ועם מיטב השירים הכי גדולים והכי אהובים של בילי ג'ואל. בואו לשיר ולהינות איתנו ",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.1860244,
+  "lon": 34.8678359,
+  "drive_min": 22
+ },
+ {
+  "id": "v_heichal_tarbut_or_akiva|2026-10-31|20:30",
+  "title": "שושנה - בכיכובה של גל דה פז",
+  "venue_id": "v_heichal_tarbut_or_akiva",
+  "city": "אור עקיבא",
+  "start": 1793471400,
+  "end": 1793478600,
+  "price_from": 199,
+  "price_max": 199,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "theatre",
+  "scene": [
+   "תיאטרון"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a89ad89e821adc52e7feb97",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a89ad89e821adc52e7feb97"
+  },
+  "notes": [],
+  "desc": "שושנה – בכיכובה של גל דה פז ״שושנה״ - הוא מחזמר ישראלי חדש ומרגש, המבוסס על סיפור חייה ושיריה של מלכת הזמר העברי שושנה דמארי. ההצגה מספרת על הדרך הקשה והמפרכת שעברה מילדותה בתימן עלייתה לארץ בדרך חתחתים , עזיבת בית הוריה , נישואיה ועד שהפכה לאחת הזמרות הגדולות והאהובות בכל הזמנים. לאורך המחזמר משולבים להיטיה הגדולים של שושנה דמארי, במופע מוזיקלי סוחף עם תזמורת חיה ורגעים דרמטיים ומרגשים עם הרבה הו",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.5090151,
+  "lon": 34.9195677,
+  "drive_min": 22
+ }
+]

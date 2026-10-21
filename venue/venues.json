@@ -1,0 +1,221 @@
+{
+ "v_urigeller_museum_tlv": {
+  "id": "v_urigeller_museum_tlv",
+  "name": "מוזיאון אורי גלר",
+  "aliases": [
+   "מוזיאון אורי גלר, תל אביב"
+  ],
+  "city": "תל אביב",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "tier": "mid",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_heichal_tarbut_rishon": {
+  "id": "v_heichal_tarbut_rishon",
+  "name": "היכל התרבות, ראשון לציון",
+  "aliases": [
+   "היכל התרבות ראשון לציון"
+  ],
+  "city": "ראשון לציון",
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "tier": "major",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_cinematheque_yavne": {
+  "id": "v_cinematheque_yavne",
+  "name": "סינמטק, יבנה",
+  "aliases": [
+   "סינמטק יבנה"
+  ],
+  "city": "יבנה",
+  "lat": 31.8768863,
+  "lon": 34.7382974,
+  "tier": "room",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_matnas_dyune_ashdod": {
+  "id": "v_matnas_dyune_ashdod",
+  "name": "מתנ\"ס דיונה, אשדוד",
+  "aliases": [
+   "מתנס דיונה"
+  ],
+  "city": "אשדוד",
+  "lat": 31.7977314,
+  "lon": 34.6529922,
+  "tier": "room",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_zionist_america_tlv": {
+  "id": "v_zionist_america_tlv",
+  "name": "בית ציוני אמריקה, תל אביב",
+  "aliases": [
+   "בית ציוני אמריקה (מאירהוף)",
+   "בית ציוני אמריקה (מרלן)",
+   "Zionist America House"
+  ],
+  "city": "תל אביב",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "tier": "major",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_beit_yad_labanim_raanana": {
+  "id": "v_beit_yad_labanim_raanana",
+  "name": "בית יד לבנים, רעננה",
+  "aliases": [
+   "בית יד לבנים רעננה"
+  ],
+  "city": "רעננה",
+  "lat": 32.1860244,
+  "lon": 34.8678359,
+  "tier": "mid",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_ozen_tlv": {
+  "id": "v_ozen_tlv",
+  "name": "אוזן בר, תל אביב",
+  "aliases": [
+   "אוזן, תל אביב"
+  ],
+  "city": "תל אביב",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "tier": "room",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_beit_negler_haifa": {
+  "id": "v_beit_negler_haifa",
+  "name": "בית נגלר, קריית חיים",
+  "aliases": [
+   "בית נגלר קריית חיים"
+  ],
+  "city": "חיפה",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "tier": "room",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_heichal_tarbut_petah_tikva": {
+  "id": "v_heichal_tarbut_petah_tikva",
+  "name": "היכל התרבות, פתח תקווה",
+  "aliases": [
+   "היכל התרבות פתח תקוה"
+  ],
+  "city": "פתח תקווה",
+  "lat": 32.0877639,
+  "lon": 34.8859985,
+  "tier": "major",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_heichal_tarbut_or_akiva": {
+  "id": "v_heichal_tarbut_or_akiva",
+  "name": "היכל התרבות, אור עקיבא",
+  "aliases": [
+   "היכל התרבות אור עקיבא"
+  ],
+  "city": "אור עקיבא",
+  "lat": 32.5090151,
+  "lon": 34.9195677,
+  "tier": "mid",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_heichal_spi_rivlin_netanya": {
+  "id": "v_heichal_spi_rivlin_netanya",
+  "name": "היכל ספי ריבלין, קרית השרון, נתניה",
+  "aliases": [
+   "היכל התרבות ספי ריבלין, קריית השרון"
+  ],
+  "city": "נתניה",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "tier": "mid",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ },
+ "v_bar_shtenfeld_haifa": {
+  "id": "v_bar_shtenfeld_haifa",
+  "name": "בר שטיינפלד, חיפה",
+  "aliases": [
+   "Bar Shtenfeld",
+   "Makleff Mordechai St 1"
+  ],
+  "city": "חיפה",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "tier": "room",
+  "parking": null,
+  "access": null,
+  "transport": null,
+  "social": {
+   "instagram": null,
+   "facebook": null
+  }
+ }
+}

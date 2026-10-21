@@ -1,0 +1,84 @@
+[
+ {
+  "id": "v_zionist_america_tlv|2026-10-29|21:00",
+  "title": "משה אשכנזי במופע סטנדאפ",
+  "venue_id": "v_zionist_america_tlv",
+  "city": "תל אביב",
+  "start": 1793300400,
+  "end": 1793307600,
+  "price_from": 119,
+  "price_max": 119,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "standup",
+  "scene": [
+   "סטנדאפ"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6ad87ee2628f68ce54cd9d03",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6ad87ee2628f68ce54cd9d03"
+  },
+  "notes": [],
+  "desc": "משה אשכנזי (כוכב הסדרות הבלתי נשכחות \"מטומטמת\", \"בשבילה גיבורים עפים\") במופע סטנד אפ מבריק! מסע קורע מצחוק החל מהילדות והחומוס של עכו ועד להורות בתל אביב. משה מביא לבמה את יכולותיו הוירטואוזיות והקומיות כשחקן בנוסף לאבחנות חדות והכל נשזר במדויק במופע מצחיק עד דמעות. כותב ראשי: רן לוי כותבים נוספים: משה אשכנזי ודניאל חן",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "drive_min": 29
+ },
+ {
+  "id": "v_beit_negler_haifa|2026-10-29|21:30",
+  "title": "אמירם טובים סטנדאפ",
+  "venue_id": "v_beit_negler_haifa",
+  "city": "חיפה",
+  "start": 1793302200,
+  "end": 1793309400,
+  "price_from": 149,
+  "price_max": 149,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "standup",
+  "scene": [
+   "סטנדאפ"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a06fdf77bb68b17b242fabd",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a06fdf77bb68b17b242fabd"
+  },
+  "notes": [],
+  "desc": "אמירם טובים לוקח אתכם למסע מצחיק בזמן מתקופת הילדות ועד זוגיות מופע סטנדאפ שחובה להיות בו. צילום: אושר עדן פשינסקי כרטיסים להופעות הסטנדאפ של אמירם טובים - כל התאריכים בלוח המלא",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "drive_min": 53
+ }
+]

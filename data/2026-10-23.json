@@ -1,0 +1,121 @@
+[
+ {
+  "id": "v_zionist_america_tlv|2026-10-23|21:30",
+  "title": "MADONNA THE TRIBUTE SHOW - מופע מחווה למדונה",
+  "venue_id": "v_zionist_america_tlv",
+  "city": "תל אביב",
+  "start": 1792780200,
+  "end": 1792787400,
+  "price_from": 99,
+  "price_max": null,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "tribute",
+  "scene": [
+   "פופ",
+   "מופע מחווה"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "jump_in",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a09fd5b11fdb3a20e2dae8a",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a09fd5b11fdb3a20e2dae8a"
+  },
+  "notes": [],
+  "desc": "מופע מחווה אנרגטי וחגיגי למלכת הפופ, מדונה. הפקה מרהיבה עם הלהיטים הגדולים של כל הזמנים, עם תיזמורת חיה וכוריאוגרפיה סוחפת, בתלבושות איקוניות ותאורה חדשנית. חוויה נוסטלגית עכשוית ובלתי נשכחת. קרדיטים: בימוי - מיכל אמדורסקי ניהול והפקה מוזיקלית -איתמר מירון כוראוגרפיה-מיכל אמדורסקי ולי-חי דהן עיצוב תאורה -זיו וולושין עיצוב תפאורה- בנו פרידל עיצוב תלבושות - לי אביטל עיצוב פוסטר - שיין הורוביץ וידאו ",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "drive_min": 29
+ },
+ {
+  "id": "v_heichal_tarbut_rishon|2026-10-23|21:30",
+  "title": "אהבה בהפתעה",
+  "venue_id": "v_heichal_tarbut_rishon",
+  "city": null,
+  "start": 1792780200,
+  "end": null,
+  "price_from": null,
+  "price_max": null,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "unknown",
+  "scene": [],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": false,
+  "commitment": "jump_in",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": null,
+   "community": null,
+   "source": null
+  },
+  "notes": [],
+  "desc": null,
+  "enrichment": [],
+  "seen": {},
+  "lat": null,
+  "lon": null,
+  "drive_min": null
+ },
+ {
+  "id": "v_bar_shtenfeld_haifa|2026-10-23|23:00",
+  "title": "04 Haifa | Bar Shtenfeld B-Day",
+  "venue_id": "v_bar_shtenfeld_haifa",
+  "city": "חיפה",
+  "start": 1792785600,
+  "end": null,
+  "price_from": 0,
+  "price_max": 0,
+  "free": true,
+  "free_until": null,
+  "soldout": false,
+  "format": "dj_set",
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": false,
+  "commitment": "jump_in",
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "urls": {
+   "tickets": null,
+   "community": null,
+   "source": "https://popit.events/event/04-haifa-bar-shtenfeld-b-day-2304"
+  },
+  "notes": [],
+  "desc": "04 Haifa Bar Shtenfeld B-Day היא מסיבת טכנו ב-Makleff Mordechai St 1, חיפה, ב-23 באוקטובר — חגיגת יום הולדת לבר שטיינפלד שמוביל את המקום. הרחבה נפתחת בשעה 23:00 ללילה שמוקדש לאיש שמחבר בין הקהל למוזיקה, באחת מאותן מסיבות בחיפה שמכנסות את הבליינים המקומיים. הערב יתמקד בצלילי techno מדויקים לאורך כל",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "drive_min": 53
+ }
+]

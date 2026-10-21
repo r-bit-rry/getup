@@ -1,0 +1,164 @@
+[
+ {
+  "id": "v_urigeller_museum_tlv|2026-10-22|18:00",
+  "title": "מוזיאון אורי גלר",
+  "venue_id": "v_urigeller_museum_tlv",
+  "city": "תל אביב",
+  "start": 1792681200,
+  "end": 1792686647,
+  "price_from": 80,
+  "price_max": 80,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "unknown",
+  "scene": [],
+  "crowd": [],
+  "daypart": "evening",
+  "expensive": false,
+  "notable": false,
+  "commitment": "jump_in",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6aa7f54d6ccbc524a2a221f7",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6aa7f54d6ccbc524a2a221f7"
+  },
+  "notes": [],
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנ",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "drive_min": 29
+ },
+ {
+  "id": "v_heichal_tarbut_rishon|2026-10-22|20:30",
+  "title": "עפרה",
+  "venue_id": "v_heichal_tarbut_rishon",
+  "city": "ראשון לציון",
+  "start": 1792690200,
+  "end": 1792697400,
+  "price_from": 249,
+  "price_max": 249,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "theatre",
+  "scene": [
+   "תיאטרון"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": true,
+  "notable": true,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a2ac6943146b7fb592d8ea8",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a2ac6943146b7fb592d8ea8"
+  },
+  "notes": [],
+  "desc": "עופרה מחזמר מרגש בעקבות חייה ושיריה של כוכבת העל הישראלית שכבשה את העולם – עופרה חזה. מילדותה בשכונת התקווה ועד הבמות הגדולות של אירופה, מהצלחות ענק כמו \"תפילה\", \"אם ננעלו\", \"גלבי\" \"חי\" ועד הסיפור האישי שנגע בלב של כולנו – זהו מחזמר שמביא את הפסקול של המדינה אל הבמה, כמו שלא שמעתם מעולם. \" זהו מכתב אהבה לעופרה חזה, דמות שהפכה לסמל, ולפסקול של דור שלם. כתיבה ובימוי: גדי צדקה ומיכל אמדורסקי ניהול מו",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "drive_min": 42
+ },
+ {
+  "id": "v_cinematheque_yavne|2026-10-22|21:00",
+  "title": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ",
+  "venue_id": "v_cinematheque_yavne",
+  "city": "יבנה",
+  "start": 1792692000,
+  "end": 1792699200,
+  "price_from": 89,
+  "price_max": null,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "standup",
+  "scene": [
+   "סטנדאפ"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "jump_in",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a4351cd261b63f30346e153",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a4351cd261b63f30346e153"
+  },
+  "notes": [],
+  "desc": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ השחקן והקומיקאי דניאל סטיופין (אנטולי \"קופה ראשית\") מגיע לקדמת הבמה עם מופע סטנדאפ מיוחד, מרגש וקורע מצחוק. דניאל לוקח את הקהל למסע של לילה אחד מטורף ששינה את חייו מקצה לקצה, מספר על הילדות באוקראינה, על ההצלחה של \"קופה ראשית\", תחושת זרות, חרדות וזוגיות – והכל בתיאטרליות ויכולת הגשה קומית הייחודיות רק לו. משך המופע כ-70 דקות המופע מיועד לגילאי 18 ומעלה כר",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 31.8768863,
+  "lon": 34.7382974,
+  "drive_min": 49
+ },
+ {
+  "id": "v_matnas_dyune_ashdod|2026-10-22|21:30",
+  "title": "שלומי קוריאט",
+  "venue_id": "v_matnas_dyune_ashdod",
+  "city": "אשדוד",
+  "start": 1792693800,
+  "end": 1792701000,
+  "price_from": 115,
+  "price_max": null,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "standup",
+  "scene": [
+   "סטנדאפ"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "jump_in",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a0323dd96088300d9122334",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a0323dd96088300d9122334"
+  },
+  "notes": [],
+  "desc": "יש אנשים שלא צריך להציג - שלומי קוריאט הוא אחד כזה! ועכשיו הוא חוזר עם מופע סטנד אפ חדש, שנון וחושפני שלא דופק חשבון לאף אחד ובעיקר מצחיק בטירוף! שלומי מביא לבמה את החוויה האישית שלו ובעצם של כולנו מחיי הנישואין, זוגיות, הורות, ילדים ובכלל מהאבחנות הקטנות והמדויקות של חיי היום יום והכל בדרכו המיוחדת עם המון חן אישי, קצב ואנרגיה מטורפת מופע מצחיק ומומלץ! המופע מיועד לגילאי 18 ומעלה כרטיסים להופעות ",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 31.7977314,
+  "lon": 34.6529922,
+  "drive_min": 57
+ }
+]

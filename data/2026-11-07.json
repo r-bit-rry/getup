@@ -1,0 +1,43 @@
+[
+ {
+  "id": "v_heichal_spi_rivlin_netanya|2026-11-07|21:00",
+  "title": "גיא הוכמן",
+  "venue_id": "v_heichal_spi_rivlin_netanya",
+  "city": "נתניה",
+  "start": 1794078000,
+  "end": 1794085200,
+  "price_from": 129,
+  "price_max": 129,
+  "free": false,
+  "free_until": null,
+  "soldout": false,
+  "format": "standup",
+  "scene": [
+   "סטנדאפ"
+  ],
+  "crowd": [],
+  "daypart": "night",
+  "expensive": false,
+  "notable": true,
+  "commitment": "plan_ahead",
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "urls": {
+   "tickets": "https://www.leaan.co.il/event/6a74163f79a2b1c4ce6036b0",
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a74163f79a2b1c4ce6036b0"
+  },
+  "notes": [],
+  "desc": "קצין חיוך ראשי אחרי שהופיע בפני ראש הממשלה, איבד ביצה, נלחם על הצדק, נכנס לעזה והפך לאבא בפעם השנייה בזמן המלחמה!! ... אף אחד כבר לא יכול לעצור אותו. במופע סטנדאפ אלתורים בשיתוף הקהל, שמשלב גם סרטונים אייקונים של הוכמן, קטעים בלעדיים מהמקומות המסוכנים בעולם והכי חשוב, ים של סתלבט , ערב של כיף! משך המופע: כשעה ורבע ללא הפסקה קרדיט צלם: צילום עצמי",
+  "enrichment": [],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-21"
+  },
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "drive_min": 0
+ }
+]

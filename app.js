@@ -76,9 +76,12 @@ distEl.setAttribute('role', 'status');
 distEl.hidden = true;
 $('#list').before(distEl);
 // The note follows the data, not a flag: it is up whenever a shown minute is still Netanya's.
+// role="status": writing textContent replaces the node and re-announces, so only change what differs.
 const syncNote = show => {
-  distEl.hidden = !show;
-  distEl.textContent = show ? NOTE : '';
+  const hide = !show;
+  if (distEl.hidden !== hide) distEl.hidden = hide;
+  const text = show ? NOTE : '';
+  if (distEl.textContent !== text) distEl.textContent = text;
 };
 
 function render() {
@@ -96,6 +99,8 @@ function render() {
 
 // Cached drive_min already comes from Netanya: only a different centre needs the router.
 let centreSeq = 0;
+let inFlight = false; // one /table request at a time; the slider can fire ~22 input events per sweep
+let rerun = false; // a centre/filter change landed mid-flight: cover it once the request settles
 async function refreshDistances() {
   const seq = ++centreSeq;
   if (isDefaultCentre(state.centre)) {
@@ -103,6 +108,7 @@ async function refreshDistances() {
     render();
     return;
   }
+  if (inFlight) { rerun = true; return; }
   // Only ids without minutes for this centre cost a request: a filter change that
   // adds events fetches just those, and one that removes them fetches nothing.
   const events = forDistances().filter(ev => !drive.has(ev.id));
@@ -111,11 +117,19 @@ async function refreshDistances() {
     return;
   }
   render(); // the note is up while these minutes are still Netanya's
-  const mins = await recomputeDistances(events, state.centre);
-  if (seq !== centreSeq) return; // a newer centre/filter made this answer stale
-  if (mins) events.forEach((ev, i) => { if (Number.isFinite(mins[i])) drive.set(ev.id, mins[i]); });
-  // null keeps the cached Netanya minutes; render leaves the note up for them
-  render();
+  inFlight = true;
+  let mins = null;
+  try {
+    mins = await recomputeDistances(events, state.centre);
+  } finally {
+    inFlight = false;
+  }
+  if (seq === centreSeq) { // a newer centre/filter made this answer stale
+    if (mins) events.forEach((ev, i) => { if (Number.isFinite(mins[i])) drive.set(ev.id, mins[i]); });
+    // null keeps the cached Netanya minutes; render leaves the note up for them
+    render();
+  }
+  if (rerun) { rerun = false; await refreshDistances(); }
 }
 
 // A filter change can add events the last recompute never saw.

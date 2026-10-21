@@ -43,7 +43,10 @@ export function priceLabel(ev) {
 }
 
 export function dataAge(generatedAt, now) {
-  const hours = Math.floor((now - new Date(generatedAt)) / 3600000);
+  // a missing or unparseable timestamp has no age; never let NaN reach the footer
+  const generated = generatedAt == null ? NaN : new Date(generatedAt).getTime();
+  if (!Number.isFinite(generated)) return '';
+  const hours = Math.floor((now - generated) / 3600000);
   if (hours < 1) return 'עודכן עכשיו';
   if (hours === 1) return 'עודכן לפני שעה';
   if (hours === 2) return 'עודכן לפני שעתיים';

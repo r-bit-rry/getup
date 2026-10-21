@@ -32,8 +32,12 @@ const location = (ev, venues) => [venueName(ev, venues), ev.city, driveLabel(ev)
 
 const notes = ev => (ev.notes ?? []).filter(Boolean);
 
+const noteBlock = ev => (notes(ev).length
+  ? `<p class="note">${notes(ev).map(esc).join('<br>')}</p>`
+  : '');
+
 const infoButton = ev => (notes(ev).length
-  ? `<button type="button" class="ico" aria-label="מידע נוסף" title="${esc(notes(ev).join(' · '))}">i</button>`
+  ? `<button type="button" class="ico" aria-label="מידע נוסף" aria-expanded="false" title="${esc(notes(ev).join(' · '))}">i</button>`
   : '');
 
 const priceCell = ev => {
@@ -62,7 +66,7 @@ const rowHTML = (ev, venues) => `<tr class="row">
 <td><span class="what"><span class="t"><bdi>${esc(ev.title)}</bdi></span><span class="v">${location(ev, venues)}</span></span></td>
 <td><span class="vibe">${chipsHTML(ev)}</span></td>
 <td>${priceCell(ev)}</td>
-<td>${acts(ev)}</td>
+<td>${acts(ev)}${noteBlock(ev)}</td>
 </tr>`;
 
 // One <tr class="dayrow"> per calendar day; grouping is by day so an unsorted input cannot duplicate a header.
@@ -101,7 +105,7 @@ const cardHTML = (ev, today, venues) => {
 <div class="v2"><span>${location(ev, venues)}</span><span class="leave">${leaveLine(ev)}</span></div>
 <div class="strip">${chipsHTML(ev, 3)}${infoButton(ev)}</div>
 ${ev.soldout ? '<div class="sold">אזלו הכרטיסים</div>' : ''}
-${notes(ev).length ? `<p class="note">${notes(ev).map(esc).join('<br>')}</p>` : ''}
+${noteBlock(ev)}
 <div class="cta"><span class="acts">${links(ev)}</span></div></article>`;
 };
 

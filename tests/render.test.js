@@ -101,6 +101,10 @@ test('a card reveals its notes and the info affordance is a real button', () => 
   const card = cardsHTML([ev], '2026-10-18');
   assert.match(card, /<p class="note">חניה חופשית<br>שער פתיחה 20:30<\/p>/);
   assert.match(card, /<button type="button" class="ico" aria-label="מידע נוסף"/);
+  // the table row carries the same note, collapsed until its own button opens it
+  const table = tableHTML([ev], '2026-10-18');
+  assert.match(table, /<p class="note">חניה חופשית<br>שער פתיחה 20:30<\/p>/);
+  assert.match(table, /aria-expanded="false"/);
 });
 
 test('an event without notes emits no note block and no info button', () => {

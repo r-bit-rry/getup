@@ -21,11 +21,28 @@ const addDays = (iso, n) => {
 };
 const monthEnd = addDays(today, 30); // served horizon: 30 days
 
-const manifest = await loadManifest('.');
-const venues = await loadVenues('.');
-const prefs = await loadPrefs('.');
+// A manifest that cannot be fetched must not leave a blank page: keep the shell and say so.
+let manifest = { generated_at: null, dates: [], coverage: { checked: 0, missed: [] } };
+let venues = {};
+let prefs = { never: [], always: [] };
+let ok = true;
+try {
+  manifest = await loadManifest('.');
+  venues = await loadVenues('.');
+  prefs = await loadPrefs('.');
+} catch {
+  ok = false;
+}
 const days = await Promise.all((manifest.dates ?? []).map(d => loadDate('.', d.date)));
 const all = applyPrefs(days.flat(), prefs);
+
+function fatal() {
+  const p = document.createElement('p');
+  p.className = 'empty';
+  p.textContent = 'לא ניתן לטעון את נתוני האירועים כרגע. נסו לרענן את הדף.';
+  $('#list').append(p);
+  $('#status').textContent = p.textContent;
+}
 
 let state = deserializeState(read(KEY.state) ?? 'null');
 if (state.dateWindow === 'range' && !state.range) state.dateWindow = 'week'; // a cleared range must not hide the window
@@ -36,6 +53,7 @@ const currentPreset = () => (state.dateWindow !== 'range'
 
 // ── render ───────────────────────────────────────────────────────────────
 function render() {
+  if (!ok) return;
   const events = sortEvents(applyFilters(all, state, today));
   $('#list').innerHTML = events.length
     ? tableHTML(events, today, venues) + cardsHTML(events, today, venues)
@@ -178,9 +196,14 @@ $('#v-mobile').addEventListener('click', () => setView('mobile'));
 $('#t-day').addEventListener('click', () => setTheme('day'));
 $('#t-night').addEventListener('click', () => setTheme('night'));
 
-// Tapping a card's info button reveals its notes (body[data-full] is what the CSS keys on).
+// An info button opens its own note; a card's opens the notes for the whole card view.
 $('#list').addEventListener('click', e => {
-  if (!e.target.closest('.card .ico')) return;
+  const b = e.target.closest('.ico');
+  if (!b) return;
+  const open = b.getAttribute('aria-expanded') !== 'true';
+  b.setAttribute('aria-expanded', String(open));
+  b.closest('td, .card')?.querySelector('.note')?.classList.toggle('open', open);
+  if (!b.closest('.card')) return;
   document.body.dataset.full = document.body.dataset.full === '1' ? '0' : '1';
   syncControls();
 });
@@ -196,7 +219,7 @@ new ResizeObserver(syncBar).observe($('.bar'));
 syncBar();
 
 // ── footer ───────────────────────────────────────────────────────────────
-$('#data-age').textContent = dataAge(manifest.generated_at, new Date());
+$('#data-age').textContent = dataAge(manifest.generated_at, new Date()) || 'מועד העדכון לא ידוע';
 const missed = (manifest.coverage?.missed ?? [])
   .map(m => (typeof m === 'string' ? m : m?.name ?? m?.venue_id ?? m?.id))
   .filter(Boolean);
@@ -205,4 +228,4 @@ $('#coverage').textContent = missed.length
   ? `לא נבדקו ב־14 הימים האחרונים: ${missed.join(' · ')}`
   : checked ? `כל ${checked} המקורות נבדקו` : 'אין מידע על כיסוי המקורות';
 
-render();
+if (ok) render(); else fatal();

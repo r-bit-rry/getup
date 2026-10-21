@@ -29,6 +29,7 @@
   --bg: #FFF7ED; --surface: #FFFFFF; --surface2: #FDF4F0; --text: #0F172A;
   --muted: #5A6478; --border: #F0E2D8; --primary: #EA580C; --on-primary: #2A1206;
   --blue: #2563EB; --blue-soft: #EFF4FE; --ring: #EA580C;
+  --primary-text: #B0400C; /* 5.52:1 on #FFF7ED, 5.86 on #FFFFFF, 4.70 on the 12% tint */
   --free: #047857; --free-soft: #ECFDF5; --warn: #B45309; --warn-soft: #FFFBEB;
   --radius: 10px; --row: 40px; --pad: 8px;
   --shadow: 0 1px 2px rgba(15, 23, 42, .06), 0 4px 12px -6px rgba(15, 23, 42, .10);
@@ -39,6 +40,7 @@
   --bg: #0B1120; --surface: #131C2E; --surface2: #0F1728; --text: #F1F5F9;
   --muted: #97A3B8; --border: #243049; --primary: #FB923C; --on-primary: #0B1120;
   --blue: #7BA8FF; --blue-soft: #16233C; --ring: #FB923C;
+  --primary-text: #FB923C; /* dark theme: 8.1:1 on #0B1120 already */
   --free: #34D399; --free-soft: #0F2A22; --warn: #FBBF24; --warn-soft: #2A2110;
   --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 6px 18px -8px rgba(0, 0, 0, .7);
   /* shortcut: the night map is a CSS filter, upgrade to a dark basemap style when one is chosen */
@@ -113,7 +115,7 @@ button.f[aria-pressed="true"] {
   font: inherit; color: var(--text); background: none; border: 0; padding: 0;
   cursor: pointer;
 }
-.facets { position: relative }
+/* no positioning on .facets: the panel resolves against the bar, which always spans the viewport */
 .facets summary {
   list-style: none; cursor: pointer; border: 1px solid var(--border); background: var(--surface);
   border-radius: 999px; padding: 5px 11px; font-size: 12.5px; color: var(--muted);
@@ -122,11 +124,12 @@ button.f[aria-pressed="true"] {
 .facets summary::-webkit-details-marker { display: none }
 .facets summary:hover { border-color: var(--primary); color: var(--text) }
 .facets[open] summary { border-color: var(--primary); color: var(--text) }
-.facets .n { font-size: 11px; color: var(--primary) }
+.facets .n { font-size: 11px; color: var(--primary-text) }
 .facets-body {
-  position: absolute; z-index: 50; margin-block-start: 6px; inset-inline-start: 0;
+  position: absolute; z-index: 50; margin-block-start: 6px; inset-inline-end: 14px;
+  inline-size: min(92vw, 560px); max-block-size: min(70vh, 480px); overflow: auto;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 12px; width: min(560px, calc(100vw - 28px));
+  box-shadow: var(--shadow); padding: 12px;
 }
 .facets-body fieldset { border: 0; margin-block-end: 10px }
 .facets-body legend { font-size: 11.5px; color: var(--muted); padding-block-end: 6px }
@@ -136,16 +139,17 @@ button.f[aria-pressed="true"] {
 /* ── layout ───────────────────────────────────────────────────────────── */
 main {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 38%);
-  align-items: start;
 }
 .listcol { min-width: 0; padding: 0 14px 48px }
-#map {
+.mapwrap {
   position: sticky; top: var(--bar-h, 92px); height: calc(100svh - var(--bar-h, 92px));
+}
+#map {
+  height: 100%;
   border-inline-start: 1px solid var(--border);
 }
 /* only the tile canvas is filtered, so MapLibre's own controls and markers keep their colours */
 #map .maplibregl-canvas { filter: var(--mapfilter) }
-.mapwrap { position: relative }
 .mapnote {
   position: absolute; inset-block-start: 40%; inset-inline: 0; text-align: center;
   font-size: 12px; color: var(--muted); pointer-events: none;
@@ -160,7 +164,7 @@ main {
 /* ── day headers + table ──────────────────────────────────────────────── */
 .dayhead { display: flex; align-items: baseline; gap: 9px; position: relative }
 .dayhead h2 { font-size: 14px; font-weight: 600 }
-.dayhead .rel { font-size: 12px; color: var(--primary); font-weight: 500 }
+.dayhead .rel { font-size: 12px; color: var(--primary-text); font-weight: 500 }
 .dayhead .n { font-size: 11.5px; color: var(--muted) }
 .dayhead::after {
   content: ""; flex: 1; height: 1px; background: var(--border); transform: translateY(-3px);
@@ -203,7 +207,7 @@ tbody tr.dayrow td { padding: 17px 8px 7px; border-bottom: 1px solid var(--borde
   border-color: color-mix(in srgb, var(--blue) 18%, transparent);
 }
 .chip.c {
-  background: color-mix(in srgb, var(--primary) 12%, transparent); color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent); color: var(--primary-text);
   border-color: color-mix(in srgb, var(--primary) 22%, transparent);
 }
 .chip.more {
@@ -228,7 +232,7 @@ tbody tr.dayrow td { padding: 17px 8px 7px; border-bottom: 1px solid var(--borde
 }
 .act:hover { background: var(--blue-soft) }
 .act.comm {
-  color: var(--primary); border-color: color-mix(in srgb, var(--primary) 28%, transparent);
+  color: var(--primary-text); border-color: color-mix(in srgb, var(--primary) 28%, transparent);
 }
 .act.comm:hover { background: color-mix(in srgb, var(--primary) 10%, transparent) }
 .act.gone { color: var(--muted); border-color: var(--border) }
@@ -238,12 +242,11 @@ tbody tr.dayrow td { padding: 17px 8px 7px; border-bottom: 1px solid var(--borde
   border: 1px solid var(--border); position: relative;
 }
 .ico:hover { color: var(--text); border-color: var(--primary) }
-/* the note is a title attribute in the table: show it on keyboard focus (hover uses the native tip) */
-td .ico:hover::after, td .ico:focus-visible::after {
-  content: attr(title); position: absolute; inset-block-start: 130%; inset-inline-end: 0;
-  background: var(--text); color: var(--bg); font-size: 11px; padding: 5px 8px;
-  border-radius: 6px; white-space: pre-line; z-index: 60; line-height: 1.4;
-  inline-size: max-content; max-inline-size: 260px;
+/* the table note is opened by its own info button; the card's is governed by body[data-full] */
+td .note.open {
+  display: block; font-size: 11px; color: var(--muted); line-height: 1.4;
+  margin-block-start: 6px; padding-block-start: 6px;
+  border-block-start: 1px dashed var(--border);
 }
 
 /* ── empty state ──────────────────────────────────────────────────────── */
@@ -267,7 +270,7 @@ body[data-view="mobile"] .tbl { display: none }
   padding: 10px 11px; margin-block-end: 8px; box-shadow: var(--shadow);
 }
 .card .c1 { display: flex; align-items: center; gap: 8px; margin-block-end: 5px }
-.card .rel2 { font-size: 12px; font-weight: 600; color: var(--primary) }
+.card .rel2 { font-size: 12px; font-weight: 600; color: var(--primary-text) }
 .card .time2 { font-size: 12px; color: var(--muted) }
 .card .p2 { margin-inline-start: auto; font-weight: 600; font-size: 14px }
 .card .p2.free { color: var(--free) }
@@ -277,7 +280,7 @@ body[data-view="mobile"] .tbl { display: none }
   font-size: 11.5px; color: var(--muted); display: flex; gap: 6px;
   flex-wrap: wrap; align-items: center;
 }
-.card .leave { color: var(--primary); font-weight: 500 }
+.card .leave { color: var(--primary-text); font-weight: 500 }
 .card .strip {
   display: flex; gap: 4px; flex-wrap: wrap; margin-block-start: 7px;
   padding-block-start: 7px; border-block-start: 1px solid var(--border);
@@ -305,7 +308,7 @@ body[data-view="mobile"] .cards { display: block }
   main { grid-template-columns: 1fr }
   .mapwrap { display: none }
   /* the wrapped filter bar would eat a third of a phone screen if it stayed sticky */
-  .bar { position: static }
+  .bar { position: relative }
 }
 
 @media (prefers-reduced-motion: reduce) {

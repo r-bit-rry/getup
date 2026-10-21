@@ -45,4 +45,7 @@ test('dataAge speaks Hebrew and never goes negative', () => {
   assert.equal(dataAge('2026-10-18T19:00:00Z', now), 'עודכן עכשיו');
   assert.equal(dataAge('2026-10-18T17:00:00Z', now), 'עודכן לפני שעה');
   assert.equal(dataAge('2026-10-18T16:00:00Z', now), 'עודכן לפני שעתיים');
+  assert.equal(dataAge(null, now), '');
+  assert.equal(dataAge(undefined, now), '');
+  assert.equal(dataAge('not a date', now), '');
 });

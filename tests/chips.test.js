@@ -31,3 +31,11 @@ test('the cap collapses the remainder into +N with a hover title', () => {
 test('an event with no tags yields an empty strip, not a placeholder chip', () => {
   assert.equal(chipsHTML({ scene: [], crowd: [] }), '');
 });
+
+test('tags outside the vocabulary are dropped, valid ones still render', () => {
+  assert.equal(chipsHTML({ scene: ['סלסה'], crowd: [] }), '');
+  const html = chipsHTML({ scene: ['סלסה', 'רוק'], crowd: [] });
+  assert.equal((html.match(/class="chip [sc]"/g) || []).length, 1);
+  assert.match(html, /title="רוק"/);
+  assert.doesNotMatch(html, /סלסה/);
+});

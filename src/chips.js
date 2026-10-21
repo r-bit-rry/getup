@@ -15,11 +15,11 @@ const esc = s => String(s).replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
 
 export function chip(kind, label) {
   const svg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" `
-    + `stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[kind]}</svg>`;
+    + `stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[kind] ?? ''}</svg>`;
   return `<span class="chip ${kind === 'scene' ? 's' : 'c'}" title="${esc(label)}">${svg}${esc(label)}</span>`;
 }
 
-export function chipsHTML(ev, max = Infinity) {
+export function chipsHTML(ev, max = 3) {
   const items = [
     ...(ev.scene ?? []).filter(t => VOCAB.scene.includes(t)).map(l => ['scene', l]),
     ...(ev.crowd ?? []).filter(t => VOCAB.crowd.includes(t)).map(l => ['crowd', l]),

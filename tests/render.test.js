@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { tableHTML, cardsHTML, emptyHTML, listHTML, hiddenHTML } from '../src/render.js';
+import { tableHTML, cardsHTML, emptyHTML, listHTML, hiddenHTML, capFor } from '../src/render.js';
 
 const base = { venue_id: 'v', city: 'תל אביב', start: 1792780200, end: 1792787400,
   drive_min: 29, price_from: 174, free: false, soldout: false, notable: false,
@@ -13,9 +13,21 @@ const two = [
 test('one table only — headers and bodies cannot drift apart', () => {
   const html = tableHTML(two, '2026-10-18');
   assert.equal((html.match(/<table/g) || []).length, 1);
-  assert.equal((html.match(/<col>/g) || []).length, 5);
-  // the widths are one stylesheet rule, so a column can also be dropped on a narrow screen
-  assert.match(css, /\.tbl col:nth-child\(3\) \{ width: 22% \}/);
+  assert.equal((html.match(/<col\b/g) || []).length, 5);
+  assert.equal((html.match(/<th /g) || []).length, 5);
+  // the widths are one stylesheet rule per column class, shared by the narrow shell
+  assert.match(css, /\.tbl col\.c-vibe \{ width: 18% \}/);
+});
+
+test('the narrow shell drops the vibe column from the markup, never from CSS alone', () => {
+  const html = tableHTML(two, '2026-10-18', {}, true);
+  // a hidden cell with a surviving <col> hands the price column a zero width: both go together
+  assert.equal((html.match(/<col\b/g) || []).length, 4);
+  assert.equal((html.match(/<th /g) || []).length, 4);
+  assert.doesNotMatch(html, /וייב/);
+  assert.equal((html.match(/<td>/g) || []).length, 4 * 2); // two rows, four cells each
+  assert.match(html, /colspan="4"/);
+  assert.doesNotMatch(css, /col:nth-child\(3\)/);
 });
 
 test('mixed Hebrew and Latin title survives verbatim, isolated for bidi', () => {
@@ -64,7 +76,8 @@ test('a sold-out event carries the badge and no live ticket link', () => {
   const ev = { ...base, id: '5', day: '2026-10-23', title: 'אזל', soldout: true };
   const html = tableHTML([ev], '2026-10-18');
   assert.match(html, /אזלו הכרטיסים/);
-  assert.doesNotMatch(html, /href=/);
+  assert.doesNotMatch(html, /href="https:\/\/x"/);
+  assert.doesNotMatch(html, />כרטיס</);
 });
 
 const venues = { v: { id: 'v', name: 'בית ציוני אמריקה (מאירהוף)' } };
@@ -329,6 +342,18 @@ test('the drive cap reports what it hid, and says nothing when it hid nothing', 
   assert.equal(hiddenHTML([{ drive_min: null }]), '');
 });
 
+test('the cap rises to the furthest hidden event, so one press always reveals it', () => {
+  // 69–80 was hidden by a 60-minute cap: a 60-minute button would change nothing
+  const far = [{ drive_min: 69 }, { drive_min: 74 }, { drive_min: 80 }];
+  const html = hiddenHTML(far);
+  assert.match(html, /data-cap="80"/);
+  assert.match(html, /הצג עד 80 דק׳ נסיעה/);
+  assert.equal(capFor(far), 80);
+  // a fraction is rounded up, never down onto the event it is meant to reveal
+  assert.equal(capFor([{ drive_min: 74.2 }]), 75);
+  assert.equal(capFor([]), null);
+});
+
 test('the empty state offers one way to widen instead of a database count', () => {
   const html = emptyHTML({ dates: [{ date: '2026-10-22', count: 14 }] }, '2026-10-18');
   assert.match(html, /יש 14 אירועים בתקופה הקרובה/);
@@ -339,19 +364,53 @@ test('the empty state offers one way to widen instead of a database count', () =
   assert.doesNotMatch(html, /נסה טווח/);
 });
 
+test('an empty page says the cap emptied it, not that nothing exists', () => {
+  const m = { dates: [{ date: '2026-10-22', count: 3 }] };
+  const html = emptyHTML(m, '2026-10-18', { capHidden: 2 });
+  assert.doesNotMatch(html, /אין אירועים בטווח שבחרת/);
+  assert.match(html, /מגבלת הנסיעה הסתירה/);
+  assert.match(html, /2 אירועים/);
+  assert.match(html, /הכפתור שמעל לרשימה/);
+  // the plain empty state still exists when nothing was hidden
+  assert.match(emptyHTML(m, '2026-10-18'), /אין אירועים בטווח שבחרת/);
+});
+
+test('an empty page caused by filters names them and offers to clear them', () => {
+  const m = { dates: [{ date: '2026-10-22', count: 3 }] };
+  const html = emptyHTML(m, '2026-10-18', { filters: 2 });
+  assert.match(html, /הסינון שבחרת הסתיר/);
+  assert.match(html, /<button[^>]+data-reset>ניקוי הסינון<\/button>/);
+  assert.doesNotMatch(html, /אין אירועים בטווח שבחרת/);
+});
+
 // ── fix wave C: a running show, a repeated title, a real card separator ──
 
-test('a show that has started shows until when, not when to leave', () => {
+test('a show that has started shows until when exactly once', () => {
   const now = Math.floor(Date.now() / 1000);
   const ev = { ...base, id: 'live', day: '2026-10-23', title: 'עפרה',
     start: now - 1800, end: now + 1800 };
   const html = tableHTML([ev], '2026-10-18');
-  assert.match(html, /עד \d{2}:\d{2}/);
+  assert.match(html, /<span class="h num">עד \d{2}:\d{2}<\/span>/);
   assert.doesNotMatch(html, /צא /);
+  // the when-cell carries the end; the leave line must not print the same clock again
+  assert.match(html, /<span class="r"><\/span>/);
+  assert.equal((html.match(/עד \d{2}:\d{2}/g) || []).length, 1);
   const card = cardsHTML([ev], '2026-10-18');
-  assert.match(card, /<span class="leave">עד \d{2}:\d{2}<\/span>/);
+  assert.match(card, /<span class="time2 num">עד \d{2}:\d{2}<\/span>/);
+  assert.match(card, /<span class="leave"><\/span>/);
+  assert.equal((card.match(/עד \d{2}:\d{2}/g) || []).length, 1);
   // a future event still carries the leave-by line
   assert.match(tableHTML([{ ...ev, start: now + 3600, end: now + 7200 }], '2026-10-18'), /צא /);
+});
+
+test('an event with no published end never states one, and no-end still runs', () => {
+  const now = Math.floor(Date.now() / 1000);
+  const open = { ...base, id: 'open', day: '2026-10-23', title: 'מסיבה', end: null,
+    start: now - 900 }; // started 15 minutes ago
+  for (const html of [tableHTML([open], '2026-10-18'), cardsHTML([open], '2026-10-18')]) {
+    assert.doesNotMatch(html, /עד /, 'a guessed end is a fact we do not have');
+    assert.match(html, /מתקיים כעת/);
+  }
 });
 
 test('a subtitle that opens with the title does not repeat it', () => {
@@ -379,4 +438,34 @@ test('the card location line keeps its flex rule and a visible divider', () => {
   assert.match(css, /\.card \.v2 i \{[^}]*margin-inline/);
   // a template literal leaked into the stylesheet once and silently dropped the next rule
   assert.doesNotMatch(css, /`/);
+});
+
+// ── fix wave E: navigation, the cap that reveals, one time per row ───────
+
+const HAIFA = { v_bar_shtenfeld_haifa: { id: 'v_bar_shtenfeld_haifa', name: 'בר שטיינפלד, חיפה' } };
+
+test('a row and a card carry a navigation link built from venue and city', () => {
+  const ev = { ...base, id: 'nav', day: '2026-10-23', title: '04 Haifa',
+    venue_id: 'v_bar_shtenfeld_haifa', city: 'חיפה',
+    urls: { tickets: null, community: null, source: 'https://popit.events/x' } };
+  for (const html of [tableHTML([ev], '2026-10-18', HAIFA), cardsHTML([ev], '2026-10-18', HAIFA)]) {
+    const href = html.match(/href="([^"]*google\.com\/maps\/dir[^"]*)"/)?.[1] ?? '';
+    assert.ok(href, 'no navigation link');
+    // the two address halves are one comma-separated text query, encoded once
+    assert.match(href, /destination=%D7%91%D7%A8%20%D7%A9%D7%98%D7%99%D7%99%D7%A0%D7%A4%D7%9C%D7%93/);
+    assert.match(href, /%2C%20%D7%97%D7%99%D7%A4%D7%94/);
+    assert.match(html, />ניווט</);
+    assert.match(html, /rel="noopener noreferrer"[^>]*>ניווט</);
+  }
+});
+
+test('no venue and no city means no navigation link', () => {
+  const orphan = { ...base, id: 'x', day: '2026-10-23', title: 'אירוע', city: '', venue_id: 'gone' };
+  for (const html of [tableHTML([orphan], '2026-10-18', {}), cardsHTML([orphan], '2026-10-18', {})]) {
+    assert.doesNotMatch(html, /ניווט|google\.com\/maps/);
+  }
+  // either half of the address is enough
+  assert.match(tableHTML([{ ...orphan, city: 'חיפה' }], '2026-10-18', {}), />ניווט</);
+  const venueOnly = { ...orphan, city: null, venue_id: 'v' };
+  assert.match(tableHTML([venueOnly], '2026-10-18', { v: { name: 'אולם' } }), />ניווט</);
 });

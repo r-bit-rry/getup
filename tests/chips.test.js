@@ -69,3 +69,10 @@ test('price pressure and plan-ahead do not share the crowd glyph', () => {
   assert.notEqual(icon('expense'), icon('crowd'));
   assert.notEqual(icon('plan'), icon('crowd'));
 });
+
+test('the expensive chip is a shekel product, not a dollar one', () => {
+  const icon = chip('expense', 'יקר').match(/<svg[^>]*>([\s\S]*?)<\/svg>/)[1];
+  assert.match(icon, /₪/);
+  // the dollar-sign path the glyph replaced must not come back
+  assert.doesNotMatch(icon, /M12 2v20/);
+});

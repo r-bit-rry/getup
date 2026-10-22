@@ -125,10 +125,13 @@ test('a night 22:00–04:00 survives to 03:59 and drops at 04:00', () => {
   assert.deepEqual(dropStarted([club], end * 1000), []);
 });
 
-test('a record with no end is dropped four hours after it began', () => {
+test('a record with no end is dropped six hours after it began, not four', () => {
   const open = ev({ id: 'open', start: startedMinAgo(60) });
   assert.deepEqual(dropStarted([open], NOW_MS).map(e => e.id), ['open']);
-  const stale = ev({ id: 'stale', start: startedMinAgo(241) });
+  // the party that never published an end is still real at 04:30 of its own six hours
+  const late = ev({ id: 'late', start: startedMinAgo(270) });
+  assert.deepEqual(dropStarted([late], NOW_MS).map(e => e.id), ['late']);
+  const stale = ev({ id: 'stale', start: startedMinAgo(361) });
   assert.deepEqual(dropStarted([stale], NOW_MS), []);
 });
 

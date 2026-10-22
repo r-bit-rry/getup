@@ -16,12 +16,13 @@ const safeUrl = u => {
 
 const countLabel = n => (n === 1 ? 'אירוע אחד' : `${n} אירועים`);
 
-const timeLabel = ev => {
+const timeLabel = (ev, nowMs = Date.now()) => {
   // An event with no start has no honest "when": refuse the row rather than print 02:00.
   if (!Number.isFinite(ev.start)) throw new TypeError('missing start');
-  return Number.isFinite(ev.end) && ev.end > ev.start
-    ? timeRange(ev.start, ev.end)
-    : startTime(ev.start);
+  const ended = Number.isFinite(ev.end) && ev.end > ev.start;
+  // A running show has one clock left to print: when it ends. Its start is no longer a plan.
+  if (ev.start * 1000 <= nowMs) return ended ? `עד ${startTime(ev.end)}` : startTime(ev.start);
+  return ended ? timeRange(ev.start, ev.end) : startTime(ev.start);
 };
 
 const driveLabel = ev => (Number.isFinite(ev.drive_min) ? `${ev.drive_min} דק׳ נסיעה` : '');
@@ -32,6 +33,17 @@ const venueName = (ev, venues) => (venues ?? {})[ev.venue_id]?.name ?? '';
 export const cityIn = (venue, city) => {
   const c = String(city ?? '').trim();
   return !c || String(venue ?? '').trim().endsWith(c);
+};
+
+// The phone has no map and the car may lack room: the destination is a text query, so a bad
+// venue coordinate cannot break it. Omitted when neither half of the address is known.
+const navLink = (ev, venues) => {
+  const venue = venueName(ev, venues);
+  const city = String(ev.city ?? '').trim();
+  const query = [venue, cityIn(venue, city) ? '' : city].filter(Boolean).join(', ');
+  if (!query) return '';
+  const href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
+  return `<a class="act nav" href="${esc(safeUrl(href))}" target="_blank" rel="noopener noreferrer">ניווט</a>`;
 };
 
 const location = (ev, venues) => {
@@ -85,7 +97,7 @@ const priceCell = ev => {
   return `<span class="price ${kind}">${esc(text)}</span>${until}${sold}`;
 };
 
-const links = ev => {
+const links = (ev, venues) => {
   const ticket = ev.soldout
     ? '<span class="act gone">אזל</span>'
     : ev.urls?.tickets
@@ -98,17 +110,17 @@ const links = ev => {
   const source = !ev.urls?.tickets && !ev.urls?.community && ev.urls?.source
     ? `<a class="act" href="${esc(safeUrl(ev.urls.source))}" target="_blank" rel="noopener noreferrer">מקור</a>`
     : '';
-  return ticket + comm + source;
+  return ticket + comm + source + navLink(ev, venues);
 };
 
-const acts = ev => `<span class="acts">${links(ev)}${infoButton(ev)}</span>`;
+const acts = (ev, venues) => `<span class="acts">${links(ev, venues)}${infoButton(ev)}</span>`;
 
-const rowHTML = (ev, venues) => `<tr class="row">
+const rowHTML = (ev, venues, compact) => `<tr class="row">
 <td><span class="when"><span class="h num">${timeLabel(ev)}</span><span class="r">${leaveText(ev)}</span></span></td>
 <td><span class="what"><span class="t"><bdi>${esc(ev.title)}</bdi></span>${descLine(ev)}<span class="v">${location(ev, venues)}</span></span></td>
-<td><span class="vibe">${chipsHTML(ev)}</span></td>
+${compact ? '' : `<td><span class="vibe">${chipsHTML(ev)}</span></td>`}
 <td>${priceCell(ev)}</td>
-<td>${acts(ev)}${noteBlock(ev)}</td>
+<td>${acts(ev, venues)}${noteBlock(ev)}</td>
 </tr>`;
 
 // One <tr class="dayrow"> per calendar day; grouping is by day so an unsorted input cannot duplicate a header.
@@ -121,9 +133,9 @@ const groupByDay = events => {
   return days;
 };
 
-const dayRowHTML = (day, count, today) => {
+const dayRowHTML = (day, count, today, compact) => {
   const rel = relDay(day, today);
-  return `<tr class="dayrow"><td colspan="5"><div class="dayhead">`
+  return `<tr class="dayrow"><td colspan="${compact ? 4 : 5}"><div class="dayhead">`
     + `<h2>${esc(dayLabel(day))}</h2>`
     + (rel ? `<span class="rel">${esc(rel)}</span>` : '')
     + `<span class="n">${countLabel(count)}</span></div></td></tr>`;
@@ -141,24 +153,25 @@ const guarded = (build, ev) => {
   }
 };
 
-export function tableHTML(events, today, venues) {
-  return tableShell(tableBody(events, today, venues).body);
+export function tableHTML(events, today, venues, compact = false) {
+  return tableShell(tableBody(events, today, venues, compact).body, compact);
 }
 
-// Column widths live in the stylesheet: one place that can also drop a column on a narrow screen.
-const tableShell = body => `<div class="tbl"><table>
-<colgroup><col><col><col><col><col></colgroup>
-<thead><tr><th scope="col">מתי</th><th scope="col">מה ואיפה</th><th scope="col">וייב</th><th scope="col">מחיר</th><th scope="col">פעולות</th></tr></thead>
+// Column widths live in the stylesheet by class, so the shell and the rules cannot drift:
+// the narrow shell carries no vibe column at all, rather than an empty one holding its width.
+const tableShell = (body, compact) => `<div class="tbl"><table>
+<colgroup><col class="c-when"><col>${compact ? '' : '<col class="c-vibe">'}<col class="c-price"><col class="c-acts"></colgroup>
+<thead><tr><th scope="col">מתי</th><th scope="col">מה ואיפה</th>${compact ? '' : '<th scope="col">וייב</th>'}<th scope="col">מחיר</th><th scope="col">פעולות</th></tr></thead>
 <tbody>${body}</tbody></table></div>`;
 
 // painted is what actually reached the DOM: a dropped row must not be counted as shown.
-const tableBody = (events, today, venues) => {
+const tableBody = (events, today, venues, compact = false) => {
   let painted = 0;
   const body = [...groupByDay(events ?? [])]
     .map(([day, list]) => {
-      const rows = list.map(ev => guarded(e => rowHTML(e, venues), ev)).filter(Boolean);
+      const rows = list.map(ev => guarded(e => rowHTML(e, venues, compact), ev)).filter(Boolean);
       painted += rows.length;
-      return rows.length ? dayRowHTML(day, rows.length, today) + rows.join('') : '';
+      return rows.length ? dayRowHTML(day, rows.length, today, compact) + rows.join('') : '';
     })
     .join('');
   return { body, painted };
@@ -174,7 +187,7 @@ ${descLine(ev, 'p')}
 <div class="strip">${chipsHTML(ev, 3)}${infoButton(ev)}</div>
 ${ev.soldout ? '<div class="sold">אזלו הכרטיסים</div>' : ''}
 ${noteBlock(ev)}
-<div class="cta"><span class="acts">${links(ev)}</span></div></article>`;
+<div class="cta"><span class="acts">${links(ev, venues)}</span></div></article>`;
 };
 
 const cardsBody = (events, today, venues) => {
@@ -199,11 +212,19 @@ export function listHTML(events, today, venues, view = 'desktop') {
     const { body, painted } = cardsBody(list, today, venues);
     return painted ? { html: body, count: painted } : { html: brokenHTML(), count: 0 };
   }
-  const { body, painted } = tableBody(list, today, venues);
-  return painted ? { html: tableShell(body), count: painted } : { html: brokenHTML(), count: 0 };
+  // 901–1200px keeps the map beside the list: four columns there, five when the vibe fits.
+  const compact = view === 'narrow';
+  const { body, painted } = tableBody(list, today, venues, compact);
+  return painted ? { html: tableShell(body, compact), count: painted } : { html: brokenHTML(), count: 0 };
 }
 
-// The drive cap is the default that hides most events; it is a button, not a footnote.
+// The cap is a button, not a footnote, and it raises itself to the furthest hidden event: one
+// press must always reveal something, never leave the same button on screen.
+export function capFor(hidden) {
+  const drives = (hidden ?? []).map(ev => ev.drive_min).filter(Number.isFinite);
+  return drives.length ? Math.ceil(Math.max(...drives) / 5) * 5 : null;
+}
+
 export function hiddenHTML(hidden) {
   const list = hidden ?? [];
   if (!list.length) return '';
@@ -211,15 +232,32 @@ export function hiddenHTML(hidden) {
   if (!drives.length) return '';
   const lo = Math.min(...drives);
   const hi = Math.max(...drives);
+  const cap = capFor(list);
   const span = lo === hi ? `ב־${lo} דק׳` : `בין ${lo} ל־${hi} דק׳`;
-  return `<button type="button" class="f hiddenbtn" id="f-far">עוד ${countLabel(list.length)} ${span} · הצג עד 60 דק׳ נסיעה</button>`;
+  return `<button type="button" class="f hiddenbtn" id="f-far" data-cap="${cap}">עוד ${countLabel(list.length)} ${span} · הצג עד ${cap} דק׳ נסיעה</button>`;
 }
 
-export function emptyHTML(manifest, today) {
+// When the cap is what emptied the page, saying "there is nothing" contradicts the button above it.
+export function emptyHTML(manifest, today, { capHidden = 0, filters = 0 } = {}) {
   const upcoming = (manifest.dates ?? []).filter(d => d.date >= today);
   const total = upcoming.reduce((n, d) => n + (Number(d.count) || 0), 0);
+  const rel = `<p class="rel">${total ? `יש ${countLabel(total)} בתקופה הקרובה` : 'אין אירועים בתקופה הקרובה'}</p>`;
+  const clear = filters
+    ? '<button type="button" class="f" data-reset>ניקוי הסינון</button>'
+    : '';
+  if (capHidden) {
+    return `<div class="empty"><h3>מגבלת הנסיעה הסתירה את כל האירועים</h3>
+<p>יש ${countLabel(capHidden)} בטווח מעבר למגבלת הנסיעה. הכפתור שמעל לרשימה מרחיב אותה.</p>
+${rel}${clear}</div>`;
+  }
+  if (filters) {
+    return `<div class="empty"><h3>הסינון שבחרת הסתיר את כל האירועים</h3>
+<p>יש אירועים בטווח. נקו את הסינון כדי לראות אותם.</p>
+${rel}${clear}
+<button type="button" class="f" id="f-widen">הצג את החודש הקרוב</button></div>`;
+  }
   return `<div class="empty"><h3>אין אירועים בטווח שבחרת</h3>
 <p>נסו טווח רחב יותר או נקו חלק מהסינונים.</p>
-<p class="rel">${total ? `יש ${countLabel(total)} בתקופה הקרובה` : 'אין אירועים בתקופה הקרובה'}</p>
+${rel}
 <button type="button" class="f" id="f-widen">הצג את החודש הקרוב</button></div>`;
 }

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { relDay, dayLabel, timeRange, startTime, leaveBy, priceLabel, dataAge } from '../src/format.js';
+import { relDay, dayLabel, timeRange, startTime, leaveBy, leaveText, endOf, priceLabel, dataAge } from '../src/format.js';
 
 const T0 = Date.UTC(2026, 9, 18, 21, 0); // 2026-10-18 21:00Z
 
@@ -37,6 +37,25 @@ test('priceLabel distinguishes free, paid and unknown', () => {
 
 test('dayLabel is Hebrew and date-stable', () => {
   assert.equal(dayLabel('2026-10-23'), 'יום שישי, 23 באוקטובר');
+});
+
+test('leaveText gives a started show one line and never invents an end', () => {
+  const now = Date.now();
+  const start = Math.floor(now / 1000) - 600;
+  // running with a published end: the when-cell carries it, so this line is empty
+  assert.equal(leaveText({ start, end: start + 3600, drive_min: 20 }, now), '');
+  // running with no published end: no "עד" hour we do not have
+  const open = leaveText({ start, end: null, drive_min: 20 }, now);
+  assert.equal(open, 'מתקיים כעת');
+  assert.doesNotMatch(open, /עד/);
+  // not started: the leave-by line is still the useful one
+  const later = Math.floor(now / 1000) + 7200;
+  assert.match(leaveText({ start: later, end: later + 3600, drive_min: 20 }, now), /^צא /);
+});
+
+test('endOf is an expiry rule only: six hours past a start with no end', () => {
+  assert.equal(endOf({ start: 1000, end: null }), 1000 + 6 * 3600);
+  assert.equal(endOf({ start: 1000, end: 2000 }), 2000);
 });
 
 test('dataAge speaks Hebrew and never goes negative', () => {

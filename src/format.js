@@ -32,14 +32,21 @@ export function startTime(startUnix) {
   return clock.format(new Date(startUnix * 1000));
 }
 
-// An event with no honest end still ends: four hours after it began. One rule for the
-// "is it over?" test and for the "עד" line, so the two cannot disagree.
-export const endOf = ev => (Number.isFinite(ev.end) && ev.end > ev.start ? ev.end : ev.start + 4 * 3600);
+// A source that published no end has published no end: six hours is only how long the row stays
+// on the list, never a time we print. A guessed 03:00 must not be stated as a fact.
+export const EXPIRY_HOURS = 6;
+export const endOf = ev => (Number.isFinite(ev.end) && ev.end > ev.start
+  ? ev.end
+  : ev.start + EXPIRY_HOURS * 3600);
 
-// Once the start has passed, "leave by" is meaningless; the end is the honest line.
-export const leaveText = (ev, nowMs = Date.now()) => (ev.start * 1000 <= nowMs
-  ? `עד ${startTime(endOf(ev))}`
-  : Number.isFinite(ev.drive_min) ? `צא ${leaveBy(ev.start, ev.drive_min)}` : 'זמן נסיעה לא ידוע');
+// Once the start has passed, "leave by" is meaningless. The when-cell carries the end time for a
+// running show, so this line stays empty rather than printing the same clock twice.
+export const leaveText = (ev, nowMs = Date.now()) => {
+  if (ev.start * 1000 <= nowMs) {
+    return Number.isFinite(ev.end) && ev.end > ev.start ? '' : 'מתקיים כעת';
+  }
+  return Number.isFinite(ev.drive_min) ? `צא ${leaveBy(ev.start, ev.drive_min)}` : 'זמן נסיעה לא ידוע';
+};
 
 export function leaveBy(startUnix, driveMin) {
   return clock.format(new Date(startUnix * 1000 - (driveMin + 30) * 60000));

@@ -73,7 +73,15 @@ try {
 const all = ok ? applyPrefs(days.flat(), prefs) : [];
 
 const DEFAULT_CENTRE = defaultState().centre;
+const DEFAULT = defaultState();
 const isDefaultCentre = c => c.lat === DEFAULT_CENTRE.lat && c.lon === DEFAULT_CENTRE.lon;
+
+// Filters that differ from the default hide rows while the סינון pill looks idle on a phone.
+const activeFilters = () => [
+  state.freeOnly, state.hasTickets, state.age != null, !state.includeGated,
+  state.maxPrice != null, state.maxDriveMin !== DEFAULT.maxDriveMin,
+  ...state.scenes, ...state.crowds,
+].filter(Boolean).length;
 const drive = new Map(); // event id → minutes from a centre other than Netanya
 let map = null;
 let drawMap = () => {};
@@ -160,10 +168,12 @@ function render() {
   const now = Date.now();
   const events = visible(now);
   const hidden = excludedByDrive(live(now), state, today, windowStart);
-  const { html, count } = listHTML(events, today, venues, document.body.dataset.view);
+  const { html, count } = listHTML(events, today, venues, viewName());
   farEl.innerHTML = hiddenHTML(hidden);
-  // the empty-state count is a count of the same window, so it must open with it
-  $('#list').innerHTML = events.length ? html : emptyHTML(manifest, windowStart);
+  // the empty state must name what emptied it: the cap first, then the filters
+  $('#list').innerHTML = events.length
+    ? html
+    : emptyHTML(manifest, windowStart, { capHidden: hidden.length, filters: activeFilters() });
   $('#status').textContent = `${count} אירועים בתצוגה`;
   syncNote(!isDefaultCentre(state.centre) && events.some(ev => !drive.has(ev.id)));
   syncControls();
@@ -247,7 +257,22 @@ function syncControls() {
   const price = $('#f-price');
   price.value = state.maxPrice == null ? price.max : String(state.maxPrice);
   $('#price-out').textContent = state.maxPrice == null ? 'ללא הגבלה' : `₪${state.maxPrice}`;
-  $('#f-drive').value = state.maxDriveMin == null ? '' : String(state.maxDriveMin);
+  // The cap button can raise the limit past the fixed list: give the select an option for it
+  // rather than let it fall back to "no limit" and contradict the label.
+  const driveSel = $('#f-drive');
+  driveSel.querySelector('option[data-cap-opt]')?.remove();
+  const wantDrive = state.maxDriveMin == null ? '' : String(state.maxDriveMin);
+  if (wantDrive && ![...driveSel.options].some(o => o.value === wantDrive)) {
+    const opt = document.createElement('option');
+    opt.value = wantDrive;
+    opt.textContent = `עד ${wantDrive} דק׳`;
+    opt.dataset.capOpt = '1';
+    driveSel.append(opt);
+  }
+  driveSel.value = wantDrive;
+
+  const active = activeFilters();
+  $('#filter-count').textContent = active ? `· ${active}` : '';
 
   const ranged = state.dateWindow === 'range' && state.range;
   $('#f-from').value = ranged ? state.range.from : '';
@@ -327,17 +352,29 @@ $('#f-clear').addEventListener('click', () => {
 // The empty state offers one way out: widen to the whole served month, then paint it.
 // Widening alone is not enough when another filter caused the emptiness: reset those too.
 $('#list').addEventListener('click', e => {
+  if (e.target.closest('[data-reset]')) {
+    // defaults for the filters, the window the user chose stays
+    state = { ...defaultState(), centre: state.centre, dateWindow: state.dateWindow, range: state.range };
+    refilter();
+    return;
+  }
   if (!e.target.closest('#f-widen')) return;
   state = { ...defaultState(), dateWindow: 'range', range: { from: today, to: monthEnd } };
   session.del(KEY.centre);
   refilter();
 });
 
-// The hidden-by-cap count raises the cap to 60 instead of asking the user to find the slider.
-$('#hidden-events').addEventListener('click', e => {
-  if (!e.target.closest('#f-far')) return;
-  state.maxDriveMin = 60;
+// One press must reveal what the button counted: raise the cap to the furthest hidden event.
+const raiseCap = el => {
+  const cap = Number(el?.dataset.cap);
+  state.maxDriveMin = Number.isFinite(cap) && cap > 0 ? cap : state.maxDriveMin;
   refilter();
+};
+
+// The hidden-by-cap count raises the cap itself instead of asking the user to find the slider.
+$('#hidden-events').addEventListener('click', e => {
+  const b = e.target.closest('#f-far');
+  if (b) raiseCap(b);
 });
 
 const facetButton = (kind, label) => {
@@ -366,9 +403,11 @@ $('#facets').addEventListener('click', e => {
 });
 
 // ── chrome toggles ───────────────────────────────────────────────────────
-// The view follows the screen: cards up to 900px, the table where the map has room. This is the
-// same 900px breakpoint the stylesheet uses; 641–900 had a five-column table with no map.
+// The view follows the screen: cards up to 900px, four columns with the map to 1200px, five
+// above it. Both breakpoints are the ones the stylesheet declares.
 const mobileMQ = matchMedia('(max-width: 900px)');
+const compactMQ = matchMedia('(max-width: 1200px)');
+const viewName = () => (mobileMQ.matches ? 'mobile' : compactMQ.matches ? 'narrow' : 'desktop');
 function applyView() {
   const mobile = mobileMQ.matches;
   document.body.dataset.view = mobile ? 'mobile' : 'desktop';
@@ -380,12 +419,14 @@ function setTheme(theme) {
   $('#t-night').setAttribute('aria-pressed', String(theme === 'night'));
   write(KEY.theme, theme);
 }
-mobileMQ.addEventListener('change', () => {
+const onViewChange = () => {
   applyView();
   render(); // only the visible view is built, so the switch must rebuild the list
   // the map container was display:none in mobile view; measure it again once layout settles
   requestAnimationFrame(() => map?.resize());
-});
+};
+mobileMQ.addEventListener('change', onViewChange);
+compactMQ.addEventListener('change', onViewChange);
 $('#t-day').addEventListener('click', () => setTheme('day'));
 $('#t-night').addEventListener('click', () => setTheme('night'));
 

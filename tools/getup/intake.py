@@ -1,12 +1,25 @@
 """Issue bodies -> canonical drafts: the one trust boundary between a GitHub form and the site.
 
-Task 2 owns parsing and validation. The poll, the guard and the receipts live here too (Task 4).
+`github.py` owns HTTP; this module owns the rules: what a form means, who may submit one, what
+gets stored, and what the issue is told.
 """
 
+import html
+import json
 import re
 from datetime import date, datetime
 
-from . import normalize
+from . import dedup, human, normalize, venues
+from .github import GithubError, client_from_env
+
+ASSOCIATIONS = frozenset({'OWNER', 'MEMBER'})
+KINDS = ('event', 'source')
+RECEIPT_MARK = '<!-- getup:record -->'
+INFO_MARK = '<!-- getup:needs-info -->'
+MERGED_LEAD = 'מוזג לאירוע קיים. הרשומה הקנונית:'
+INGESTED_LEAD = 'נקלט. הרשומה הקנונית:'
+SOURCE_LEAD = 'נקלט. בקשת המקור:'
+STATE_FAULT = 'לא נקלט. קובץ מצב פגום: '
 
 EVENT_FIELDS = ('שם האירוע', 'שם המקום', 'עיר', 'תאריך', 'שעה', 'מחיר',
                 'קישור לאירוע', 'קישור לכרטיסים', 'קהילה סגורה (קישור לקבוצה)', 'תיאור')
@@ -158,3 +171,128 @@ def source_record(fields: dict) -> tuple:
         return None, problems
     return {'name': name, 'url': url, 'kind': kind,
             'note': _text(fields.get('מה חסר היום'))}, []
+
+
+def detect(fields: dict):
+    """Which form a body is, from the headings it carries; None is a body nobody wrote a form for."""
+    if 'שם האירוע' in fields:
+        return 'event'
+    if 'שם המקור' in fields:
+        return 'source'
+    return None
+
+
+def eligible(issue: dict) -> bool:
+    """The only defence (ADR-0008): a stranger's issue is never processed, never answered."""
+    return (issue or {}).get('author_association') in ASSOCIATIONS
+
+
+def info(problems: list) -> str:
+    return INFO_MARK + '\nלא נקלט. נדרש: ' + ' · '.join(problems)
+
+
+def receipt(payload: dict, lead: str) -> str:
+    """The record, escaped inside <pre>: a title with markup or backticks cannot break the comment."""
+    body = json.dumps(payload, ensure_ascii=False, indent=1, sort_keys=True)
+    return f'{RECEIPT_MARK}\n{lead}\n<pre>{html.escape(body)}</pre>'
+
+
+def _said(client, number: int, marker: str) -> bool:
+    return any(marker in str((row or {}).get('body') or '') for row in client.comments(number))
+
+
+def _labelled(issue: dict, name: str) -> bool:
+    rows = issue.get('labels') or []
+    return any((row.get('name') if isinstance(row, dict) else row) == name for row in rows)
+
+
+def _venue_key(registry: dict, draft: dict):
+    return venues.resolve(registry, draft.get('venue'), draft.get('city'))
+
+
+def same_event(store: dict, number: int, draft: dict, registry: dict) -> bool:
+    """Another issue already holds this event: same resolved venue, start within dedup.WINDOW.
+
+    The issue's own entry never counts, so a correction is an update and not a merge.
+    """
+    scratch = dict(registry)            # resolve provisions in memory; this module must not curate
+    mine = _venue_key(scratch, draft)
+    start = draft.get('start')
+    if mine is None or not isinstance(start, int) or isinstance(start, bool):
+        return False
+    for key, other in store.items():
+        if str(key) == str(number) or not isinstance(other, dict):
+            continue
+        other_start = other.get('start')
+        if not isinstance(other_start, int) or isinstance(other_start, bool):
+            continue
+        if abs(other_start - start) > dedup.WINDOW:
+            continue
+        if _venue_key(scratch, other) == mine:
+            return True
+    return False
+
+
+def _needs_info(client, number: int, problems: list) -> dict:
+    if not _said(client, number, INFO_MARK):
+        client.comment(number, info(problems))
+    client.add_label(number, 'needs-info')
+    return {'number': number, 'result': 'needs-info', 'problems': problems}
+
+
+def _event(root: str, number: int, issue: dict, fields: dict, client, today: str) -> dict:
+    draft, problems = event_draft(fields, today)
+    if problems:
+        return _needs_info(client, number, problems)
+    store = human.load(root)            # a corrupt file raises: one issue fails, the poll continues
+    registry = venues.load(root)
+    # A correction is an update, not a merge: only an issue without its own draft can merge.
+    merged = str(number) not in store and same_event(store, number, draft, registry)
+    changed = human.put(store, number, draft)
+    human.save(root, store)             # the draft, never a placed record: build.place owns that
+    if changed or not _said(client, number, RECEIPT_MARK):
+        client.comment(number, receipt(draft, MERGED_LEAD if merged else INGESTED_LEAD))
+    client.add_label(number, 'processed')
+    if _labelled(issue, 'needs-info'):
+        client.remove_label(number, 'needs-info')
+    return {'number': number, 'result': 'merged' if merged else 'ingested', 'problems': []}
+
+
+def _source(number: int, fields: dict, client) -> dict:
+    record, problems = source_record(fields)
+    if problems:
+        return _needs_info(client, number, problems)
+    if not _said(client, number, RECEIPT_MARK):
+        client.comment(number, receipt(record, SOURCE_LEAD))
+    client.add_label(number, 'processed')
+    return {'number': number, 'result': 'source', 'problems': []}
+
+
+def ingest(root: str, issue: dict, *, client, today: str) -> dict:
+    """One issue, one result; never raises for a bad issue, a bad form or a corrupt state file."""
+    number = (issue or {}).get('number')
+    if not eligible(issue):
+        return {'number': number, 'result': 'skipped', 'problems': []}
+    try:
+        fields = parse_form((issue or {}).get('body'))
+        kind = detect(fields)
+        if kind is None:
+            return _needs_info(client, number, [UNKNOWN_FORM])
+        if kind == 'source':
+            return _source(number, fields, client)
+        return _event(root, number, issue, fields, client, today)
+    except GithubError as exc:
+        return {'number': number, 'result': 'failed', 'problems': [str(exc)]}
+    except ValueError as exc:
+        try:                                # the file is named on the issue; the poll moves on
+            client.comment(number, f'{INFO_MARK}\n{STATE_FAULT}{exc}')
+        except GithubError:
+            pass
+        return {'number': number, 'result': 'failed', 'problems': [str(exc)]}
+
+
+def poll(root: str, *, client, today: str) -> list:
+    """Verify the labels once, then one issue at a time, lowest number first."""
+    client.ensure_labels()
+    rows = sorted(client.issues(), key=lambda row: (row or {}).get('number') or 0)
+    return [ingest(root, row, client=client, today=today) for row in rows]

@@ -1,4 +1,1795 @@
 {
+ "v_04696c6f37": {
+  "access": null,
+  "aliases": [],
+  "city": "מודיעין מכבים רעות",
+  "coords_source": "nominatim",
+  "drive_min": 53,
+  "id": "v_04696c6f37",
+  "lat": 31.902839,
+  "lon": 35.0092245,
+  "name": "GRAY, מודיעין",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_0bca5e7f9a": {
+  "access": null,
+  "aliases": [],
+  "city": "הרצליה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 21,
+  "id": "v_0bca5e7f9a",
+  "lat": 32.1656255,
+  "lon": 34.8469023,
+  "name": "אודיטוריום בית חיל האוויר, הרצליה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_0d5cab8a8e": {
+  "access": null,
+  "aliases": [],
+  "city": "כפר סבא",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 22,
+  "id": "v_0d5cab8a8e",
+  "lat": 32.1773471,
+  "lon": 34.907459,
+  "name": "אודיטוריום בית ספיר, כפר סבא",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_0fc867be8e": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 28,
+  "id": "v_0fc867be8e",
+  "lat": 32.0986505,
+  "lon": 34.775517,
+  "name": "נמל תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_106b773939": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_106b773939",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "מועדון האנגר 17",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_11095fde4b": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_11095fde4b",
+  "lat": null,
+  "lon": null,
+  "name": "בארבי",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_160b178c2c": {
+  "access": null,
+  "aliases": [],
+  "city": "יבנה",
+  "coords_source": "nominatim",
+  "drive_min": 49,
+  "id": "v_160b178c2c",
+  "lat": 31.8743987,
+  "lon": 34.7348735,
+  "name": "היכל התרבות יבנה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_1ab053f766": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_1ab053f766",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "מוזיאון ארץ ישראל (קלצ'קין), תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_1bc6f03d01": {
+  "access": null,
+  "aliases": [],
+  "city": "הרצליה",
+  "coords_source": "nominatim",
+  "drive_min": 21,
+  "id": "v_1bc6f03d01",
+  "lat": 32.1662366,
+  "lon": 34.8429788,
+  "name": "היכל בעיר, הרצליה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_1d23a62dfb": {
+  "access": null,
+  "aliases": [],
+  "city": "פתח תקווה",
+  "coords_source": "nominatim",
+  "drive_min": 31,
+  "id": "v_1d23a62dfb",
+  "lat": 32.1032692,
+  "lon": 34.8777298,
+  "name": "תיאטרון גולדה - פתח תקוה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_1e313e05cc": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 28,
+  "id": "v_1e313e05cc",
+  "lat": 32.0706435,
+  "lon": 34.7868586,
+  "name": "מגדל התיכון",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_21b7ba984b": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_21b7ba984b",
+  "lat": null,
+  "lon": null,
+  "name": "תיאטרון בית ליסין תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_21c8301b6c": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_21c8301b6c",
+  "lat": null,
+  "lon": null,
+  "name": "אולם ירון ירושלמי",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_260d836e40": {
+  "access": null,
+  "aliases": [],
+  "city": "ירושלים",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 79,
+  "id": "v_260d836e40",
+  "lat": 31.7788472,
+  "lon": 35.2257856,
+  "name": "תיאטרון ירושלים (אולם מיקרו)",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_27bc93dd2d": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 27,
+  "id": "v_27bc93dd2d",
+  "lat": 32.0747036,
+  "lon": 34.7919705,
+  "name": "מרכז עזריאלי",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_28eaf5467c": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_28eaf5467c",
+  "lat": null,
+  "lon": null,
+  "name": "טרמינל העיצוב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_2bf1d6edb3": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_2bf1d6edb3",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "ינלאומי במועדון קפלה",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_2ccb6316ca": {
+  "access": null,
+  "aliases": [],
+  "city": "הוד השרון",
+  "coords_source": "nominatim",
+  "drive_min": 23,
+  "id": "v_2ccb6316ca",
+  "lat": 32.1575626,
+  "lon": 34.8958345,
+  "name": "בית מקומי לתרבות, הוד השרון",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_2d907dc232": {
+  "access": null,
+  "aliases": [],
+  "city": "נתניה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 0,
+  "id": "v_2d907dc232",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "name": "רוביז, נתניה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_2fa28ee1b3": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_2fa28ee1b3",
+  "lat": null,
+  "lon": null,
+  "name": "הרוקמים, חולון, ישראל",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_2fcb0c769d": {
+  "access": null,
+  "aliases": [],
+  "city": "חולון",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 35,
+  "id": "v_2fcb0c769d",
+  "lat": 32.0193121,
+  "lon": 34.7804076,
+  "name": "תיאטרון חולון (אולם 2)",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_31855e72ae": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 29,
+  "id": "v_31855e72ae",
+  "lat": 32.07092,
+  "lon": 34.7817592,
+  "name": "Yehuda ha-Levi St 47",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_3338d3a9d0": {
+  "access": null,
+  "aliases": [],
+  "city": "ראשון לציון",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 42,
+  "id": "v_3338d3a9d0",
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "name": "Drink",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_3789e9f0fa": {
+  "access": null,
+  "aliases": [],
+  "city": "ירושלים",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 79,
+  "id": "v_3789e9f0fa",
+  "lat": 31.7788472,
+  "lon": 35.2257856,
+  "name": "תיאטרון ירושלים (אולם עוזי וכסלר)",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_386879fd44": {
+  "access": null,
+  "aliases": [],
+  "city": "ראש העין",
+  "coords_source": "nominatim",
+  "drive_min": 33,
+  "id": "v_386879fd44",
+  "lat": 32.0973449,
+  "lon": 34.9465911,
+  "name": "היכל התרבות ראש העין",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_394a14078b": {
+  "access": null,
+  "aliases": [],
+  "city": "ירושלים",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 79,
+  "id": "v_394a14078b",
+  "lat": 31.7788472,
+  "lon": 35.2257856,
+  "name": "פרינדס, תיאטרון הירש (בית שמואל לשעבר), ירושלים",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_39b0baeedf": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_39b0baeedf",
+  "lat": null,
+  "lon": null,
+  "name": "סטנד אפ פקטורי - ת\"א",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_3e5d361837": {
+  "access": null,
+  "aliases": [],
+  "city": "חיפה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 53,
+  "id": "v_3e5d361837",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "name": "אולם רפפורט - חיפה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_425fdb474a": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_425fdb474a",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "אוויר הפתוח במועדון מון צ'ילד בנמל תל אביב",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_429d9eb78d": {
+  "access": null,
+  "aliases": [],
+  "city": "נהריה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 76,
+  "id": "v_429d9eb78d",
+  "lat": 33.0066389,
+  "lon": 35.0984342,
+  "name": "היכל התרבות, נהריה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_442fb908b2": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_442fb908b2",
+  "lat": null,
+  "lon": null,
+  "name": "Pierre Koenig St 37",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_44617d6faa": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 31,
+  "id": "v_44617d6faa",
+  "lat": 32.0535349,
+  "lon": 34.7644224,
+  "name": "גגרין",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_494546a38d": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_494546a38d",
+  "lat": null,
+  "lon": null,
+  "name": "מוזיאון ארץ ישראל תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_4c801f6d77": {
+  "access": null,
+  "aliases": [],
+  "city": "עפולה",
+  "coords_source": "nominatim",
+  "drive_min": 54,
+  "id": "v_4c801f6d77",
+  "lat": 32.61222,
+  "lon": 35.288091,
+  "name": "היכל התרבות, עפולה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_4cd9ce27b0": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_4cd9ce27b0",
+  "lat": null,
+  "lon": null,
+  "name": "היכל מנורה פרונטלי",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_4d617ed86e": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 30,
+  "id": "v_4d617ed86e",
+  "lat": 32.062207,
+  "lon": 34.773589,
+  "name": "יהודה הלוי 47",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_4d7792be21": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_4d7792be21",
+  "lat": null,
+  "lon": null,
+  "name": "קריית אונו",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_5538ccbdc7": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_5538ccbdc7",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "שדרות שאול המלך 2",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_5617af0c8e": {
+  "access": null,
+  "aliases": [],
+  "city": "אשדוד",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 57,
+  "id": "v_5617af0c8e",
+  "lat": 31.7977314,
+  "lon": 34.6529922,
+  "name": "המשכן לאומנויות הבמה הפיס, אשדוד",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_56876bb0ce": {
+  "access": null,
+  "aliases": [],
+  "city": "בת ים",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 36,
+  "id": "v_56876bb0ce",
+  "lat": 32.0154565,
+  "lon": 34.7505283,
+  "name": "אודיטוריום בת ים",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_5734b27786": {
+  "access": null,
+  "aliases": [],
+  "city": "מודיעין מכבים רעות",
+  "coords_source": "nominatim",
+  "drive_min": 53,
+  "id": "v_5734b27786",
+  "lat": 31.902839,
+  "lon": 35.0092245,
+  "name": "מועדון הגריי",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_5949a3aa29": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_5949a3aa29",
+  "lat": null,
+  "lon": null,
+  "name": "Eliezer Peri St",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_59a4244eda": {
+  "access": null,
+  "aliases": [],
+  "city": "חדרה",
+  "coords_source": "nominatim",
+  "drive_min": 17,
+  "id": "v_59a4244eda",
+  "lat": 32.4392438,
+  "lon": 34.9139189,
+  "name": "רנה שני, חדרה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_59c0596738": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 28,
+  "id": "v_59c0596738",
+  "lat": 32.098389,
+  "lon": 34.774496,
+  "name": "האנגר 11",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_5ae7dc2659": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_5ae7dc2659",
+  "lat": null,
+  "lon": null,
+  "name": "גלריה 601, בית פנורמה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_5afac701a8": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 29,
+  "id": "v_5afac701a8",
+  "lat": 32.1050861,
+  "lon": 34.7790248,
+  "name": "רידינג 3",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_61d4321fd3": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_61d4321fd3",
+  "lat": null,
+  "lon": null,
+  "name": "המרץ 2",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_624b72dd01": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 30,
+  "id": "v_624b72dd01",
+  "lat": 32.0831979,
+  "lon": 34.8348601,
+  "name": "קאלאס, תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_628f3c7ff5": {
+  "access": null,
+  "aliases": [],
+  "city": "ראשון לציון",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 42,
+  "id": "v_628f3c7ff5",
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "name": "אולם מופת, ראשון לציון",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_62d487d7e4": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_62d487d7e4",
+  "lat": null,
+  "lon": null,
+  "name": "HaZerem St 9",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_66d52252e1": {
+  "access": null,
+  "aliases": [],
+  "city": "אשדוד",
+  "coords_source": "nominatim",
+  "drive_min": 61,
+  "id": "v_66d52252e1",
+  "lat": 31.7925953,
+  "lon": 34.6372901,
+  "name": "יד לבנים - אשדוד",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_67379289bc": {
+  "access": null,
+  "aliases": [],
+  "city": "רחובות",
+  "coords_source": "nominatim",
+  "drive_min": 50,
+  "id": "v_67379289bc",
+  "lat": 31.9053601,
+  "lon": 34.8237978,
+  "name": "בית העם, רחובות",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_68313415e9": {
+  "access": null,
+  "aliases": [],
+  "city": "נתניה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 0,
+  "id": "v_68313415e9",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "name": "היכל התרבות (אולם דורטמונד), נתניה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_6fc63ed196": {
+  "access": null,
+  "aliases": [],
+  "city": "נתניה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 0,
+  "id": "v_6fc63ed196",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "name": "אודיטוריום ע\"ש אריק איינשטיין, נתניה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_6ff5b1425a": {
+  "access": null,
+  "aliases": [],
+  "city": "חיפה",
+  "coords_source": "nominatim",
+  "drive_min": 50,
+  "id": "v_6ff5b1425a",
+  "lat": 32.8034907,
+  "lon": 34.9850623,
+  "name": "אודיטוריום חיפה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_71a9b6bfe5": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_71a9b6bfe5",
+  "lat": null,
+  "lon": null,
+  "name": "אולם מופת יהוד-מונוסון",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_750978170a": {
+  "access": null,
+  "aliases": [],
+  "city": "פתח תקווה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 34,
+  "id": "v_750978170a",
+  "lat": 32.0877639,
+  "lon": 34.8859985,
+  "name": "תיאטרון המסילה, פתח תקווה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_7547ee94ea": {
+  "access": null,
+  "aliases": [],
+  "city": "חיפה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 53,
+  "id": "v_7547ee94ea",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "name": "מועדון הביט, חיפה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_76d0cc1a2e": {
+  "access": null,
+  "aliases": [],
+  "city": "אילת",
+  "coords_source": "nominatim",
+  "drive_min": 299,
+  "id": "v_76d0cc1a2e",
+  "lat": 29.5669921,
+  "lon": 34.9565776,
+  "name": "HaHarash St 15",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_76d6978ff9": {
+  "access": null,
+  "aliases": [],
+  "city": "חולון",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 35,
+  "id": "v_76d6978ff9",
+  "lat": 32.0193121,
+  "lon": 34.7804076,
+  "name": "תיאטרון חולון (אולם 3)",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_78224b9cce": {
+  "access": null,
+  "aliases": [],
+  "city": "חולון",
+  "coords_source": "nominatim",
+  "drive_min": 32,
+  "id": "v_78224b9cce",
+  "lat": 32.026062,
+  "lon": 34.773799,
+  "name": "תיאטרון חולון",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_799bb9afce": {
+  "access": null,
+  "aliases": [],
+  "city": "פתח תקווה",
+  "coords_source": "nominatim",
+  "drive_min": 31,
+  "id": "v_799bb9afce",
+  "lat": 32.1032692,
+  "lon": 34.8777298,
+  "name": "תיאטרון גולדה, פתח תקווה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_7d78274af6": {
+  "access": null,
+  "aliases": [],
+  "city": "יהוד",
+  "coords_source": "nominatim",
+  "drive_min": 39,
+  "id": "v_7d78274af6",
+  "lat": 32.0305078,
+  "lon": 34.8881508,
+  "name": "היכל התרבות יהוד",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_8021a20084": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 29,
+  "id": "v_8021a20084",
+  "lat": 32.0618288,
+  "lon": 34.7824588,
+  "name": "Yegi'a Kapayim St 2",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_815e2f1175": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_815e2f1175",
+  "lat": null,
+  "lon": null,
+  "name": "Jabotinsky St 16",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_855edaca67": {
+  "access": null,
+  "aliases": [],
+  "city": "גבעת שמואל",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_855edaca67",
+  "lat": null,
+  "lon": null,
+  "name": "אולם התרבות, גבעת שמואל",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_89eb624a5d": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_89eb624a5d",
+  "lat": null,
+  "lon": null,
+  "name": "מרכז נגה, בן גוריון 7 הרצליה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_8b4a95f640": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_8b4a95f640",
+  "lat": null,
+  "lon": null,
+  "name": "Altalena St 8",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_8cd702b07b": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_8cd702b07b",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "היכל התרבות תל אביב - אולם צוקר",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_8d47664498": {
+  "access": null,
+  "aliases": [],
+  "city": "הרצליה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 21,
+  "id": "v_8d47664498",
+  "lat": 32.1656255,
+  "lon": 34.8469023,
+  "name": "HaTsedef St 1",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_8d72ef9432": {
+  "access": null,
+  "aliases": [],
+  "city": "רחובות",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 48,
+  "id": "v_8d72ef9432",
+  "lat": 31.8952532,
+  "lon": 34.8105616,
+  "name": "היכל התרבות בית העם, רחובות",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_8f755e0a71": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_8f755e0a71",
+  "lat": null,
+  "lon": null,
+  "name": "האצטדיון הלאומי רמת גן",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_9030be94d6": {
+  "access": null,
+  "aliases": [],
+  "city": "חיפה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 53,
+  "id": "v_9030be94d6",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "name": "תיאטרון חיפה (במה 2)",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_92691db17c": {
+  "access": null,
+  "aliases": [],
+  "city": "נווה ירק",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_92691db17c",
+  "lat": null,
+  "lon": null,
+  "name": "היכל התרבות, דרום השרון",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_9361d5f4a3": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 31,
+  "id": "v_9361d5f4a3",
+  "lat": 32.0494956,
+  "lon": 34.7891323,
+  "name": "מרכז דוהל, תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_9781b8a086": {
+  "access": null,
+  "aliases": [],
+  "city": "אשדוד",
+  "coords_source": "nominatim",
+  "drive_min": 60,
+  "id": "v_9781b8a086",
+  "lat": 31.7917929,
+  "lon": 34.6372075,
+  "name": "מונארט, אשדוד",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_9923af0fc1": {
+  "access": null,
+  "aliases": [],
+  "city": "נתניה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 0,
+  "id": "v_9923af0fc1",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "name": "היכל התרבות, נתניה (אולם בית יוחנן)",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_99f91d4343": {
+  "access": null,
+  "aliases": [],
+  "city": "ראשון לציון",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 42,
+  "id": "v_99f91d4343",
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "name": "אודיטוריום ראשון לציון",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_a03aec7d62": {
+  "access": null,
+  "aliases": [],
+  "city": "כרמיאל",
+  "coords_source": "nominatim",
+  "drive_min": 78,
+  "id": "v_a03aec7d62",
+  "lat": 32.9151303,
+  "lon": 35.3032382,
+  "name": "היכל התרבות, כרמיאל",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_a0cbe520f1": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_a0cbe520f1",
+  "lat": null,
+  "lon": null,
+  "name": "מרכז הבמה גני תקווה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_a6e32bb544": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_a6e32bb544",
+  "lat": null,
+  "lon": null,
+  "name": "היכל בעיר (בית האזרח) הרצליה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_a794f8af4d": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_a794f8af4d",
+  "lat": null,
+  "lon": null,
+  "name": "זאפה תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_a8a632047c": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_a8a632047c",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "אולם קלצ'קין - תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_a997d6b2d6": {
+  "access": null,
+  "aliases": [],
+  "city": "כפר סבא",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 22,
+  "id": "v_a997d6b2d6",
+  "lat": 32.1773471,
+  "lon": 34.907459,
+  "name": "אודיטוריום ספיר, כפר סבא",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_abbb77c465": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 25,
+  "id": "v_abbb77c465",
+  "lat": 32.1345683,
+  "lon": 34.8298069,
+  "name": "צוותא 2, תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_ac3bad79d9": {
+  "access": null,
+  "aliases": [],
+  "city": "נתניה",
+  "coords_source": "nominatim",
+  "drive_min": 2,
+  "id": "v_ac3bad79d9",
+  "lat": 32.3281532,
+  "lon": 34.8624359,
+  "name": "היכל התרבות, נתניה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_acd47bd81c": {
+  "access": null,
+  "aliases": [],
+  "city": "גבעת ברנר",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_acd47bd81c",
+  "lat": null,
+  "lon": null,
+  "name": "אולם המופעים, גבעת ברנר",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_adb5d182d3": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_adb5d182d3",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "בית ציוני אמריקה (מרתה), תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_afca215078": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_afca215078",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "מועדון אטלנטה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_b24fc18af1": {
+  "access": null,
+  "aliases": [],
+  "city": "נס ציונה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 44,
+  "id": "v_b24fc18af1",
+  "lat": 31.9295577,
+  "lon": 34.7990609,
+  "name": "משכן הפיס לאומנויות, נס ציונה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_b2e476cbd9": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_b2e476cbd9",
+  "lat": null,
+  "lon": null,
+  "name": "אודיטוריום כפר שמריהו",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_b6c478fb78": {
+  "access": null,
+  "aliases": [],
+  "city": "אריאל",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 215,
+  "id": "v_b6c478fb78",
+  "lat": 30.67943,
+  "lon": 35.2678251,
+  "name": "המקום של אבא, אריאל",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_b7398a8cea": {
+  "access": null,
+  "aliases": [],
+  "city": "קריית אונו",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_b7398a8cea",
+  "lat": null,
+  "lon": null,
+  "name": "קרית התרבות אונו",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_b9f0747b36": {
+  "access": null,
+  "aliases": [],
+  "city": "הרצליה",
+  "coords_source": "nominatim",
+  "drive_min": 20,
+  "id": "v_b9f0747b36",
+  "lat": 32.1662618,
+  "lon": 34.8022501,
+  "name": "תאו, הרצליה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_babdf14f28": {
+  "access": null,
+  "aliases": [],
+  "city": "ראש פינה",
+  "coords_source": "nominatim",
+  "drive_min": 100,
+  "id": "v_babdf14f28",
+  "lat": 32.9684665,
+  "lon": 35.5382663,
+  "name": "סינמטק, ראש פינה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
  "v_bar_shtenfeld_haifa": {
   "access": null,
   "aliases": [
@@ -13,7 +1804,26 @@
   "lon": 34.9983856,
   "name": "בר שטיינפלד, חיפה",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_bb07bbf590": {
+  "access": null,
+  "aliases": [],
+  "city": "גבעתיים",
+  "coords_source": "nominatim",
+  "drive_min": 29,
+  "id": "v_bb07bbf590",
+  "lat": 32.0671919,
+  "lon": 34.8039491,
+  "name": "תיאטרון גבעתיים",
+  "parking": null,
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -34,7 +1844,7 @@
   "lon": 34.9983856,
   "name": "בית נגלר, קריית חיים",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -55,12 +1865,182 @@
   "lon": 34.8678359,
   "name": "בית יד לבנים, רעננה",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
   },
   "tier": "mid",
+  "transport": null
+ },
+ "v_bfd3babbd6": {
+  "access": null,
+  "aliases": [],
+  "city": "ירושלים",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 79,
+  "id": "v_bfd3babbd6",
+  "lat": 31.7788472,
+  "lon": 35.2257856,
+  "name": "תיאטרון מיקרו, ירושלים",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_bff99ec2e8": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_bff99ec2e8",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "ינלאומי בנמל תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_c13638e3ab": {
+  "access": null,
+  "aliases": [],
+  "city": "נתב\"ג",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_c13638e3ab",
+  "lat": null,
+  "lon": null,
+  "name": "היכל התרבות, איירפורט סיטי",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_c28ccf8bdc": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_c28ccf8bdc",
+  "lat": null,
+  "lon": null,
+  "name": "בית יד לבנים רמת השרון",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_c310b0accd": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_c310b0accd",
+  "lat": null,
+  "lon": null,
+  "name": "תיאטרון הקאמרי",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_c3e5d98f7b": {
+  "access": null,
+  "aliases": [],
+  "city": "רעננה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 22,
+  "id": "v_c3e5d98f7b",
+  "lat": 32.1860244,
+  "lon": 34.8678359,
+  "name": "המשכן למוסיקה ואומנויות, רעננה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_c5756106df": {
+  "access": null,
+  "aliases": [],
+  "city": "הרצליה",
+  "coords_source": "nominatim",
+  "drive_min": 18,
+  "id": "v_c5756106df",
+  "lat": 32.1682839,
+  "lon": 34.8283945,
+  "name": "היכל אומנויות הבמה, הרצליה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_c6f954fc2d": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 30,
+  "id": "v_c6f954fc2d",
+  "lat": 32.072054,
+  "lon": 34.77882,
+  "name": "הבימה 4, תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_cbc874a9d3": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 27,
+  "id": "v_cbc874a9d3",
+  "lat": 32.0984727,
+  "lon": 34.7813566,
+  "name": "שדרות רוקח 95",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
   "transport": null
  },
  "v_cinematheque_yavne": {
@@ -76,7 +2056,515 @@
   "lon": 34.7382974,
   "name": "סינמטק, יבנה",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_d1beca6c0e": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_d1beca6c0e",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "צוותא 1, תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_d38eacf6c2": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_d38eacf6c2",
+  "lat": null,
+  "lon": null,
+  "name": "אולם בר-אוריין, קשת אילון",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_d3f5ef50ec": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_d3f5ef50ec",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "היכל התרבות תל אביב - אולם לאוי",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_d493f3d97a": {
+  "access": null,
+  "aliases": [],
+  "city": "נתניה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 0,
+  "id": "v_d493f3d97a",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "name": "היכל ספי ריבלין, נתניה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_d5c82c169d": {
+  "access": null,
+  "aliases": [],
+  "city": "ראשון לציון",
+  "coords_source": "nominatim",
+  "drive_min": 38,
+  "id": "v_d5c82c169d",
+  "lat": 31.9905696,
+  "lon": 34.7627203,
+  "name": "Altalena St 8",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_d5dedf263c": {
+  "access": null,
+  "aliases": [],
+  "city": "כפר סבא",
+  "coords_source": "nominatim",
+  "drive_min": 22,
+  "id": "v_d5dedf263c",
+  "lat": 32.1766984,
+  "lon": 34.9052622,
+  "name": "היכל התרבות, כפר סבא",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_d817153797": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_d817153797",
+  "lat": null,
+  "lon": null,
+  "name": "ברוך קטינקא 2",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_db0e0fa5ba": {
+  "access": null,
+  "aliases": [],
+  "city": "כפר יונה",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_db0e0fa5ba",
+  "lat": null,
+  "lon": null,
+  "name": "היכל התרבות, כפר יונה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_dca8356ed6": {
+  "access": null,
+  "aliases": [],
+  "city": "באר שבע",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 106,
+  "id": "v_dca8356ed6",
+  "lat": 31.2457442,
+  "lon": 34.7925181,
+  "name": "אולם תמוז - באר שבע",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_dceff2b180": {
+  "access": null,
+  "aliases": [],
+  "city": "פתח תקווה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 34,
+  "id": "v_dceff2b180",
+  "lat": 32.0877639,
+  "lon": 34.8859985,
+  "name": "תיאטרון הבית גולדה, פתח תקווה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e0181ec144": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 27,
+  "id": "v_e0181ec144",
+  "lat": 32.0905525,
+  "lon": 34.7910485,
+  "name": "בית החייל, תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e020b6967e": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_e020b6967e",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "AMAMA, תל אביב-יפו",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e2c61d533d": {
+  "access": null,
+  "aliases": [],
+  "city": "קריית אונו",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_e2c61d533d",
+  "lat": null,
+  "lon": null,
+  "name": "קריית התרבות אונו (אולם 140), קריית אונו",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e4bc4df86b": {
+  "access": null,
+  "aliases": [],
+  "city": "אילת",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_e4bc4df86b",
+  "lat": null,
+  "lon": null,
+  "name": "מועדון פקטורי",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e50e387648": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_e50e387648",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "מועדון Gagarin",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e60b62f0a1": {
+  "access": null,
+  "aliases": [],
+  "city": "באר שבע",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 106,
+  "id": "v_e60b62f0a1",
+  "lat": 31.2457442,
+  "lon": 34.7925181,
+  "name": "משכן אמנויות הבמה , באר שבע",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e62b7e0f09": {
+  "access": null,
+  "aliases": [],
+  "city": "פתח תקווה",
+  "coords_source": "nominatim",
+  "drive_min": 21,
+  "id": "v_e62b7e0f09",
+  "lat": 32.1733223,
+  "lon": 34.8993355,
+  "name": "גולה, פתח תקווה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e847acdae1": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_e847acdae1",
+  "lat": null,
+  "lon": null,
+  "name": "זאפה הרצליה",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e8ce1d62bb": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "nominatim",
+  "drive_min": 32,
+  "id": "v_e8ce1d62bb",
+  "lat": 32.0564968,
+  "lon": 34.7671521,
+  "name": "Abarbanel St 88",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_e96ecd303e": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_e96ecd303e",
+  "lat": null,
+  "lon": null,
+  "name": "לבונטין 7",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_ee4a2eea13": {
+  "access": null,
+  "aliases": [],
+  "city": "קריית מוצקין",
+  "coords_source": "nominatim",
+  "drive_min": 59,
+  "id": "v_ee4a2eea13",
+  "lat": 32.8447546,
+  "lon": 35.0798714,
+  "name": "היכל התיאטרון, קריית מוצקין",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_f12491f371": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_f12491f371",
+  "lat": null,
+  "lon": null,
+  "name": "צוותא תל אביב",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_f27054ae2b": {
+  "access": null,
+  "aliases": [],
+  "city": "אשדוד",
+  "coords_source": "nominatim",
+  "drive_min": 61,
+  "id": "v_f27054ae2b",
+  "lat": 31.7925953,
+  "lon": 34.6372901,
+  "name": "בית יד לבנים, אשדוד",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_f60b7ace86": {
+  "access": null,
+  "aliases": [],
+  "city": "",
+  "coords_source": "unresolved",
+  "drive_min": null,
+  "id": "v_f60b7ace86",
+  "lat": null,
+  "lon": null,
+  "name": "Ben Avigdor St 17",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_fab1fa2369": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_fab1fa2369",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "אקספו ת\"א - אולם 2",
+  "parking": null,
+  "seen_last": "2026-10-22",
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_fb9c812d35": {
+  "access": null,
+  "aliases": [],
+  "city": "פתח תקווה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 34,
+  "id": "v_fb9c812d35",
+  "lat": 32.0877639,
+  "lon": 34.8859985,
+  "name": "Narya House",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_ff2a564660": {
+  "access": null,
+  "aliases": [],
+  "city": "מעלות תרשיחא",
+  "coords_source": "nominatim",
+  "drive_min": 92,
+  "id": "v_ff2a564660",
+  "lat": 33.0234433,
+  "lon": 35.2713103,
+  "name": "היכל התרבות, מעלות תרשיחא",
+  "parking": null,
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -97,7 +2585,7 @@
   "lon": 34.8566246,
   "name": "היכל ספי ריבלין, קרית השרון, נתניה",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -118,7 +2606,7 @@
   "lon": 34.9195677,
   "name": "היכל התרבות, אור עקיבא",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -139,7 +2627,7 @@
   "lon": 34.8859985,
   "name": "היכל התרבות, פתח תקווה",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -160,7 +2648,7 @@
   "lon": 34.8101149,
   "name": "היכל התרבות, ראשון לציון",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -181,7 +2669,7 @@
   "lon": 34.6529922,
   "name": "מתנ\"ס דיונה, אשדוד",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -202,7 +2690,7 @@
   "lon": 34.7818064,
   "name": "אוזן בר, תל אביב",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -223,7 +2711,7 @@
   "lon": 34.7818064,
   "name": "מוזיאון אורי גלר",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null
@@ -246,7 +2734,7 @@
   "lon": 34.7818064,
   "name": "בית ציוני אמריקה, תל אביב",
   "parking": null,
-  "seen_last": "2026-10-21",
+  "seen_last": "2026-10-22",
   "social": {
    "facebook": null,
    "instagram": null

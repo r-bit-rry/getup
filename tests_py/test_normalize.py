@@ -120,6 +120,12 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(normalize.desc_cap('  א  ב \n ג '), 'א ב ג')
         self.assertEqual(normalize.desc_cap('א' * 800), 'א' * 600 + '…')
 
+    def test_the_source_html_in_a_blurb_is_text_not_markup(self):
+        # Leaan ships "<p><strong>…</strong></p>"; the row must read as prose, not as tags
+        self.assertEqual(normalize.desc_cap('<p><strong>עפרה</strong></p><p>מחזמר &quot;מרגש&quot;.</p>'),
+                         'עפרה מחזמר "מרגש".')
+        self.assertEqual(normalize.desc_cap('א 3 < 5 &amp; יותר'), 'א 3 < 5 & יותר')
+
     def test_a_zero_price_is_free_and_an_unknown_price_is_not(self):
         self.assertTrue(normalize.record({**DRAFT, 'price_from': 0})['free'])
         self.assertFalse(normalize.record({**DRAFT, 'price_from': None})['free'])

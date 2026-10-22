@@ -1,43 +1,254 @@
 [
  {
-  "id": "v_heichal_spi_rivlin_netanya|2026-11-07|21:00",
-  "title": "גיא הוכמן",
-  "venue_id": "v_heichal_spi_rivlin_netanya",
-  "city": "נתניה",
-  "start": 1794078000,
-  "end": 1794085200,
-  "price_from": 129,
-  "price_max": 129,
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-07",
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנוסף: -העברת השראה חיובית לילדים ולמבוגרים. -תוכלו לשאול את אורי שאלות, והוא יענה לכם באופן אישי על שאלותיכם. - בתום הסיור תהיה לכם הזדמנות לראות במו עיניכם ובזמן אמת מופע בלתי נשכח של אורי, כזה אשר…",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1794054647,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
   "free": false,
   "free_until": null,
+  "id": "v_urigeller_museum_tlv|2026-11-07|13:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
   "soldout": false,
-  "format": "standup",
-  "scene": [
-   "סטנדאפ"
-  ],
-  "crowd": [],
-  "daypart": "night",
-  "expensive": false,
-  "notable": true,
-  "commitment": "jump_in",
   "source": {
    "class": "ticketing",
    "name": "leaan"
   },
+  "start": 1794049200,
+  "title": "מוזיאון אורי גלר",
   "urls": {
-   "tickets": "https://www.leaan.co.il/event/6a74163f79a2b1c4ce6036b0",
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a74163f79a2b1c4ce6036b0"
+   "source": "https://www.leaan.co.il/event/6ad5cf683f1f2db7c5c3922c",
+   "tickets": "https://www.leaan.co.il/event/6ad5cf683f1f2db7c5c3922c"
   },
-  "notes": [],
-  "desc": "קצין חיוך ראשי אחרי שהופיע בפני ראש הממשלה, איבד ביצה, נלחם על הצדק, נכנס לעזה והפך לאבא בפעם השנייה בזמן המלחמה!! ... אף אחד כבר לא יכול לעצור אותו. במופע סטנדאפ אלתורים בשיתוף הקהל, שמשלב גם סרטונים אייקונים של הוכמן, קטעים בלעדיים מהמקומות המסוכנים בעולם והכי חשוב, ים של סתלבט , ערב של כיף! משך המופע: כשעה ורבע ללא הפסקה קרדיט צלם: צילום עצמי",
+  "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": "ראש העין",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-07",
+  "desc": "יש אנשים שלא צריך להציג - שלומי קוריאט הוא אחד כזה! ועכשיו הוא חוזר עם מופע סטנד אפ חדש, שנון וחושפני שלא דופק חשבון לאף אחד ובעיקר מצחיק בטירוף! שלומי מביא לבמה את החוויה האישית שלו ובעצם של כולנו מחיי הנישואין, זוגיות, הורות, ילדים ובכלל מהאבחנות הקטנות והמדויקות של חיי היום יום והכל בדרכו המיוחדת עם המון חן אישי, קצב ואנרגיה מטורפת מופע מצחיק ומומלץ! המופע מיועד לגילאי 18 ומעלה כרטיסים להופעות סטנדאפ של שלומי קוריאט - לצפייה בלוח המלא לחצו כאן",
+  "drive_approx": false,
+  "drive_min": 33,
+  "end": 1794085200,
   "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_386879fd44|2026-11-07|21:00",
+  "lat": 32.0973449,
+  "lon": 34.9465911,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": 149,
+  "scene": [
+   "סטנדאפ"
+  ],
   "seen": {
-   "first": "2026-10-21",
-   "last": "2026-10-21"
+   "first": "2026-10-22",
+   "last": "2026-10-22"
   },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794078000,
+  "title": "שלומי קוריאט",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6953942d43453243fd64504e",
+   "tickets": "https://www.leaan.co.il/event/6953942d43453243fd64504e"
+  },
+  "venue_id": "v_386879fd44"
+ },
+ {
+  "city": "חולון",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-07",
+  "desc": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ השחקן והקומיקאי דניאל סטיופין (אנטולי \"קופה ראשית\") מגיע לקדמת הבמה עם מופע סטנדאפ מיוחד, מרגש וקורע מצחוק. דניאל לוקח את הקהל למסע של לילה אחד מטורף ששינה את חייו מקצה לקצה, מספר על הילדות באוקראינה, על ההצלחה של \"קופה ראשית\", תחושת זרות, חרדות וזוגיות – והכל בתיאטרליות ויכולת הגשה קומית הייחודיות רק לו. משך המופע כ-70 דקות המופע מיועד לגילאי 18 ומעלה כרטיסים להופעות סטנדאפ של דניאל סטיופין - כל התאריכים בלוח המלא",
+  "drive_approx": true,
+  "drive_min": 35,
+  "end": 1794085200,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_76d6978ff9|2026-11-07|21:00",
+  "lat": 32.0193121,
+  "lon": 34.7804076,
+  "notable": true,
+  "notes": [],
+  "price_from": 129,
+  "price_max": 129,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794078000,
+  "title": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a673d0c48a5ba28f8a55f6e",
+   "tickets": "https://www.leaan.co.il/event/6a673d0c48a5ba28f8a55f6e"
+  },
+  "venue_id": "v_76d6978ff9"
+ },
+ {
+  "city": "קריית אונו",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-07",
+  "desc": "אורי ברויר במופע סטנדאפ מקורי, מבריק ובעיקר מצחיק! עם המראה החנוני הקלאסי והסגנון הייחודי, אורי לוקח אותנו אל תוך חייו האישיים והמצחיקים! עם הומור עצמי, איכויות במה ואלתורים הוא סוחף את הקהל לפרצי צחוק בלתי נגמרים... אורי ברויר מוכר לנו מתכניות הטלוויזיה הרבות בהן השתתף, ביניהן: \"היפה החנון\", \"צחוק מהעבודה\" \"החברים של נאור\" ועוד. משך המופע : 75 דק כרטיסים להופעות סטנדאפ של אורי ברויר - כל התאריכים בלוח המלא",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": 1794085200,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_b7398a8cea|2026-11-07|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": true,
+  "notes": [],
+  "price_from": 140,
+  "price_max": 140,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794078000,
+  "title": "אורי ברויר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a580f351e7cb6c6fee524fe",
+   "tickets": "https://www.leaan.co.il/event/6a580f351e7cb6c6fee524fe"
+  },
+  "venue_id": "v_b7398a8cea"
+ },
+ {
+  "city": "הרצליה",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-07",
+  "desc": "קומדיה מטורפת בכיכובו של יגאל עדיקא, שצוחקת על כל מה שהולך לקרות לזוגיות שלנו בעידן ה AI. גבר שנימצא בהליכי פרידה מאשתו, מחליט לרכוש לעצמו אשה מכאנית שמבוססת על בינה מלאכותית. אחת כזו שרק תשמח אותו, שתעשה כל מה שהוא רוצה ובעיקר לא תתלונן כל היום. אך המציאות יוצאת מכלל שליטה, והאשה המלאכותית מטריפה את כל מי שנימצא בסביבה. משתתפים: יגאל עדיקא, דין הפנר, שרון מלכי, פיני טבגר, מיכאל וילוז׳ני. מאת: עוזי וייל ורוני סיני בימוי: אריק אביגדור תאורה: זיו וולושין תפאורה: במבי פרידמן תלבושות: לי אביטל קרדיט צילום : פיני סילוק",
+  "drive_approx": false,
+  "drive_min": 18,
+  "end": 1794085200,
+  "enrichment": [
+   "biluim: https://biluim.co.il/events/e/2010-%D7%96%D7%95%D7%92%D7%99%D7%95%D7%AA-ai"
+  ],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_c5756106df|2026-11-07|21:00",
+  "lat": 32.1682839,
+  "lon": 34.8283945,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794078000,
+  "title": "זוגיות AI",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a96e30330ef709798eab7a5",
+   "tickets": "https://www.leaan.co.il/event/6a96e30330ef709798eab7a5"
+  },
+  "venue_id": "v_c5756106df"
+ },
+ {
+  "city": "נתניה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-07",
+  "desc": "קצין חיוך ראשי אחרי שהופיע בפני ראש הממשלה, איבד ביצה, נלחם על הצדק, נכנס לעזה והפך לאבא בפעם השנייה בזמן המלחמה!! ... אף אחד כבר לא יכול לעצור אותו. במופע סטנדאפ אלתורים בשיתוף הקהל, שמשלב גם סרטונים אייקונים של הוכמן, קטעים בלעדיים מהמקומות המסוכנים בעולם והכי חשוב, ים של סתלבט , ערב של כיף! משך המופע: כשעה ורבע ללא הפסקה קרדיט צלם: צילום עצמי",
+  "drive_approx": true,
+  "drive_min": 0,
+  "end": 1794085200,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_heichal_spi_rivlin_netanya|2026-11-07|21:00",
   "lat": 32.3286181,
   "lon": 34.8566246,
-  "drive_min": 0
+  "notable": true,
+  "notes": [],
+  "price_from": 129,
+  "price_max": 129,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794078000,
+  "title": "גיא הוכמן",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a74163f79a2b1c4ce6036b0",
+   "tickets": "https://www.leaan.co.il/event/6a74163f79a2b1c4ce6036b0"
+  },
+  "venue_id": "v_heichal_spi_rivlin_netanya"
  }
 ]

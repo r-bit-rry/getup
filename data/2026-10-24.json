@@ -1,43 +1,340 @@
 [
  {
-  "id": "v_beit_yad_labanim_raanana|2026-10-24|21:00",
-  "title": "אורי ברויר",
-  "venue_id": "v_beit_yad_labanim_raanana",
-  "city": "רעננה",
-  "start": 1792864800,
-  "end": 1792872000,
-  "price_from": 105,
-  "price_max": null,
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנוסף: -העברת השראה חיובית לילדים ולמבוגרים. -תוכלו לשאול את אורי שאלות, והוא יענה לכם באופן אישי על שאלותיכם. - בתום הסיור תהיה לכם הזדמנות לראות במו עיניכם ובזמן אמת מופע בלתי נשכח של אורי, כזה אשר…",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1792841447,
+  "enrichment": [
+   "biluim: https://biluim.co.il/events/e/14683-%D7%9E%D7%95%D7%96%D7%99%D7%90%D7%95%D7%9F-%D7%90%D7%95%D7%A8%D7%99-%D7%92%D7%9C%D7%A8"
+  ],
+  "expensive": false,
+  "format": "unknown",
   "free": false,
   "free_until": null,
+  "id": "v_urigeller_museum_tlv|2026-10-24|13:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
   "soldout": false,
-  "format": "standup",
-  "scene": [
-   "סטנדאפ"
-  ],
-  "crowd": [],
-  "daypart": "night",
-  "expensive": false,
-  "notable": true,
-  "commitment": "jump_in",
   "source": {
    "class": "ticketing",
    "name": "leaan"
   },
+  "start": 1792836000,
+  "title": "מוזיאון אורי גלר",
   "urls": {
-   "tickets": "https://www.leaan.co.il/event/6a580cb20cf11c55961a02ee",
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a580cb20cf11c55961a02ee"
+   "source": "https://www.leaan.co.il/event/6aa7f55ea85a788d0712a174",
+   "tickets": "https://www.leaan.co.il/event/6aa7f55ea85a788d0712a174"
   },
-  "notes": [],
-  "desc": "אורי ברויר אורי ברויר במופע סטנדאפ מקורי, מבריק ובעיקר מצחיק! עם המראה החנוני הקלאסי והסגנון הייחודי, אורי לוקח אותנו אל תוך חייו האישיים והמצחיקים! עם הומור עצמי, איכויות במה ואלתורים הוא סוחף את הקהל לפרצי צחוק בלתי נגמרים... אורי ברויר מוכר לנו מתכניות הטלוויזיה הרבות בהן השתתף, ביניהן: \"היפה החנון\", \"צחוק מהעבודה\" \"החברים של נאור\" ועוד. משך המופע 75 דק",
+  "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
   "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_39b0baeedf|2026-10-24|20:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 79,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
   "seen": {
-   "first": "2026-10-21",
-   "last": "2026-10-21"
+   "first": "2026-10-22",
+   "last": "2026-10-22"
   },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792861200,
+  "title": "עומר בורשטיין במופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/49061-%D7%A2%D7%95%D7%9E%D7%A8-%D7%91%D7%95%D7%A8%D7%A9%D7%98%D7%99%D7%99%D7%9F-%D7%91%D7%9E%D7%95%D7%A4%D7%A2-%D7%A1%D7%98%D7%A0%D7%93%D7%90%D7%A4",
+   "tickets": null
+  },
+  "venue_id": "v_39b0baeedf"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "חגית גינזבורג, אשפית האלתורים והמבטא הארגנטינאי, מביאה לבמה סטנדאפ אחר מכל שאתם מכירים, מסע נטול זיעה במסעות חייה עם השם הבלתי נסבל חגית, מחשבות על העולם והחיים, גיל 40, רווקות מאוחרת, חברות עם ילדים, דימוי גוף, בחירות גרועות, סקס כושל, התמכרות לזארה, הורים מטורללים והרבה שיחות ספונטניות עם הקהל. תכינו אדוויל כי למחרת תכאב לכם הלסת מרוב צחוק וגם כי אתם סתם מבוגרים. משך המופע: 90 דקות גילאי 18+ קרדיט לצילום - שריי עוז",
+  "drive_approx": false,
+  "drive_min": 25,
+  "end": 1792872000,
+  "enrichment": [
+   "biluim: https://biluim.co.il/events/e/19277-%D7%97%D7%92%D7%99%D7%AA-%D7%92%D7%99%D7%A0%D7%96%D7%91%D7%95%D7%A8%D7%92"
+  ],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_abbb77c465|2026-10-24|21:00",
+  "lat": 32.1345683,
+  "lon": 34.8298069,
+  "notable": true,
+  "notes": [],
+  "price_from": 89,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1792864800,
+  "title": "חגית גינזבורג",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6aabb4ae579c5ddc33f2e592",
+   "tickets": "https://www.leaan.co.il/event/6aabb4ae579c5ddc33f2e592"
+  },
+  "venue_id": "v_abbb77c465"
+ },
+ {
+  "city": "גבעת ברנר",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "אסף מור יוסף במופע סטנדאפ אסף מור יוסף הוא אחד השמות החמים בסצינת הסטנד אפ המבעבעת. סטנדאפיסט שנון מקורי וקורע מצחוק! אסף מחליף מימיקות בקצב מסחרר ומעביר את הקהל חוויה קומית עוצמתית שקורעת מצחוק! משך המופע: כשעה ורבע קרדיט צילום: רונן פדידה כרטיסים להופעות הסטנדאפ של אסף מור יוסף - כל התאריכים בלוח המלא",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": 1792872000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_acd47bd81c|2026-10-24|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": 149,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1792864800,
+  "title": "אסף מור יוסף במופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a0eed4413a70b5da9447033",
+   "tickets": "https://www.leaan.co.il/event/6a0eed4413a70b5da9447033"
+  },
+  "venue_id": "v_acd47bd81c"
+ },
+ {
+  "city": "רעננה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "אורי ברויר אורי ברויר במופע סטנדאפ מקורי, מבריק ובעיקר מצחיק! עם המראה החנוני הקלאסי והסגנון הייחודי, אורי לוקח אותנו אל תוך חייו האישיים והמצחיקים! עם הומור עצמי, איכויות במה ואלתורים הוא סוחף את הקהל לפרצי צחוק בלתי נגמרים... אורי ברויר מוכר לנו מתכניות הטלוויזיה הרבות בהן השתתף, ביניהן: \"היפה החנון\", \"צחוק מהעבודה\" \"החברים של נאור\" ועוד. משך המופע 75 דק",
+  "drive_approx": true,
+  "drive_min": 22,
+  "end": 1792872000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_beit_yad_labanim_raanana|2026-10-24|21:00",
   "lat": 32.1860244,
   "lon": 34.8678359,
-  "drive_min": 22
+  "notable": true,
+  "notes": [],
+  "price_from": 105,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1792864800,
+  "title": "אורי ברויר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a580cb20cf11c55961a02ee",
+   "tickets": "https://www.leaan.co.il/event/6a580cb20cf11c55961a02ee"
+  },
+  "venue_id": "v_beit_yad_labanim_raanana"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": true,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_c28ccf8bdc|2026-10-24|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 159,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792864800,
+  "title": "אלי פיניש - מופע חדש!",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/66520-%D7%90%D7%9C%D7%99-%D7%A4%D7%99%D7%A0%D7%99%D7%A9-%D7%9E%D7%95%D7%A4%D7%A2-%D7%97%D7%93%D7%A9",
+   "tickets": null
+  },
+  "venue_id": "v_c28ccf8bdc"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_f12491f371|2026-10-24|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 119,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792864800,
+  "title": "חגית גינזבורג במופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/51945-%D7%97%D7%92%D7%99%D7%AA-%D7%92%D7%99%D7%A0%D7%96%D7%91%D7%95%D7%A8%D7%92-%D7%91%D7%9E%D7%95%D7%A4%D7%A2-%D7%A1%D7%98%D7%A0%D7%93%D7%90%D7%A4",
+   "tickets": null
+  },
+  "venue_id": "v_f12491f371"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "Balishag x kiara היא מסיבת היפ הופ ב-24 באוקטובר בשעה 22:00 — מופע פריצה חי של BALISHAG שמשלב מקצבי אולד סקול, ניוסקול ורגאטון. חובבי צלילי Hip Hop יקבלו הפקה קצבית ומלאת אנרגיה המיועדת לקהל של גילאי 18 ומעלה. על עמדת התקליטן יעלו DJ L-KANA לצד DJ BAR PERETZ, שינגנו סטים חמים לאורך הלילה וילוו את ה",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_d817153797|2026-10-24|22:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1792868400,
+  "title": "Balishag x kiara 🖤🔥",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/balishag-x-kiara-2303",
+   "tickets": null
+  },
+  "venue_id": "v_d817153797"
  }
 ]

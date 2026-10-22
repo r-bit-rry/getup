@@ -23,8 +23,12 @@ def reg(**o):
 class GeoTest(unittest.TestCase):
     def test_a_venue_with_coordinates_is_never_geocoded_again(self):
         calls = []
-        geo.fill(venues.load('.'), fetch=fake({'nominatim': NOMINATIM, 'osrm': OSRM}, calls))
-        self.assertFalse([u for u in calls if 'nominatim' in u])   # every fixture venue has a point
+        # the live registry also holds unresolved halls; only the pinned ones are claimed here
+        pinned = {vid: v for vid, v in venues.load('.').items()
+                  if v.get('lat') is not None and v.get('lon') is not None}
+        self.assertTrue(pinned)
+        geo.fill(pinned, fetch=fake({'nominatim': NOMINATIM, 'osrm': OSRM}, calls))
+        self.assertFalse([u for u in calls if 'nominatim' in u])
 
     def test_a_missing_point_is_geocoded_once_and_a_missing_duration_is_cached(self):
         registry, geocoded, failed = geo.fill(reg(), fetch=fake({'nominatim': NOMINATIM, 'osrm': OSRM}))

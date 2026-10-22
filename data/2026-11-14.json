@@ -1,0 +1,336 @@
+[
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-14",
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנוסף: -העברת השראה חיובית לילדים ולמבוגרים. -תוכלו לשאול את אורי שאלות, והוא יענה לכם באופן אישי על שאלותיכם. - בתום הסיור תהיה לכם הזדמנות לראות במו עיניכם ובזמן אמת מופע בלתי נשכח של אורי, כזה אשר…",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1794659447,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_urigeller_museum_tlv|2026-11-14|13:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794654000,
+  "title": "מוזיאון אורי גלר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6ad5cfc47a7fa06a580179b6",
+   "tickets": "https://www.leaan.co.il/event/6ad5cfc47a7fa06a580179b6"
+  },
+  "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": "ראשון לציון",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-14",
+  "desc": "Urban Music היא מסיבה ב-Altalena St 8, ראשון לציון, ב-14 בנובמבר בשעה 14:00 — הפקה הכוללת מערכת הגברה מסוג ליין אריי, מתחם עם צילייה, טפטפות מים ופינות ישיבה. הכניסה אל מסיבת Urban Music מיועדת לקהל בגילאי 26 ומעלה שמחפש מסיבות בראשון לציון. מומלץ להקדים רכישת כרטיסים ל-Urban Music לקראת פרסום הליין",
+  "drive_approx": false,
+  "drive_min": 38,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_d5c82c169d|2026-11-14|14:00",
+  "lat": 31.9905696,
+  "lon": 34.7627203,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1794657600,
+  "title": "Urban Music 14/11",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/urban-music-14-11-2315",
+   "tickets": null
+  },
+  "venue_id": "v_d5c82c169d"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-14",
+  "desc": "קומדיה מטורפת בכיכובו של יגאל עדיקא, שצוחקת על כל מה שהולך לקרות לזוגיות שלנו בעידן ה AI. גבר שנימצא בהליכי פרידה מאשתו, מחליט לרכוש לעצמו אשה מכאנית שמבוססת על בינה מלאכותית. אחת כזו שרק תשמח אותו, שתעשה כל מה שהוא רוצה ובעיקר לא תתלונן כל היום. אך המציאות יוצאת מכלל שליטה, והאשה המלאכותית מטריפה את כל מי שנימצא בסביבה. משתתפים: יגאל עדיקא, דין הפנר, שרון מלכי, פיני טבגר, מיכאל וילוז׳ני. מאת: עוזי וייל ורוני סיני בימוי: אריק אביגדור תאורה: זיו וולושין תפאורה: במבי פרידמן תלבושות: לי אביטל קרדיט צילום : פיני סילוק",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1794690000,
+  "enrichment": [
+   "biluim: https://biluim.co.il/events/e/1960-%D7%96%D7%95%D7%92%D7%99%D7%95%D7%AA-ai"
+  ],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_1ab053f766|2026-11-14|21:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794682800,
+  "title": "זוגיות AI",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a9544aa47ad592742a1464f",
+   "tickets": "https://www.leaan.co.il/event/6a9544aa47ad592742a1464f"
+  },
+  "venue_id": "v_1ab053f766"
+ },
+ {
+  "city": "עפולה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-14",
+  "desc": "אורי ברויר במופע סטנדאפ מקורי, מבריק ובעיקר מצחיק! עם המראה החנוני הקלאסי והסגנון הייחודי, אורי לוקח אותנו אל תוך חייו האישיים והמצחיקים! עם הומור עצמי, איכויות במה ואלתורים הוא סוחף את הקהל לפרצי צחוק בלתי נגמרים... אורי ברויר מוכר לנו מתכניות הטלוויזיה הרבות בהן השתתף, ביניהן: \"היפה החנון\", \"צחוק מהעבודה\" \"החברים של נאור\" ועוד. משך המופע : 75 דק כרטיסים להופעות סטנדאפ של אורי ברויר - כל התאריכים בלוח המלא",
+  "drive_approx": false,
+  "drive_min": 54,
+  "end": 1794690000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_4c801f6d77|2026-11-14|21:00",
+  "lat": 32.61222,
+  "lon": 35.288091,
+  "notable": true,
+  "notes": [],
+  "price_from": 140,
+  "price_max": 140,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794682800,
+  "title": "אורי ברויר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6ad4d09f406acf66015d8fe9",
+   "tickets": "https://www.leaan.co.il/event/6ad4d09f406acf66015d8fe9"
+  },
+  "venue_id": "v_4c801f6d77"
+ },
+ {
+  "city": "אשדוד",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-14",
+  "desc": "עופרה מחזמר מרגש בעקבות חייה ושיריה של כוכבת העל הישראלית שכבשה את העולם – עופרה חזה. מילדותה בשכונת התקווה ועד הבמות הגדולות של אירופה, מהצלחות ענק כמו \"תפילה\", \"אם ננעלו\", \"גלבי\" \"חי\" ועד הסיפור האישי שנגע בלב של כולנו – זהו מחזמר שמביא את הפסקול של המדינה אל הבמה, כמו שלא שמעתם מעולם. \" זהו מכתב אהבה לעופרה חזה, דמות שהפכה לסמל, ולפסקול של דור שלם. כתיבה ובימוי: גדי צדקה ומיכל אמדורסקי ניהול מוסיקאלי ועיבודים: גיא מנור ייעוץ מוזיקלי: יהונתן פרלמן הדרכת שחקנים: פנינה ברט צדקה כוריאוגרפיה: מיכל אמדורסקי ע. כוראוגרף : לי – חי דהן עיצוב תפאורה: בנו פרידל עיצוב ועריכת וידאו: אריק אביגדור עיצוב…",
+  "drive_approx": true,
+  "drive_min": 57,
+  "end": 1794690000,
+  "enrichment": [],
+  "expensive": true,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_5617af0c8e|2026-11-14|21:00",
+  "lat": 31.7977314,
+  "lon": 34.6529922,
+  "notable": true,
+  "notes": [],
+  "price_from": 249,
+  "price_max": 249,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794682800,
+  "title": "עפרה",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a982bc434bbaedea7d3556d",
+   "tickets": "https://www.leaan.co.il/event/6a982bc434bbaedea7d3556d"
+  },
+  "venue_id": "v_5617af0c8e"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-14",
+  "desc": "אלמוג שור: לוח הופעות סטנדאפ 2026 | כרטיסים רשמיים אלמוג שור עושה קרקס : לא עוד מופע סטנדאפ סטנדאפ של אלמוג שור, אורחים מטורפים, פוראח והפתעות ואפס מושג מה הולך לקרות מופע סטנדאפ חד, מצחיק, מופרע, נוצץ וחסר מעצורים שהוא חוויה מהרגע שנכנסתם. במופע יהיו אורחים שלא ברור מי אישר להם להיכנס, הפתעות שלא היו בתכנון, מסיבה בסוף והרבה רגעים שאי אפשר להסביר למי שלא היה שם. ברוכים הבאים לקרקס אלמוג שור היא סטנדאפיסטית ויוצרת תוכן המוכרת מהסטנדאפ שלה על במות ברחבי הארץ, כולל ספיישל סטנדאפ ״בעירום מלא״. השתתפה בתכניות הטלוויזיה ״בייבי בום”, ״קומדי סטאר” ו-״מתחילים מאפס”, וכיכבה בתכנית הרשת המצליחה…",
+  "drive_approx": false,
+  "drive_min": 30,
+  "end": 1794690000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_624b72dd01|2026-11-14|21:00",
+  "lat": 32.0831979,
+  "lon": 34.8348601,
+  "notable": false,
+  "notes": [],
+  "price_from": 79,
+  "price_max": 79,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794682800,
+  "title": "אלמוג שור",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6aa92ec6bbd97de6b847a270",
+   "tickets": "https://www.leaan.co.il/event/6aa92ec6bbd97de6b847a270"
+  },
+  "venue_id": "v_624b72dd01"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-14",
+  "desc": "חגית גינזבורג, אשפית האלתורים והמבטא הארגנטינאי, מביאה לבמה סטנדאפ אחר מכל שאתם מכירים, מסע נטול זיעה במסעות חייה עם השם הבלתי נסבל חגית, מחשבות על העולם והחיים, גיל 40, רווקות מאוחרת, חברות עם ילדים, דימוי גוף, בחירות גרועות, סקס כושל, התמכרות לזארה, הורים מטורללים והרבה שיחות ספונטניות עם הקהל. תכינו אדוויל כי למחרת תכאב לכם הלסת מרוב צחוק וגם כי אתם סתם מבוגרים. משך המופע: 90 דקות גילאי 18+ קרדיט לצילום - שריי עוז",
+  "drive_approx": false,
+  "drive_min": 25,
+  "end": 1794690000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_abbb77c465|2026-11-14|21:00",
+  "lat": 32.1345683,
+  "lon": 34.8298069,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794682800,
+  "title": "חגית גינזבורג",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6aabb4f4b8187fea91a50b23",
+   "tickets": "https://www.leaan.co.il/event/6aabb4f4b8187fea91a50b23"
+  },
+  "venue_id": "v_abbb77c465"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-14",
+  "desc": "עידן ניידיץ במופע סטנדאפ חדש! לכל אחד מאיתנו יש סוללה, והחיים… שואבים לנו אותה בלי בושה. עידן ניידיץ חוזר לבמה עם מופע חדש, אישי וחד, שבודק איך ההורות, הזוגיות, וקבוצות הווטסאפ שאף אחד לא ביקש, מרוקנות לנו את הסוללה פיזית ונפשית. זה מופע על החיים עצמם, על ההיגיון העקום שאנחנו מתעקשים לקרוא לו “שגרה”, ועל החיפוש אחר רגע אחד של שקט שיטעין אותנו מחדש, או לפחות ישאיר אותנו קצת פחות מרוקנים",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1794690000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_adb5d182d3|2026-11-14|21:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794682800,
+  "title": "עידן ניידיץ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a706e6a80f9da62bccd8ff6",
+   "tickets": "https://www.leaan.co.il/event/6a706e6a80f9da62bccd8ff6"
+  },
+  "venue_id": "v_adb5d182d3"
+ }
+]

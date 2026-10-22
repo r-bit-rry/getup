@@ -1,0 +1,86 @@
+[
+ {
+  "city": "באר שבע",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-20",
+  "desc": "The chamber Orchestra at Symphonians will bring magical melodies of Hayao Miyazaki’s films to life on stage. These legendary animated films have long ceased to be just cartoons - they are whole worlds full of wonders, deep emotions and, of course, unforgettable music. Now the amazing soundtracks of Joe Hisaishi and other composers that sounded in \"Gone with the Ghosts\", \"My Neighbor Totoro\", \"The Walking Castle\" and other masterpieces will find a new, lively sound. Music from the Miyazaki universe is a separate art. It is able to transport the listener to the Porco Rosso plane flying over the…",
+  "drive_approx": true,
+  "drive_min": 106,
+  "end": 1795208400,
+  "enrichment": [],
+  "expensive": false,
+  "format": "orchestra",
+  "free": false,
+  "free_until": null,
+  "id": "v_e60b62f0a1|2026-11-20|20:00",
+  "lat": 31.2457442,
+  "lon": 34.7925181,
+  "notable": true,
+  "notes": [],
+  "price_from": 125,
+  "price_max": null,
+  "scene": [
+   "קלאסי"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1795197600,
+  "title": "Music of Miyazaki World performed by The Symphonians",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a7858c6f6453ff7d8581037",
+   "tickets": "https://www.leaan.co.il/event/6a7858c6f6453ff7d8581037"
+  },
+  "venue_id": "v_e60b62f0a1"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-20",
+  "desc": "FRIDAY MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-20 בנובמבר — רחבה פתוחה תחת כיפת השמיים עם פתיחת שערים ב-23:00, מול הים ובאווירת open air קבועה של ימי שישי. מסיבת FRIDAY MAINSTREAM נשענת על ליין אפ קבוע של TAIR ALON, OFEK ASAF, AMIT ORIN ו-MAX DAVID, עם 100% Mainstream,",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_bff99ec2e8|2026-11-20|23:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1795208400,
+  "title": "FRIDAY MAINSTREAM | 20.11",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/friday-mainstream-20-11-1953",
+   "tickets": null
+  },
+  "venue_id": "v_bff99ec2e8"
+ }
+]

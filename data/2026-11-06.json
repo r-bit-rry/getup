@@ -1,0 +1,166 @@
+[
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-06",
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנוסף: -העברת השראה חיובית לילדים ולמבוגרים. -תוכלו לשאול את אורי שאלות, והוא יענה לכם באופן אישי על שאלותיכם. - בתום הסיור תהיה לכם הזדמנות לראות במו עיניכם ובזמן אמת מופע בלתי נשכח של אורי, כזה אשר…",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1793964647,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_urigeller_museum_tlv|2026-11-06|12:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793959200,
+  "title": "מוזיאון אורי גלר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6ad5cf2e4114175d295a2d91",
+   "tickets": "https://www.leaan.co.il/event/6ad5cf2e4114175d295a2d91"
+  },
+  "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": "ראש פינה",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-06",
+  "desc": "ארז שלם המוכר לכם כארז שלם ! סטנדאפיסט שחקן ויוצר. השתתף וכתב בתוכניות ״הנחלה״, \"צחוק מעבודה״ ועוד תוכניות רבות במהלך השנים. מופיע על במות הסטנד-אפ מעל לעשרים שנה ומשחק במקביל בהצגה ״שוקו וניל ״ ו״זוג משמיים״ כיום רץ עם מופע סטנד-אפ חדש שמשלב בתוכו אלתורים אקטואליה זוגיות ועוד הרבה נושאים. במופע ארז לא מדבר על סקס אלא על מחסור בסקס😝 המופעים מצולמים מתאים לגילאי 18+",
+  "drive_approx": false,
+  "drive_min": 100,
+  "end": 1794000600,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_babdf14f28|2026-11-06|21:30",
+  "lat": 32.9684665,
+  "lon": 35.5382663,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793993400,
+  "title": "ארז שלם",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a98119f2434873d8a1165a4",
+   "tickets": "https://www.leaan.co.il/event/6a98119f2434873d8a1165a4"
+  },
+  "venue_id": "v_babdf14f28"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-06",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-11-06|22:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793995200,
+  "title": "אוזן על פטיפון",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/43127-%D7%90%D7%95%D7%96%D7%9F-%D7%A2%D7%9C-%D7%A4%D7%98%D7%99%D7%A4%D7%95%D7%9F",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-06",
+  "desc": "FRIDAY MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-6 בנובמבר — חוויית open air על הים עם רחבה פתוחה, פתיחת שערים ב-23:00 וקונספט של 100% Mainstream תחת כיפת השמיים. מסיבת FRIDAY MAINSTREAM נשענת על ליין אפ קבוע שכולל את TAIR ALON, OFEK ASAF, AMIT ORIN ו-MAX DAVID. זה ערב שמ",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_bff99ec2e8|2026-11-06|23:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793998800,
+  "title": "FRIDAY MAINSTREAM | 06.11",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/friday-mainstream-06-11-1950",
+   "tickets": null
+  },
+  "venue_id": "v_bff99ec2e8"
+ }
+]

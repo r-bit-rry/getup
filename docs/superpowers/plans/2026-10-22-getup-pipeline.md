@@ -1528,28 +1528,36 @@ class CliTest(unittest.TestCase):
 - Consumes: `python3 -m tools.getup build` and the client suite as the acceptance suite.
 - Produces: committed data that the finished client renders.
 
-- [ ] **Step 1: Run the pipeline over the committed capture**
+- [x] **Step 1: Run the pipeline over the committed capture**
 
-`python3 -m tools.getup build --today 2026-10-21 --from-dir docs/research/2026-10-21 --sources leaan,popit`
+`python3 -m tools.getup build --today 2026-10-21 --from-dir docs/research/2026-10-21 --sources leaan popit`
 Expected: exit 0; `git status` shows the seven fixture days rewritten, new days through `2026-11-19` (30 dates from `2026-10-21`), `venue/venues.json` grown by about 89 provisional venues — the ones whose city the capture knows also gain a city centroid and cached `drive_min` — and `data/index.json` reporting `unpinned` above zero with `dropped_no_venue` equal to the Popit items whose title says `מיקום לא ידוע`.
 
-- [ ] **Step 2: Run the client suite against the new data** — `node --test` → all green, including the two unpinned tests from Task 9. This is the bucketing assertion from `tests/data.test.js` proving §7.4.1 on real output.
+- [x] **Step 2: Run the client suite against the new data** — `node --test` → all green, including the two unpinned tests from Task 9. This is the bucketing assertion from `tests/data.test.js` proving §7.4.1 on real output.
 
-- [ ] **Step 3: Classify what is pending and rebuild**
+- [x] **Step 3: Classify what is pending and rebuild**
 
-`python3 -m tools.getup pending --today 2026-10-21 --from-dir docs/research/2026-10-21 --sources leaan,popit` → the agent answers `build/labels.pending.jsonl` with its own model access → `python3 -m tools.getup labels --labels build/labels.jsonl` → rebuild. Expected: `data/2026-10-2*.json` now carry real `scene` chips in the portal; `git status` shows only intended changes.
+`python3 -m tools.getup pending --today 2026-10-21 --from-dir docs/research/2026-10-21 --sources leaan popit` → the agent answers `build/labels.pending.jsonl` with its own model access → `python3 -m tools.getup labels --labels build/labels.jsonl` → rebuild. Expected: `data/2026-10-2*.json` now carry real `scene` chips in the portal; `git status` shows only intended changes.
 
-- [ ] **Step 4: Confirm the second build changed nothing**
+- [x] **Step 4: Confirm the second build changed nothing**
 
 `git diff --stat data/ venue/` after an identical `build` with the same `--today` → empty. A different `--today` legitimately moves `seen.last` inside the day files, every venue's `seen_last` in `venue/venues.json`, and `generated_at`; nothing else.
 
-- [ ] **Step 5: Prove the live adapters once, by hand**
+- [x] **Step 5: Prove the live adapters once, by hand**
 
 `GETUP_LIVE=1 python3 -m unittest tests_py.test_scan_leaan tests_py.test_biluim -v` on the phone host. Expected: the Leaan category pages still answer and yield >0 drafts; the Biluim listing still yields cards. If they do not, fix the adapter before the scheduler exists — this is the hidden cost §10 names.
 
-- [ ] **Step 6: Commit** — `git add data venue && git commit -m "data: first pipeline run over the research capture"`
+- [x] **Step 6: Commit** — `git add data venue && git commit -m "data: first pipeline run over the research capture"`
 
 ---
+
+
+**Accepted 2026-10-22, live.** No `--from-dir`: the run fetched all five URLs from
+`leaan.co.il`, `popit.events` and `biluim.co.il` (see
+`.superpowers/sdd/2026-10-22-getup-pipeline/acceptance-report.md`). `--today 2026-10-22`,
+30 dates through `2026-11-20`. `--sources leaan,popit` above was a typo: argparse takes
+`--sources leaan popit`. Ticking the boxes means the acceptance happened, not that the
+commands ran byte-for-byte as written.
 
 ## Notes the reader will want
 

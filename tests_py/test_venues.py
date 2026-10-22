@@ -116,7 +116,14 @@ class ResolveTest(unittest.TestCase):
         self.assertIsNone(venues.resolve(self.reg, '   ', ''))
 
     def test_a_name_with_no_city_uses_the_one_hall_the_registry_knows(self):
-        self.assertEqual(venues.resolve(self.reg, 'בית יד לבנים', None),
+        # a local registry: the live one now holds this name in more than one city
+        reg = {'v_beit_yad_labanim_raanana': {
+            'id': 'v_beit_yad_labanim_raanana', 'name': 'בית יד לבנים, רעננה', 'aliases': [],
+            'city': 'רעננה', 'lat': None, 'lon': None, 'drive_min': None,
+            'coords_source': 'unresolved', 'tier': 'room', 'parking': None,
+            'access': None, 'transport': None,
+            'social': {'instagram': None, 'facebook': None}}}
+        self.assertEqual(venues.resolve(reg, 'בית יד לבנים', None),
                          'v_beit_yad_labanim_raanana')
 
     def test_a_city_named_inside_the_venue_string_is_the_city(self):

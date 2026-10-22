@@ -1,5 +1,6 @@
 """Draft -> record: title form, bucket day, and the one trust boundary before anything is written."""
 
+import html
 import logging
 import math
 import re
@@ -33,6 +34,7 @@ DESC_LIMIT = 600
 EMOJI = re.compile('[\U0001f000-\U0001faff\u2600-\u27bf\u2190-\u21ff\ufe0f\u200d]')
 PUNCT = re.compile(r'[^\w\s]')
 APOSTROPHE = re.compile('[\'"]')
+TAG = re.compile(r'</?[a-zA-Z][^>]*>')          # Leaan publishes its blurbs as HTML
 
 
 def norm_title(text) -> str:
@@ -64,7 +66,8 @@ def id_for(venue_id: str, day: str, start: int) -> str:
 
 
 def desc_cap(text, limit: int = DESC_LIMIT) -> str:
-    value = ' '.join(str(text or '').split())
+    value = TAG.sub(' ', html.unescape(str(text or '')))
+    value = ' '.join(value.split())
     if len(value) <= limit:
         return value
     cut = value[:limit]

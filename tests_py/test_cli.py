@@ -32,6 +32,7 @@ class CliTest(unittest.TestCase):
     def test_pending_writes_a_batch_and_labels_merge_it(self):
         with tempfile.TemporaryDirectory() as root:
             fresh(root)
+            write.write_json(write.labels_file(root), {})   # the committed cache now covers this capture
             self.assertEqual(cli.main(['pending', '--root', root, '--today', TODAY,
                                        '--from-dir', CAPTURE, '--sources', 'leaan']), 0)
             with open(f'{root}/build/labels.pending.jsonl', encoding='utf-8') as f:

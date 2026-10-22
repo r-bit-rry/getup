@@ -1,0 +1,208 @@
+[
+ {
+  "city": null,
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-10",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-11-10|19:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 65,
+  "price_max": 75,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1794330000,
+  "title": "בואו לאכול אותי (הצגה 1)",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/43884-%D7%91%D7%95%D7%90%D7%95-%D7%9C%D7%90%D7%9B%D7%95%D7%9C-%D7%90%D7%95%D7%AA%D7%99-%D7%94%D7%A6%D7%92%D7%94-1",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-10",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_a6e32bb544|2026-11-10|20:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1794335400,
+  "title": "יהודית כץ ואיתמר כהן, החיים במאה 21 - מכורים, אבל מתפקדים: שיחה על התמכרויות מודרניות",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/1335-%D7%99%D7%94%D7%95%D7%93%D7%99%D7%AA-%D7%9B%D7%A5-%D7%95%D7%90%D7%99%D7%AA%D7%9E%D7%A8-%D7%9B%D7%94%D7%9F-%D7%94%D7%97%D7%99%D7%99%D7%9D-%D7%91%D7%9E%D7%90%D7%94-21-%D7%9E%D7%9B%D7%95%D7%A8%D7%99%D7%9D-%D7%90%D7%91%D7%9C-%D7%9E%D7%AA%D7%A4%D7%A7%D7%93%D7%99%D7%9D-%D7%A9%D7%99%D7%97%D7%94-%D7%A2",
+   "tickets": null
+  },
+  "venue_id": "v_a6e32bb544"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-10",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-11-10|20:30",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1794335400,
+  "title": "יובל פלוטקין – מה למדתי מציתות לזרים",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/64-%D7%99%D7%95%D7%91%D7%9C-%D7%A4%D7%9C%D7%95%D7%98%D7%A7%D7%99%D7%9F-%D7%9E%D7%94-%D7%9C%D7%9E%D7%93%D7%AA%D7%99-%D7%9E%D7%A6%D7%99%D7%AA%D7%95%D7%AA-%D7%9C%D7%96%D7%A8%D7%99%D7%9D",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ },
+ {
+  "city": null,
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-10",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-11-10|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 65,
+  "price_max": 75,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1794337200,
+  "title": "בואו לאכול אותי (הצגה 2)",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/43883-%D7%91%D7%95%D7%90%D7%95-%D7%9C%D7%90%D7%9B%D7%95%D7%9C-%D7%90%D7%95%D7%AA%D7%99-%D7%94%D7%A6%D7%92%D7%94-2",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-10",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_a794f8af4d|2026-11-10|21:15",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 94,
+  "price_max": 109,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1794338100,
+  "title": "נמרוד הראל, כוח ההשפעה ביום יום ובעסקים",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/88-%D7%A0%D7%9E%D7%A8%D7%95%D7%93-%D7%94%D7%A8%D7%90%D7%9C-%D7%9B%D7%95%D7%97-%D7%94%D7%94%D7%A9%D7%A4%D7%A2%D7%94-%D7%91%D7%99%D7%95%D7%9D-%D7%99%D7%95%D7%9D-%D7%95%D7%91%D7%A2%D7%A1%D7%A7%D7%99%D7%9D",
+   "tickets": null
+  },
+  "venue_id": "v_a794f8af4d"
+ }
+]

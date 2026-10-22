@@ -1,0 +1,168 @@
+[
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-13",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_a0cbe520f1|2026-11-13|09:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 90,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1794555000,
+  "title": "פרופ' עוזי רבי, שישי אקטואלי",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/17066-%D7%A4%D7%A8%D7%95%D7%A4-%D7%A2%D7%95%D7%96%D7%99-%D7%A8%D7%91%D7%99-%D7%A9%D7%99%D7%A9%D7%99-%D7%90%D7%A7%D7%98%D7%95%D7%90%D7%9C%D7%99",
+   "tickets": null
+  },
+  "venue_id": "v_a0cbe520f1"
+ },
+ {
+  "city": "כפר סבא",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-13",
+  "desc": "קומדיה מטורפת בכיכובו של יגאל עדיקא, שצוחקת על כל מה שהולך לקרות לזוגיות שלנו בעידן ה AI. גבר שנימצא בהליכי פרידה מאשתו, מחליט לרכוש לעצמו אשה מכאנית שמבוססת על בינה מלאכותית. אחת כזו שרק תשמח אותו, שתעשה כל מה שהוא רוצה ובעיקר לא תתלונן כל היום. אך המציאות יוצאת מכלל שליטה, והאשה המלאכותית מטריפה את כל מי שנימצא בסביבה. משתתפים: יגאל עדיקא, דין הפנר, שרון מלכי, פיני טבגר, מיכאל וילוז׳ני. מאת: עוזי וייל ורוני סיני בימוי: אריק אביגדור תאורה: זיו וולושין תפאורה: במבי פרידמן תלבושות: לי אביטל קרדיט צילום : פיני סילוק",
+  "drive_approx": false,
+  "drive_min": 22,
+  "end": 1794605400,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_d5dedf263c|2026-11-13|21:30",
+  "lat": 32.1766984,
+  "lon": 34.9052622,
+  "notable": true,
+  "notes": [],
+  "price_from": 139,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794598200,
+  "title": "זוגיות AI",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a73289036a0cb761f3193a2",
+   "tickets": "https://www.leaan.co.il/event/6a73289036a0cb761f3193a2"
+  },
+  "venue_id": "v_d5dedf263c"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-13",
+  "desc": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ השחקן והקומיקאי דניאל סטיופין (אנטולי \"קופה ראשית\") מגיע לקדמת הבמה עם מופע סטנדאפ מיוחד, מרגש וקורע מצחוק. דניאל לוקח את הקהל למסע של לילה אחד מטורף ששינה את חייו מקצה לקצה, מספר על הילדות באוקראינה, על ההצלחה של \"קופה ראשית\", תחושת זרות, חרדות וזוגיות – והכל בתיאטרליות ויכולת הגשה קומית הייחודיות רק לו. משך המופע כ-70 דקות המופע מיועד לגילאי 18 ומעלה כרטיסים להופעות סטנדאפ של דניאל סטיופין - כל התאריכים בלוח המלא",
+  "drive_approx": false,
+  "drive_min": 25,
+  "end": 1794607200,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_abbb77c465|2026-11-13|22:00",
+  "lat": 32.1345683,
+  "lon": 34.8298069,
+  "notable": true,
+  "notes": [],
+  "price_from": 129,
+  "price_max": 129,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794600000,
+  "title": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/event/6a33d4e07271e07fe6655d97",
+   "tickets": "https://www.leaan.co.il/event/6a33d4e07271e07fe6655d97"
+  },
+  "venue_id": "v_abbb77c465"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-13",
+  "desc": "FRIDAY MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-13 בנובמבר — רחבה פתוחה תחת כיפת השמיים עם פתיחת שערים ב-23:00 ולוקיישן על הים. מסיבת FRIDAY MAINSTREAM נשענת על קו קבוע של 100% Mainstream, עם ליין אפ שכולל את TAIR ALON, OFEK ASAF, AMIT ORIN ו-MAX DAVID. זה ערב שמכוון לקה",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_bff99ec2e8|2026-11-13|23:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1794603600,
+  "title": "FRIDAY MAINSTREAM | 13.11",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/friday-mainstream-13-11-1952",
+   "tickets": null
+  },
+  "venue_id": "v_bff99ec2e8"
+ }
+]

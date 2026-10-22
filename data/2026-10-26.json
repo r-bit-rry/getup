@@ -1,43 +1,88 @@
 [
  {
-  "id": "v_ozen_tlv|2026-10-26|21:00",
-  "title": "לירית בלבן - בדיקת חומרים",
-  "venue_id": "v_ozen_tlv",
   "city": "תל אביב",
-  "start": 1793041200,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-26",
+  "desc": "לירית בלבן- בדיקת חומרים מופע ציני, חד ומטריף עם קטעים קורעים על החיים שלה ושל כולנו שמועברים בדרך ייחודית ביותר. אם יש דמות טלוויזיונית שאי אפשר לשכוח – זו נעמי כפית מ\"הבורר\" אם תרצו, אז תכלס גם פזית חכם מ\"חברות\" מאחורי הדמויות האלה עומדת האישה שהפכה אותן לבלתי נשכחות: לירית בלבן במופע ציני, חד ומטריף עם קטעים קורעים על החיים שלה ושל כולנו שמועברים בדרך ייחודית ביותר. יַאלְלָה בַּלָּבָן !!! משך המופע: כשעה ורבע מגיל 18 ומעלה פתיחת דלתות 20:00 !",
+  "drive_approx": true,
+  "drive_min": 29,
   "end": 1793048400,
-  "price_from": 55,
-  "price_max": null,
+  "enrichment": [
+   "biluim: https://biluim.co.il/events/e/1958-%D7%9C%D7%99%D7%A8%D7%99%D7%AA-%D7%91%D7%9C%D7%91%D7%9F-%D7%91%D7%93%D7%99%D7%A7%D7%AA-%D7%97%D7%95%D7%9E%D7%A8%D7%99%D7%9D"
+  ],
+  "expensive": false,
+  "format": "standup",
   "free": false,
   "free_until": null,
-  "soldout": false,
-  "format": "standup",
+  "id": "v_ozen_tlv|2026-10-26|21:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 55,
+  "price_max": null,
   "scene": [
    "סטנדאפ"
   ],
-  "crowd": [],
-  "daypart": "night",
-  "expensive": false,
-  "notable": false,
-  "commitment": "jump_in",
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
   "source": {
    "class": "ticketing",
    "name": "leaan"
   },
+  "start": 1793041200,
+  "title": "לירית בלבן - בדיקת חומרים",
   "urls": {
-   "tickets": "https://www.leaan.co.il/event/6a6f92fb508c2fdc0abaa46b",
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a6f92fb508c2fdc0abaa46b"
+   "source": "https://www.leaan.co.il/event/6a6f92fb508c2fdc0abaa46b",
+   "tickets": "https://www.leaan.co.il/event/6a6f92fb508c2fdc0abaa46b"
   },
-  "notes": [],
-  "desc": "לירית בלבן- בדיקת חומרים מופע ציני, חד ומטריף עם קטעים קורעים על החיים שלה ושל כולנו שמועברים בדרך ייחודית ביותר. אם יש דמות טלוויזיונית שאי אפשר לשכוח – זו נעמי כפית מ\"הבורר\" אם תרצו, אז תכלס גם פזית חכם מ\"חברות\" מאחורי הדמויות האלה עומדת האישה שהפכה אותן לבלתי נשכחות: לירית בלבן במופע ציני, חד ומטריף עם קטעים קורעים על החיים שלה ושל כולנו שמועברים בדרך ייחודית ביותר. יַאלְלָה בַּלָּבָן !!! משך ה",
+  "venue_id": "v_ozen_tlv"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-26",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
   "enrichment": [],
-  "seen": {
-   "first": "2026-10-21",
-   "last": "2026-10-21"
-  },
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-10-26|22:30",
   "lat": 32.0852997,
   "lon": 34.7818064,
-  "drive_min": 29
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793046600,
+  "title": "ELECTION EVE @ OZEN, THE MAINSTREAM VOTE",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/58828-election-eve-ozen-the-mainstream-vote",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
  }
 ]

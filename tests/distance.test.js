@@ -66,6 +66,26 @@ test('a hung router is aborted on timeout and returns null like any failure', as
   assert.equal(aborted, true);
 });
 
+test('an event without coordinates is skipped, not fatal for the batch', async () => {
+  let called;
+  const r = await recomputeDistances(
+    [{ lat: 32.1, lon: 34.8 }, { lat: null, lon: null }, { lat: 32.2, lon: 34.9 }],
+    { lat: 32, lon: 34.7 },
+    { fetchImpl: async url => { called = url; return { ok: true, json: async () => ({ code: 'Ok', durations: [[0, 600, 1200]] }) }; } },
+  );
+  assert.deepEqual(r, [10, null, 20]);
+  assert.doesNotMatch(called, /null/);
+  assert.equal((called.match(/;/g) || []).length, 2);   // origin + two pinned destinations
+});
+
+test('a list with no pinned event asks the router nothing', async () => {
+  let calls = 0;
+  const r = await recomputeDistances([{ lat: null, lon: null }], { lat: 32, lon: 34 },
+    { fetchImpl: async () => { calls += 1; return { ok: true, json: async () => ({}) }; } });
+  assert.deepEqual(r, [null]);
+  assert.equal(calls, 0);
+});
+
 test('coordinates are rounded to 3 decimals before they leave the browser', async () => {
   let called;
   const r = await recomputeDistances(

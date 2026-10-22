@@ -12,13 +12,16 @@ export async function recomputeDistances(events, centre, { fetchImpl, timeoutMs 
   const list = Array.isArray(events) ? events : [];
   if (!list.length) return [];
   if (!Number.isFinite(centre?.lat) || !Number.isFinite(centre?.lon)) return null;
-  if (list.length > MAX_DESTS) return null;
-  // One bad coordinate would shift every later index; refuse the whole batch.
-  if (list.some(ev => !Number.isFinite(ev?.lat) || !Number.isFinite(ev?.lon))) return null;
+  // An unpinned event costs its own label, not everyone's: it stays out of the
+  // request and gets null back in its place.
+  const pinned = [];
+  list.forEach((ev, i) => { if (Number.isFinite(ev?.lat) && Number.isFinite(ev?.lon)) pinned.push(i); });
+  if (!pinned.length) return list.map(() => null);
+  if (pinned.length > MAX_DESTS) return null;
 
   // ~110 m is enough for a drive minute; the exact position never leaves the browser.
   const round3 = n => Math.round(n * 1000) / 1000;
-  const coords = [[centre.lon, centre.lat], ...list.map(ev => [ev.lon, ev.lat])]
+  const coords = [[centre.lon, centre.lat], ...pinned.map(i => [list[i].lon, list[i].lat])]
     .map(([lon, lat]) => `${round3(lon)},${round3(lat)}`)
     .join(';');
   const url = `${OSRM}/${coords}?annotations=duration`;
@@ -30,11 +33,14 @@ export async function recomputeDistances(events, centre, { fetchImpl, timeoutMs 
     if (!res?.ok) return null;
     const body = await res.json();
     const row = body?.durations?.[0];
-    if (body?.code !== 'Ok' || !Array.isArray(row) || row.length !== list.length + 1) return null;
+    if (body?.code !== 'Ok' || !Array.isArray(row) || row.length !== pinned.length + 1) return null;
     // OSRM puts null in an unreachable cell; rounding it would turn "unknown" into a 0-minute drive.
     const secs = row.slice(1);
     if (!secs.every(Number.isFinite)) return null;
-    return secs.map(sec => Math.round(sec / 60));
+    // One entry per input event, so callers can index the result by their own list.
+    const out = list.map(() => null);
+    pinned.forEach((index, k) => { out[index] = Math.round(secs[k] / 60); });
+    return out;
   } catch {
     return null; // offline, malformed, or aborted by the timeout
   } finally {

@@ -53,6 +53,11 @@ test('leaveText gives a started show one line and never invents an end', () => {
   assert.match(leaveText({ start: later, end: later + 3600, drive_min: 20 }, now), /^צא /);
 });
 
+test('an unpinned event says the drive time is unknown instead of inventing one', () => {
+  const later = Math.floor(Date.now() / 1000) + 7200;
+  assert.equal(leaveText({ start: later, end: null, drive_min: null }, Date.now()), 'זמן נסיעה לא ידוע');
+});
+
 test('endOf is an expiry rule only: six hours past a start with no end', () => {
   assert.equal(endOf({ start: 1000, end: null }), 1000 + 6 * 3600);
   assert.equal(endOf({ start: 1000, end: 2000 }), 2000);

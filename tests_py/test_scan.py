@@ -58,3 +58,16 @@ class CassetteTest(unittest.TestCase):
                 raise AssertionError(f'network call in cassette mode: {url}')
             drafts, counts, failures, status = scan.scan_from_dir(['stub'], root, adapters={'stub': Stub})
             self.assertEqual((len(drafts), status), (1, {'stub': 'ok'}))
+
+
+class TallyTest(unittest.TestCase):
+    def test_the_count_is_the_records_that_survived_not_the_drafts_that_arrived(self):
+        records = [{'source': {'name': 'leaan'}}, {'source': {'name': 'leaan'}}]
+        counts, status = scan.tally({'leaan': 'ok', 'popit': 'ok'}, records)
+        self.assertEqual(counts, {'leaan': 2, 'popit': 0})
+        self.assertEqual(status, {'leaan': 'ok', 'popit': 'failed'})   # a feed that lost every clock
+
+    def test_a_partial_transport_stays_partial_when_records_survive(self):
+        counts, status = scan.tally({'leaan': 'partial'}, [{'source': {'name': 'leaan'}}])
+        self.assertEqual((counts, status), ({'leaan': 1}, {'leaan': 'partial'}))
+

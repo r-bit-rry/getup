@@ -60,6 +60,17 @@ def scan(names: list[str], *, fetch=fetch_text, adapters=ADAPTERS):
     return drafts, counts, failures, status
 
 
+def tally(status: dict, records: list) -> tuple[dict, dict]:
+    """Per-source counts from the records that survived; a source with none is failed, not ok."""
+    counts = dict.fromkeys(status, 0)
+    for record in records:
+        name = (record.get('source') or {}).get('name')
+        if name in counts:
+            counts[name] += 1
+    return counts, {name: ('failed' if not counts[name] else state)
+                    for name, state in status.items()}
+
+
 def scan_from_dir(names: list[str], path: str, *, adapters=ADAPTERS):
     _resolve(names, adapters)
     drafts, counts, failures, status = [], {}, [], {}

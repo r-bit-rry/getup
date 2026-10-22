@@ -333,7 +333,7 @@ class DraftTest(unittest.TestCase):
         self.assertEqual(first['tags'], ['הצגות והרצאות'])
         self.assertEqual(first['url'], 'https://www.leaan.co.il/event/6a1be86c43116ffad6fea591')
 
-@unittest.skipUnless(os.environ.get('GETUP_LIVE'), 'live source; set GETUP_LIVE=1')
+@unittest.skipUnless(os.environ.get('GETUP_LIVE') == '1', 'live source; set GETUP_LIVE=1')
 class LeaanLiveTest(unittest.TestCase):
     def test_the_category_pages_still_answer_with_events(self):
         drafts, counts, failures, status = scan.scan(['leaan'])
@@ -426,7 +426,7 @@ class PopitTest(unittest.TestCase):
 
 - [ ] **Step 2: Run and confirm it fails** — `python3 -m unittest tests_py.test_popit -v`
 
-- [ ] **Step 3: Implement** — `xml.etree.ElementTree.fromstring`, one `Draft` per `<item>`; `source_id` is `<guid>` (`'2315'`), `url` is `<link>` byte-for-byte (it is already a slug), `entry` href is the same link. Venue and city come from the description's `ב<venue>, <city>,` clause, with a leading `-` stripped from the capture (`ב-Altalena St 8` → `Altalena St 8`). When the clause is absent, `place_from_title` takes the text after the last `—`, drops a trailing `(מיקום לא ידוע)`, maps it through `PLACE_FIX`, and falls back to `(suffix, None)` — a bare Hebrew street stays a venue. A `(מיקום לא ידוע)` marker always means `venue: None`, and the build drops that draft. `parse_hebrew_when` combines the `ב-DD ב<month>` date, the `בשעה HH:MM` clock (and `בחצות` → 00:00), and the year from `pubDate` with a +1 roll when the parsed month precedes it by more than six months.
+- [ ] **Step 3: Implement** — `xml.etree.ElementTree.fromstring`, one `Draft` per `<item>`; `source_id` is `<guid>` (`'2315'`), `url` is `<link>` byte-for-byte (it is already a slug), `entry` href is the same link. Venue and city come from the description's `ב<venue>, <city>,` clause, with a leading `-` stripped from the capture (`ב-Altalena St 8` → `Altalena St 8`). The venue begins at the first word-initial `ב` **after** the `היא מסיבת …` phrase, so `במרכז ביאליק` keeps its `מ` instead of truncating to `יאליק`; the last-`ב` rule is dead. When the clause is absent, `place_from_title` takes the text after the last `—`, drops a trailing `(מיקום לא ידוע)`, maps it through `PLACE_FIX`, and falls back to `(suffix, None)` — a bare Hebrew street stays a venue. A `(מיקום לא ידוע)` marker always means `venue: None`, and the build drops that draft. A title suffix that `place_from_title` consumes is also stripped from the title, or every served record shows the venue twice. A city containing a digit is not a city (`2254` writes the street into the city slot): the adapter emits `city: None`, and Task 6 owns the identity rule for unknown cities. `parse_hebrew_when` combines the `ב-DD ב<month>` date, the first `HH:MM` clock, and the year from `pubDate` with a +1 roll when the parsed month precedes it by **six or more** months. `בחצות` is not a clock: `2229`'s New Year prose would otherwise publish a 31 December party at midnight (~21 h early), so a date with no `HH:MM` keeps `start: None` and `normalize.record` drops it. The adapter looks `Asia/Jerusalem` up lazily inside the parse helpers (`_tz()`), so importing the package never needs tzdata; Task 8 owns the `RuntimeError` contract.
 
 - [ ] **Step 4: Run and confirm it passes** — `python3 -m unittest tests_py.test_popit -v`
 
@@ -444,6 +444,7 @@ class PopitTest(unittest.TestCase):
 - Consumes: `Draft`, the adapter contract and `scan` from Task 2.
 - Produces:
   - `biluim.parse(payload: str) -> list[Draft]` — `CASSETTE = 'biluim.html'`, `CLASS = 'aggregator'`
+  - `URLS = ['https://biluim.co.il/events/tel-aviv']` — the listing proven to carry these cards; `/events` returned none of this shape
   - `biluim.CardParser` — `html.parser.HTMLParser` subclass
   - `biluim.NAME/CLASS/CASSETTE/URLS`; registered in `ADAPTERS`
 
@@ -478,7 +479,7 @@ class BiluimTest(unittest.TestCase):
             self.assertEqual(biluim.parse('<html><body><div>new site</div></body></html>'), [])
         self.assertIn('biluim', logs.output[0])
 
-@unittest.skipUnless(os.environ.get('GETUP_LIVE'), 'live source; set GETUP_LIVE=1')
+@unittest.skipUnless(os.environ.get('GETUP_LIVE') == '1', 'live source; set GETUP_LIVE=1')
 class BiluimLiveTest(unittest.TestCase):
     def test_the_listing_still_answers_with_cards(self):
         drafts, counts, failures, status = scan.scan(['biluim'])
@@ -488,7 +489,7 @@ class BiluimLiveTest(unittest.TestCase):
 
 - [ ] **Step 2: Run and confirm it fails** — `python3 -m unittest tests_py.test_biluim -v`
 
-- [ ] **Step 3: Implement** — `CardParser` collects `li.event` cards with their `href`, `time[datetime]`, venue, city, price and desc. `price` `'חינם'` → `price_from: 0`, `'₪80'` → 80. Zero cards plus a non-empty page is one warning naming `biluim`.
+- [ ] **Step 3: Implement** — the skill's `li.event` recipe is dead: the live `/events/tel-aviv` page has zero `<li>` and 66 Tailwind cards, and the committed 3-card capture (`docs/research/2026-10-22/biluim-tlv-excerpt.html`, installed as the cassette `biluim.html`) is the shape to parse. `CardParser` opens on an `article` whose class tokens contain `group` and closes on its matching `</article>` (not a bare depth counter); the card's `a[href^="/events/e/"]` is `source_id` (raw href) and `url` (`urljoin('https://biluim.co.il', href)`). Title is `h3.font-extrabold` text, falling back to that link's `aria-label`; start is the card's `time[datetime]` through `datetime.fromisoformat` (aware values converted, naive values attached to `Asia/Jerusalem` lazily via `_tz()`); venue is the first `a[href^="/events/venues/"]` text, else the map-pin `span.truncate` (the clock-row span has no `truncate`); price is `span.glass.tabular-nums` (`חינם` → 0, first integer → `price_from`, the integer after `עד` → `price_max`, absent → both `None`); tags is the first `span.glass.rounded-full` without `tabular-nums`; `city`/`street`/`desc` stay `None` — the TLV listing carries a Golan venue, so the listing path is never a city. Void tags (`br`, `img`, `input`, `hr`, `wbr`, `meta`, `link`, `source`) are excluded from depth accounting because `HTMLParser` never emits their end tag; one `<br>` used to swallow every later card. Zero cards plus a non-empty page is one warning naming `biluim`. The test asserts the three real cards field by field, keeps the old `li.event` shape as a shape-change negative, and pins the `<br>` case.
 
 - [ ] **Step 4: Run and confirm it passes** — `python3 -m unittest tests_py.test_biluim -v`
 
@@ -511,6 +512,7 @@ class BiluimLiveTest(unittest.TestCase):
   - `load(root) -> dict[str, dict]`, `save(root, registry) -> bool`
   - `alias_index(registry) -> dict[tuple[str, str], str]`
   - `resolve(registry, venue, city) -> str | None` — the registry id; mutates `registry` when it must provision; `None` when there is no usable name, because a city alone cannot identify a hall (that draft is dropped and counted)
+  - Unknown cities: a city string containing a digit is a street that leaked into the city slot (`2254`'s `שדרות שאול המלך 2 בתל אביב`), and the adapter already nulls it. `norm_city` must leave any other unrecognised city unrecognised — never provision a city from it — and `resolve` must fall back to name-only identity for a venue whose city is unknown rather than inventing one.
   - `provisional_id(name, city) -> str` — `'v_' + sha1(f'{norm_name(name)}|{norm_city(city)}')[:10]`
 
 - [ ] **Step 1: Write the failing tests**
@@ -705,6 +707,7 @@ class SeedTest(unittest.TestCase):
   - `id_for(venue_id: str, day: str, start: int) -> str` — `f'{venue_id}|{day}|{HH:MM}'`, the same id the client synthesizes
   - `desc_cap(text, limit: int = 600) -> str` — whitespace-collapsed, cut on a word boundary, `…` appended
   - `MIN_START = 946684800`, `MAX_START = 4102444800`, `MAX_SPAN = 12 * 3600`
+  - **Counting contract:** `normalize.record` is the only filter between a raw `Draft` and a served record. Task 15 computes every per-source `count` and `status` from the records that survive `venues.resolve` + `normalize.record`, never from raw drafts. A source may legitimately return drafts the build will drop: Popit's `2309` test requires a start-less draft to survive `parse`, and 42 of the capture's 78 drafts have no start (36 have a start, 19 also have a venue). Reporting `popit: ok, count 78` while the build writes 19 records would call a feed healthy after it lost every clock, so a source with zero survivors is `failed` and its published count is 0.
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -1301,7 +1304,7 @@ class IndexTest(unittest.TestCase):
   - `SERVE_DAYS = 30`
   - `history(root) -> {'seen': {event_id: {'first': str, 'last': str}}}` — `seen` read from day files and archive members, so `seen.first` survives both the horizon and the 90-day roll. Reads day files only through `write.data_files`, and archive members through `archive.decompress`.
   - `window(records, today) -> list[dict]` — keeps `today <= day < today + SERVE_DAYS`, the same 30 dates the write covers
-  - `run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None, labels_path=None, fetch=scan.fetch_text, now=None) -> dict` → `{'written': list[str], 'pruned': list[str] | None, 'counts': dict, 'sources': dict, 'coverage': dict, 'dropped_no_venue': int, 'unpinned': int}` — `unpinned` counts served-set records only
+  - `run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None, labels_path=None, fetch=scan.fetch_text, now=None) -> dict` → `{'written': list[str], 'pruned': list[str] | None, 'counts': dict, 'sources': dict, 'coverage': dict, 'dropped_no_venue': int, 'unpinned': int}` — `unpinned` counts served-set records only; `counts` and `sources.<name>.count` count records that survived `venues.resolve` + `normalize.record`, never raw drafts (Task 8's counting contract)
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -1435,7 +1438,7 @@ class BuildTest(unittest.TestCase):
 
 - [ ] **Step 2: Run and confirm it fails** — `python3 -m unittest tests_py.test_build -v`
 
-- [ ] **Step 3: Implement `build.run` in this order** — scan (`from_dir` uses `scan_from_dir`; otherwise `scan`) → `venues.resolve` per draft, dropping drafts whose venue is `None` with one warning and incrementing `dropped_no_venue` → `geo.fill` **only when `from_dir is None`** (cassette mode never calls the network, and a geocode failure is not fatal) → `geo.seed` **always**, so every venue in a captured city carries a point and cached minutes even when the network is never touched → `venues.save` (a no-op when nothing changed) → `normalize.record` → `dedup.merge` → `classify.apply` reading `data/labels.json` (never writing it) → `derive.touring` over the **untrimmed** records → `window` → `derive.signals` over the trimmed ones → merge `history(root)['seen']` into each record (`first = min(prior, today)`, `last = today`) → `write_days` over the whole horizon `today … today + SERVE_DAYS - 1` (30 dates, empty lists included), so no stale fixture day can survive inside it — skipped entirely when every requested source failed, so a total outage cannot blank the portal → `prune_future` and `archive.roll` **only when every source status is `ok`** → `manifest.day_counts` → `coverage.report(root, today)` from the files as they now stand (so a same-day re-run reports the same alarm and the index stays byte-identical) → `manifest.write_index` with the source statuses, `dropped_no_venue`, `unpinned` (served-set records whose venue has no point **or** no cached `drive_min`) and the coverage block. `generated_at` comes from `now or write.utc_now()` and is written only to `data/index.json`. A failed or partial source still writes the day files it has, still lists every day already on disk in the index, returns its status, and leaves every future day and every archive untouched.
+- [ ] **Step 3: Implement `build.run` in this order** — scan (`from_dir` uses `scan_from_dir`; otherwise `scan`) → `venues.resolve` per draft, dropping drafts whose venue is `None` with one warning and incrementing `dropped_no_venue` → `geo.fill` **only when `from_dir is None`** (cassette mode never calls the network, and a geocode failure is not fatal) → `geo.seed` **always**, so every venue in a captured city carries a point and cached minutes even when the network is never touched → `venues.save` (a no-op when nothing changed) → `normalize.record` → `dedup.merge` → `classify.apply` reading `data/labels.json` (never writing it) → `derive.touring` over the **untrimmed** records → `window` → `derive.signals` over the trimmed ones → merge `history(root)['seen']` into each record (`first = min(prior, today)`, `last = today`) → `write_days` over the whole horizon `today … today + SERVE_DAYS - 1` (30 dates, empty lists included), so no stale fixture day can survive inside it — skipped entirely when every requested source failed, so a total outage cannot blank the portal → `prune_future` and `archive.roll` **only when every source status is `ok`** → `manifest.day_counts` → `coverage.report(root, today)` from the files as they now stand (so a same-day re-run reports the same alarm and the index stays byte-identical) → `manifest.write_index` with the source statuses, `dropped_no_venue`, `unpinned` (served-set records whose venue has no point **or** no cached `drive_min`) and the coverage block. `generated_at` comes from `now or write.utc_now()` and is written only to `data/index.json`. The per-source `count` and `status` passed to the index are tallied from the records that survived `venues.resolve` + `normalize.record`, keyed back to their source — not from the raw drafts `scan` returned. A source whose every draft drops (a feed that lost its clocks) is `failed` with `count: 0` and one failure line naming it, even when `scan` said `ok`; a source with some survivors keeps `ok`/`partial` from the transport, with the survivor count. A failed or partial source still writes the day files it has, still lists every day already on disk in the index, returns its status, and leaves every future day and every archive untouched.
 
 - [ ] **Step 4: Run and confirm it passes** — `python3 -m unittest tests_py.test_build -v`
 

@@ -113,7 +113,7 @@ class DraftTest(unittest.TestCase):
         self.assertEqual(first['tags'], ['הצגות והרצאות'])
         self.assertEqual(first['url'], 'https://www.leaan.co.il/event/6a1be86c43116ffad6fea591')
 
-@unittest.skipUnless(os.environ.get('GETUP_LIVE'), 'live source; set GETUP_LIVE=1')
+@unittest.skipUnless(os.environ.get('GETUP_LIVE') == '1', 'live source; set GETUP_LIVE=1')
 class LeaanLiveTest(unittest.TestCase):
     def test_the_category_pages_still_answer_with_events(self):
         drafts, counts, failures, status = scan.scan(['leaan'])

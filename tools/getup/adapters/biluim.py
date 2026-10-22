@@ -1,4 +1,4 @@
-"""Biluim: HTML listing cards become aggregator drafts."""
+"""Biluim: Tailwind listing cards become aggregator drafts."""
 
 import logging
 import re
@@ -13,16 +13,26 @@ NAME = 'biluim'
 CLASS = 'aggregator'
 CASSETTE = 'biluim.html'
 BASE = 'https://biluim.co.il'
-URLS = [f'{BASE}/events']
-TZ = ZoneInfo('Asia/Jerusalem')
-FIELDS = ('title', 'venue', 'city', 'price', 'desc')
-EMPTY = {'title': None, 'href': None, 'venue': None, 'city': None,
-         'price': None, 'desc': None, 'when': None}
+URLS = [f'{BASE}/events/tel-aviv']
 NUMBER = re.compile(r'\d+')
+EVENT = '/events/e/'
+VENUE = '/events/venues/'
+# HTMLParser never implies an end tag for these, so they must not move the depth.
+VOID = frozenset({'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+                  'link', 'meta', 'param', 'source', 'track', 'wbr'})
+EMPTY = {'title': None, 'aria': None, 'href': None, 'venue': None,
+         'price': None, 'tag': None, 'when': None}
+
+
+def _tz():
+    try:
+        return ZoneInfo('Asia/Jerusalem')
+    except Exception as exc:
+        raise RuntimeError('getup: no tz data for Asia/Jerusalem') from exc
 
 
 class CardParser(HTMLParser):
-    """Collects every <li class="event"> card and the fields inside it."""
+    """Collects every article.group card that carries an event link."""
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -35,20 +45,37 @@ class CardParser(HTMLParser):
         self._buffer = []
 
     def handle_starttag(self, tag, attrs):
+        if tag in VOID:
+            return
         attrs = dict(attrs)
         classes = (attrs.get('class') or '').split()
         if self._card is None:
-            if tag == 'li' and 'event' in classes:
+            if tag == 'article' and 'group' in classes:
                 self._card, self._depth = dict(EMPTY), 0
             return
         self._depth += 1
+        if tag == 'article':
+            return                                  # a nested article stays part of this card
         if self._field is not None:
             return
-        if attrs.get('href'):
-            self._card['href'] = self._card['href'] or attrs['href']
+        href = attrs.get('href') or ''
+        if href.startswith(EVENT):
+            self._card['href'] = self._card['href'] or href
+            self._card['aria'] = self._card['aria'] or attrs.get('aria-label')
         if tag == 'time' and attrs.get('datetime'):
-            self._card['when'] = attrs['datetime']
-        name = next((name for name in FIELDS if name in classes), None)
+            self._card['when'] = self._card['when'] or attrs['datetime']
+        name = None
+        if tag == 'h3' and 'font-extrabold' in classes:
+            name = 'title'
+        elif tag == 'a' and href.startswith(VENUE):
+            name = 'venue'
+        elif tag == 'span' and 'truncate' in classes:
+            name = 'venue'                          # the map-pin span; the clock row has no truncate
+        elif tag == 'span' and 'glass' in classes and 'tabular-nums' in classes:
+            name = 'price'
+        elif (tag == 'span' and 'glass' in classes and 'rounded-full' in classes
+              and 'tabular-nums' not in classes):
+            name = 'tag'
         if name:
             self._field, self._field_tag, self._field_depth, self._buffer = (
                 name, tag, self._depth, [])
@@ -58,26 +85,31 @@ class CardParser(HTMLParser):
             self._buffer.append(data)
 
     def handle_endtag(self, tag):
-        if self._card is None:
+        if tag in VOID or self._card is None:
             return
-        if self._field is not None and tag == self._field_tag and self._depth == self._field_depth:
+        if tag == 'article' and self._depth == 0:
+            self.cards.append(self._card)
+            self._card, self._field, self._buffer = None, None, []
+            return
+        if (self._field is not None and tag == self._field_tag
+                and self._depth == self._field_depth):
             text = ' '.join(''.join(self._buffer).split())
             self._card[self._field] = self._card[self._field] or text or None
-            self._field = None
-        if tag == 'li' and self._depth == 0:
-            self.cards.append(self._card)
-            self._card = None
-            return
+            self._field, self._buffer = None, []
         self._depth -= 1
 
 
 def _price(text):
     if not text:
-        return None
+        return None, None
     if 'חינם' in text:
-        return 0
-    found = NUMBER.search(text.replace(',', ''))
-    return int(found.group()) if found else None
+        return 0, None
+    numbers = NUMBER.findall(text.replace(',', ''))
+    if not numbers:
+        return None, None
+    tail = text.split('עד', 1)
+    top = NUMBER.search(tail[1]) if len(tail) == 2 else None
+    return int(numbers[0]), int(top.group()) if top else None
 
 
 def _start(raw):
@@ -88,7 +120,7 @@ def _start(raw):
     except ValueError:
         return None
     if moment.tzinfo is None:
-        moment = moment.replace(tzinfo=TZ)
+        moment = moment.replace(tzinfo=_tz())
     return int(moment.timestamp())
 
 
@@ -102,29 +134,31 @@ def parse(payload: str) -> list[dict]:
         return []
     if not parser.cards:
         if payload.strip():
-            log.warning('biluim: no <li class="event"> cards in the page')
+            log.warning('biluim: no article.group cards in the page')
         return []
     drafts = []
     for index, card in enumerate(parser.cards):
+        title = card['title'] or card['aria']
         start = _start(card['when'])
-        if not card['title'] or start is None:
-            log.warning('biluim[%d]: dropped, no title or start', index)
+        if not card['href'] or not title or start is None:
+            log.warning('biluim[%d]: dropped, no link, title or start', index)
             continue
+        price_from, price_max = _price(card['price'])
         drafts.append({
             'source': NAME,
             'class': CLASS,
             'source_id': card['href'],
-            'title': card['title'],
+            'title': title,
             'venue': card['venue'],
-            'city': card['city'],
+            'city': None,
             'street': None,
             'start': start,
             'end': None,
-            'price_from': _price(card['price']),
-            'price_max': None,
+            'price_from': price_from,
+            'price_max': price_max,
             'soldout': None,
-            'desc': card['desc'],
-            'url': urljoin(BASE, card['href']) if card['href'] else None,
-            'tags': [],
+            'desc': None,
+            'url': urljoin(BASE, card['href']),
+            'tags': [card['tag']] if card['tag'] else [],
         })
     return drafts

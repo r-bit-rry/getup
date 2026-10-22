@@ -13,7 +13,6 @@ NAME = 'popit'
 CLASS = 'nightlife'
 CASSETTE = 'popit.xml'
 URLS = ['https://popit.events/feed.xml']
-TZ = ZoneInfo('Asia/Jerusalem')
 UNKNOWN = 'מיקום לא ידוע'
 
 MONTHS = {'ינואר': 1, 'פברואר': 2, 'מרץ': 3, 'אפריל': 4, 'מאי': 5, 'יוני': 6,
@@ -25,6 +24,8 @@ WHEN = re.compile(BET + r'(\d{1,2})\s+ב(' + '|'.join(MONTHS) + ')')
 # "בשעה 14:00", "פתיחת שערים ב-23:00", "מהשעה 14:00": the first clock in the prose is the start.
 CLOCK = re.compile(r'(?<!\d)(\d{1,2}):(\d{2})(?!\d)')
 BET_WORD = re.compile(BET)
+# The venue phrase follows "…היא מסיבת <style>"; a ב inside the event name before it is not the venue.
+FETE = re.compile(r'היא מסיב(?:ה|ת)')
 
 # The English suffixes the feed publishes in titles; a city is not a venue.
 PLACE_FIX = {
@@ -37,6 +38,13 @@ PLACE_FIX = {
 }
 
 
+def _tz():
+    try:
+        return ZoneInfo('Asia/Jerusalem')
+    except Exception as exc:
+        raise RuntimeError('getup: no tz data for Asia/Jerusalem') from exc
+
+
 def parse_hebrew_when(text: str, published: datetime) -> int | None:
     """Local unix seconds from "ב-14 בנובמבר בשעה 14:00", or None when the prose gives no date or no clock."""
     match = WHEN.search(text)
@@ -44,18 +52,15 @@ def parse_hebrew_when(text: str, published: datetime) -> int | None:
         return None
     clock = next((c for c in CLOCK.finditer(text)
                   if int(c.group(1)) < 24 and int(c.group(2)) < 60), None)
-    if clock:
-        hour, minute = int(clock.group(1)), int(clock.group(2))
-    elif 'בחצות' in text:
-        hour = minute = 0
-    else:
+    if not clock:
         return None
+    hour, minute = int(clock.group(1)), int(clock.group(2))
     month = MONTHS[match.group(2)]
     year = published.year
-    if published.month - month > 6:            # December prose about a January party
+    if published.month - month >= 6:            # December prose about a January party
         year += 1
     try:
-        return int(datetime(year, month, int(match.group(1)), hour, minute, tzinfo=TZ).timestamp())
+        return int(datetime(year, month, int(match.group(1)), hour, minute, tzinfo=_tz()).timestamp())
     except ValueError:
         return None
 
@@ -68,11 +73,15 @@ def _place_from_description(text: str) -> tuple[str | None, str | None]:
     parts = [part.strip() for part in head.split(',')]
     if len(parts) < 2:
         return None
-    bets = list(BET_WORD.finditer(parts[-2]))
+    clause = parts[-2]
+    phrase = FETE.search(clause)
+    bets = list(BET_WORD.finditer(clause, phrase.end() if phrase else 0))
     if not bets:
         return None
-    venue, city = parts[-2][bets[-1].end():].strip(), parts[-1]
-    return (venue, city) if venue and city else None
+    venue, city = clause[bets[0].end():].strip(), parts[-1]
+    if city and any(ch.isdigit() for ch in city):    # 2254 writes the street into the city slot
+        city = None
+    return (venue, city) if venue else None
 
 
 def place_from_title(title: str) -> tuple[str | None, str | None]:
@@ -95,7 +104,10 @@ def _draft(item) -> dict:
     title = _text(item, 'title') or ''
     desc = _text(item, 'description') or ''
     published = _published(item)
-    place = _place_from_description(desc) or place_from_title(title)
+    title_place = place_from_title(title)
+    if any(title_place):                        # the suffix is consumed, so it leaves the title
+        title = title.rpartition('—')[0].strip()
+    place = _place_from_description(desc) or title_place
     return {
         'source': NAME,
         'class': CLASS,
@@ -123,7 +135,7 @@ def _published(item) -> datetime | None:
         moment = parsedate_to_datetime(raw)
     except (TypeError, ValueError):
         return None
-    return moment.astimezone(TZ) if moment.tzinfo else None
+    return moment.astimezone(_tz()) if moment.tzinfo else None
 
 
 def parse(payload: str) -> list[dict]:

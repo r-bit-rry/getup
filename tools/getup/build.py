@@ -76,6 +76,20 @@ def _tally(status, records, failures) -> tuple:
     return counts, states
 
 
+def place(registry: dict, drafts) -> tuple:
+    """Resolve each draft's venue in memory; a draft with no venue string is dropped and counted."""
+    kept, dropped = [], 0
+    for draft in drafts:
+        venue_id = venues.resolve(registry, draft.get('venue'), draft.get('city'))
+        if venue_id is None:
+            dropped += 1
+            log.warning('getup: dropped %s %s: no venue', draft.get('source'), draft.get('source_id'))
+            continue
+        draft['venue_id'] = venue_id
+        kept.append(draft)
+    return kept, dropped
+
+
 def _pinned(venue) -> bool:
     return (venue.get('lat') is not None and venue.get('lon') is not None
             and venue.get('drive_min') is not None)
@@ -90,15 +104,7 @@ def run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None,
         drafts, _, failures, status = scan.scan_from_dir(names, from_dir)
 
     registry = venues.load(root)
-    kept, dropped_no_venue = [], 0
-    for draft in drafts:
-        venue_id = venues.resolve(registry, draft.get('venue'), draft.get('city'))
-        if venue_id is None:
-            dropped_no_venue += 1
-            log.warning('getup: dropped %s %s: no venue', draft.get('source'), draft.get('source_id'))
-            continue
-        draft['venue_id'] = venue_id
-        kept.append(draft)
+    kept, dropped_no_venue = place(registry, drafts)
 
     if from_dir is None:
         geo.fill(registry, fetch=fetch)          # a geocode failure is not fatal

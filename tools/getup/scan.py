@@ -64,16 +64,27 @@ def scan_from_dir(names: list[str], path: str, *, adapters=ADAPTERS):
     _resolve(names, adapters)
     drafts, counts, failures, status = [], {}, [], {}
     for name in names:
-        cassette = os.path.join(path, adapters[name].CASSETTE)
-
-        def read(url, _file=cassette):
-            with open(_file, encoding='utf-8') as f:
-                return f.read()
-
-        found, found_counts, found_failures, found_status = scan(
-            [name], fetch=read, adapters=adapters)
+        file = os.path.join(path, adapters[name].CASSETTE)
+        try:
+            with open(file, encoding='utf-8') as f:
+                payload = f.read()
+        except OSError as exc:
+            counts[name] = 0
+            status[name] = 'failed'
+            failures.append(f'{name}: {file}: {exc}')
+            continue
+        broken = False
+        try:
+            found = adapters[name].parse(payload)
+        except Exception as exc:
+            found, broken = [], True
+            failures.append(f'{name}: {file}: {exc}')
+        counts[name] = len(found)
         drafts.extend(found)
-        counts.update(found_counts)
-        failures.extend(found_failures)
-        status.update(found_status)
+        if found:
+            status[name] = 'ok'
+        else:
+            status[name] = 'failed'
+            if not broken:
+                failures.append(f'{name}: no events parsed')
     return drafts, counts, failures, status

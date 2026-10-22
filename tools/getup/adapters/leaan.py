@@ -54,27 +54,35 @@ def _categories(event) -> list[str]:
     return list(categories) if isinstance(categories, list) else []
 
 
+def _first(*values):
+    for value in values:
+        if value is not None:
+            return value
+    return None
+
+
 def _draft(event) -> dict:
     # Live pages still carry the raw API keys; the committed capture is pre-flattened.
     location = event.get('location') if isinstance(event.get('location'), dict) else {}
     event_id = event.get('event_id')
-    price = event.get('price', event.get('starting_price'))
-    multi = event.get('multi_price', event.get('has_multiple_prices'))
+    price = _first(event.get('price'), event.get('starting_price'))
+    multi = _first(event.get('multi_price'), event.get('has_multiple_prices'))
     return {
         'source': NAME,
         'class': CLASS,
         'source_id': event_id,
-        'title': event.get('title') or event.get('event_name'),
-        'venue': event.get('venue') or location.get('name'),
-        'city': event.get('city') or location.get('city'),
-        'street': event.get('street') or location.get('street'),
-        'start': event.get('start', event.get('event_start')),
-        'end': event.get('end', event.get('event_end')),
+        'title': _first(event.get('title'), event.get('event_name')),
+        'venue': _first(event.get('venue'), location.get('name')),
+        'city': _first(event.get('city'), location.get('city')),
+        'street': _first(event.get('street'), location.get('street')),
+        'start': _first(event.get('start'), event.get('event_start')),
+        'end': _first(event.get('end'), event.get('event_end')),
         'price_from': price,
         'price_max': None if multi else price,
-        'soldout': event.get('soldout', event.get('is_soldout')),
-        'desc': event.get('desc') or event.get('description'),
-        'url': event.get('url') or (f'https://www.leaan.co.il/event/{event_id}' if event_id else None),
+        'soldout': _first(event.get('soldout'), event.get('is_soldout')),
+        'desc': _first(event.get('desc'), event.get('description')),
+        'url': _first(event.get('url'),
+                      f'https://www.leaan.co.il/event/{event_id}' if event_id else None),
         'tags': _categories(event),
     }
 
@@ -89,5 +97,9 @@ def parse(payload) -> list[dict]:
         if not isinstance(event, dict):
             log.warning('leaan[%d]: not an object in pageData.events', index)
             continue
-        drafts.append(_draft(event))
+        draft = _draft(event)
+        if not draft['title'] or draft['start'] is None:
+            log.warning('leaan[%d]: dropped, no title or start', index)
+            continue
+        drafts.append(draft)
     return drafts

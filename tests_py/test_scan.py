@@ -57,4 +57,4 @@ class CassetteTest(unittest.TestCase):
             def boom(url, **kw):
                 raise AssertionError(f'network call in cassette mode: {url}')
             drafts, counts, failures, status = scan.scan_from_dir(['stub'], root, adapters={'stub': Stub})
-            self.assertEqual((len(drafts), status), (2, {'stub': 'ok'}))
+            self.assertEqual((len(drafts), status), (1, {'stub': 'ok'}))

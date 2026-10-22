@@ -198,8 +198,8 @@ main {
   border: 1px solid color-mix(in srgb, var(--warn) 28%, transparent);
   border-radius: var(--radius); padding: 6px 10px; margin-block-end: 10px;
 }
-/* the default drive cap hid rows: say how many and how far, without a filter panel */
-.hiddennote { font-size: 12px; color: var(--muted); padding-block-start: 12px }
+/* the default drive cap hid rows: the count is a button that raises it */
+.hiddenbtn { font-size: 12px; color: var(--primary-text); margin-block-end: 10px; inline-size: fit-content }
 
 /* ── day headers + table ──────────────────────────────────────────────── */
 .dayhead { display: flex; align-items: baseline; gap: 9px; position: relative }
@@ -210,8 +210,13 @@ main {
   content: ""; flex: 1; height: 1px; background: var(--border); transform: translateY(-3px);
 }
 
-/* ONE table, fixed layout: column widths are declared in the renderer and cannot drift */
+/* ONE table, fixed layout: column widths are declared here and cannot drift */
 .tbl { overflow-x: auto }
+.tbl col:nth-child(1) { width: 122px }
+.tbl col:nth-child(2) { width: auto }
+.tbl col:nth-child(3) { width: 22% }
+.tbl col:nth-child(4) { width: 104px }
+.tbl col:nth-child(5) { width: 132px }
 table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed }
 thead th {
   font-size: 11px; font-weight: 500; color: var(--muted); text-align: start;
@@ -242,6 +247,13 @@ tbody tr.dayrow td { padding: 17px 8px 7px; border-bottom: 1px solid var(--borde
 }
 .what .v { font-size: 11.5px; color: var(--muted); display: flex; gap: 7px; flex-wrap: wrap }
 .what .v i { font-style: normal; color: var(--border) }
+
+/* Under 1200px the five columns leave the title a sliver: the vibe column is the one the cards
+   repeat, so the table gives it up rather than squeezing the title into two letters. */
+@media (max-width: 1200px) {
+  .tbl col:nth-child(3) { width: 0 }
+  .tbl thead th:nth-child(3), .tbl tbody td:nth-child(3) { display: none }
+}
 
 /* ── chips ────────────────────────────────────────────────────────────── */
 .vibe { display: flex; gap: 4px; flex-wrap: wrap }
@@ -326,11 +338,13 @@ body[data-view="mobile"] .tbl { display: none }
   font-size: 14px; font-weight: 500; line-height: 1.3; margin-block-end: 3px;
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
   line-clamp: 2; overflow: hidden;
-}`
+}
 .card .v2 {
   font-size: 11.5px; color: var(--muted); display: flex; gap: 6px;
   flex-wrap: wrap; align-items: center;
 }
+/* the same thin divider the table uses between venue, city and drive */
+.card .v2 i { font-style: normal; color: var(--border); margin-inline: 3px }
 .card .leave { color: var(--primary-text); font-weight: 500 }
 .card .strip {
   display: flex; gap: 4px; flex-wrap: wrap; margin-block-start: 7px;
@@ -361,6 +375,8 @@ body[data-view="mobile"] .cards { display: block }
   /* the wrapped filter bar would eat a third of a phone screen if it stayed sticky */
   .bar { position: relative }
   html { scroll-padding-block-start: 0 }
+  /* the panel gets its own line: four date chips beside it push the range pill off-screen */
+  .morefilters { flex-basis: 100% }
 }
 
 /* motion is opt-in: the transitions exist only where the user has not asked for less */

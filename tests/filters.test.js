@@ -100,19 +100,35 @@ test('a stored range that ended before today resets to the week window', () => {
   assert.deepEqual(clampStaleRange(defaultState(), '2026-10-18'), defaultState());
 });
 
-// ── fix wave B: a started show is not on offer; the hidden drive count ───
+// ── fix wave C: a running show stays; the cut-off is the end ─────────────
 
 const NOW_MS = Date.UTC(2026, 9, 22, 18, 0, 0);
 const startedMinAgo = min => (NOW_MS - min * 60000) / 1000;
+const endsInMin = min => (NOW_MS + min * 60000) / 1000;
 
-test('an event that started more than 15 minutes ago is dropped', () => {
-  const gone = ev({ id: 'gone', start: startedMinAgo(20) });
+test('a show running 30 minutes is still on offer', () => {
+  const running = ev({ id: 'running', start: startedMinAgo(30), end: endsInMin(90) });
+  assert.deepEqual(dropStarted([running], NOW_MS).map(e => e.id), ['running']);
+});
+
+test('an event is dropped once it has ended', () => {
+  const gone = ev({ id: 'gone', start: startedMinAgo(120), end: startedMinAgo(1) });
   assert.deepEqual(dropStarted([gone], NOW_MS), []);
 });
 
-test('an event that started 5 minutes ago is kept — you can still catch it', () => {
-  const running = ev({ id: 'running', start: startedMinAgo(5) });
-  assert.deepEqual(dropStarted([running], NOW_MS).map(e => e.id), ['running']);
+test('a night 22:00–04:00 survives to 03:59 and drops at 04:00', () => {
+  const start = Date.UTC(2026, 9, 22, 22) / 1000;
+  const end = Date.UTC(2026, 9, 23, 4) / 1000;
+  const club = ev({ id: 'club', start, end });
+  assert.deepEqual(dropStarted([club], (end - 60) * 1000).map(e => e.id), ['club']);
+  assert.deepEqual(dropStarted([club], end * 1000), []);
+});
+
+test('a record with no end is dropped four hours after it began', () => {
+  const open = ev({ id: 'open', start: startedMinAgo(60) });
+  assert.deepEqual(dropStarted([open], NOW_MS).map(e => e.id), ['open']);
+  const stale = ev({ id: 'stale', start: startedMinAgo(241) });
+  assert.deepEqual(dropStarted([stale], NOW_MS), []);
 });
 
 test('a future event is kept', () => {

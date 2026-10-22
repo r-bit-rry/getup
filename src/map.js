@@ -1,5 +1,6 @@
 import * as maplibregl from '../assets/maplibre/maplibre-gl.mjs';
-import { dayLabel, timeRange, startTime, leaveBy } from './format.js';
+import { dayLabel, timeRange, startTime, leaveText } from './format.js';
+import { cityIn } from './render.js';
 
 // The only place the tile style is named; swapping providers is this one line.
 export const MAP_STYLE_URL = 'https://tiles.openfreemap.org/styles/positron';
@@ -28,13 +29,11 @@ const popupNode = ev => {
   };
   line('strong', ev.title);
   line('span', ev.venue, 'sub');
-  line('span', ev.city, 'sub');
+  line('span', cityIn(ev.venue, ev.city) ? '' : ev.city, 'sub');
   // day and time on separate lines: a combined Hebrew+range line lets bidi flip the range
   line('span', typeof ev.day === 'string' ? dayLabel(ev.day) : '');
   line('span', timeText(ev), 'time');
-  line('span', Number.isFinite(ev.start) && Number.isFinite(ev.drive_min)
-    ? `צא ${leaveBy(ev.start, ev.drive_min)}`
-    : 'זמן נסיעה לא ידוע', 'sub');
+  line('span', leaveText(ev), 'sub');
   return box;
 };
 
@@ -92,6 +91,10 @@ export function drawMarkers(map, events) {
         shown.get(map)?.remove();
         popup.setLngLat(marker.getLngLat()).addTo(map);
         shown.set(map, popup);
+        // Venues sharing a city-centroid coordinate stack on one pixel; a click must open the
+        // neighbourhood, not leave pins on top of each other.
+        const { lng, lat } = marker.getLngLat();
+        map.easeTo({ center: [lng, lat], zoom: 13 });
       });
     } catch { /* one bad event must not stop the rest or leak a marker */ }
   }

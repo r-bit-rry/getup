@@ -32,6 +32,15 @@ export function startTime(startUnix) {
   return clock.format(new Date(startUnix * 1000));
 }
 
+// An event with no honest end still ends: four hours after it began. One rule for the
+// "is it over?" test and for the "עד" line, so the two cannot disagree.
+export const endOf = ev => (Number.isFinite(ev.end) && ev.end > ev.start ? ev.end : ev.start + 4 * 3600);
+
+// Once the start has passed, "leave by" is meaningless; the end is the honest line.
+export const leaveText = (ev, nowMs = Date.now()) => (ev.start * 1000 <= nowMs
+  ? `עד ${startTime(endOf(ev))}`
+  : Number.isFinite(ev.drive_min) ? `צא ${leaveBy(ev.start, ev.drive_min)}` : 'זמן נסיעה לא ידוע');
+
 export function leaveBy(startUnix, driveMin) {
   return clock.format(new Date(startUnix * 1000 - (driveMin + 30) * 60000));
 }

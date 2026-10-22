@@ -130,3 +130,18 @@ test('a manifest date that is not an ISO day is filtered out, not rendered', () 
   assert.deepEqual(validDates({}), []);
   assert.deepEqual(validDates(null), []);
 });
+
+// ── fix wave C: an absurd start cannot kill boot ─────────────────────────
+
+test('a finite but absurd start is rejected instead of throwing from Intl', () => {
+  // 1e16 seconds is a RangeError inside Intl, not a date; the id must not format it either
+  const ev = normalizeEvent({ venue_id: 'v', start: 1e16, end: 1e16 }, '2026-10-23');
+  assert.equal(ev.start, null);
+  assert.equal(ev.id, 'v|2026-10-23|00:00');
+  for (const start of [-1, 0, 1e12]) {
+    assert.equal(normalizeEvent({ start }, '2026-10-23').start, null, String(start));
+  }
+  // the sane-range boundaries themselves are dates
+  assert.equal(normalizeEvent({ start: 946684800 }, '2026-10-23').start, 946684800);
+  assert.equal(normalizeEvent({ start: 4102444800 }, '2026-10-23').start, 4102444800);
+});

@@ -13,7 +13,9 @@ const two = [
 test('one table only — headers and bodies cannot drift apart', () => {
   const html = tableHTML(two, '2026-10-18');
   assert.equal((html.match(/<table/g) || []).length, 1);
-  assert.equal((html.match(/<col /g) || []).length, 5);
+  assert.equal((html.match(/<col>/g) || []).length, 5);
+  // the widths are one stylesheet rule, so a column can also be dropped on a narrow screen
+  assert.match(css, /\.tbl col:nth-child\(3\) \{ width: 22% \}/);
 });
 
 test('mixed Hebrew and Latin title survives verbatim, isolated for bidi', () => {
@@ -188,16 +190,21 @@ test('the empty-state count is a number, not markup', () => {
 
 test('only http(s), a single-slash path and a fragment may reach an href', () => {
   const hrefs = ['//evil.example/x', '/\\evil.example/x', '\\\\evil.example', 'javascript:alert(1)',
-    ' data:text/html,x', 'https:/evil.example'];
+    ' data:text/html,x', 'https:/evil.example', '/\t/evil.example/x', '/\u202E/evil.example/x',
+    '/\u009b/evil.example'];
   for (const u of hrefs) {
     const ev = { ...base, id: 'u', day: '2026-10-23', title: 'אירוע', urls: { tickets: u } };
-    assert.match(tableHTML([ev], '2026-10-18'), /href="#"/, u);
+    assert.match(tableHTML([ev], '2026-10-18'), /href="#"/, JSON.stringify(u));
   }
   for (const u of ['https://ok.example/p?a=1&b=2', '/local/page', '#frag']) {
     const ev = { ...base, id: 'u', day: '2026-10-23', title: 'אירוע', urls: { tickets: u } };
     const html = tableHTML([ev], '2026-10-18');
     assert.ok(html.includes(`href="${u.replace(/&/g, '&#38;')}"`), u);
   }
+  // the controls are stripped before the value is emitted, not after it was validated
+  const dirty = { ...base, id: 'u', day: '2026-10-23', title: 'אירוע',
+    urls: { tickets: 'https://ok.example/a\u0000b\u202Ec' } };
+  assert.match(tableHTML([dirty], '2026-10-18'), /href="https:\/\/ok\.example\/abc"/);
 });
 
 test('every outbound anchor carries noopener noreferrer', () => {
@@ -313,7 +320,11 @@ test('a long title wraps to two lines instead of truncating from the start', () 
 test('the drive cap reports what it hid, and says nothing when it hid nothing', () => {
   assert.equal(hiddenHTML([]), '');
   const far = [{ drive_min: 49 }, { drive_min: 57 }, { drive_min: 49 }];
-  assert.match(hiddenHTML(far), /^<p class="hiddennote">עוד 3 אירועים בין 49 ל־57 דק׳<\/p>$/);
+  const html = hiddenHTML(far);
+  // a button, not a footnote: it can raise the cap itself
+  assert.match(html, /<button[^>]+class="f hiddenbtn"[^>]+id="f-far"/);
+  assert.match(html, /עוד 3 אירועים בין 49 ל־57 דק׳/);
+  assert.match(html, /הצג עד 60 דק׳ נסיעה/);
   assert.match(hiddenHTML([{ drive_min: 57 }]), /עוד אירוע אחד ב־57 דק׳/);
   assert.equal(hiddenHTML([{ drive_min: null }]), '');
 });
@@ -323,4 +334,49 @@ test('the empty state offers one way to widen instead of a database count', () =
   assert.match(html, /יש 14 אירועים בתקופה הקרובה/);
   assert.doesNotMatch(html, /במאגר/);
   assert.match(html, /<button[^>]+id="f-widen"[^>]*>הצג את החודש הקרוב<\/button>/);
+  // public Hebrew is plural, as fatal() already is
+  assert.match(html, /נסו טווח רחב יותר/);
+  assert.doesNotMatch(html, /נסה טווח/);
+});
+
+// ── fix wave C: a running show, a repeated title, a real card separator ──
+
+test('a show that has started shows until when, not when to leave', () => {
+  const now = Math.floor(Date.now() / 1000);
+  const ev = { ...base, id: 'live', day: '2026-10-23', title: 'עפרה',
+    start: now - 1800, end: now + 1800 };
+  const html = tableHTML([ev], '2026-10-18');
+  assert.match(html, /עד \d{2}:\d{2}/);
+  assert.doesNotMatch(html, /צא /);
+  const card = cardsHTML([ev], '2026-10-18');
+  assert.match(card, /<span class="leave">עד \d{2}:\d{2}<\/span>/);
+  // a future event still carries the leave-by line
+  assert.match(tableHTML([{ ...ev, start: now + 3600, end: now + 7200 }], '2026-10-18'), /צא /);
+});
+
+test('a subtitle that opens with the title does not repeat it', () => {
+  const title = 'אורי ברויר';
+  for (const desc of [
+    'אורי ברויר אורי ברויר במופע סטנדאפ',
+    'אורי ברויר - מופע סטנדאפ',
+    'אורי ברויר – מופע סטנדאפ',
+    'אורי ברויר — מופע סטנדאפ',
+    'אורי ברויר: מופע סטנדאפ',
+    'אורי ברויר | מופע סטנדאפ',
+  ]) {
+    const html = tableHTML([{ ...base, id: 'r', day: '2026-10-23', title, desc }], '2026-10-18');
+    const text = html.match(/<span class="desc">([^<]*)<\/span>/)[1];
+    assert.ok(!text.includes(title), `${desc} → ${text}`);
+    assert.ok(text.length > 0, desc);
+  }
+  // a description that is only the title prints no subtitle at all
+  const only = tableHTML([{ ...base, id: 'o', day: '2026-10-23', title, desc: title }], '2026-10-18');
+  assert.doesNotMatch(only, /class="desc"/);
+});
+
+test('the card location line keeps its flex rule and a visible divider', () => {
+  assert.match(css, /\.card \.v2 \{[^}]*display:\s*flex/);
+  assert.match(css, /\.card \.v2 i \{[^}]*margin-inline/);
+  // a template literal leaked into the stylesheet once and silently dropped the next rule
+  assert.doesNotMatch(css, /`/);
 });

@@ -54,11 +54,18 @@ prefs = await loadPrefs('.');
 // One bogus date must not blank the list; an all-bogus list is a failed load.
 const dates = validDates(manifest);
 if (ok && manifest.dates?.length && !dates.length) ok = false;
-// Past dates are not shown and are not worth a request.
-const days = ok
-  ? await Promise.all(dates.filter(d => d.date >= today).map(d => loadDate('.', d.date)))
-  : [];
-const all = applyPrefs(days.flat(), prefs);
+// Past dates are not shown and are not worth a request. One rejection here must reach fatal(),
+// not reject the module and leave an empty shell.
+let days = [];
+try {
+  days = ok
+    ? await Promise.all(dates.filter(d => d.date >= today).map(d => loadDate('.', d.date)))
+    : [];
+} catch (err) {
+  console.warn('getup: bulk load failed', err?.message ?? err);
+  ok = false;
+}
+const all = ok ? applyPrefs(days.flat(), prefs) : [];
 
 const DEFAULT_CENTRE = defaultState().centre;
 const isDefaultCentre = c => c.lat === DEFAULT_CENTRE.lat && c.lon === DEFAULT_CENTRE.lon;
@@ -93,7 +100,7 @@ const currentPreset = () => (state.dateWindow !== 'range'
 const withDrive = list => (drive.size
   ? list.map(ev => (drive.has(ev.id) ? { ...ev, drive_min: drive.get(ev.id) } : ev))
   : list);
-// An event that started more than 15 minutes ago cannot be left for; it is not a row.
+// A running show is still on offer; the cut-off is its end, not its start.
 const live = now => dropStarted(withDrive(all), now);
 const visible = now => sortEvents(applyFilters(live(now), state, today));
 // The drive limit must not hide an event whose real drive is short: recompute over
@@ -115,6 +122,11 @@ geoEl.className = 'distnote';
 geoEl.hidden = true;
 geoEl.textContent = 'המיקום נשלח לשירות ניתוב ציבורי (OSRM)';
 distEl.after(geoEl);
+
+// Half of Thursday sits behind the 45-minute cap: the count is a button above the list, not a footnote.
+const farEl = document.createElement('div');
+farEl.id = 'hidden-events';
+geoEl.after(farEl);
 
 // The note follows the data, not a flag: it is up whenever a shown minute is still Netanya's.
 // role="status": writing textContent replaces the node and re-announces, so only change what differs.
@@ -144,7 +156,8 @@ function render() {
   const events = visible(now);
   const hidden = excludedByDrive(live(now), state, today);
   const { html, count } = listHTML(events, today, venues, document.body.dataset.view);
-  $('#list').innerHTML = (events.length ? html : emptyHTML(manifest, today)) + hiddenHTML(hidden);
+  farEl.innerHTML = hiddenHTML(hidden);
+  $('#list').innerHTML = events.length ? html : emptyHTML(manifest, today);
   $('#status').textContent = `${count} אירועים בתצוגה`;
   syncNote(!isDefaultCentre(state.centre) && events.some(ev => !drive.has(ev.id)));
   syncControls();
@@ -306,10 +319,18 @@ $('#f-clear').addEventListener('click', () => {
 });
 
 // The empty state offers one way out: widen to the whole served month, then paint it.
+// Widening alone is not enough when another filter caused the emptiness: reset those too.
 $('#list').addEventListener('click', e => {
   if (!e.target.closest('#f-widen')) return;
-  state.dateWindow = 'range';
-  state.range = { from: today, to: monthEnd };
+  state = { ...defaultState(), dateWindow: 'range', range: { from: today, to: monthEnd } };
+  session.del(KEY.centre);
+  refilter();
+});
+
+// The hidden-by-cap count raises the cap to 60 instead of asking the user to find the slider.
+$('#hidden-events').addEventListener('click', e => {
+  if (!e.target.closest('#f-far')) return;
+  state.maxDriveMin = 60;
   refilter();
 });
 
@@ -339,8 +360,9 @@ $('#facets').addEventListener('click', e => {
 });
 
 // ── chrome toggles ───────────────────────────────────────────────────────
-// The view follows the screen: cards on a phone, table on anything wider. No demo toggle.
-const mobileMQ = matchMedia('(max-width: 640px)');
+// The view follows the screen: cards up to 900px, the table where the map has room. This is the
+// same 900px breakpoint the stylesheet uses; 641–900 had a five-column table with no map.
+const mobileMQ = matchMedia('(max-width: 900px)');
 function applyView() {
   const mobile = mobileMQ.matches;
   document.body.dataset.view = mobile ? 'mobile' : 'desktop';
@@ -373,7 +395,7 @@ $('#list').addEventListener('click', e => {
   syncControls();
 });
 
-// A phone gets cards; the breakpoint is the 640px media query the stylesheet uses.
+// A phone gets cards; the breakpoint is the 900px media query the stylesheet uses.
 applyView();
 setTheme(read(KEY.theme) === 'night' ? 'night' : 'day');
 

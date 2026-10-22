@@ -1,13 +1,18 @@
-import { relDay, dayLabel, timeRange, startTime, leaveBy, priceLabel } from './format.js';
+import { relDay, dayLabel, timeRange, startTime, priceLabel, leaveText } from './format.js';
 import { chipsHTML } from './chips.js';
 
 // Control and bidi-override characters would let a title reverse its neighbours in the RTL line.
-const UNSAFE = /[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g;
-const esc = s => String(s ?? '').replace(UNSAFE, '').replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
+const STRIP = /[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g;
+const esc = s => String(s ?? '').replace(STRIP, '').replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
 
 // Only http(s) and same-site paths may reach an href; a scraped scheme, `//host` or `/\host` is not trusted.
+// Strip the controls BEFORE validating: `/\t/evil` and `/\u202E/evil` would otherwise pass the
+// allow-list as single-slash paths and reach the browser as `//evil`.
 const SAFE_URL = /^(?:https?:\/\/|\/(?![/\\])|#)/i;
-const safeUrl = u => (typeof u === 'string' && SAFE_URL.test(u) ? u : '#');
+const safeUrl = u => {
+  const clean = typeof u === 'string' ? u.replace(STRIP, '') : '';
+  return SAFE_URL.test(clean) ? clean : '#';
+};
 
 const countLabel = n => (n === 1 ? 'אירוע אחד' : `${n} אירועים`);
 
@@ -21,24 +26,38 @@ const timeLabel = ev => {
 
 const driveLabel = ev => (Number.isFinite(ev.drive_min) ? `${ev.drive_min} דק׳ נסיעה` : '');
 
-const leaveLine = ev => (Number.isFinite(ev.drive_min)
-  ? `צא ${leaveBy(ev.start, ev.drive_min)}`
-  : 'זמן נסיעה לא ידוע');
-
 const venueName = (ev, venues) => (venues ?? {})[ev.venue_id]?.name ?? '';
+
+// "היכל התרבות, ראשון לציון | ראשון לציון" says the city twice for no new fact.
+export const cityIn = (venue, city) => {
+  const c = String(city ?? '').trim();
+  return !c || String(venue ?? '').trim().endsWith(c);
+};
 
 const location = (ev, venues) => {
   const venue = venueName(ev, venues);
   const city = String(ev.city ?? '').trim();
-  // "היכל התרבות, ראשון לציון | ראשון לציון" says the city twice for no new fact.
-  const parts = [venue, venue.trim().endsWith(city) ? '' : city, driveLabel(ev)].filter(Boolean);
+  const parts = [venue, cityIn(venue, city) ? '' : city, driveLabel(ev)].filter(Boolean);
   return parts.map(part => `<bdi>${esc(part)}</bdi>`).join('<i aria-hidden="true">|</i>');
 };
 
 // The record's own description is what answers "what is this?"; the first clause is enough.
 const DESC_MAX = 120;
+const squish = s => String(s ?? '').replace(/\s+/g, ' ').trim();
+
+// Scrapers repeat the title at the start of the subtitle: "אורי ברויר - אורי ברויר במופע…".
+const withoutTitle = (text, title) => {
+  const t = squish(title);
+  let out = text;
+  for (let i = 0; t && i < 3 && out.startsWith(t); i++) {
+    out = out.slice(t.length).replace(/^[\s\-–—:|]+/, '').trim();
+    if (!out) break;
+  }
+  return out;
+};
+
 const descText = ev => {
-  const text = typeof ev.desc === 'string' ? ev.desc.replace(/\s+/g, ' ').trim() : '';
+  const text = typeof ev.desc === 'string' ? withoutTitle(squish(ev.desc), ev.title) : '';
   if (!text) return '';
   const clause = (text.match(/^[^.!?…]*[.!?…]?/)?.[0] ?? text).trim() || text;
   if (clause.length <= DESC_MAX) return esc(clause);
@@ -85,7 +104,7 @@ const links = ev => {
 const acts = ev => `<span class="acts">${links(ev)}${infoButton(ev)}</span>`;
 
 const rowHTML = (ev, venues) => `<tr class="row">
-<td><span class="when"><span class="h num">${timeLabel(ev)}</span><span class="r">${leaveLine(ev)}</span></span></td>
+<td><span class="when"><span class="h num">${timeLabel(ev)}</span><span class="r">${leaveText(ev)}</span></span></td>
 <td><span class="what"><span class="t"><bdi>${esc(ev.title)}</bdi></span>${descLine(ev)}<span class="v">${location(ev, venues)}</span></span></td>
 <td><span class="vibe">${chipsHTML(ev)}</span></td>
 <td>${priceCell(ev)}</td>
@@ -126,8 +145,9 @@ export function tableHTML(events, today, venues) {
   return tableShell(tableBody(events, today, venues).body);
 }
 
+// Column widths live in the stylesheet: one place that can also drop a column on a narrow screen.
 const tableShell = body => `<div class="tbl"><table>
-<colgroup><col style="width:122px"><col style="width:auto"><col style="width:30%"><col style="width:104px"><col style="width:132px"></colgroup>
+<colgroup><col><col><col><col><col></colgroup>
 <thead><tr><th scope="col">מתי</th><th scope="col">מה ואיפה</th><th scope="col">וייב</th><th scope="col">מחיר</th><th scope="col">פעולות</th></tr></thead>
 <tbody>${body}</tbody></table></div>`;
 
@@ -150,7 +170,7 @@ const cardHTML = (ev, today, venues) => {
 <div class="c1"><span class="rel2">${esc(relDay(ev.day, today) ?? dayLabel(ev.day))}</span><span class="time2 num">${timeLabel(ev)}</span><span class="p2 ${kind}">${esc(text)}</span></div>
 <h3 class="t2"><bdi>${esc(ev.title)}</bdi></h3>
 ${descLine(ev, 'p')}
-<div class="v2"><span>${location(ev, venues)}</span><span class="leave">${leaveLine(ev)}</span></div>
+<div class="v2"><span>${location(ev, venues)}</span><span class="leave">${leaveText(ev)}</span></div>
 <div class="strip">${chipsHTML(ev, 3)}${infoButton(ev)}</div>
 ${ev.soldout ? '<div class="sold">אזלו הכרטיסים</div>' : ''}
 ${noteBlock(ev)}
@@ -183,7 +203,7 @@ export function listHTML(events, today, venues, view = 'desktop') {
   return painted ? { html: tableShell(body), count: painted } : { html: brokenHTML(), count: 0 };
 }
 
-// The drive cap is the default that hides most events; say how many and how far, so it is a choice.
+// The drive cap is the default that hides most events; it is a button, not a footnote.
 export function hiddenHTML(hidden) {
   const list = hidden ?? [];
   if (!list.length) return '';
@@ -192,14 +212,14 @@ export function hiddenHTML(hidden) {
   const lo = Math.min(...drives);
   const hi = Math.max(...drives);
   const span = lo === hi ? `ב־${lo} דק׳` : `בין ${lo} ל־${hi} דק׳`;
-  return `<p class="hiddennote">עוד ${countLabel(list.length)} ${span}</p>`;
+  return `<button type="button" class="f hiddenbtn" id="f-far">עוד ${countLabel(list.length)} ${span} · הצג עד 60 דק׳ נסיעה</button>`;
 }
 
 export function emptyHTML(manifest, today) {
   const upcoming = (manifest.dates ?? []).filter(d => d.date >= today);
   const total = upcoming.reduce((n, d) => n + (Number(d.count) || 0), 0);
   return `<div class="empty"><h3>אין אירועים בטווח שבחרת</h3>
-<p>נסה טווח רחב יותר או נקה חלק מהסינונים.</p>
+<p>נסו טווח רחב יותר או נקו חלק מהסינונים.</p>
 <p class="rel">${total ? `יש ${countLabel(total)} בתקופה הקרובה` : 'אין אירועים בתקופה הקרובה'}</p>
 <button type="button" class="f" id="f-widen">הצג את החודש הקרוב</button></div>`;
 }

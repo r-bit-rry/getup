@@ -21,12 +21,18 @@ const clock = new Intl.DateTimeFormat('en-GB', {
 const list = v => (Array.isArray(v) ? v : v == null ? [] : [String(v)]);
 const num = v => (typeof v === 'number' && Number.isFinite(v) ? v : null);
 
+// A finite number can still be absurd: 1e16 is a RangeError inside Intl, not a date.
+const MIN_START = 946684800; // 2000-01-01T00:00:00Z
+const MAX_START = 4102444800; // 2100-01-01T00:00:00Z
+const when = v => (v !== null && v >= MIN_START && v <= MAX_START ? v : null);
+
 export function normalizeEvent(ev, isoDate) {
   const src = ev !== null && typeof ev === 'object' && !Array.isArray(ev) ? ev : {};
-  const start = num(src.start);
+  const start = when(num(src.start));
   const id = typeof src.id === 'string' && src.id
     ? src.id
-    // Without an id every event collapses to one key in the distance map.
+    // Without an id every event collapses to one key in the distance map. An unformattable
+    // start must not throw here — the record is skipped, but the id still has to exist.
     : `${src.venue_id ?? ''}|${isoDate}|${start === null ? '00:00' : clock.format(new Date(start * 1000))}`;
   return {
     ...src,
@@ -68,7 +74,10 @@ export async function loadDate(base, isoDate) {
     return [];
   }
 
-  const withDay = (Array.isArray(events) ? events : []).map(ev => normalizeEvent(ev, isoDate));
+  // A record with no usable start has no row: skip it here, where one bad record costs one line.
+  const withDay = (Array.isArray(events) ? events : [])
+    .map(ev => normalizeEvent(ev, isoDate))
+    .filter(ev => ev.start !== null);
   cache.set(path, withDay);
   return withDay;
 }

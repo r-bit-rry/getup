@@ -62,3 +62,10 @@ test('a bare record emits no signal chip', () => {
   assert.equal(html, '');
   assert.doesNotMatch(chipsHTML({ scene: ['רוק'] }), /יקר|תכנון מראש|הופעה חיה/);
 });
+
+test('price pressure and plan-ahead do not share the crowd glyph', () => {
+  const icon = kind => chip(kind, 'x').match(/<svg[^>]*>([\s\S]*?)<\/svg>/)[1];
+  assert.notEqual(icon('expense'), icon('plan'));
+  assert.notEqual(icon('expense'), icon('crowd'));
+  assert.notEqual(icon('plan'), icon('crowd'));
+});

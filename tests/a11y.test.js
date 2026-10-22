@@ -58,4 +58,15 @@ test('the page declares a referrer policy and a named location control', () => {
   const geo = buttons(html).find(([, attrs]) => /id="where-geo"/.test(attrs));
   assert.ok(geo, 'no location button');
   assert.match(geo[1], /aria-label="[^"]+"/);
+  // the button finds you; the centre label marks where you are — they must not share a glyph
+  assert.doesNotMatch(geo[1], /📍/);
+  assert.match(geo[2], /<svg/);
+});
+
+test('the view breakpoint is the one the stylesheet uses', () => {
+  const app = readFileSync(new URL('../app.js', import.meta.url), 'utf8');
+  assert.match(app, /matchMedia\('\(max-width: 900px\)'\)/);
+  assert.match(css, /@media \(max-width: 900px\)/);
+  // and the bulk load cannot reject outside fatal()
+  assert.match(app, /try \{\n\s*days = ok\n\s*\? await Promise\.all\(dates/);
 });

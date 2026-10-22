@@ -3,7 +3,7 @@ import { loadManifest, loadDate, loadVenues, validDates } from './src/data.js';
 import { loadPrefs, applyPrefs } from './src/prefs.js';
 import { applyFilters, sortEvents, defaultState, serializeState, deserializeState, clampStaleRange, dropStarted, excludedByDrive } from './src/filters.js';
 import { listHTML, emptyHTML, hiddenHTML, noDriveHTML } from './src/render.js';
-import { dataAge } from './src/format.js';
+import { dataAge, opsLine } from './src/format.js';
 import { VOCAB } from './src/chips.js';
 import { recomputeDistances } from './src/distance.js';
 
@@ -465,13 +465,7 @@ try {
 
 // ── footer ───────────────────────────────────────────────────────────────
 $('#data-age').textContent = dataAge(manifest.generated_at, new Date()) || 'מועד העדכון לא ידוע';
-const missed = (manifest.coverage?.missed ?? [])
-  .map(m => (typeof m === 'string' ? m : m?.name ?? m?.venue_id ?? m?.id))
-  .filter(Boolean);
-const checked = manifest.coverage?.checked ?? 0;
-$('#coverage').textContent = missed.length
-  ? `לא נבדקו ב־14 הימים האחרונים: ${missed.join(' · ')}`
-  : checked ? `כל ${checked} המקורות נבדקו` : 'אין מידע על כיסוי המקורות';
+$('#coverage').textContent = opsLine(manifest);
 
 // A position is only ever requested by this button: load must not ask for GPS.
 $('#where-geo').addEventListener('click', () => {

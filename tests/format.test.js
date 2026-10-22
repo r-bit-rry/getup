@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { relDay, dayLabel, timeRange, startTime, leaveBy, leaveText, endOf, priceLabel, dataAge } from '../src/format.js';
+import { readFileSync } from 'node:fs';
+import { relDay, dayLabel, timeRange, startTime, leaveBy, leaveText, endOf, priceLabel, dataAge, opsLine } from '../src/format.js';
 
 const T0 = Date.UTC(2026, 9, 18, 21, 0); // 2026-10-18 21:00Z
 
@@ -72,4 +73,45 @@ test('dataAge speaks Hebrew and never goes negative', () => {
   assert.equal(dataAge(null, now), '');
   assert.equal(dataAge(undefined, now), '');
   assert.equal(dataAge('not a date', now), '');
+});
+
+test('a failed source is named in the footer', () => {
+  assert.equal(
+    opsLine({ sources: { leaan: { status: 'failed' } }, coverage: { checked: 3, missed: [] } }),
+    'מקור שנכשל: leaan',
+  );
+});
+
+test('partial and failed sources share one line with the misses', () => {
+  assert.equal(
+    opsLine({
+      sources: { leaan: { status: 'failed' }, biluim: { status: 'partial' }, popit: { status: 'ok' } },
+      coverage: { checked: 3, missed: [{ venue_id: 'v', name: 'היכל התרבות' }] },
+    }),
+    'מקור שנכשל: leaan · מקור חלקי: biluim · לא נבדקו ב־14 הימים האחרונים: היכל התרבות',
+  );
+});
+
+test('a failure suppresses the all-clear sentence', () => {
+  assert.equal(
+    opsLine({ sources: { popit: { status: 'failed' } }, coverage: { checked: 3, missed: [] } }),
+    'מקור שנכשל: popit',
+  );
+});
+
+test('an unknown status is not a failure and the all-clear survives', () => {
+  assert.equal(
+    opsLine({ sources: { x: { status: 'ok-ish' }, y: 'failed' }, coverage: { checked: 3, missed: [] } }),
+    'כל 3 המקורות נבדקו',
+  );
+});
+
+test('an older index without sources still reports coverage', () => {
+  assert.equal(opsLine({}), 'אין מידע על כיסוי המקורות');
+  assert.equal(opsLine({ coverage: { checked: 3, missed: ['שם'] } }),
+    'לא נבדקו ב־14 הימים האחרונים: שם');
+});
+
+test('the page still has the footer slot the writer targets', () => {
+  assert.match(readFileSync(new URL('../index.html', import.meta.url), 'utf8'), /id="coverage"/);
 });

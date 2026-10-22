@@ -68,3 +68,28 @@ export function dataAge(generatedAt, now) {
   if (hours === 2) return 'עודכן לפני שעתיים';
   return `עודכן לפני ${hours} שעות`;
 }
+
+// One quiet sentence for the footer: what broke and what went unread, never a filter or an order.
+export function opsLine(manifest) {
+  const sources = manifest?.sources ?? {};
+  const names = status => Object.entries(sources)
+    .filter(([, s]) => s !== null && typeof s === 'object' && s.status === status)
+    .map(([name]) => name)
+    .sort()
+    .join(', ');
+  const failed = names('failed');
+  const partial = names('partial');
+  const parts = [];
+  if (failed) parts.push(`מקור שנכשל: ${failed}`);
+  if (partial) parts.push(`מקור חלקי: ${partial}`);
+  const missed = (Array.isArray(manifest?.coverage?.missed) ? manifest.coverage.missed : [])
+    .map(m => (typeof m === 'string' ? m : m?.name ?? m?.venue_id ?? m?.id))
+    .filter(Boolean);
+  const checked = manifest?.coverage?.checked ?? 0;
+  if (missed.length) {
+    parts.push(`לא נבדקו ב־14 הימים האחרונים: ${missed.join(' · ')}`);
+  } else if (!failed && !partial) {
+    parts.push(checked ? `כל ${checked} המקורות נבדקו` : 'אין מידע על כיסוי המקורות');
+  }
+  return parts.join(' · ');
+}

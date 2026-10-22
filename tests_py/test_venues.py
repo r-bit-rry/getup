@@ -103,6 +103,13 @@ class ResolveTest(unittest.TestCase):
         self.assertEqual(venues.resolve(self.reg, 'בית יד לבנים', None),
                          'v_beit_yad_labanim_raanana')
 
+    def test_a_city_named_inside_the_venue_string_is_the_city(self):
+        self.assertEqual(venues.resolve(self.reg, 'בית יד לבנים, רעננה', None),
+                         'v_beit_yad_labanim_raanana')
+        vid = venues.resolve(self.reg, 'בית יד לבנים, אשדוד', None)
+        self.assertNotEqual(vid, 'v_beit_yad_labanim_raanana')
+        self.assertEqual(self.reg[vid]['city'], 'אשדוד')
+
     def test_a_name_known_in_several_cities_is_not_guessed_from_the_name_alone(self):
         reg = registry(haifa='חיפה', netanya='נתניה')
         vid = venues.resolve(reg, 'היכל התרבות', None)

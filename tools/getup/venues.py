@@ -123,6 +123,10 @@ def resolve(registry: dict, venue, city) -> str | None:
     if not name:
         return None
     place = norm_city(city)
+    if not place:                   # a known city in the name is a stated city, not decoration
+        _, sep, tail = name.rpartition(', ')
+        if sep and norm_city(tail) in known_cities():
+            place = norm_city(tail)
     candidates = [name, strip_city_suffix(name, place)]
     index = alias_index(registry)
     for text in candidates:

@@ -50,8 +50,15 @@ export function sortEvents(events) {
   return [...events].sort((a, b) =>
     (a.day < b.day ? -1 : a.day > b.day ? 1 : 0)
     || (b.notable - a.notable)
-    || (drive(a) - drive(b)));
+    || (drive(a) - drive(b))
+    // equal rows must keep a stable, re-run-safe order
+    || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 }
+
+// A range that ended before today would paint an empty page while the footer claims events exist.
+export const clampStaleRange = (state, today) => (state.range?.to < today
+  ? { ...state, dateWindow: 'week', range: null }
+  : state);
 
 export function serializeState(state) {
   return JSON.stringify(state);

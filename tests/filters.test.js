@@ -1,7 +1,7 @@
 // tests/filters.test.js
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { defaultState, applyFilters, sortEvents, serializeState, deserializeState } from '../src/filters.js';
+import { defaultState, applyFilters, sortEvents, serializeState, deserializeState, clampStaleRange } from '../src/filters.js';
 
 const TODAY = '2026-10-18';
 const ev = (o = {}) => ({ id: 'x', title: 't', venue_id: 'v', city: 'c', day: '2026-10-20',
@@ -73,4 +73,29 @@ test('state round-trips and survives garbage', () => {
   assert.deepEqual(deserializeState(serializeState(s)), s);
   assert.deepEqual(deserializeState('{not json'), defaultState());
   assert.equal(deserializeState('{"nonsense":1}').dateWindow, 'week');
+});
+
+// ── fix wave A: stable order and a stale stored range ────────────────────
+
+test('equal day, notability and drive fall back to id so a re-run cannot reorder the page', () => {
+  const rows = [
+    ev({ id: 'c', day: '2026-10-20', drive_min: 10, notable: false }),
+    ev({ id: 'a', day: '2026-10-20', drive_min: 10, notable: false }),
+    ev({ id: 'b', day: '2026-10-20', drive_min: 10, notable: false }),
+  ];
+  assert.deepEqual(sortEvents(rows).map(e => e.id), ['a', 'b', 'c']);
+  assert.deepEqual(sortEvents([...rows].reverse()).map(e => e.id), ['a', 'b', 'c']);
+});
+
+test('a stored range that ended before today resets to the week window', () => {
+  const stale = { ...defaultState(), dateWindow: 'range', range: { from: '2026-10-01', to: '2026-10-10' } };
+  const out = clampStaleRange(stale, '2026-10-18');
+  assert.equal(out.dateWindow, 'week');
+  assert.equal(out.range, null);
+  // a live range and a range ending today are left alone
+  const live = { ...defaultState(), dateWindow: 'range', range: { from: '2026-10-18', to: '2026-10-25' } };
+  assert.deepEqual(clampStaleRange(live, '2026-10-18'), live);
+  const endsToday = { ...defaultState(), dateWindow: 'range', range: { from: '2026-10-01', to: '2026-10-18' } };
+  assert.deepEqual(clampStaleRange(endsToday, '2026-10-18'), endsToday);
+  assert.deepEqual(clampStaleRange(defaultState(), '2026-10-18'), defaultState());
 });

@@ -1,23 +1,23 @@
 import { relDay, dayLabel, timeRange, startTime, leaveBy, priceLabel } from './format.js';
 import { chipsHTML } from './chips.js';
 
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
+// Control and bidi-override characters would let a title reverse its neighbours in the RTL line.
+const UNSAFE = /[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g;
+const esc = s => String(s ?? '').replace(UNSAFE, '').replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
 
-// Only http(s) and in-site links may reach an href; a scraped scheme is not trusted.
-const safeUrl = u => {
-  if (typeof u !== 'string') return '#';
-  try {
-    const { protocol } = new URL(u);
-    if (protocol === 'http:' || protocol === 'https:') return u;
-  } catch { /* relative or fragment, checked below */ }
-  return u.startsWith('/') || u.startsWith('#') ? u : '#';
-};
+// Only http(s) and same-site paths may reach an href; a scraped scheme, `//host` or `/\host` is not trusted.
+const SAFE_URL = /^(?:https?:\/\/|\/(?![/\\])|#)/i;
+const safeUrl = u => (typeof u === 'string' && SAFE_URL.test(u) ? u : '#');
 
 const countLabel = n => (n === 1 ? 'אירוע אחד' : `${n} אירועים`);
 
-const timeLabel = ev => (Number.isFinite(ev.end) && ev.end > ev.start
-  ? timeRange(ev.start, ev.end)
-  : startTime(ev.start));
+const timeLabel = ev => {
+  // An event with no start has no honest "when": refuse the row rather than print 02:00.
+  if (!Number.isFinite(ev.start)) throw new TypeError('missing start');
+  return Number.isFinite(ev.end) && ev.end > ev.start
+    ? timeRange(ev.start, ev.end)
+    : startTime(ev.start);
+};
 
 const driveLabel = ev => (Number.isFinite(ev.drive_min) ? `${ev.drive_min} דק׳ נסיעה` : '');
 
@@ -51,14 +51,14 @@ const links = ev => {
   const ticket = ev.soldout
     ? '<span class="act gone">אזל</span>'
     : ev.urls?.tickets
-      ? `<a class="act" href="${esc(safeUrl(ev.urls.tickets))}" target="_blank" rel="noopener">כרטיס</a>`
+      ? `<a class="act" href="${esc(safeUrl(ev.urls.tickets))}" target="_blank" rel="noopener noreferrer">כרטיס</a>`
       : '';
   const comm = ev.urls?.community
-    ? `<a class="act comm" href="${esc(safeUrl(ev.urls.community))}" target="_blank" rel="noopener">קבוצה</a>`
+    ? `<a class="act comm" href="${esc(safeUrl(ev.urls.community))}" target="_blank" rel="noopener noreferrer">קבוצה</a>`
     : '';
   // A nightlife feed has no ticket and no community: its source page is the only way in.
   const source = !ev.urls?.tickets && !ev.urls?.community && ev.urls?.source
-    ? `<a class="act" href="${esc(safeUrl(ev.urls.source))}" target="_blank" rel="noopener">מקור</a>`
+    ? `<a class="act" href="${esc(safeUrl(ev.urls.source))}" target="_blank" rel="noopener noreferrer">מקור</a>`
     : '';
   return ticket + comm + source;
 };
@@ -104,17 +104,26 @@ const guarded = (build, ev) => {
 };
 
 export function tableHTML(events, today, venues) {
-  const body = [...groupByDay(events ?? [])]
-    .map(([day, list]) => {
-      const rows = list.map(ev => guarded(e => rowHTML(e, venues), ev)).filter(Boolean);
-      return rows.length ? dayRowHTML(day, rows.length, today) + rows.join('') : '';
-    })
-    .join('');
-  return `<div class="tbl"><table>
+  return tableShell(tableBody(events, today, venues).body);
+}
+
+const tableShell = body => `<div class="tbl"><table>
 <colgroup><col style="width:122px"><col style="width:auto"><col style="width:30%"><col style="width:104px"><col style="width:132px"></colgroup>
 <thead><tr><th scope="col">מתי</th><th scope="col">מה ואיפה</th><th scope="col">וייב</th><th scope="col">מחיר</th><th scope="col">פעולות</th></tr></thead>
 <tbody>${body}</tbody></table></div>`;
-}
+
+// painted is what actually reached the DOM: a dropped row must not be counted as shown.
+const tableBody = (events, today, venues) => {
+  let painted = 0;
+  const body = [...groupByDay(events ?? [])]
+    .map(([day, list]) => {
+      const rows = list.map(ev => guarded(e => rowHTML(e, venues), ev)).filter(Boolean);
+      painted += rows.length;
+      return rows.length ? dayRowHTML(day, rows.length, today) + rows.join('') : '';
+    })
+    .join('');
+  return { body, painted };
+};
 
 const cardHTML = (ev, today, venues) => {
   const { text, kind } = priceLabel(ev);
@@ -128,17 +137,35 @@ ${noteBlock(ev)}
 <div class="cta"><span class="acts">${links(ev)}</span></div></article>`;
 };
 
-export function cardsHTML(events, today, venues) {
+const cardsBody = (events, today, venues) => {
   const cards = (events ?? [])
     .map(ev => guarded(e => cardHTML(e, today, venues), ev))
-    .filter(Boolean)
-    .join('');
-  return `<div class="cards">${cards}</div>`;
+    .filter(Boolean);
+  return { body: `<div class="cards">${cards.join('')}</div>`, painted: cards.length };
+};
+
+export function cardsHTML(events, today, venues) {
+  return cardsBody(events, today, venues).body;
+}
+
+const brokenHTML = () => `<div class="empty"><h3>לא הצלחנו להציג את האירועים</h3>
+<p>נתוני האירועים חלקיים כרגע. נסו לרענן את הדף.</p></div>`;
+
+// Only the visible view is built, and the caller learns how many records actually painted.
+export function listHTML(events, today, venues, view = 'desktop') {
+  const list = events ?? [];
+  if (!list.length) return { html: '', count: 0 };
+  if (view === 'mobile') {
+    const { body, painted } = cardsBody(list, today, venues);
+    return painted ? { html: body, count: painted } : { html: brokenHTML(), count: 0 };
+  }
+  const { body, painted } = tableBody(list, today, venues);
+  return painted ? { html: tableShell(body), count: painted } : { html: brokenHTML(), count: 0 };
 }
 
 export function emptyHTML(manifest, today) {
   const upcoming = (manifest.dates ?? []).filter(d => d.date >= today);
-  const total = upcoming.reduce((n, d) => n + (d.count ?? 0), 0);
+  const total = upcoming.reduce((n, d) => n + (Number(d.count) || 0), 0);
   return `<div class="empty"><h3>אין אירועים בטווח שבחרת</h3>
 <p>נסה טווח רחב יותר או נקה חלק מהסינונים.</p>
 <p class="rel">במאגר יש ${countLabel(total)} בטווח הקרוב</p></div>`;

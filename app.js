@@ -1,26 +1,35 @@
 // Page shell: reads state, calls the pure modules, renders. No logic lives here.
-import { loadManifest, loadDate, loadVenues } from './src/data.js';
+import { loadManifest, loadDate, loadVenues, validDates } from './src/data.js';
 import { loadPrefs, applyPrefs } from './src/prefs.js';
-import { applyFilters, sortEvents, defaultState, serializeState, deserializeState } from './src/filters.js';
-import { tableHTML, cardsHTML, emptyHTML } from './src/render.js';
+import { applyFilters, sortEvents, defaultState, serializeState, deserializeState, clampStaleRange } from './src/filters.js';
+import { listHTML, emptyHTML } from './src/render.js';
 import { dataAge } from './src/format.js';
 import { VOCAB } from './src/chips.js';
 import { recomputeDistances } from './src/distance.js';
 
 const TZ = 'Asia/Jerusalem';
-const KEY = { state: 'getup:state', view: 'getup:view', theme: 'getup:theme' };
+const KEY = { state: 'getup:state', view: 'getup:view', theme: 'getup:theme', centre: 'getup:centre' };
 const $ = (sel, root = document) => root.querySelector(sel);
 
 const read = k => { try { return localStorage.getItem(k); } catch { return null; } };
 const write = (k, v) => { try { localStorage.setItem(k, v); } catch { /* storage blocked: session-only state */ } };
+// A geolocated centre lives in the tab, not in localStorage.
+const session = {
+  get: k => { try { return sessionStorage.getItem(k); } catch { return null; } },
+  set: (k, v) => { try { sessionStorage.setItem(k, v); } catch { /* storage blocked */ } },
+  del: k => { try { sessionStorage.removeItem(k); } catch { /* storage blocked */ } },
+};
+
+const GEO_LABEL = 'המיקום שלי';
+const round3 = n => Math.round(n * 1000) / 1000;
 
 const dateFmt = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' });
-const today = dateFmt.format(new Date()); // Asia/Jerusalem calendar date, computed once
+let today = dateFmt.format(new Date()); // Asia/Jerusalem calendar date, refreshed when the tab comes back
 const addDays = (iso, n) => {
   const [y, m, d] = iso.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
 };
-const monthEnd = addDays(today, 30); // served horizon: 30 days
+let monthEnd = addDays(today, 30); // served horizon: 30 days
 
 // A manifest that cannot be fetched must not leave a blank page: keep the shell and say so.
 let manifest = { generated_at: null, dates: [], coverage: { checked: 0, missed: [] } };
@@ -32,13 +41,23 @@ try {
   // A null/array/primitive manifest is a failed load, not a page with no events.
   if (!loaded || typeof loaded !== 'object' || Array.isArray(loaded)) throw new TypeError('manifest is not an object');
   manifest = loaded;
-  venues = await loadVenues('.');
-  prefs = await loadPrefs('.');
 } catch {
   ok = false;
 }
-const dates = Array.isArray(manifest.dates) ? manifest.dates : [];
-const days = await Promise.all(dates.map(d => loadDate('.', d.date)));
+// venues.json is decoration: the renderer already falls back to the city alone.
+try {
+  venues = await loadVenues('.');
+} catch {
+  venues = {};
+}
+prefs = await loadPrefs('.');
+// One bogus date must not blank the list; an all-bogus list is a failed load.
+const dates = validDates(manifest);
+if (ok && manifest.dates?.length && !dates.length) ok = false;
+// Past dates are not shown and are not worth a request.
+const days = ok
+  ? await Promise.all(dates.filter(d => d.date >= today).map(d => loadDate('.', d.date)))
+  : [];
 const all = applyPrefs(days.flat(), prefs);
 
 const DEFAULT_CENTRE = defaultState().centre;
@@ -55,8 +74,15 @@ function fatal() {
   $('#status').textContent = p.textContent;
 }
 
-let state = deserializeState(read(KEY.state) ?? 'null');
+let state = clampStaleRange(deserializeState(read(KEY.state) ?? 'null'), today);
 if (state.dateWindow === 'range' && !state.range) state.dateWindow = 'week'; // a cleared range must not hide the window
+// An older build may have persisted a precise position; it is not ours to keep.
+if (state.centre.label === GEO_LABEL) state.centre = defaultState().centre;
+// A position granted in this tab only; it must not survive the tab.
+try {
+  const geo = JSON.parse(session.get(KEY.centre) ?? 'null');
+  if (geo && Number.isFinite(geo.lat) && Number.isFinite(geo.lon)) state.centre = geo;
+} catch { /* a corrupt session entry is simply no position */ }
 
 const currentPreset = () => (state.dateWindow !== 'range'
   ? state.dateWindow
@@ -79,6 +105,15 @@ distEl.className = 'distnote';
 distEl.setAttribute('role', 'status');
 distEl.hidden = true;
 $('#list').before(distEl);
+
+// Sending a position to a public router is a fact the user is told next to the note, not buried.
+const geoEl = document.createElement('p');
+geoEl.id = 'geo-note';
+geoEl.className = 'distnote';
+geoEl.hidden = true;
+geoEl.textContent = 'המיקום נשלח לשירות ניתוב ציבורי (OSRM)';
+distEl.after(geoEl);
+
 // The note follows the data, not a flag: it is up whenever a shown minute is still Netanya's.
 // role="status": writing textContent replaces the node and re-announces, so only change what differs.
 const syncNote = show => {
@@ -86,25 +121,50 @@ const syncNote = show => {
   if (distEl.hidden !== hide) distEl.hidden = hide;
   const text = show ? NOTE : '';
   if (distEl.textContent !== text) distEl.textContent = text;
+  const geo = state.centre.label === GEO_LABEL;
+  if (geoEl.hidden !== !geo) geoEl.hidden = !geo;
+};
+
+// Writing the same state on every paint is a synchronous localStorage write per filter click.
+let lastPersisted = null;
+const persist = () => {
+  const s = serializeState(state.centre.label === GEO_LABEL
+    ? { ...state, centre: defaultState().centre }
+    : state);
+  if (s === lastPersisted) return;
+  lastPersisted = s;
+  write(KEY.state, s);
 };
 
 function render() {
   if (!ok) return;
   const events = visible();
-  $('#list').innerHTML = events.length
-    ? tableHTML(events, today, venues) + cardsHTML(events, today, venues)
-    : emptyHTML(manifest, today);
-  $('#status').textContent = `${events.length} אירועים בתצוגה`;
+  const { html, count } = listHTML(events, today, venues, document.body.dataset.view);
+  $('#list').innerHTML = events.length ? html : emptyHTML(manifest, today);
+  $('#status').textContent = `${count} אירועים בתצוגה`;
   syncNote(!isDefaultCentre(state.centre) && events.some(ev => !drive.has(ev.id)));
   syncControls();
-  write(KEY.state, serializeState(state));
+  persist();
   drawMap(map, events.map(ev => ({ ...ev, venue: venues[ev.venue_id]?.name })));
 }
 
 // Cached drive_min already comes from Netanya: only a different centre needs the router.
 let centreSeq = 0;
-let inFlight = false; // one /table request at a time; the slider can fire ~22 input events per sweep
+let inFlight = false; // one batch at a time; the slider can fire once per release
 let rerun = false; // a centre/filter change landed mid-flight: cover it once the request settles
+
+// /table takes 100 coordinates including the origin: a long list is sliced and merged.
+const CHUNK = 99;
+async function distancesFor(events, centre) {
+  const out = [];
+  for (let i = 0; i < events.length; i += CHUNK) {
+    const mins = await recomputeDistances(events.slice(i, i + CHUNK), centre);
+    if (!mins) return null; // one failed slice keeps every cached minute, and the note, standing
+    out.push(...mins);
+  }
+  return out;
+}
+
 async function refreshDistances() {
   const seq = ++centreSeq;
   if (isDefaultCentre(state.centre)) {
@@ -129,7 +189,7 @@ async function refreshDistances() {
   inFlight = true;
   let mins = null;
   try {
-    mins = await recomputeDistances(events, state.centre);
+    mins = await distancesFor(events, state.centre);
   } finally {
     inFlight = false;
   }
@@ -221,7 +281,8 @@ $('#f-gated').addEventListener('click', () => { state.includeGated = !state.incl
 $('#f-minor').addEventListener('click', () => { state.age = state.age == null ? 17 : null; refilter(); });
 
 // The slider's top value means "no limit" — the real price range tops out at ₪250.
-$('#f-price').addEventListener('input', e => {
+// change, not input: every paint rebuilds the list, so one drag must not repaint 22 times.
+$('#f-price').addEventListener('change', e => {
   const max = Number(e.currentTarget.max);
   const v = Number(e.currentTarget.value);
   state.maxPrice = v >= max ? null : v;
@@ -235,6 +296,7 @@ $('#f-drive').addEventListener('change', e => {
 
 $('#f-clear').addEventListener('click', () => {
   state = defaultState();
+  session.del(KEY.centre); // a reset also forgets the position granted in this tab
   // The default-centre branch clears every recomputed minute and the note atomically.
   refreshDistances();
 });
@@ -273,6 +335,7 @@ function applyView(view) {
 function setView(view) {
   applyView(view);
   write(KEY.view, view);
+  render(); // only the visible view is built, so switching must rebuild the list
   // the map container was display:none in mobile view; measure it again once layout settles
   requestAnimationFrame(() => map?.resize());
 }
@@ -331,13 +394,37 @@ $('#coverage').textContent = missed.length
   ? `לא נבדקו ב־14 הימים האחרונים: ${missed.join(' · ')}`
   : checked ? `כל ${checked} המקורות נבדקו` : 'אין מידע על כיסוי המקורות';
 
+// A position is only ever requested by this button: load must not ask for GPS.
+$('#where-geo').addEventListener('click', () => {
+  navigator.geolocation?.getCurrentPosition(
+    p => {
+      const centre = {
+        lat: round3(p.coords.latitude),
+        lon: round3(p.coords.longitude),
+        label: GEO_LABEL,
+      };
+      session.set(KEY.centre, JSON.stringify(centre));
+      recentre(centre);
+    },
+    () => {}, // denial leaves the cached Netanya minutes in place
+  );
+});
+
+// A tab resumed the next morning must not keep yesterday under היום.
+const refreshToday = () => {
+  const now = dateFmt.format(new Date());
+  if (now === today) return;
+  today = now;
+  monthEnd = addDays(today, 30);
+  render();
+};
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') refreshToday();
+});
+addEventListener('pageshow', refreshToday);
+
 if (ok) {
   render();
-  // A centre restored from localStorage was not computed by this page load.
+  // A centre restored from this tab was not computed by this page load.
   if (!isDefaultCentre(state.centre)) refreshDistances();
-  // Geolocation overrides Netanya only when granted; denial leaves the correct cached minutes.
-  navigator.geolocation?.getCurrentPosition(
-    p => recentre({ lat: p.coords.latitude, lon: p.coords.longitude, label: 'המיקום שלי' }),
-    () => {},
-  );
 } else fatal();

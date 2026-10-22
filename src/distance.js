@@ -16,8 +16,10 @@ export async function recomputeDistances(events, centre, { fetchImpl, timeoutMs 
   // One bad coordinate would shift every later index; refuse the whole batch.
   if (list.some(ev => !Number.isFinite(ev?.lat) || !Number.isFinite(ev?.lon))) return null;
 
+  // ~110 m is enough for a drive minute; the exact position never leaves the browser.
+  const round3 = n => Math.round(n * 1000) / 1000;
   const coords = [[centre.lon, centre.lat], ...list.map(ev => [ev.lon, ev.lat])]
-    .map(([lon, lat]) => `${lon},${lat}`)
+    .map(([lon, lat]) => `${round3(lon)},${round3(lat)}`)
     .join(';');
   const url = `${OSRM}/${coords}?annotations=duration`;
 

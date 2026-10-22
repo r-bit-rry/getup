@@ -53,3 +53,10 @@ test('the stylesheet keeps the sticky-header offset and a reduced-motion block',
   assert.match(css, /scroll-padding-block-start:\s*var\(--bar-h/);
   assert.match(css, /@media\s*\(prefers-reduced-motion/);
 });
+
+test('the page declares a referrer policy and a named location control', () => {
+  assert.match(html, /<meta name="referrer" content="strict-origin-when-cross-origin">/);
+  const geo = buttons(html).find(([, attrs]) => /id="where-geo"/.test(attrs));
+  assert.ok(geo, 'no location button');
+  assert.match(geo[1], /aria-label="[^"]+"/);
+});

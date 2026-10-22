@@ -65,3 +65,15 @@ test('a hung router is aborted on timeout and returns null like any failure', as
   assert.equal(r, null);
   assert.equal(aborted, true);
 });
+
+test('coordinates are rounded to 3 decimals before they leave the browser', async () => {
+  let called;
+  const r = await recomputeDistances(
+    [{ lat: 32.123456789, lon: 34.987654321 }],
+    { lat: 32.111111111, lon: 34.222222222 },
+    { fetchImpl: async url => { called = url; return { ok: true, json: async () => ({ code: 'Ok', durations: [[0, 60]] }) }; } },
+  );
+  assert.deepEqual(r, [1]);
+  assert.match(called, /\/34\.222,32\.111;34\.988,32\.123\?/);
+  assert.doesNotMatch(called, /987654321|111111111/);
+});

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { tableHTML, cardsHTML, emptyHTML } from '../src/render.js';
+import { tableHTML, cardsHTML, emptyHTML, listHTML } from '../src/render.js';
 
 const base = { venue_id: 'v', city: 'תל אביב', start: 1792780200, end: 1792787400,
   drive_min: 29, price_from: 174, free: false, soldout: false, notable: false,
@@ -166,4 +166,82 @@ test('a record with no ticket and no community links to its source', () => {
   }
   const bad = { ...ev, urls: { source: 'javascript:alert(1)' } };
   assert.match(tableHTML([bad], '2026-10-18'), /href="#"/);
+});
+
+// ── fix wave A: escaping, URLs, painted count ────────────────────────────
+
+test('control and bidi-override characters are stripped before escaping', () => {
+  const ev = { ...base, id: 'b1', day: '2026-10-23', title: 'שלום\u202Eworld\u2066!\u0000\u009b' };
+  const html = tableHTML([ev], '2026-10-18');
+  assert.ok(html.includes('שלוםworld!'));
+  assert.doesNotMatch(html, /[\u0000\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/);
+});
+
+test('the empty-state count is a number, not markup', () => {
+  const m = { dates: [{ date: '2026-10-22', count: '0<img src=x onerror=alert(1)>' }] };
+  const html = emptyHTML(m, '2026-10-18');
+  assert.doesNotMatch(html, /<img|onerror/);
+  assert.match(html, /0 אירועים/);
+  // a numeric string is still a count
+  assert.match(emptyHTML({ dates: [{ date: '2026-10-22', count: '6' }] }, '2026-10-18'), /6 אירועים/);
+});
+
+test('only http(s), a single-slash path and a fragment may reach an href', () => {
+  const hrefs = ['//evil.example/x', '/\\evil.example/x', '\\\\evil.example', 'javascript:alert(1)',
+    ' data:text/html,x', 'https:/evil.example'];
+  for (const u of hrefs) {
+    const ev = { ...base, id: 'u', day: '2026-10-23', title: 'אירוע', urls: { tickets: u } };
+    assert.match(tableHTML([ev], '2026-10-18'), /href="#"/, u);
+  }
+  for (const u of ['https://ok.example/p?a=1&b=2', '/local/page', '#frag']) {
+    const ev = { ...base, id: 'u', day: '2026-10-23', title: 'אירוע', urls: { tickets: u } };
+    const html = tableHTML([ev], '2026-10-18');
+    assert.ok(html.includes(`href="${u.replace(/&/g, '&#38;')}"`), u);
+  }
+});
+
+test('every outbound anchor carries noopener noreferrer', () => {
+  const ev = { ...base, id: 'r', day: '2026-10-23', title: 'אירוע',
+    urls: { tickets: 'https://t.example', community: 'https://c.example' } };
+  const out = tableHTML([ev], '2026-10-18') + cardsHTML([ev], '2026-10-18')
+    + tableHTML([{ ...ev, urls: { source: 'https://s.example' } }], '2026-10-18');
+  const anchors = out.match(/<a\b[^>]*>/g) ?? [];
+  assert.ok(anchors.length > 0);
+  for (const a of anchors) assert.match(a, /rel="noopener noreferrer"/, a);
+});
+
+test('a list whose every record fails paints an error, not an empty table, and counts zero', () => {
+  const warn = console.warn;
+  console.warn = () => {};
+  try {
+    const bad = { ...base, id: 'bad', day: '2026-10-23', title: 'שבור', start: null };
+    for (const view of ['desktop', 'mobile']) {
+      const r = listHTML([bad], '2026-10-18', {}, view);
+      assert.equal(r.count, 0);
+      assert.match(r.html, /לא הצלחנו להציג את האירועים/);
+      assert.doesNotMatch(r.html, /<table|<article/);
+    }
+  } finally {
+    console.warn = warn;
+  }
+});
+
+test('the painted count counts only records that reached the list', () => {
+  const warn = console.warn;
+  console.warn = () => {};
+  try {
+    const bad = { ...base, id: 'bad', day: '2026-10-23', title: 'שבור', start: null };
+    const good = { ...base, id: 'good', day: '2026-10-23', title: 'תקין' };
+    for (const view of ['desktop', 'mobile']) {
+      const r = listHTML([bad, good], '2026-10-18', {}, view);
+      assert.equal(r.count, 1, view);
+      assert.doesNotMatch(r.html, /שבור/);
+    }
+  } finally {
+    console.warn = warn;
+  }
+});
+
+test('an empty list builds nothing, so the caller can paint its own empty state', () => {
+  assert.deepEqual(listHTML([], '2026-10-18'), { html: '', count: 0 });
 });

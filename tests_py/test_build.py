@@ -24,6 +24,11 @@ def served(root):
     return {ev['id']: ev for day in write.data_files(f'{root}/data')
             for ev in json.load(open(write.date_file(root, day), encoding='utf-8'))}
 
+def rows(root):
+    """Every committed row, duplicates included: a dict keyed by id can never show a second one."""
+    return [ev for day in write.data_files(f'{root}/data')
+            for ev in json.load(open(write.date_file(root, day), encoding='utf-8'))]
+
 def human_draft(root, base, **overrides):
     venue = venues.load(root)[base['venue_id']]['name']
     draft = {'class': 'human', 'source': 'github', 'title': base['title'],
@@ -43,16 +48,15 @@ class HumanPrecedenceTest(unittest.TestCase):
             correction = human_draft(root, base, title='תיקון אנושי', price_from=7)
             write.write_json(human.store_file(root), {'7': correction})
             build.run(root, TODAY, **args)
-            rows = [ev for ev in served(root).values() if ev['id'] == base['id']]
-            self.assertEqual(len(rows), 1)
-            self.assertEqual((rows[0]['title'], rows[0]['price_from']), ('תיקון אנושי', 7))
-            self.assertEqual(rows[0]['source'], {'class': 'human', 'name': 'github'})
-            self.assertEqual(rows[0]['urls']['source'], 'https://github.com/roy/getup/issues/7')
+            found = [ev for ev in rows(root) if ev['id'] == base['id']]
+            self.assertEqual(len(found), 1)
+            self.assertEqual((found[0]['title'], found[0]['price_from']), ('תיקון אנושי', 7))
+            self.assertEqual(found[0]['source'], {'class': 'human', 'name': 'github'})
+            self.assertEqual(found[0]['urls']['source'], 'https://github.com/roy/getup/issues/7')
             self.assertTrue(any(n.startswith(base['source']['name'])
-                                for n in rows[0]['enrichment']))
+                                for n in found[0]['enrichment']))
             build.run(root, TODAY, **args)
-            self.assertEqual(len([ev for ev in served(root).values()
-                                  if ev['id'] == base['id']]), 1)
+            self.assertEqual(len([ev for ev in rows(root) if ev['id'] == base['id']]), 1)
 
     def test_a_human_draft_gets_coordinates_when_its_new_venue_is_seeded(self):
         with tempfile.TemporaryDirectory() as root:
@@ -92,8 +96,7 @@ class HumanPrecedenceTest(unittest.TestCase):
             draft = human_draft(root, base)
             write.write_json(human.store_file(root), {'7': draft, '8': dict(draft)})
             build.run(root, TODAY, **args)
-            self.assertEqual(len([ev for ev in served(root).values()
-                                  if ev['id'] == base['id']]), 1)
+            self.assertEqual(len([ev for ev in rows(root) if ev['id'] == base['id']]), 1)
 
 class BuildTest(unittest.TestCase):
     def setUp(self):
@@ -279,6 +282,24 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(reg['v_heichal_tarbut_rishon']['seen_last'], TODAY)
         self.assertEqual(out['coverage']['missed'], [])            # the hall was read this morning
         self.assertTrue(all(not json.loads(body) for body in snapshot(self.root).values()))
+
+    def test_a_scan_row_absorbed_by_a_human_row_still_stamps_seen_last(self):
+        from unittest import mock
+        draft = {'title': 'הופעה', 'start': 1796151600, 'venue': 'היכל התרבות ראשון לציון',
+                 'city': 'ראשון לציון', 'source': 'leaan', 'class': 'aggregator'}
+        with mock.patch.object(build.scan, 'scan_from_dir',
+                               return_value=([draft], {'leaan': 1}, [], {'leaan': 'ok'})):
+            build.run(self.root, TODAY, sources=('leaan',), from_dir=CAPTURE,
+                      fetch=no_network, now=NOW)
+            base = {'venue_id': 'v_heichal_tarbut_rishon', 'title': 'הופעה', 'city': 'ראשון לציון',
+                    'start': 1796151600, 'price_from': None}
+            write.write_json(human.store_file(self.root),
+                             {'7': human_draft(self.root, base, title='תיקון אנושי')})
+            out = build.run(self.root, TODAY, sources=('leaan',), from_dir=CAPTURE,
+                            fetch=no_network, now=NOW)
+        venue = venues.load(self.root)['v_heichal_tarbut_rishon']
+        self.assertEqual(venue['seen_last'], TODAY)     # the only scan row was absorbed, not forgotten
+        self.assertEqual(out['coverage']['missed'], [])
 
     def test_history_warns_on_a_corrupt_day_and_keeps_reading_the_rest(self):
         write.write_bytes(write.date_file(self.root, '2026-10-22'), b'{nope')

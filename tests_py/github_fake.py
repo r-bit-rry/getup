@@ -2,8 +2,9 @@
 
 
 class Fake:
-    def __init__(self, issues=(), comments=None):
+    def __init__(self, issues=(), comments=None, closed=()):
         self.pending = list(issues)
+        self.closed = list(closed)
         self.comments_ = dict(comments or {})
         self.said, self.labels, self.ensured = [], [], 0
 
@@ -12,6 +13,9 @@ class Fake:
 
     def issues(self):
         return list(self.pending)
+
+    def closed_issues(self):
+        return list(self.closed)
 
     def comments(self, n):
         return list(self.comments_.get(n, []))

@@ -49,7 +49,8 @@ Anyone with write access opens one of the three forms in `.github/ISSUE_TEMPLATE
 never processed and never answered.
 
 The poll reads open issues labelled `intake`, never the ones already labelled
-`processed`, and writes one canonical draft per issue to `data/human.json`. The
+`processed`, and writes one canonical draft per issue to `data/human.json`. On
+every poll it also lists closed `intake` issues and retracts their drafts. The
 receipt comment quotes that draft; the labels are the only state.
 
 One-time label bootstrap — the poll verifies these and refuses to run without
@@ -71,7 +72,13 @@ PYTHONPATH=. python3 -m tools.getup intake
 
 To correct a processed issue, remove its `processed` label and edit the body; the
 next poll replaces that issue's draft, and the build puts the human row above the
-scanned one.
+scanned one. A start-time correction beyond ±30 minutes is a second row, not a
+replacement: dedup only merges two starts within that window (ADR-0003), so close
+the old issue or edit its time as well.
+
+Two ways to retract a draft: close the issue — the next poll lists closed
+`intake` issues and deletes their drafts from `data/human.json` — or delete the
+issue's key from `data/human.json` by hand and commit it.
 
 ## prefs.json
 

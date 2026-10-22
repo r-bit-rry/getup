@@ -25,7 +25,7 @@ class GuardTest(unittest.TestCase):
             with tempfile.TemporaryDirectory() as root:
                 fresh(root)
                 client = Fake([issue(7, EVENT, assoc)])
-                self.assertEqual(intake.poll(root, client=client, today=TODAY),
+                self.assertEqual(intake.poll(root, client=client, today=TODAY)['results'],
                                  [{'number': 7, 'result': 'skipped', 'problems': []}])
                 self.assertEqual((client.said, client.labels, human.load(root)), ([], [], {}))
 
@@ -37,7 +37,7 @@ class EventTest(unittest.TestCase):
         self.client = Fake([issue(7, EVENT.replace('https://example.com/t/1', 'https://x/t'))])
 
     def test_a_valid_issue_stores_the_canonical_draft_with_a_receipt_and_processed(self):
-        self.assertEqual(intake.poll(self.root, client=self.client, today=TODAY),
+        self.assertEqual(intake.poll(self.root, client=self.client, today=TODAY)['results'],
                          [{'number': 7, 'result': 'ingested', 'problems': []}])
         stored = human.load(self.root)['7']
         self.assertEqual((stored['venue'], stored['start']),
@@ -56,7 +56,8 @@ class EventTest(unittest.TestCase):
 
     def test_a_second_issue_for_an_ingested_event_receipts_a_merge_not_an_intake(self):
         client = Fake([issue(7, EVENT), issue(8, EVENT)])
-        self.assertEqual([r['result'] for r in intake.poll(self.root, client=client, today=TODAY)],
+        self.assertEqual([r['result'] for r in
+                          intake.poll(self.root, client=client, today=TODAY)['results']],
                          ['ingested', 'merged'])
         self.assertIn('מוזג לאירוע קיים', client.said[1][1])
         self.assertNotIn('נקלט', client.said[1][1])
@@ -71,15 +72,23 @@ class EventTest(unittest.TestCase):
         intake.poll(self.root, client=self.client, today=TODAY)
         corrected = EVENT.replace('ערב ג׳אז', 'ערב ג׳אז — תיקון')
         client = Fake([issue(7, corrected)])
-        self.assertEqual(intake.poll(self.root, client=client, today=TODAY),
+        self.assertEqual(intake.poll(self.root, client=client, today=TODAY)['results'],
                          [{'number': 7, 'result': 'ingested', 'problems': []}])
         self.assertEqual(len(human.load(self.root)), 1)
         self.assertEqual(human.load(self.root)['7']['title'], 'ערב ג׳אז — תיקון')
 
+    def test_a_closed_issue_retracts_its_draft(self):
+        intake.poll(self.root, client=self.client, today=TODAY)
+        self.assertIn('7', human.load(self.root))
+        client = Fake([], closed=[issue(7, '')])
+        out = intake.poll(self.root, client=client, today=TODAY)
+        self.assertEqual((out['retracted'], out['results']), (1, []))
+        self.assertNotIn('7', human.load(self.root))
+
     def test_a_malformed_issue_names_the_field_and_changes_no_file(self):
         before = open(human.store_file(self.root), 'rb').read()
         client = Fake([issue(8, EVENT.replace('### שעה\n\n22:00', '### שעה\n\n_No response_'))])
-        self.assertEqual(intake.poll(self.root, client=client, today=TODAY),
+        self.assertEqual(intake.poll(self.root, client=client, today=TODAY)['results'],
                          [{'number': 8, 'result': 'needs-info', 'problems': ['שעה']}])
         self.assertEqual(human.load(self.root), {})
         self.assertEqual(client.said, [(8, intake.info(['שעה']))])
@@ -96,13 +105,13 @@ class EventTest(unittest.TestCase):
             real(n, body)
 
         client.comment = broken
-        results = intake.poll(self.root, client=client, today=TODAY)
+        results = intake.poll(self.root, client=client, today=TODAY)['results']
         self.assertEqual([r['result'] for r in results], ['failed', 'ingested'])
 
     def test_a_corrupt_state_file_fails_one_issue_with_a_named_comment_and_continues(self):
         write.write_json(human.store_file(self.root), ['not', 'an', 'object'])
         client = Fake([issue(7, EVENT), issue(8, EVENT)])
-        results = intake.poll(self.root, client=client, today=TODAY)
+        results = intake.poll(self.root, client=client, today=TODAY)['results']
         self.assertEqual([r['result'] for r in results], ['failed', 'failed'])
         self.assertIn('human.json', client.said[0][1])
         self.assertIn('human.json', client.said[1][1])
@@ -110,7 +119,7 @@ class EventTest(unittest.TestCase):
 
     def test_an_unrecognised_body_is_needs_info_not_a_guess(self):
         client = Fake([issue(9, '### מה זה\n\nמשהו אחר')])
-        self.assertEqual(intake.poll(self.root, client=client, today=TODAY),
+        self.assertEqual(intake.poll(self.root, client=client, today=TODAY)['results'],
                          [{'number': 9, 'result': 'needs-info', 'problems': ['טופס לא מזוהה']}])
 
 
@@ -120,7 +129,7 @@ class SourceTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             fresh(root)
             client = Fake([issue(11, SOURCE)])
-            self.assertEqual(intake.poll(root, client=client, today=TODAY),
+            self.assertEqual(intake.poll(root, client=client, today=TODAY)['results'],
                              [{'number': 11, 'result': 'source', 'problems': []}])
             self.assertIn('"kind": "aggregator"', html.unescape(client.said[0][1]))
             self.assertEqual((client.labels, human.load(root)), ([(11, 'processed')], {}))
@@ -132,7 +141,7 @@ class SourceTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             fresh(root)
             client = Fake([issue(11, SOURCE)], {11: [plant]})
-            self.assertEqual(intake.poll(root, client=client, today=TODAY),
+            self.assertEqual(intake.poll(root, client=client, today=TODAY)['results'],
                              [{'number': 11, 'result': 'source', 'problems': []}])
             self.assertEqual(len(client.said), 1)       # the bot still posts its own artifact
             self.assertTrue(client.said[0][1].startswith(intake.RECEIPT_MARK))
@@ -145,7 +154,7 @@ class FaultTest(unittest.TestCase):
             fresh(root)
             client = Fake([issue(7, EVENT), issue(8, EVENT.replace('2026-11-14', '2026-11-15'))])
             with mock.patch.object(human, 'save', side_effect=OSError(28, 'No space left on device')):
-                results = intake.poll(root, client=client, today=TODAY)
+                results = intake.poll(root, client=client, today=TODAY)['results']
             self.assertEqual([r['result'] for r in results], ['failed', 'failed'])
             self.assertIn('No space left on device', client.said[0][1])
             self.assertEqual(client.labels, [])         # a failed issue is never marked processed

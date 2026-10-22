@@ -87,6 +87,13 @@ class Client:
                 and 'processed' not in {str(label.get('name') or '').lower()
                                         for label in row.get('labels') or []}]
 
+    def closed_issues(self) -> list[dict]:
+        """Every closed issue carrying the intake label: closing is a retraction, not history."""
+        rows = []
+        for page in self._pages(f'/repos/{self.repo}/issues', 'state=closed&labels=intake'):
+            rows.extend(page)
+        return [row for row in rows if not row.get('pull_request')]
+
     def comments(self, number: int) -> list[dict]:
         rows = []
         for page in self._pages(f'/repos/{self.repo}/issues/{number}/comments'):

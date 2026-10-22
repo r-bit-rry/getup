@@ -154,6 +154,17 @@ class IntakeCliTest(unittest.TestCase):
             self.assertEqual(made.call_count, 0)      # checked before the client is built
             self.assertEqual(client.ensured, 0)
 
+    def test_a_corrupt_registry_or_human_store_is_exit_five_before_any_poll(self):
+        for name in ('venue/venues.json', 'data/human.json'):
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as root:
+                intake_fresh(root)
+                write.write_bytes(os.path.join(root, name), b'{')
+                client = Fake([issue(7, EVENT)])
+                with mock.patch('tools.getup.intake.client_from_env', return_value=client) as made:
+                    self.assertEqual(cli.main(['intake', '--root', root, '--today', TODAY]), 5)
+                self.assertEqual(made.call_count, 0)
+                self.assertEqual(client.ensured, 0)
+
     def test_a_missing_token_is_exit_five_and_never_network(self):
         with mock.patch.dict(os.environ, {}, clear=True):
             self.assertEqual(cli.main(['intake']), 5)

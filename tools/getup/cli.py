@@ -122,11 +122,13 @@ def _intake(args) -> int:
     try:
         intake.check_state(args.root)          # before any network: a corrupt store never polls
         client = intake.client_from_env()      # resolved at call time, never at import
-        rows = intake.poll(args.root, client=client, today=today)
+        polled = intake.poll(args.root, client=client, today=today)
     except (github.GithubError, ValueError) as exc:
         print(f'getup: {exc}', file=sys.stderr)
         return 5
-    for row in rows:                           # a failed issue is one line, not this command's failure
+    if polled['retracted']:
+        print(f'retracted {polled["retracted"]} closed issue drafts')
+    for row in polled['results']:              # a failed issue is one line, not this command's failure
         line = f'#{row["number"]}: {row["result"]}'
         if row['problems']:
             line += ' — ' + ' · '.join(row['problems'])

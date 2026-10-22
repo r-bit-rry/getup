@@ -27,6 +27,12 @@ class StoreTest(unittest.TestCase):
             self.assertFalse(human.save(root, store))
             self.assertEqual(human.load(root)['7']['title'], 'תיקון')
 
+    def test_a_hand_edited_draft_without_a_class_loads_as_human(self):
+        with tempfile.TemporaryDirectory() as root:
+            draft = {k: v for k, v in DRAFT.items() if k != 'class'}
+            write.write_json(human.store_file(root), {'7': draft})
+            self.assertEqual(human.load(root)['7']['class'], 'human')
+
     def test_records_are_drafts_ordered_by_issue_number_not_by_string(self):
         store = {}
         human.put(store, 10, {**DRAFT, 'title': 'b'})

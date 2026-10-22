@@ -69,7 +69,7 @@ class RuleTest(unittest.TestCase):
             fresh(root)
             write.write_json(intake.prefs_file(root), {'never': [], 'always': []})
             client = Fake([issue(21, PREFS)])
-            self.assertEqual(intake.poll(root, client=client, today=TODAY),
+            self.assertEqual(intake.poll(root, client=client, today=TODAY)['results'],
                              [{'number': 21, 'result': 'prefs', 'problems': []}])
             self.assertEqual(json.load(open(intake.prefs_file(root), encoding='utf-8'))['never'],
                              [{'venue_id': 'v_zionist_america_tlv'}])
@@ -81,10 +81,19 @@ class RuleTest(unittest.TestCase):
             fresh(root)
             write.write_bytes(intake.prefs_file(root), b'{')
             client = Fake([issue(20, PREFS), issue(21, EVENT)])
-            results = intake.poll(root, client=client, today=TODAY)
+            results = intake.poll(root, client=client, today=TODAY)['results']
             self.assertEqual([r['result'] for r in results], ['failed', 'ingested'])
             self.assertIn('prefs.json', client.said[0][1])
             self.assertEqual(client.labels, [(21, 'processed')])
+
+    def test_a_corrected_prefs_resubmission_clears_needs_info(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            write.write_json(intake.prefs_file(root), {'never': [], 'always': []})
+            client = Fake([issue(21, PREFS, labels=('needs-info',))])
+            self.assertEqual(intake.poll(root, client=client, today=TODAY)['results'],
+                             [{'number': 21, 'result': 'prefs', 'problems': []}])
+            self.assertEqual(client.labels, [(21, 'processed'), (21, '-needs-info')])
 
     def test_the_readme_documents_the_shape_the_writer_writes(self):
         text = open('README.md', encoding='utf-8').read()

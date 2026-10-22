@@ -141,15 +141,16 @@ def run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None,
     human_records = _normalized(registry, human_kept)
 
     counts, states = _tally(status, records, failures)   # before dedup: an absorbed row still counts
+    # Before the merge: a scan row a human row absorbs still means the hall was read today, and one
+    # human row must not mask a broken adapter for a major venue.
+    scanned = {rec['venue_id'] for rec in records
+               if (rec.get('source') or {}).get('class') != 'human'}
     records = classify.apply(dedup.merge(records + human_records), _labels(root, labels_path))
     touring = derive.touring(records)           # the whole payload, not the served subset
     served = derive.signals(window(records, today), touring=touring, registry=registry)
 
-    for record in records:                      # scanned today, even when its next event is far out
-        # A manual post is not a scan: one human row must not mask a broken adapter for a major venue.
-        if (record.get('source') or {}).get('class') == 'human':
-            continue
-        venue = registry.get(record['venue_id'])
+    for venue_id in scanned:                    # scanned today, even when its next event is far out
+        venue = registry.get(venue_id)
         if isinstance(venue, dict):
             venue['seen_last'] = today
     venues.save(root, registry)

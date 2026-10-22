@@ -26,6 +26,7 @@ def load(root: str) -> dict:
     for key, draft in data.items():
         if not str(key).isdigit() or not isinstance(draft, dict):
             raise ValueError(f'{path}: {key!r} is not a draft keyed by issue number')
+        draft.setdefault('class', 'human')      # a hand-edited draft is still a correction
         if not isinstance(draft.get('title'), str) or not draft['title'].strip() \
                 or not isinstance(draft.get('venue'), str) or not draft['venue'].strip() \
                 or not isinstance(draft.get('start'), int) or isinstance(draft.get('start'), bool):

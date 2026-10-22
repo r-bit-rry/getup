@@ -359,7 +359,7 @@ def _source(number: int, fields: dict, client) -> dict:
     return {'number': number, 'result': 'source', 'problems': []}
 
 
-def _prefs(root: str, number: int, fields: dict, client) -> dict:
+def _prefs(root: str, number: int, issue: dict, fields: dict, client) -> dict:
     spec, problems = prefs_rule(fields, venues.load(root))   # a corrupt registry raises, and is named
     if problems:
         return _needs_info(client, number, problems)
@@ -367,6 +367,8 @@ def _prefs(root: str, number: int, fields: dict, client) -> dict:
     if changed or not _said(client, number, RECEIPT_MARK):
         client.comment(number, receipt(spec, PREFS_LEAD))
     client.add_label(number, 'processed')
+    if _labelled(issue, 'needs-info'):       # a corrected resubmission is no longer waiting on us
+        client.remove_label(number, 'needs-info')
     return {'number': number, 'result': 'prefs', 'problems': []}
 
 
@@ -383,7 +385,7 @@ def ingest(root: str, issue: dict, *, client, today: str) -> dict:
         if kind == 'source':
             return _source(number, fields, client)
         if kind == 'prefs':
-            return _prefs(root, number, fields, client)
+            return _prefs(root, number, issue, fields, client)
         return _event(root, number, issue, fields, client, today)
     except GithubError as exc:
         return {'number': number, 'result': 'failed', 'problems': [str(exc)]}
@@ -391,11 +393,27 @@ def ingest(root: str, issue: dict, *, client, today: str) -> dict:
         return _fault(client, number, STATE_FAULT, exc)
 
 
-def poll(root: str, *, client, today: str) -> list:
-    """Verify the labels once, then one issue at a time, lowest number first."""
+def retract(root: str, numbers) -> int:
+    """Delete the drafts of closed issues; the count is what the poll reports."""
+    keys = {str(number) for number in numbers}
+    if not keys:                        # nothing closed: do not read the store at all
+        return 0
+    store = human.load(root)
+    gone = [key for key in keys if key in store]
+    for key in gone:
+        del store[key]
+    if gone:
+        human.save(root, store)
+    return len(gone)
+
+
+def poll(root: str, *, client, today: str) -> dict:
+    """Verify the labels once, retract closed issues, then one open issue at a time, lowest first."""
     client.ensure_labels()
+    retracted = retract(root, ((row or {}).get('number') for row in client.closed_issues()))
     rows = sorted(client.issues(), key=lambda row: (row or {}).get('number') or 0)
-    return [ingest(root, row, client=client, today=today) for row in rows]
+    return {'retracted': retracted,
+            'results': [ingest(root, row, client=client, today=today) for row in rows]}
 
 
 def check_state(root: str) -> None:
@@ -410,3 +428,6 @@ def check_state(root: str) -> None:
         data = write.read_json_strict(path)     # names the file and the fault
         if not isinstance(data, dict):
             raise ValueError(f'{path}: prefs is not an object')
+        for name in ('never', 'always'):
+            if name in data and not isinstance(data[name], list):
+                raise ValueError(f'{path}: {name} is not a list')

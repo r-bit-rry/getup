@@ -1,233 +1,245 @@
 {
- "v_urigeller_museum_tlv": {
-  "id": "v_urigeller_museum_tlv",
-  "name": "מוזיאון אורי גלר",
-  "aliases": [
-   "מוזיאון אורי גלר, תל אביב"
-  ],
-  "city": "תל אביב",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "mid",
-  "parking": null,
+ "v_bar_shtenfeld_haifa": {
   "access": null,
-  "transport": null,
+  "aliases": [
+   "Bar Shtenfeld",
+   "Makleff Mordechai St 1"
+  ],
+  "city": "חיפה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 53,
+  "id": "v_bar_shtenfeld_haifa",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "name": "בר שטיינפלד, חיפה",
+  "parking": null,
   "social": {
-   "instagram": null,
-   "facebook": null
-  }
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
  },
- "v_heichal_tarbut_rishon": {
-  "id": "v_heichal_tarbut_rishon",
-  "name": "היכל התרבות, ראשון לציון",
-  "aliases": [
-   "היכל התרבות ראשון לציון"
-  ],
-  "city": "ראשון לציון",
-  "lat": 31.9635712,
-  "lon": 34.8101149,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "major",
-  "parking": null,
+ "v_beit_negler_haifa": {
   "access": null,
-  "transport": null,
+  "aliases": [
+   "בית נגלר קריית חיים"
+  ],
+  "city": "חיפה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 53,
+  "id": "v_beit_negler_haifa",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "name": "בית נגלר, קריית חיים",
+  "parking": null,
   "social": {
-   "instagram": null,
-   "facebook": null
-  }
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_beit_yad_labanim_raanana": {
+  "access": null,
+  "aliases": [
+   "בית יד לבנים רעננה"
+  ],
+  "city": "רעננה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 22,
+  "id": "v_beit_yad_labanim_raanana",
+  "lat": 32.1860244,
+  "lon": 34.8678359,
+  "name": "בית יד לבנים, רעננה",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "mid",
+  "transport": null
  },
  "v_cinematheque_yavne": {
-  "id": "v_cinematheque_yavne",
-  "name": "סינמטק, יבנה",
+  "access": null,
   "aliases": [
    "סינמטק יבנה"
   ],
   "city": "יבנה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 49,
+  "id": "v_cinematheque_yavne",
   "lat": 31.8768863,
   "lon": 34.7382974,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "room",
+  "name": "סינמטק, יבנה",
   "parking": null,
-  "access": null,
-  "transport": null,
   "social": {
-   "instagram": null,
-   "facebook": null
-  }
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_heichal_spi_rivlin_netanya": {
+  "access": null,
+  "aliases": [
+   "היכל התרבות ספי ריבלין, קריית השרון"
+  ],
+  "city": "נתניה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 0,
+  "id": "v_heichal_spi_rivlin_netanya",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "name": "היכל ספי ריבלין, קרית השרון, נתניה",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "mid",
+  "transport": null
+ },
+ "v_heichal_tarbut_or_akiva": {
+  "access": null,
+  "aliases": [
+   "היכל התרבות אור עקיבא"
+  ],
+  "city": "אור עקיבא",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 22,
+  "id": "v_heichal_tarbut_or_akiva",
+  "lat": 32.5090151,
+  "lon": 34.9195677,
+  "name": "היכל התרבות, אור עקיבא",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "mid",
+  "transport": null
+ },
+ "v_heichal_tarbut_petah_tikva": {
+  "access": null,
+  "aliases": [
+   "היכל התרבות פתח תקוה"
+  ],
+  "city": "פתח תקווה",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 34,
+  "id": "v_heichal_tarbut_petah_tikva",
+  "lat": 32.0877639,
+  "lon": 34.8859985,
+  "name": "היכל התרבות, פתח תקווה",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "major",
+  "transport": null
+ },
+ "v_heichal_tarbut_rishon": {
+  "access": null,
+  "aliases": [
+   "היכל התרבות ראשון לציון"
+  ],
+  "city": "ראשון לציון",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 42,
+  "id": "v_heichal_tarbut_rishon",
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "name": "היכל התרבות, ראשון לציון",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "major",
+  "transport": null
  },
  "v_matnas_dyune_ashdod": {
-  "id": "v_matnas_dyune_ashdod",
-  "name": "מתנ\"ס דיונה, אשדוד",
+  "access": null,
   "aliases": [
    "מתנס דיונה"
   ],
   "city": "אשדוד",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 57,
+  "id": "v_matnas_dyune_ashdod",
   "lat": 31.7977314,
   "lon": 34.6529922,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "room",
+  "name": "מתנ\"ס דיונה, אשדוד",
   "parking": null,
-  "access": null,
-  "transport": null,
   "social": {
-   "instagram": null,
-   "facebook": null
-  }
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_ozen_tlv": {
+  "access": null,
+  "aliases": [
+   "אוזן, תל אביב"
+  ],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_ozen_tlv",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "אוזן בר, תל אביב",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
+ "v_urigeller_museum_tlv": {
+  "access": null,
+  "aliases": [
+   "מוזיאון אורי גלר, תל אביב"
+  ],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_urigeller_museum_tlv",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "מוזיאון אורי גלר",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "mid",
+  "transport": null
  },
  "v_zionist_america_tlv": {
-  "id": "v_zionist_america_tlv",
-  "name": "בית ציוני אמריקה, תל אביב",
+  "access": null,
   "aliases": [
    "בית ציוני אמריקה (מאירהוף)",
    "בית ציוני אמריקה (מרלן)",
    "Zionist America House"
   ],
   "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_zionist_america_tlv",
   "lat": 32.0852997,
   "lon": 34.7818064,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "name": "בית ציוני אמריקה, תל אביב",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
   "tier": "major",
-  "parking": null,
-  "access": null,
-  "transport": null,
-  "social": {
-   "instagram": null,
-   "facebook": null
-  }
- },
- "v_beit_yad_labanim_raanana": {
-  "id": "v_beit_yad_labanim_raanana",
-  "name": "בית יד לבנים, רעננה",
-  "aliases": [
-   "בית יד לבנים רעננה"
-  ],
-  "city": "רעננה",
-  "lat": 32.1860244,
-  "lon": 34.8678359,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "mid",
-  "parking": null,
-  "access": null,
-  "transport": null,
-  "social": {
-   "instagram": null,
-   "facebook": null
-  }
- },
- "v_ozen_tlv": {
-  "id": "v_ozen_tlv",
-  "name": "אוזן בר, תל אביב",
-  "aliases": [
-   "אוזן, תל אביב"
-  ],
-  "city": "תל אביב",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "room",
-  "parking": null,
-  "access": null,
-  "transport": null,
-  "social": {
-   "instagram": null,
-   "facebook": null
-  }
- },
- "v_beit_negler_haifa": {
-  "id": "v_beit_negler_haifa",
-  "name": "בית נגלר, קריית חיים",
-  "aliases": [
-   "בית נגלר קריית חיים"
-  ],
-  "city": "חיפה",
-  "lat": 32.8191218,
-  "lon": 34.9983856,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "room",
-  "parking": null,
-  "access": null,
-  "transport": null,
-  "social": {
-   "instagram": null,
-   "facebook": null
-  }
- },
- "v_heichal_tarbut_petah_tikva": {
-  "id": "v_heichal_tarbut_petah_tikva",
-  "name": "היכל התרבות, פתח תקווה",
-  "aliases": [
-   "היכל התרבות פתח תקוה"
-  ],
-  "city": "פתח תקווה",
-  "lat": 32.0877639,
-  "lon": 34.8859985,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "major",
-  "parking": null,
-  "access": null,
-  "transport": null,
-  "social": {
-   "instagram": null,
-   "facebook": null
-  }
- },
- "v_heichal_tarbut_or_akiva": {
-  "id": "v_heichal_tarbut_or_akiva",
-  "name": "היכל התרבות, אור עקיבא",
-  "aliases": [
-   "היכל התרבות אור עקיבא"
-  ],
-  "city": "אור עקיבא",
-  "lat": 32.5090151,
-  "lon": 34.9195677,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "mid",
-  "parking": null,
-  "access": null,
-  "transport": null,
-  "social": {
-   "instagram": null,
-   "facebook": null
-  }
- },
- "v_heichal_spi_rivlin_netanya": {
-  "id": "v_heichal_spi_rivlin_netanya",
-  "name": "היכל ספי ריבלין, קרית השרון, נתניה",
-  "aliases": [
-   "היכל התרבות ספי ריבלין, קריית השרון"
-  ],
-  "city": "נתניה",
-  "lat": 32.3286181,
-  "lon": 34.8566246,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "mid",
-  "parking": null,
-  "access": null,
-  "transport": null,
-  "social": {
-   "instagram": null,
-   "facebook": null
-  }
- },
- "v_bar_shtenfeld_haifa": {
-  "id": "v_bar_shtenfeld_haifa",
-  "name": "בר שטיינפלד, חיפה",
-  "aliases": [
-   "Bar Shtenfeld",
-   "Makleff Mordechai St 1"
-  ],
-  "city": "חיפה",
-  "lat": 32.8191218,
-  "lon": 34.9983856,
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "tier": "room",
-  "parking": null,
-  "access": null,
-  "transport": null,
-  "social": {
-   "instagram": null,
-   "facebook": null
-  }
+  "transport": null
  }
 }

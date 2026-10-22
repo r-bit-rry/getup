@@ -1,5 +1,5 @@
 import unittest
-from tools.getup import normalize
+from tools.getup import geo, normalize
 
 DRAFT = {'source': 'leaan', 'class': 'ticketing', 'source_id': 'a1', 'title': 'ערב ג׳אז',
          'venue': 'אוזן בר', 'venue_id': 'v_ozen_tlv', 'city': 'תל אביב', 'street': '',
@@ -9,7 +9,7 @@ DRAFT = {'source': 'leaan', 'class': 'ticketing', 'source_id': 'a1', 'title': '�
 
 KEYS = {'id', 'day', 'start', 'end', 'title', 'venue_id', 'city', 'price_from',
         'price_max', 'soldout', 'free', 'free_until', 'desc', 'source', 'urls', 'notes',
-        'enrichment', 'seen', 'tags', 'lat', 'lon', 'drive_min'}
+        'enrichment', 'seen', 'tags', 'lat', 'lon', 'drive_min', 'drive_approx'}
 
 
 class TitleTest(unittest.TestCase):
@@ -17,6 +17,12 @@ class TitleTest(unittest.TestCase):
         self.assertEqual(normalize.norm_title('סוף סיפור- סוף מסלול כפיר 🦁'),
                          normalize.norm_title('סוף סיפור סוף מסלול כפיר'))
         self.assertEqual(normalize.norm_title('  ערב   ג׳אז '), normalize.norm_title('ערב ג׳אז'))
+
+    def test_a_geresh_does_not_split_the_word(self):
+        # the rule: a geresh/gershayim is deleted, never turned into a word break
+        self.assertEqual(normalize.norm_title('ג׳אז'), normalize.norm_title('גאז'))
+        self.assertEqual(normalize.norm_title('ערב ג׳אז'), 'ערב גאז')
+        self.assertEqual(normalize.norm_title('להט״ב'), normalize.norm_title('להטב'))
 
     def test_case_and_niqqud_are_not_identity(self):
         self.assertEqual(normalize.norm_title('MADONNA — The Tribute'),
@@ -58,6 +64,15 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(rec['source'], {'class': 'ticketing', 'name': 'leaan'})
         self.assertEqual(rec['urls'], {'tickets': 'https://x', 'community': None,
                                        'source': 'https://x'})
+
+    def test_only_a_city_centroid_minute_is_marked_approximate(self):
+        self.assertIs(normalize.record(dict(DRAFT))['drive_approx'], False)
+        self.assertIs(normalize.record({**DRAFT, 'coords_source': 'nominatim'})['drive_approx'],
+                      False)
+        self.assertIs(normalize.record({**DRAFT, 'coords_source': geo.SHORTCUT})['drive_approx'],
+                      True)
+        # a junk value is False, never a truthy leak into the client
+        self.assertIs(normalize.record({**DRAFT, 'coords_source': 'yes'})['drive_approx'], False)
 
     def test_a_community_source_has_no_ticket_link(self):
         rec = normalize.record({**DRAFT, 'class': 'nightlife'})

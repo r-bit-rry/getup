@@ -41,6 +41,22 @@ class NameTest(unittest.TestCase):
         self.assertEqual(venues.norm_name_loose('מועדון ״הבימה״'), 'מועדון הבימה')
         self.assertEqual(venues.norm_name_loose('ג׳אז-בר'), venues.norm_name_loose('גאז בר'))
 
+    def test_a_parenthetical_hall_is_not_erased_by_the_loose_form(self):
+        # an "אולם 1" and an "אולם 2" in one building are two halls, not one
+        self.assertNotEqual(venues.norm_name_loose('היכל התרבות (אולם 1)'),
+                            venues.norm_name_loose('היכל התרבות (אולם 2)'))
+        self.assertNotEqual(venues.norm_name_loose('תיאטרון חולון (אולם 2)'),
+                            venues.norm_name_loose('תיאטרון חולון (אולם 3)'))
+        # the word "hall" is filler, the room it names is the identity
+        self.assertEqual(venues.norm_name_loose('בית ציוני אמריקה (אולם מאירהוף)'),
+                         venues.norm_name_loose('בית ציוני אמריקה (מאירהוף)'))
+        self.assertEqual(venues.norm_name_loose('היכל התרבות (אולם 1)'),
+                         'היכל התרבות 1')
+
+    def test_the_two_spellings_of_קרית_in_a_hall_name_are_one_key(self):
+        self.assertEqual(venues.norm_name('היכל ספי ריבלין, קרית השרון, נתניה'),
+                         venues.norm_name('היכל ספי ריבלין, קריית השרון, נתניה'))
+
     def test_a_city_suffix_leaves_only_when_the_tail_is_a_known_city(self):
         self.assertEqual(venues.strip_city_suffix('בית ציוני אמריקה (מאירהוף), תל אביב', 'תל אביב'),
                          'בית ציוני אמריקה (מאירהוף)')
@@ -133,6 +149,51 @@ class ResolveTest(unittest.TestCase):
         self.assertEqual(self.reg[vid]['name'], 'אולם בר-אוריין, קשת אילון')
         self.assertEqual(self.reg[vid]['city'], '')
 
+    def test_two_parenthetical_halls_in_one_city_keep_two_ids(self):
+        reg = {vid: {'id': vid, 'name': f'היכל התרבות (אולם {n})', 'aliases': [],
+                     'city': 'חולון', 'lat': None, 'lon': None, 'drive_min': None,
+                     'coords_source': 'unresolved', 'tier': 'room', 'parking': None,
+                     'access': None, 'transport': None,
+                     'social': {'instagram': None, 'facebook': None}}
+               for vid, n in (('v_one', 1), ('v_two', 2))}
+        self.assertEqual(venues.resolve(reg, 'היכל התרבות (אולם 1)', 'חולון'), 'v_one')
+        self.assertEqual(venues.resolve(reg, 'היכל התרבות (אולם 2)', 'חולון'), 'v_two')
+        self.assertEqual(len(reg), 2)                    # nothing merged, nothing provisioned
+
+    def test_a_loose_key_two_halls_share_is_not_identity(self):
+        reg = {vid: {'id': vid, 'name': name, 'aliases': [], 'city': 'חולון',
+                     'lat': None, 'lon': None, 'drive_min': None,
+                     'coords_source': 'unresolved', 'tier': 'room', 'parking': None,
+                     'access': None, 'transport': None,
+                     'social': {'instagram': None, 'facebook': None}}
+               for vid, name in (('v_one', 'היכל ״התרבות״'), ('v_two', 'היכל התרבות'))}
+        # the loose form says these are one name; the registry says they are two halls
+        self.assertNotIn((venues.norm_name_loose('היכל התרבות'), 'חולון'),
+                         venues.alias_index(reg))
+        vid = venues.resolve(reg, 'היכל התרבות!', 'חולון')
+        self.assertNotIn(vid, ('v_one', 'v_two'))        # ambiguous: provisional, never a pick
+        self.assertEqual(reg['v_one']['name'], 'היכל ״התרבות״')   # the entries stay untouched
+        self.assertEqual(reg['v_two']['name'], 'היכל התרבות')
+
+    def test_an_unrecognised_city_spelling_borrows_the_one_hall_with_that_name(self):
+        reg = {vid: {'id': vid, 'name': name, 'aliases': [], 'city': 'מעלות תרשיחא',
+                     'lat': None, 'lon': None, 'drive_min': None,
+                     'coords_source': 'unresolved', 'tier': 'room', 'parking': None,
+                     'access': None, 'transport': None,
+                     'social': {'instagram': None, 'facebook': None}}
+               for vid, name in (('v_hall', 'היכל התרבות, מעלות תרשיחא'),)}
+        self.assertEqual(venues.resolve(reg, 'היכל התרבות', 'מעלו תרשיחא'), 'v_hall')
+        self.assertEqual(len(reg), 1)                    # one hall, one city, one entry
+
+    def test_an_unknown_city_with_no_name_match_still_provisions(self):
+        vid = venues.resolve(self.reg, 'מועדון חדש לגמרי', 'מעלו תרשיחא')
+        self.assertTrue(vid.startswith('v_'))
+        self.assertEqual(self.reg[vid]['city'], 'מעלו תרשיחא')
+
+    def test_a_spelling_variant_of_a_registry_name_does_not_create_a_second_hall(self):
+        vid = venues.resolve(self.reg, 'היכל ספי ריבלין, קריית השרון, נתניה', 'נתניה')
+        self.assertEqual(vid, 'v_heichal_spi_rivlin_netanya')
+
 
 class RegistryTest(unittest.TestCase):
     def test_the_registry_city_wins_and_the_draft_city_is_the_fallback(self):
@@ -165,7 +226,20 @@ class LoadTest(unittest.TestCase):
     def test_a_missing_registry_is_empty_not_a_crash(self):
         with tempfile.TemporaryDirectory() as root:
             self.assertEqual(venues.load(root), {})
+
+    def test_a_corrupt_registry_refuses_instead_of_erasing_curation(self):
+        with tempfile.TemporaryDirectory() as root:
             os.makedirs(f'{root}/venue')
             with open(f'{root}/venue/venues.json', 'w') as f:
                 f.write('{')
-            self.assertEqual(venues.load(root), {})
+            with self.assertRaises(ValueError) as caught:
+                venues.load(root)
+            self.assertIn('venues.json', str(caught.exception))
+
+    def test_a_registry_that_is_not_an_object_refuses(self):
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(f'{root}/venue')
+            with open(f'{root}/venue/venues.json', 'w') as f:
+                f.write('[]')
+            with self.assertRaises(ValueError):
+                venues.load(root)

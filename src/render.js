@@ -25,7 +25,10 @@ const timeLabel = (ev, nowMs = Date.now()) => {
   return ended ? timeRange(ev.start, ev.end) : startTime(ev.start);
 };
 
-const driveLabel = ev => (Number.isFinite(ev.drive_min) ? `${ev.drive_min} דק׳ נסיעה` : '');
+// A city-centroid minute is an estimate, and the row must say so rather than imply a venue drive.
+const driveLabel = ev => (Number.isFinite(ev.drive_min)
+  ? `${ev.drive_approx === true ? '~' : ''}${ev.drive_min} דק׳ נסיעה`
+  : '');
 
 const venueName = (ev, venues) => (venues ?? {})[ev.venue_id]?.name ?? '';
 

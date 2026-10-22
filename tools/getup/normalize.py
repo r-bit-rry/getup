@@ -6,7 +6,7 @@ import re
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from . import venues
+from . import geo, venues
 
 log = logging.getLogger('getup')
 
@@ -24,12 +24,17 @@ DESC_LIMIT = 600
 
 EMOJI = re.compile('[\U0001f000-\U0001faff\u2600-\u27bf\u2190-\u21ff\ufe0f\u200d]')
 PUNCT = re.compile(r'[^\w\s]')
+APOSTROPHE = re.compile('[\'"]')
 
 
 def norm_title(text) -> str:
-    """The one title form: dedup, touring and classify all read this."""
+    """The one title form: dedup, touring and classify all read this.
+
+    A geresh/gershayim is part of the word, so it is deleted rather than turned into a space:
+    ``ג׳אז`` and ``גאז`` are one title. Any other punctuation separates words.
+    """
     value = venues.NIQQUD.sub('', str(text or '')).translate(venues.QUOTES)
-    return ' '.join(PUNCT.sub(' ', EMOJI.sub('', value)).split()).lower()
+    return ' '.join(PUNCT.sub(' ', EMOJI.sub('', APOSTROPHE.sub('', value))).split()).lower()
 
 
 def bucket_day(start: int) -> str:
@@ -125,4 +130,5 @@ def record(draft) -> dict | None:
         'lat': draft.get('lat'),
         'lon': draft.get('lon'),
         'drive_min': draft.get('drive_min'),
+        'drive_approx': draft.get('coords_source') == geo.SHORTCUT,
     }

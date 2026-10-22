@@ -1,4 +1,4 @@
-import unittest
+import json, os, tempfile, unittest
 from tools.getup import geo, venues
 
 NOMINATIM = '[{"lat":"32.0771","lon":"34.7753"}]'
@@ -53,6 +53,15 @@ class GeoTest(unittest.TestCase):
                           registry['v_x']['drive_min']), (None, None, None))
         self.assertEqual(registry['v_x']['coords_source'], 'unresolved')
 
+    def test_a_failed_regeocode_keeps_the_cached_minutes(self):
+        warnings = []
+        registry, geocoded, failed = geo.fill(reg(drive_min=33), fetch=fake({'nominatim': '[]'}),
+                                              warn=warnings.append)
+        self.assertEqual((geocoded, failed), (0, 1))
+        self.assertEqual(registry['v_x']['drive_min'], 33)     # the only drive fact we had
+        self.assertEqual((registry['v_x']['lat'], registry['v_x']['lon']), (None, None))
+        self.assertEqual(len(warnings), 1)
+
     def test_an_unreachable_router_is_none_not_zero_minutes(self):
         self.assertIsNone(geo.drive_minutes((32.1, 34.8), fetch=lambda url, **k: '{"code":"NoRoute"}'))
         def boom(url, **kw): raise OSError('offline')
@@ -104,3 +113,39 @@ class SeedTest(unittest.TestCase):
         registry = reg(city='תל אביב-יפו')
         self.assertEqual(geo.seed(registry), 1)
         self.assertEqual(registry['v_x']['drive_min'], 29)
+
+    def test_a_half_pinned_venue_is_not_counted_as_pinned(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            point_only = os.path.join(tmp, 'point-only.json')
+            with open(point_only, 'w', encoding='utf-8') as f:
+                json.dump({'geo': {'חיפה': [32.8, 34.9]}, 'drive': {}}, f)
+            registry = reg(city='חיפה')
+            self.assertEqual(geo.seed(registry, point_only), 0)
+            self.assertEqual(registry['v_x']['lat'], 32.8)
+            self.assertIsNone(registry['v_x']['drive_min'])
+
+            minutes_only = os.path.join(tmp, 'minutes-only.json')
+            with open(minutes_only, 'w', encoding='utf-8') as f:
+                json.dump({'geo': {}, 'drive': {'חיפה': {'min': 61}}}, f)
+            registry = reg(city='חיפה')
+            self.assertEqual(geo.seed(registry, minutes_only), 0)
+            self.assertEqual(registry['v_x']['drive_min'], 61)
+            self.assertIsNone(registry['v_x']['lat'])
+
+    def test_the_capture_is_found_from_any_working_directory(self):
+        venues._known = None
+        expected_cities = venues.known_cities()
+        self.assertGreater(len(expected_cities), 20)
+        expected = reg(city='ראשון לציון')
+        self.assertEqual(geo.seed(expected), 1)
+
+        cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as away:
+            try:
+                os.chdir(away)
+                venues._known = None
+                self.assertEqual(venues.known_cities(), expected_cities)
+                self.assertEqual(geo.seed(reg(city='ראשון לציון')), 1)
+            finally:
+                os.chdir(cwd)
+                venues._known = None

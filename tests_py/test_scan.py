@@ -71,3 +71,14 @@ class TallyTest(unittest.TestCase):
         counts, status = scan.tally({'leaan': 'partial'}, [{'source': {'name': 'leaan'}}])
         self.assertEqual((counts, status), ({'leaan': 1}, {'leaan': 'partial'}))
 
+    def test_a_record_from_an_unknown_source_is_a_failure_line_not_a_silent_count(self):
+        failures = []
+        counts, status = scan.tally({'leaan': 'ok'},
+                                    [{'source': {'name': 'leaan'}},
+                                     {'source': {'name': 'typo'}},
+                                     {'source': {'name': 'typo'}}], failures)
+        self.assertEqual(counts, {'leaan': 1})
+        self.assertEqual(status, {'leaan': 'ok'})
+        self.assertEqual(len(failures), 1)          # one line per unknown name, not per record
+        self.assertIn('typo', failures[0])
+

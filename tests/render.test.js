@@ -321,6 +321,19 @@ test('a city already inside the venue name is not printed twice', () => {
   assert.match(html, /<bdi>אולם<\/bdi><i aria-hidden="true">\|<\/i><bdi>ראשון לציון<\/bdi>/);
 });
 
+test('a centroid drive minute is printed as an estimate, in the table and the card', () => {
+  const approx = { ...base, id: 'a', day: '2026-10-23', title: 'אירוע', drive_min: 42,
+    drive_approx: true };
+  const real = { ...approx, id: 'r', drive_approx: false };
+  for (const html of [tableHTML([approx], '2026-10-18'), cardsHTML([approx], '2026-10-18')]) {
+    assert.match(html, /~42 דק׳ נסיעה/);
+  }
+  for (const html of [tableHTML([real], '2026-10-18'), cardsHTML([real], '2026-10-18')]) {
+    assert.doesNotMatch(html, /~42/);
+    assert.match(html, /42 דק׳ נסיעה/);
+  }
+});
+
 test('a long title wraps to two lines instead of truncating from the start', () => {
   // the renderer keeps the whole title; CSS is what clamps it
   const title = 'MADONNA THE TRIBUTE SHOW - מופע מחווה למדונה';

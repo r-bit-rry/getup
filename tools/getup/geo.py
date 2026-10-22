@@ -63,7 +63,8 @@ def fill(registry: dict, *, fetch, limiter=None, warn=None) -> tuple:
             point = geocode(name, city, fetch=fetch, limiter=limiter)
             if point is None:
                 failed += 1
-                venue.update(lat=None, lon=None, drive_min=None, coords_source='unresolved')
+                # a failed re-geocode must not erase a cached duration: it is the only drive fact we have
+                venue.update(lat=None, lon=None, coords_source='unresolved')
                 message = f'getup: no geocode for {name} in {city}'
                 (warn or log.warning)(message)
                 continue
@@ -96,5 +97,7 @@ def seed(registry: dict, path: str = CITY_CAPTURE) -> int:
         if venue.get('drive_min') is None and minutes.get(city) is not None:
             venue['drive_min'] = minutes[city]
             filled = True
-        pinned += filled
+        # a point without minutes (or minutes without a point) is not a pinned venue
+        if filled and venue.get('lat') is not None and venue.get('drive_min') is not None:
+            pinned += 1
     return pinned

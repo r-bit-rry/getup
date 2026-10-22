@@ -97,6 +97,16 @@ test('free is strictly true and every numeric field is a finite number or null',
   assert.equal(normalizeEvent({ price_from: 80 }, '2026-10-23').price_from, 80);
 });
 
+test('drive_approx is strictly a boolean, so a stray string cannot mark a real drive', () => {
+  for (const bad of ['true', 1, {}, [], undefined, null]) {
+    assert.equal(normalizeEvent({ drive_min: 20, drive_approx: bad }, '2026-10-23').drive_approx,
+      false, String(bad));
+  }
+  assert.equal(normalizeEvent({ drive_min: 20, drive_approx: true }, '2026-10-23').drive_approx,
+    true);
+  assert.equal(normalizeEvent({}, '2026-10-23').drive_approx, false);
+});
+
 test('a missing id is synthesized per venue, day and clock; a real id survives', () => {
   const a = normalizeEvent({ venue_id: 'v', start: 1792780200 }, '2026-10-23');
   const b = normalizeEvent({ venue_id: 'v', start: 1792780200 }, '2026-10-24');

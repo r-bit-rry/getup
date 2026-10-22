@@ -60,13 +60,18 @@ def scan(names: list[str], *, fetch=fetch_text, adapters=ADAPTERS):
     return drafts, counts, failures, status
 
 
-def tally(status: dict, records: list) -> tuple[dict, dict]:
+def tally(status: dict, records: list, failures: list | None = None) -> tuple[dict, dict]:
     """Per-source counts from the records that survived; a source with none is failed, not ok."""
     counts = dict.fromkeys(status, 0)
+    unknown = set()
     for record in records:
         name = (record.get('source') or {}).get('name')
         if name in counts:
             counts[name] += 1
+        else:
+            unknown.add(str(name))
+    if failures is not None:
+        failures.extend(f'getup: record from unknown source {name!r}' for name in sorted(unknown))
     return counts, {name: ('failed' if not counts[name] else state)
                     for name, state in status.items()}
 

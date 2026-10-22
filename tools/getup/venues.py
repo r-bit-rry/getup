@@ -3,12 +3,15 @@
 import hashlib
 import os
 import re
+from collections import Counter
 
 from . import write
 
 # The cities the committed capture can place. Kept here as the vocabulary that decides whether a
 # trailing ", <locality>" is a city (and may leave a name) or part of the hall's name.
-CITY_CAPTURE = 'docs/research/2026-10-21/geo-drive.json'
+# Anchored to the module, not the cwd: a capture run from /tmp must read the same file.
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+CITY_CAPTURE = os.path.join(ROOT, 'docs', 'research', '2026-10-21', 'geo-drive.json')
 
 CITY_FIX = {
     'מודיעין': 'מודיעין מכבים רעות',
@@ -21,6 +24,7 @@ CITY_FIX = {
 NIQQUD = re.compile('[\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7]')
 QUOTES = str.maketrans({'״': '"', '”': '"', '“': '"', '„': '"',
                         '׳': "'", '’': "'", '‘': "'"})
+HALL_WORD = re.compile(r'(?<!\S)אולם(?!\S)')
 
 _known = None
 
@@ -49,12 +53,18 @@ def norm_city(city) -> str:
 def norm_name(name) -> str:
     text = NIQQUD.sub('', ' '.join(str(name or '').split())).translate(QUOTES)
     text = re.sub(r'[\u05be\-\u2010-\u2015]', ' ', text)
+    text = re.sub(r'קרית\b', 'קריית', text)      # the spelling of a place inside the hall's name
     return ' '.join(text.split()).lower()
 
 
 def norm_name_loose(name) -> str:
-    text = re.sub(r'\([^)]*\)', ' ', norm_name(name))
-    return ' '.join(re.sub(r'[^\w\s]', '', text).split())
+    """Punctuation, the geresh and the bare word 'hall' go; the room itself stays.
+
+    So ``היכל התרבות (אולם 1)`` and ``(אולם 2)`` stay two halls, while ``(אולם מאירהוף)``
+    still matches a registry alias written ``(מאירהוף)``.
+    """
+    text = re.sub(r'[^\w\s]', '', norm_name(name))
+    return ' '.join(HALL_WORD.sub(' ', text).split())
 
 
 def strip_city_suffix(venue, city) -> str:
@@ -79,15 +89,23 @@ def _forms(venue):
 
 
 def alias_index(registry: dict) -> dict:
-    """(normalised form, normalised city) -> venue id, for every name, alias and cityless base."""
-    index = {}
+    """(normalised form, normalised city) -> venue id, only where one venue in that city owns it.
+
+    A key two halls share is not identity: resolving it would merge them, so it is absent here
+    and `resolve` falls through to a provisional entry instead.
+    """
+    owners, first = Counter(), {}
     for venue_id, venue in registry.items():
         city = norm_city(venue.get('city'))
+        keys = set()
         for form in _forms(venue):
             for text in {form, strip_city_suffix(form, city)}:
-                index[(norm_name(text), city)] = venue_id
-                index[(norm_name_loose(text), city)] = venue_id
-    return index
+                keys.add((norm_name(text), city))
+                keys.add((norm_name_loose(text), city))
+        for key in keys:            # one venue counts once however many of its forms agree
+            owners[key] += 1
+            first.setdefault(key, venue_id)
+    return {key: first[key] for key in owners if owners[key] == 1}
 
 
 def _unique_name(registry: dict) -> dict:
@@ -134,8 +152,8 @@ def resolve(registry: dict, venue, city) -> str | None:
             found = index.get((key, place))
             if found:
                 return found
-    if not place:
-        # No city was given: borrow the one hall with this name, unless several cities have it.
+    if place not in known_cities():
+        # No city, or a spelling the capture cannot place: borrow the one hall with this name.
         unique = _unique_name(registry)
         for text in candidates:
             for key in (norm_name(text), norm_name_loose(text)):
@@ -151,8 +169,14 @@ def city_of(registry: dict, venue_id: str, fallback=None):
 
 
 def load(root: str) -> dict:
-    data = write.read_json(os.path.join(root, 'venue', 'venues.json'), {})
-    return data if isinstance(data, dict) else {}
+    """The curated registry. A corrupt file raises: rebuilding it would erase the curation."""
+    path = os.path.join(root, 'venue', 'venues.json')
+    if not os.path.exists(path):
+        return {}
+    data = write.read_json_strict(path)
+    if not isinstance(data, dict):
+        raise ValueError(f'{path}: registry is not an object')
+    return data
 
 
 def save(root: str, registry: dict) -> bool:

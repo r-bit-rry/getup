@@ -43,6 +43,8 @@ export function normalizeEvent(ev, isoDate) {
     price_from: num(src.price_from),
     price_max: num(src.price_max),
     drive_min: num(src.drive_min),
+    // true only when the minute is a city-centroid estimate, never for anything truthy
+    drive_approx: src.drive_approx === true,
     lat: num(src.lat),
     lon: num(src.lon),
     free: src.free === true,

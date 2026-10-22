@@ -4,6 +4,7 @@ The transport is injected (``fetch(request) -> (status, headers, body)``) so eve
 a fake and no test can reach api.github.com.
 """
 
+import http.client
 import json
 import os
 import urllib.error
@@ -50,7 +51,7 @@ class Client:
             request.add_header('Content-Type', 'application/json')
         try:
             status, _, text = self._fetch(request)
-        except OSError as exc:          # no response at all: status 0, the caller exits 5
+        except (OSError, http.client.HTTPException) as exc:   # no reply: status 0, the caller exits 5
             raise GithubError(0, f'{method} {path}: {exc}') from exc
         if status >= 400:
             try:
@@ -58,13 +59,20 @@ class Client:
             except (ValueError, AttributeError):
                 message = None
             raise GithubError(status, str(message or f'HTTP {status}'))
-        return json.loads(text) if text and text.strip() else None
+        if not text or not text.strip():
+            return None
+        try:
+            return json.loads(text)
+        except ValueError as exc:       # a 200 that is not JSON is a transport fault, not a payload
+            raise GithubError(0, f'{method} {path}: reply is not JSON: {exc}') from exc
 
     def _pages(self, path: str, query: str = ''):
         page = 1
         while True:
             rows = self._request(
                 'GET', f'{path}?{query}&per_page={PER_PAGE}&page={page}'.replace('?&', '?')) or []
+            if not isinstance(rows, list):      # a payload of the wrong shape is a fault, not a row
+                raise GithubError(0, f'GET {path}: reply is not a list')
             yield rows
             if len(rows) < PER_PAGE:
                 return
@@ -76,7 +84,8 @@ class Client:
             rows.extend(page)
         return [row for row in rows
                 if not row.get('pull_request')
-                and 'processed' not in {label.get('name') for label in row.get('labels') or []}]
+                and 'processed' not in {str(label.get('name') or '').lower()
+                                        for label in row.get('labels') or []}]
 
     def comments(self, number: int) -> list[dict]:
         rows = []

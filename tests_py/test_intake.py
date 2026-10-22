@@ -4,6 +4,7 @@ import os
 import shutil
 import tempfile
 import unittest
+from unittest import mock
 
 from tools.getup import human, intake, venues, write
 from tests_py.github_fake import Fake, issue
@@ -123,6 +124,32 @@ class SourceTest(unittest.TestCase):
                              [{'number': 11, 'result': 'source', 'problems': []}])
             self.assertIn('"kind": "aggregator"', html.unescape(client.said[0][1]))
             self.assertEqual((client.labels, human.load(root)), ([(11, 'processed')], {}))
+
+    def test_a_stranger_planted_marker_never_stands_in_for_the_bot_receipt(self):
+        from tests_py.test_intake_parse import SOURCE
+        plant = {'body': intake.RECEIPT_MARK, 'author_association': 'NONE',
+                 'user': {'login': 'stranger', 'type': 'User'}}
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            client = Fake([issue(11, SOURCE)], {11: [plant]})
+            self.assertEqual(intake.poll(root, client=client, today=TODAY),
+                             [{'number': 11, 'result': 'source', 'problems': []}])
+            self.assertEqual(len(client.said), 1)       # the bot still posts its own artifact
+            self.assertTrue(client.said[0][1].startswith(intake.RECEIPT_MARK))
+            self.assertIn('בילום', client.said[0][1])
+
+
+class FaultTest(unittest.TestCase):
+    def test_a_state_file_that_cannot_be_written_fails_the_issue_and_the_poll_continues(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            client = Fake([issue(7, EVENT), issue(8, EVENT.replace('2026-11-14', '2026-11-15'))])
+            with mock.patch.object(human, 'save', side_effect=OSError(28, 'No space left on device')):
+                results = intake.poll(root, client=client, today=TODAY)
+            self.assertEqual([r['result'] for r in results], ['failed', 'failed'])
+            self.assertIn('No space left on device', client.said[0][1])
+            self.assertEqual(client.labels, [])         # a failed issue is never marked processed
+            self.assertEqual(human.load(root), {})
 
 
 if __name__ == '__main__':

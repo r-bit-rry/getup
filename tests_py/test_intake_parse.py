@@ -65,6 +65,17 @@ https://biluim.co.il
 '''
 
 
+def form_items(path):
+    """`id` -> (the heading GitHub renders, its option labels): the strings the parser keys on."""
+    items = {}
+    for block in re.split(r'^  - type: \w+\n', open(path, encoding='utf-8').read(), flags=re.M)[1:]:
+        ident = re.search(r'^    id: (\S+)$', block, re.M).group(1)
+        label = re.search(r'^      label: (.+)$', block, re.M)
+        items[ident] = (label.group(1).strip() if label else None,
+                        [text.strip() for text in re.findall(r'^        - label: (.+)$', block, re.M)])
+    return items
+
+
 class FormTest(unittest.TestCase):
     def test_headings_become_fields_and_no_response_is_empty(self):
         fields = intake.parse_form(EVENT)
@@ -84,6 +95,18 @@ class FormTest(unittest.TestCase):
                              open(path, encoding='utf-8').read(), re.M)
             self.assertEqual(len(ids), len(set(ids)), path)
             self.assertEqual(set(ids), set(known), path)
+
+    def test_every_form_label_is_the_heading_the_parser_keys_on(self):
+        for path, ids, labels in (
+                ('.github/ISSUE_TEMPLATE/event.yml', intake.EVENT_IDS, intake.EVENT_FIELDS),
+                ('.github/ISSUE_TEMPLATE/source.yml', intake.SOURCE_IDS, intake.SOURCE_FIELDS),
+                ('.github/ISSUE_TEMPLATE/prefs.yml', intake.PREFS_IDS, intake.PREFS_FIELDS)):
+            items = form_items(path)
+            self.assertEqual([items[i][0] for i in ids], list(labels), path)
+
+    def test_the_gated_checkbox_option_is_the_field_the_draft_reads(self):
+        self.assertEqual(form_items('.github/ISSUE_TEMPLATE/event.yml')['event-gated'],
+                         (intake.EVENT_FIELDS[8], [intake.EVENT_FIELDS[8]]))
 
 
 class EventTest(unittest.TestCase):
@@ -134,6 +157,12 @@ class EventTest(unittest.TestCase):
                          ['קישור לאירוע (https://)'])
         self.assertEqual(intake.event_draft({**fields, 'קישור לכרטיסים': 'javascript:alert(1)'}, '2026-10-21')[1],
                          ['קישור לכרטיסים (https://)'])
+
+    def test_a_single_digit_hour_is_the_same_time_as_a_padded_one(self):
+        fields = intake.parse_form(EVENT)
+        draft, problems = intake.event_draft({**fields, 'שעה': '9:30'}, '2026-10-21')
+        self.assertEqual(problems, [])
+        self.assertEqual(draft['start'], 1794641400)      # 2026-11-14 09:30 IST
 
     def test_a_two_hundred_and_one_character_title_is_refused_not_truncated(self):
         fields = {**intake.parse_form(EVENT), 'שם האירוע': 'א' * 201}

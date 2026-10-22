@@ -16,10 +16,12 @@ ASSOCIATIONS = frozenset({'OWNER', 'MEMBER'})
 KINDS = ('event', 'source')
 RECEIPT_MARK = '<!-- getup:record -->'
 INFO_MARK = '<!-- getup:needs-info -->'
+FAULT_MARK = '<!-- getup:fault -->'     # never a needs-info: a fault must not silence a real one
 MERGED_LEAD = 'מוזג לאירוע קיים. הרשומה הקנונית:'
 INGESTED_LEAD = 'נקלט. הרשומה הקנונית:'
 SOURCE_LEAD = 'נקלט. בקשת המקור:'
 STATE_FAULT = 'לא נקלט. קובץ מצב פגום: '
+SAVE_FAULT = 'לא נקלט. כתיבת קובץ המצב נכשלה: '
 
 EVENT_FIELDS = ('שם האירוע', 'שם המקום', 'עיר', 'תאריך', 'שעה', 'מחיר',
                 'קישור לאירוע', 'קישור לכרטיסים', 'קהילה סגורה (קישור לקבוצה)', 'תיאור')
@@ -121,6 +123,7 @@ def event_draft(fields: dict, today: str) -> tuple:
         problems.append('שעה (HH:MM)')
     else:
         clock_ok = True
+        clock = clock.zfill(5)              # 9:30 is 09:30; fromisoformat refuses the short hour
     if day_ok and clock_ok:
         try:
             moment = datetime.fromisoformat(f'{day}T{clock}')
@@ -198,7 +201,15 @@ def receipt(payload: dict, lead: str) -> str:
 
 
 def _said(client, number: int, marker: str) -> bool:
-    return any(marker in str((row or {}).get('body') or '') for row in client.comments(number))
+    """A marker only counts from an owner, a member or a bot account (ours): the text is copyable,
+    the association and the account type are not. A stranger's `<!-- getup:record -->` is noise."""
+    def trusted(row) -> bool:
+        row = row or {}
+        return (row.get('author_association') in ASSOCIATIONS
+                or (row.get('user') or {}).get('type') == 'Bot')
+
+    return any(marker in str((row or {}).get('body') or '')
+               for row in client.comments(number) if trusted(row))
 
 
 def _labelled(issue: dict, name: str) -> bool:
@@ -240,16 +251,31 @@ def _needs_info(client, number: int, problems: list) -> dict:
     return {'number': number, 'result': 'needs-info', 'problems': problems}
 
 
+def _fault(client, number: int, lead: str, exc: Exception) -> dict:
+    """One issue fails and says why on the issue; the comment is best effort, the result is the record."""
+    try:
+        client.comment(number, f'{FAULT_MARK}\n{lead}{exc}')
+    except GithubError:
+        pass
+    return {'number': number, 'result': 'failed', 'problems': [str(exc)]}
+
+
 def _event(root: str, number: int, issue: dict, fields: dict, client, today: str) -> dict:
     draft, problems = event_draft(fields, today)
     if problems:
         return _needs_info(client, number, problems)
-    store = human.load(root)            # a corrupt file raises: one issue fails, the poll continues
-    registry = venues.load(root)
+    try:                                # a corrupt file raises here and only here
+        store = human.load(root)
+        registry = venues.load(root)
+    except ValueError as exc:           # the file is named on the issue; the poll moves on
+        return _fault(client, number, STATE_FAULT, exc)
     # A correction is an update, not a merge: only an issue without its own draft can merge.
     merged = str(number) not in store and same_event(store, number, draft, registry)
     changed = human.put(store, number, draft)
-    human.save(root, store)             # the draft, never a placed record: build.place owns that
+    try:
+        human.save(root, store)         # the draft, never a placed record: build.place owns that
+    except OSError as exc:              # a full disk is this issue's failure, not the poll's
+        return _fault(client, number, SAVE_FAULT, exc)
     if changed or not _said(client, number, RECEIPT_MARK):
         client.comment(number, receipt(draft, MERGED_LEAD if merged else INGESTED_LEAD))
     client.add_label(number, 'processed')
@@ -282,12 +308,6 @@ def ingest(root: str, issue: dict, *, client, today: str) -> dict:
             return _source(number, fields, client)
         return _event(root, number, issue, fields, client, today)
     except GithubError as exc:
-        return {'number': number, 'result': 'failed', 'problems': [str(exc)]}
-    except ValueError as exc:
-        try:                                # the file is named on the issue; the poll moves on
-            client.comment(number, f'{INFO_MARK}\n{STATE_FAULT}{exc}')
-        except GithubError:
-            pass
         return {'number': number, 'result': 'failed', 'problems': [str(exc)]}
 
 

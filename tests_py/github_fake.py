@@ -18,7 +18,9 @@ class Fake:
 
     def comment(self, n, body):
         self.said.append((n, body))
-        self.comments_.setdefault(n, []).append({'body': body})
+        self.comments_.setdefault(n, []).append(
+            {'body': body, 'author_association': 'OWNER',
+             'user': {'login': 'getup-bot', 'type': 'Bot'}})
         return {}
 
     def add_label(self, n, name):

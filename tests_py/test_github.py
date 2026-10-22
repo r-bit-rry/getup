@@ -1,3 +1,4 @@
+import http.client
 import json
 import unittest
 
@@ -36,7 +37,8 @@ class RequestTest(unittest.TestCase):
 
     def test_pull_requests_and_processed_issues_are_never_returned(self):
         rows = [issue(1), issue(2, pull_request={'url': 'x'}),
-                issue(3, labels=[{'name': 'intake'}, {'name': 'processed'}])]
+                issue(3, labels=[{'name': 'intake'}, {'name': 'processed'}]),
+                issue(4, labels=[{'name': 'intake'}, {'name': 'Processed'}])]
         c, _ = client(lambda r: reply(200, rows))
         self.assertEqual([i['number'] for i in c.issues()], [1])
 
@@ -56,6 +58,28 @@ class ErrorTest(unittest.TestCase):
             c.issues()
         self.assertEqual((raised.exception.status, raised.exception.message),
                          (401, 'Bad credentials'))
+
+    def test_a_200_that_is_not_json_is_a_transport_error_with_no_status(self):
+        c, _ = client(lambda r: reply(200, '<html>proxy</html>'))
+        with self.assertRaises(github.GithubError) as raised:
+            c.issues()
+        self.assertEqual(raised.exception.status, 0)
+        self.assertIn('not JSON', raised.exception.message)
+
+    def test_a_half_read_reply_is_a_transport_error_with_no_status(self):
+        def handler(request):
+            raise http.client.IncompleteRead(b'[{"number": 1')
+
+        c, _ = client(handler)
+        with self.assertRaises(github.GithubError) as raised:
+            c.issues()
+        self.assertEqual(raised.exception.status, 0)
+
+    def test_a_reply_of_the_wrong_shape_is_a_transport_error_with_no_status(self):
+        c, _ = client(lambda r: reply(200, {'items': []}))
+        with self.assertRaises(github.GithubError) as raised:
+            c.issues()
+        self.assertEqual(raised.exception.status, 0)
 
     def test_a_missing_label_is_named_and_never_created(self):
         c, seen = client(lambda r: reply(200, [{'name': 'intake'}, {'name': 'processed'}]))

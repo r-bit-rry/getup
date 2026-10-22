@@ -6,6 +6,8 @@ a DJ set inside it at the same venue are two real rows.
 """
 
 import copy
+import hashlib
+import json
 
 from .normalize import norm_title
 
@@ -31,6 +33,12 @@ def _key(rec: dict) -> tuple:
     return (norm_title(rec.get('title')), str(rec.get('id') or ''))
 
 
+def _digest(rec: dict) -> str:
+    """The last tie-break, so two records equal on every other field still order."""
+    canonical = json.dumps(rec, sort_keys=True, ensure_ascii=False, default=str)
+    return hashlib.sha1(canonical.encode('utf-8')).hexdigest()
+
+
 def enrichment_note(loser: dict) -> str:
     """What a merged copy is still worth saying: its source and its own words."""
     urls = loser.get('urls') or {}
@@ -44,28 +52,38 @@ def enrichment_note(loser: dict) -> str:
 
 def _absorb(winner: dict, loser: dict) -> None:
     """The loser's facts move onto the winner; nothing of the winner is overwritten."""
+    enrichment = winner.setdefault('enrichment', [])
     if _name(loser) != _name(winner):
         note = enrichment_note(loser)
-        if note and note not in winner['enrichment']:
-            winner['enrichment'].append(note)
+        if note and note not in enrichment:
+            enrichment.append(note)
     for note in loser.get('enrichment') or []:
-        if note not in winner['enrichment']:
-            winner['enrichment'].append(note)
-    if not winner['urls'].get('community') and loser['urls'].get('community'):
-        winner['urls']['community'] = loser['urls']['community']
+        if note not in enrichment:
+            enrichment.append(note)
+    urls = winner.setdefault('urls', {})
+    community = (loser.get('urls') or {}).get('community')
+    if not urls.get('community') and community:
+        urls['community'] = community
+    notes = winner.setdefault('notes', [])
     for note in loser.get('notes') or []:
-        if note not in winner['notes']:
-            winner['notes'].append(note)
+        if note not in notes:
+            notes.append(note)
 
 
 def _wins(candidate: dict, current: dict) -> bool:
     if _rank(candidate) != _rank(current):
         return _rank(candidate) > _rank(current)
-    return _key(candidate) < _key(current)
+    return (_key(candidate), _digest(candidate)) < (_key(current), _digest(current))
 
 
 def merge(records: list[dict]) -> list[dict]:
-    """One row per event: sorted so a re-run cannot swap the winner or the order."""
+    """One row per event: sorted so a re-run cannot swap the winner or the order.
+
+    The group's anchor is its earliest start and never moves, so a chain of records
+    each 30 minutes from the last cannot smear one row across the whole night. The
+    surviving row keeps the winner's own start; that start stays within WINDOW of
+    the anchor, because only such a candidate may merge.
+    """
     groups = {}
     for rec in records if isinstance(records, list) else []:
         if isinstance(rec, dict):
@@ -74,17 +92,18 @@ def merge(records: list[dict]) -> list[dict]:
     kept_all = []
     for venue_id in sorted(groups, key=str):
         kept = []
+        anchor = None
         for rec in sorted(groups[venue_id],
-                          key=lambda r: (r.get('start') or 0, _key(r), _name(r))):
-            last = kept[-1] if kept else None
-            if last is not None and abs((rec.get('start') or 0) - (last.get('start') or 0)) <= WINDOW:
-                if _wins(rec, last):
-                    _absorb(rec, last)
+                          key=lambda r: (r.get('start') or 0, _key(r), _name(r), _digest(r))):
+            if anchor is not None and (rec.get('start') or 0) - anchor <= WINDOW:
+                if _wins(rec, kept[-1]):
+                    _absorb(rec, kept[-1])
                     kept[-1] = rec
                 else:
-                    _absorb(last, rec)
+                    _absorb(kept[-1], rec)
                 continue
             kept.append(rec)
+            anchor = rec.get('start') or 0
         kept_all.extend(kept)
 
     return sorted(kept_all, key=lambda r: (r.get('start') or 0, str(r.get('id') or '')))

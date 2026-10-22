@@ -32,9 +32,27 @@ class MergeTest(unittest.TestCase):
         dj = rec(id='dj', start=1792780200 + 3600, end=1792780200 + 2 * 3600)
         self.assertEqual(len(dedup.merge([club, dj])), 2)
 
-    def test_an_aggregator_with_no_seller_stands_and_says_so(self):
+    def test_a_lone_aggregator_keeps_its_source_class(self):
         [out] = dedup.merge([rec(id='a1', source={'class': 'aggregator', 'name': 'biluim'})])
         self.assertEqual(out['source']['class'], 'aggregator')
+
+    def test_the_window_follows_the_first_start_and_nothing_joins_from_further_out(self):
+        base = 1792780200
+        rows = [rec(id='a', start=base), rec(id='b', start=base + 1500),
+                rec(id='c', start=base + 3000)]
+        self.assertEqual(len(dedup.merge(rows)), 2)
+
+    def test_a_middle_record_cannot_pull_a_far_one_into_the_event(self):
+        base = 1792780200
+        rows = [rec(id='x', start=base), rec(id='y', start=base + 3000),
+                rec(id='m', start=base + 1500)]
+        self.assertEqual(len(dedup.merge(rows)), 2)
+        self.assertEqual(len(dedup.merge(list(reversed(rows)))), 2)
+
+    def test_six_ticketing_rows_every_thirty_minutes_are_not_one_event(self):
+        base = 1792780200
+        rows = [rec(id=f'r{i}', start=base + 1800 * i) for i in range(6)]
+        self.assertEqual(len(dedup.merge(rows)), 3)
 
     def test_two_venues_at_the_same_hour_are_two_events(self):
         self.assertEqual(len(dedup.merge([rec(id='a'), rec(id='b', venue_id='v2')])), 2)
@@ -89,6 +107,28 @@ class SameSourceTest(unittest.TestCase):
         a = rec(id='a', source={'class': 'aggregator', 'name': 'biluim'}, desc='x')
         b = rec(id='a', source={'class': 'aggregator', 'name': 'other'}, desc='y')
         self.assertEqual(dedup.merge([a, b]), dedup.merge([b, a]))
+
+    def test_a_duplicate_that_differs_only_in_price_picks_the_same_winner_either_way(self):
+        a = rec(id='a', price_from=174)
+        b = rec(id='a', price_from=99)
+        self.assertEqual(len(dedup.merge([a, b])), 1)
+        self.assertEqual(dedup.merge([a, b]), dedup.merge([b, a]))
+
+    def test_the_seller_wins_whoever_arrives_first(self):
+        seller = rec(id='t1', price_from=174)
+        aggr = rec(id='a1', start=1792780200 + 1200, price_from=120,
+                   source={'class': 'aggregator', 'name': 'biluim'}, desc='חניה חופשית')
+        forward, backward = dedup.merge([aggr, seller]), dedup.merge([seller, aggr])
+        self.assertEqual(forward, backward)
+        self.assertEqual([r['id'] for r in forward], ['t1'])
+
+    def test_a_minimal_record_does_not_crash_the_fold(self):
+        bare = [{'id': 'x', 'venue_id': 'v', 'start': 1},
+                {'id': 'y', 'venue_id': 'v', 'start': 2}]
+        out = dedup.merge(bare)
+        self.assertEqual(len(out), 1)
+        self.assertEqual(out[0]['id'], 'x')
+        self.assertEqual(out[0]['enrichment'], [])
 
     def test_enrichment_notes_are_capped(self):
         aggr = rec(id='a1', source={'class': 'aggregator', 'name': 'biluim'}, desc='x' * 500)

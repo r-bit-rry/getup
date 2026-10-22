@@ -1,5 +1,5 @@
 """The adapter table: one entry per source."""
 
-from . import leaan
+from . import leaan, popit
 
-ADAPTERS = {leaan.NAME: leaan}
+ADAPTERS = {leaan.NAME: leaan, popit.NAME: popit}

@@ -1,4 +1,4 @@
-import json, re, tempfile, unittest
+import json, os, re, tempfile, unittest
 from tools.getup import classify
 
 def rec(title='ערב ג׳אז', tags=()):
@@ -40,6 +40,23 @@ class LabelTest(unittest.TestCase):
         self.assertEqual((applied['format'], applied['scene']), ('theatre', ['תיאטרון']))
         [applied] = classify.apply([rec(tags=[])], {})
         self.assertEqual((applied['format'], applied['scene'], applied['crowd']), ('unknown', [], []))
+
+    def test_music_names_no_genre_and_the_other_categories_name_only_themselves(self):
+        [music] = classify.apply([rec(tags=['מוזיקה'])], {})
+        self.assertEqual((music['format'], music['scene'], music['crowd']), ('live_band', [], []))
+        [kids] = classify.apply([rec(tags=['ילדים'])], {})
+        self.assertEqual((kids['format'], kids['scene'], kids['crowd']), ('unknown', ['ילדים'], []))
+        [sport] = classify.apply([rec(tags=['ספורט'])], {})
+        self.assertEqual((sport['format'], sport['scene'], sport['crowd']), ('unknown', ['ספורט'], []))
+
+    def test_a_corrupt_cache_falls_back_to_the_rules(self):
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(f'{root}/data')
+            open(f'{root}/data/labels.json', 'w', encoding='utf-8').write('{oops')
+            labels = classify.load(root)
+            self.assertEqual(labels, {})
+            [applied] = classify.apply([rec(tags=['בידור וסטנדאפ'])], labels)
+            self.assertEqual((applied['format'], applied['scene']), ('standup', ['סטנדאפ']))
 
     def test_the_cache_round_trips_sorted(self):
         with tempfile.TemporaryDirectory() as root:

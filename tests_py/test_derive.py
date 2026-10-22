@@ -1,4 +1,4 @@
-import json, unittest
+import unittest
 from tools.getup import derive
 
 def rec(**o):
@@ -11,16 +11,24 @@ MAJOR = {'v': {'tier': 'major', 'parking': 'חניון מאירהוף, ₪30/ש�
                'access': 'נגיש לכיסא גלגלים', 'transport': 'קו 5'}}
 MID = {'v': {'tier': 'mid', 'parking': None, 'access': None, 'transport': None}}
 
-class P90Test(unittest.TestCase):
-    def test_the_real_capture_p90_is_199(self):
-        prices = [e['price'] for e in json.load(open('docs/research/2026-10-21/leaan-events.json',
-                                                     encoding='utf-8'))]
-        self.assertEqual(derive.p90(prices), 199)
+# The served horizon, self-contained: the pipeline only ever thresholds what survived trimming.
+RETAINED_PRICES = [39, 69, 99, 129, 149, 199]
 
+class P90Test(unittest.TestCase):
     def test_a_ten_price_set_uses_the_nearest_rank(self):
         self.assertEqual(derive.p90([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]), 100)
         self.assertEqual(derive.p90([39]), 39)
         self.assertIsNone(derive.p90([]))
+        self.assertEqual(derive.p90(RETAINED_PRICES), 199)
+
+    def test_the_threshold_is_the_retained_sets_p90_not_the_raw_capture(self):
+        retained = [rec(id=f'r{i}', price_from=p) for i, p in enumerate(RETAINED_PRICES)]
+        out = {r['id']: r['expensive'] for r in derive.signals(retained, touring={}, registry=MID)}
+        self.assertTrue(out['r5'])       # 199 == the retained set's p90
+        self.assertFalse(out['r4'])      # 149 < 199
+        # drop the top row: 149 becomes the line, so only the rows at or above it move
+        trimmed = {r['id']: r['expensive'] for r in derive.signals(retained[:5], touring={}, registry=MID)}
+        self.assertEqual([k for k, v in trimmed.items() if v], ['r4'])
 
 class SignalTest(unittest.TestCase):
     def test_expensive_is_the_run_threshold_or_two_hundred(self):
@@ -50,12 +58,14 @@ class SignalTest(unittest.TestCase):
         self.assertFalse(derive.notable(rec(source={'class': 'aggregator', 'name': 'biluim'}), 5, MAJOR))
 
     def test_touring_counts_cities_and_punctuation_does_not_split_a_title(self):
-        records = [{'title': e['title'], 'city': e['city']}
-                   for e in json.load(open('docs/research/2026-10-21/leaan-events.json', encoding='utf-8'))]
-        records.append({'title': 'אסף מור יוסף במופע סטנדאפ!', 'city': 'באר שבע'})
+        records = [{'title': 'אסף מור יוסף', 'city': 'תל אביב'},
+                   {'title': 'אסף מור-יוסף!', 'city': 'חיפה'},
+                   {'title': 'אסף מור יוסף', 'city': 'תל אביב'},     # a second date, same city
+                   {'title': 'להקה מקומית', 'city': 'באר שבע'},
+                   {'title': 'להקה מקומית', 'city': ''}]            # no city is no evidence
         counts = derive.touring(records)
-        self.assertEqual(counts['אסף מור יוסף במופע סטנדאפ'], 15)
-        self.assertEqual(sum(1 for n in counts.values() if n >= 2), 30)
+        self.assertEqual(counts, {'אסף מור יוסף': 2, 'להקה מקומית': 1})
+        self.assertEqual(sum(1 for n in counts.values() if n >= 2), 1)
 
     def test_free_until_is_read_from_prose_in_both_languages(self):
         self.assertEqual(derive.free_until('כניסה חינם עד 22:00'), '22:00')

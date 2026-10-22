@@ -86,10 +86,13 @@ export function opsLine(manifest) {
     .map(m => (typeof m === 'string' ? m : m?.name ?? m?.venue_id ?? m?.id))
     .filter(Boolean);
   const checked = manifest?.coverage?.checked ?? 0;
+  const allOk = Object.keys(sources).length > 0
+    && Object.values(sources).every(s => s !== null && typeof s === 'object' && s.status === 'ok');
   if (missed.length) {
     parts.push(`לא נבדקו ב־14 הימים האחרונים: ${missed.join(' · ')}`);
   } else if (!failed && !partial) {
-    parts.push(checked ? `כל ${checked} המקורות נבדקו` : 'אין מידע על כיסוי המקורות');
+    if (checked && allOk) parts.push(`כל ${checked} המקומות נבדקו`);
+    else if (!checked) parts.push('אין מידע על כיסוי המקורות');
   }
   return parts.join(' · ');
 }

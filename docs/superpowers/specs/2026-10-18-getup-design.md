@@ -263,8 +263,9 @@ The **coverage alarm** addresses the missed-event anti-goal directly: `tools/cov
 reads `venues.json`, and for every venue with `tier = "major"` reports whether any event
 referencing it was seen in the last 14 days. Misses are written into `data/index.json` and
 surfaced as a single quiet line in the portal footer — never as a filter, never as an
-interruption. A big venue going silent for two weeks is almost always a broken adapter, not
-a quiet month.
+interruption. That line says `כל N המקומות נבדקו` only when `sources` is present and every
+entry reports `ok`; an index with `coverage` but no `sources` gets no all-clear. A big venue
+going silent for two weeks is almost always a broken adapter, not a quiet month.
 
 ### 7.7 Vocabulary
 
@@ -291,15 +292,27 @@ Noise control, in order of effect:
 
 ### 7.9 Intake via GitHub issues
 
-Two YAML issue forms: `אירוע חדש` and `מקור חדש`. Both auto-apply the `intake` label.
+Three YAML issue forms: `אירוע חדש`, `מקור חדש` and `העדפה`. All auto-apply the `intake`
+label. The forms are open to anyone; ingestion is not.
 
 - The agent polls `label:intake -label:processed` daily.
 - **Guard: only issues whose `author_association` is `OWNER` or `MEMBER` are processed.**
   The repo is public and anyone can file.
-- On success the agent comments a receipt containing the canonical record and applies
-  `processed`.
+- On success the agent comments a receipt containing the canonical record or rule and applies
+  `processed`. An event issue writes one draft to `data/human.json`; a source issue writes
+  nothing to the repo (its receipt comment is the lead); a prefs issue writes `prefs.json`.
+- A prefs rule is stored with the number of the issue that authored it and is global: it
+  applies in every reader's browser. A venue rule may only name a venue already in
+  `venues.json`; an unknown venue is answered `needs-info`, never provisioned. Re-polling a
+  corrected issue replaces the rule whose `issue` matches instead of appending another.
+- Retraction is bounded by the state: for each issue number already named by `human.json` or
+  by a prefs rule, the poll asks `GET /repos/{repo}/issues/{n}` and removes the draft and rule
+  when `state == "closed"`. It never lists closed issues, so a stranger cannot force an
+  unbounded walk by opening and closing their own.
 - On failure it comments what is missing, applies `needs-info`, and leaves the issue open.
   An issue is never half-ingested.
+- The footer's coverage line states `כל N המקומות נבדקו` only when `sources` is present and
+  every entry is `ok`; a missing `sources` block prints no all-clear.
 - Gated communities (Facebook groups, WhatsApp circles) are ordinary events with a
   `urls.community` link. Per ADR-0008 these communities are public and vetted, not private,
   so their links are published alongside ticket links.

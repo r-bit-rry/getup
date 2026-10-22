@@ -1,6 +1,6 @@
 import contextlib, io, json, os, shutil, tempfile, unittest
 from unittest import mock
-from tools.getup import cli, github, human, normalize, write
+from tools.getup import cli, github, human, intake, normalize, write
 from tests_py.github_fake import Fake, issue
 from tests_py.test_intake import fresh as intake_fresh
 from tests_py.test_intake_parse import EVENT
@@ -164,6 +164,17 @@ class IntakeCliTest(unittest.TestCase):
                     self.assertEqual(cli.main(['intake', '--root', root, '--today', TODAY]), 5)
                 self.assertEqual(made.call_count, 0)
                 self.assertEqual(client.ensured, 0)
+
+    def test_an_unwritable_state_file_is_exit_five(self):
+        from tests_py.test_intake_prefs import PREFS
+        with tempfile.TemporaryDirectory() as root:
+            intake_fresh(root)
+            write.write_json(intake.prefs_file(root), {'never': [], 'always': []})
+            client = Fake([issue(21, PREFS)])
+            with mock.patch('tools.getup.intake.add_rule',
+                            side_effect=OSError(30, 'Read-only file system')), \
+                 mock.patch('tools.getup.intake.client_from_env', return_value=client):
+                self.assertEqual(cli.main(['intake', '--root', root, '--today', TODAY]), 5)
 
     def test_a_missing_token_is_exit_five_and_never_network(self):
         with mock.patch.dict(os.environ, {}, clear=True):

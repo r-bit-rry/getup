@@ -14,8 +14,8 @@ SOURCES = ('leaan', 'popit', 'biluim')
 EXIT_CODES = ('exit codes: 0 ok — a per-issue intake failure is still 0, 1 bad arguments, '
               '2 a source failed/partial or a bad --sources/--today value, '
               '3 coverage missed a major venue, 4 tz data missing, '
-              '5 intake: GitHub API or token failure, or a corrupt '
-              'prefs.json/venues.json/human.json')
+              '5 intake: GitHub API or token failure, or a state file that is corrupt or cannot '
+              'be written (prefs.json/venues.json/human.json)')
 log = logging.getLogger('getup')
 
 
@@ -123,7 +123,7 @@ def _intake(args) -> int:
         intake.check_state(args.root)          # before any network: a corrupt store never polls
         client = intake.client_from_env()      # resolved at call time, never at import
         polled = intake.poll(args.root, client=client, today=today)
-    except (github.GithubError, ValueError) as exc:
+    except (github.GithubError, ValueError, OSError) as exc:
         print(f'getup: {exc}', file=sys.stderr)
         return 5
     if polled['retracted']:

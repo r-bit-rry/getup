@@ -136,6 +136,8 @@ def event_draft(fields: dict, today: str) -> tuple:
             start = int(moment.replace(tzinfo=normalize.tz()).timestamp())
             if normalize.bucket_day(start) < today:
                 problems.append('תאריך שכבר עבר')
+            elif start > normalize.MAX_START:       # record() would drop it after a "נקלט" receipt
+                problems.append('תאריך רחוק מדי (עד 2100)')
 
     price = _price(fields.get('מחיר'))
     if price is BAD:
@@ -211,27 +213,44 @@ def prefs_file(root: str) -> str:
     return os.path.join(root, 'prefs.json')
 
 
-def add_rule(root: str, kind: str, rule: dict) -> bool:
-    """Append a rule to prefs.json; True only when the file changed.
+def _prefs_data(root: str) -> dict:
+    """The strict read: a corrupt file raises and is named instead of being replaced."""
+    path = prefs_file(root)
+    if not os.path.exists(path):
+        return {}
+    data = write.read_json_strict(path)
+    if not isinstance(data, dict):
+        raise ValueError(f'{path}: prefs is not an object')
+    for name in ('never', 'always'):
+        if name in data and not isinstance(data[name], list):
+            raise ValueError(f'{path}: {name} is not a list')
+    return data
 
-    The browser applies the file; the pipeline only ever appends. A corrupt file raises instead
-    of being replaced, because rebuilding it would erase the owner's rules.
+
+def add_rule(root: str, kind: str, rule: dict, issue: int) -> bool:
+    """Write one rule keyed by its issue; True only when the file changed.
+
+    A re-poll (remove `processed`, edit the body) replaces the rule that issue wrote, in either
+    list, rather than appending a second one. A hand-written rule has no `issue` and is never
+    touched by this. A corrupt file raises instead of being replaced: rebuilding it would erase
+    the owner's rules.
     """
     if kind not in ('never', 'always'):
         raise ValueError(f'unknown prefs kind: {kind!r}')
     if not isinstance(rule, dict) or not rule:
         raise ValueError('prefs rule is empty')
     path = prefs_file(root)
-    data = write.read_json_strict(path) if os.path.exists(path) else {}
-    if not isinstance(data, dict):
-        raise ValueError(f'{path}: prefs is not an object')
-    for name in ('never', 'always'):
-        data.setdefault(name, [])
-        if not isinstance(data[name], list):
-            raise ValueError(f'{path}: {name} is not a list')
-    if rule in data[kind]:
+    data = _prefs_data(root)
+    stamped = {**rule, 'issue': issue}
+    old = {name: list(data.get(name) or []) for name in ('never', 'always')}
+    copies = [(name, row) for name in ('never', 'always') for row in old[name]
+              if isinstance(row, dict) and row.get('issue') == issue]
+    if copies == [(kind, stamped)]:
         return False
-    data[kind].append(rule)
+    for name in ('never', 'always'):
+        data[name] = [row for row in old[name]
+                      if not (isinstance(row, dict) and row.get('issue') == issue)]
+    data[kind].append(stamped)
     write.write_json(path, data)
     return True
 
@@ -363,7 +382,7 @@ def _prefs(root: str, number: int, issue: dict, fields: dict, client) -> dict:
     spec, problems = prefs_rule(fields, venues.load(root))   # a corrupt registry raises, and is named
     if problems:
         return _needs_info(client, number, problems)
-    changed = add_rule(root, spec['kind'], spec['rule'])
+    changed = add_rule(root, spec['kind'], spec['rule'], number)
     if changed or not _said(client, number, RECEIPT_MARK):
         client.comment(number, receipt(spec, PREFS_LEAD))
     client.add_label(number, 'processed')
@@ -393,24 +412,67 @@ def ingest(root: str, issue: dict, *, client, today: str) -> dict:
         return _fault(client, number, STATE_FAULT, exc)
 
 
-def retract(root: str, numbers) -> int:
-    """Delete the drafts of closed issues; the count is what the poll reports."""
-    keys = {str(number) for number in numbers}
-    if not keys:                        # nothing closed: do not read the store at all
+def _rule_issues(data: dict) -> set:
+    """The issue numbers a prefs rule names; a hand-written rule has none and is left alone."""
+    numbers = set()
+    for name in ('never', 'always'):
+        rows = data.get(name)
+        for row in rows if isinstance(rows, list) else []:
+            issue = row.get('issue') if isinstance(row, dict) else None
+            if isinstance(issue, int) and not isinstance(issue, bool):
+                numbers.add(issue)
+    return numbers
+
+
+def retract(root: str, client) -> int:
+    """Ask about only the issues this repo's state already names; drop a closed one's draft and rule.
+
+    Bounded by the store, never by a listing of closed issues: a stranger can open and close
+    issues freely, and an unbounded `state=closed` page is a free denial of service.
+    """
+    try:
+        store = human.load(root)
+    except ValueError:
+        return 0                    # check_state refuses a corrupt store; each issue below names it
+    path = prefs_file(root)
+    prefs = write.read_json(path, {})       # best effort here; check_state refuses a corrupt file
+    prefs = prefs if isinstance(prefs, dict) else {}
+    numbers = {int(key) for key in store} | _rule_issues(prefs)
+    if not numbers:
         return 0
-    store = human.load(root)
-    gone = [key for key in keys if key in store]
-    for key in gone:
-        del store[key]
-    if gone:
+    closed = {number for number in numbers
+              if str((client.issue(number) or {}).get('state')) == 'closed'}
+    if not closed:
+        return 0
+    touched = set()
+    removed_draft = False
+    for number in closed:
+        if str(number) in store:
+            del store[str(number)]
+            removed_draft = True
+            touched.add(number)
+    removed_rule = False
+    for name in ('never', 'always'):
+        rows = prefs.get(name) if isinstance(prefs.get(name), list) else []
+        kept = []
+        for row in rows:
+            if isinstance(row, dict) and row.get('issue') in closed:
+                touched.add(row['issue'])
+                removed_rule = True
+            else:
+                kept.append(row)
+        prefs[name] = kept
+    if removed_draft:
         human.save(root, store)
-    return len(gone)
+    if removed_rule:
+        write.write_json(path, prefs)
+    return len(touched)
 
 
 def poll(root: str, *, client, today: str) -> dict:
     """Verify the labels once, retract closed issues, then one open issue at a time, lowest first."""
     client.ensure_labels()
-    retracted = retract(root, ((row or {}).get('number') for row in client.closed_issues()))
+    retracted = retract(root, client)
     rows = sorted(client.issues(), key=lambda row: (row or {}).get('number') or 0)
     return {'retracted': retracted,
             'results': [ingest(root, row, client=client, today=today) for row in rows]}
@@ -423,11 +485,4 @@ def check_state(root: str) -> None:
     """
     human.load(root)
     venues.load(root)
-    path = prefs_file(root)
-    if os.path.exists(path):
-        data = write.read_json_strict(path)     # names the file and the fault
-        if not isinstance(data, dict):
-            raise ValueError(f'{path}: prefs is not an object')
-        for name in ('never', 'always'):
-            if name in data and not isinstance(data[name], list):
-                raise ValueError(f'{path}: {name} is not a list')
+    _prefs_data(root)

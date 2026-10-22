@@ -54,15 +54,38 @@ class RuleTest(unittest.TestCase):
         self.assertEqual(intake.prefs_rule({**fields, 'שם המקום': '', 'עיר': ''},
                                            venues.load('.'))[1], ['שם המקום או אמן'])
 
-    def test_add_rule_appends_once_and_keeps_the_two_lists(self):
+    def test_add_rule_keys_the_rule_to_its_issue_and_keeps_the_two_lists(self):
         with tempfile.TemporaryDirectory() as root:
             fresh(root)
             write.write_json(intake.prefs_file(root), {'never': [], 'always': []})
-            self.assertTrue(intake.add_rule(root, 'never', {'artist': 'The Cure'}))
-            self.assertFalse(intake.add_rule(root, 'never', {'artist': 'The Cure'}))
-            self.assertTrue(intake.add_rule(root, 'always', {'venue_id': 'v_x'}))
+            self.assertTrue(intake.add_rule(root, 'never', {'artist': 'The Cure'}, 21))
+            self.assertFalse(intake.add_rule(root, 'never', {'artist': 'The Cure'}, 21))
+            self.assertTrue(intake.add_rule(root, 'always', {'venue_id': 'v_x'}, 22))
             self.assertEqual(json.load(open(intake.prefs_file(root), encoding='utf-8')),
-                             {'never': [{'artist': 'The Cure'}], 'always': [{'venue_id': 'v_x'}]})
+                             {'never': [{'artist': 'The Cure', 'issue': 21}],
+                              'always': [{'venue_id': 'v_x', 'issue': 22}]})
+
+    def test_a_corrected_prefs_issue_replaces_its_own_rule(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            write.write_json(intake.prefs_file(root), {'never': [], 'always': []})
+            intake.poll(root, client=Fake([issue(21, PREFS)]), today=TODAY)
+            corrected = PREFS.replace('בית ציוני אמריקה (מאירהוף)', 'היכל התרבות תל אביב - אולם צוקר')
+            self.assertEqual(intake.poll(root, client=Fake([issue(21, corrected)]),
+                                        today=TODAY)['results'],
+                             [{'number': 21, 'result': 'prefs', 'problems': []}])
+            self.assertEqual(json.load(open(intake.prefs_file(root), encoding='utf-8'))['never'],
+                             [{'venue_id': 'v_8cd702b07b', 'issue': 21}])
+
+    def test_closing_a_prefs_issue_retracts_its_rule(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            write.write_json(intake.prefs_file(root), {'never': [], 'always': []})
+            intake.poll(root, client=Fake([issue(21, PREFS)]), today=TODAY)
+            out = intake.poll(root, client=Fake([], states={21: 'closed'}), today=TODAY)
+            self.assertEqual((out['retracted'], out['results']), (1, []))
+            self.assertEqual(json.load(open(intake.prefs_file(root), encoding='utf-8')),
+                             {'never': [], 'always': []})
 
     def test_the_prefs_issue_writes_the_file_and_receipts_the_rule(self):
         with tempfile.TemporaryDirectory() as root:
@@ -72,7 +95,7 @@ class RuleTest(unittest.TestCase):
             self.assertEqual(intake.poll(root, client=client, today=TODAY)['results'],
                              [{'number': 21, 'result': 'prefs', 'problems': []}])
             self.assertEqual(json.load(open(intake.prefs_file(root), encoding='utf-8'))['never'],
-                             [{'venue_id': 'v_zionist_america_tlv'}])
+                             [{'venue_id': 'v_zionist_america_tlv', 'issue': 21}])
             self.assertIn('"venue_id": "v_zionist_america_tlv"', client.said[0][1])
             self.assertEqual(client.labels, [(21, 'processed')])
 

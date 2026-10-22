@@ -80,10 +80,18 @@ class EventTest(unittest.TestCase):
     def test_a_closed_issue_retracts_its_draft(self):
         intake.poll(self.root, client=self.client, today=TODAY)
         self.assertIn('7', human.load(self.root))
-        client = Fake([], closed=[issue(7, '')])
+        client = Fake([], states={7: 'closed'})
         out = intake.poll(self.root, client=client, today=TODAY)
         self.assertEqual((out['retracted'], out['results']), (1, []))
         self.assertNotIn('7', human.load(self.root))
+
+    def test_retraction_asks_about_exactly_the_keys_the_store_holds(self):
+        store = {str(n): {'title': f'ערב {n}', 'venue': 'בארבי', 'start': 1794686400}
+                 for n in (7, 8, 9)}
+        write.write_json(human.store_file(self.root), store)
+        client = Fake([])
+        self.assertEqual(intake.poll(self.root, client=client, today=TODAY)['retracted'], 0)
+        self.assertEqual(sorted(client.lookups), [7, 8, 9])   # bounded by the store, not a listing
 
     def test_a_malformed_issue_names_the_field_and_changes_no_file(self):
         before = open(human.store_file(self.root), 'rb').read()

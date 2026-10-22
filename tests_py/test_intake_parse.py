@@ -151,6 +151,8 @@ class EventTest(unittest.TestCase):
                          ['שעה (HH:MM)'])
         self.assertEqual(intake.event_draft({**fields, 'תאריך': '2026-10-20'}, '2026-10-21')[1],
                          ['תאריך שכבר עבר'])
+        self.assertEqual(intake.event_draft({**fields, 'תאריך': '2150-01-01'}, '2026-10-21')[1],
+                         ['תאריך רחוק מדי (עד 2100)'])
         self.assertEqual(intake.event_draft({**fields, 'מחיר': 'מאה שקל'}, '2026-10-21')[1],
                          ['מחיר (מספר בשקלים או חינם)'])
         self.assertEqual(intake.event_draft({**fields, 'קישור לאירוע': 'javascript:alert(1)'}, '2026-10-21')[1],

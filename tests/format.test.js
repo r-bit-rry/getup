@@ -99,15 +99,24 @@ test('a failure suppresses the all-clear sentence', () => {
   );
 });
 
-test('an unknown status is not a failure and the all-clear survives', () => {
+test('the all-clear names venues, not sources, and needs every source ok', () => {
   assert.equal(
-    opsLine({ sources: { x: { status: 'ok-ish' }, y: 'failed' }, coverage: { checked: 3, missed: [] } }),
-    'כל 3 המקורות נבדקו',
+    opsLine({ sources: { leaan: { status: 'ok' }, popit: { status: 'ok' } },
+             coverage: { checked: 3, missed: [] } }),
+    'כל 3 המקומות נבדקו',
   );
 });
 
-test('an older index without sources still reports coverage', () => {
+test('an unknown source status is not an all-clear', () => {
+  assert.equal(
+    opsLine({ sources: { x: { status: 'ok-ish' }, y: 'failed' }, coverage: { checked: 3, missed: [] } }),
+    '',
+  );
+});
+
+test('an older index without sources does not claim the coverage was checked', () => {
   assert.equal(opsLine({}), 'אין מידע על כיסוי המקורות');
+  assert.equal(opsLine({ coverage: { checked: 3, missed: [] } }), '');
   assert.equal(opsLine({ coverage: { checked: 3, missed: ['שם'] } }),
     'לא נבדקו ב־14 הימים האחרונים: שם');
 });

@@ -2,11 +2,12 @@
 
 
 class Fake:
-    def __init__(self, issues=(), comments=None, closed=()):
+    def __init__(self, issues=(), comments=None, states=None):
         self.pending = list(issues)
-        self.closed = list(closed)
+        self.states = dict(states or {})
         self.comments_ = dict(comments or {})
         self.said, self.labels, self.ensured = [], [], 0
+        self.lookups = []                   # every issue number the retraction asked about
 
     def ensure_labels(self):
         self.ensured += 1
@@ -14,8 +15,9 @@ class Fake:
     def issues(self):
         return list(self.pending)
 
-    def closed_issues(self):
-        return list(self.closed)
+    def issue(self, n):
+        self.lookups.append(n)
+        return {'number': n, 'state': self.states.get(n, 'open')}
 
     def comments(self, n):
         return list(self.comments_.get(n, []))

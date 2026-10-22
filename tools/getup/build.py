@@ -4,7 +4,7 @@ import json
 import logging
 import os
 
-from . import (archive, classify, coverage, dedup, derive, geo, manifest, normalize,
+from . import (archive, classify, coverage, dedup, derive, geo, human, manifest, normalize,
                scan, venues, write)
 
 log = logging.getLogger('getup')
@@ -103,6 +103,22 @@ def _pinned(venue) -> bool:
             and venue.get('drive_min') is not None)
 
 
+def _normalized(registry: dict, drafts) -> list:
+    """Placed drafts -> records, with the point of this run's registry, never of ingestion."""
+    out = []
+    for draft in drafts:
+        venue_id = draft['venue_id']
+        venue = registry.get(venue_id) or {}
+        draft['city'] = venues.city_of(registry, venue_id, draft.get('city'))
+        draft['lat'], draft['lon'] = venue.get('lat'), venue.get('lon')
+        draft['drive_min'] = venue.get('drive_min')
+        draft['coords_source'] = venue.get('coords_source')
+        record = normalize.record(draft)
+        if record is not None:
+            out.append(record)
+    return out
+
+
 def run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None,
         labels_path=None, fetch=scan.fetch_text, now=None) -> dict:
     names = list(sources)
@@ -113,29 +129,26 @@ def run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None,
 
     registry = venues.load(root)
     kept, dropped_no_venue = place(registry, drafts)
+    # Canonical human drafts are re-placed every run: a new venue is provisioned and pinned before
+    # the records are built, so a correction gains its minutes as the registry learns them.
+    human_kept, _ = place(registry, human.records(human.load(root)))
 
     if from_dir is None:
         geo.fill(registry, fetch=fetch)          # a geocode failure is not fatal
     geo.seed(registry)                          # offline too, so a captured city always has minutes
 
-    records = []
-    for draft in kept:
-        venue_id = draft['venue_id']
-        venue = registry.get(venue_id) or {}
-        draft['city'] = venues.city_of(registry, venue_id, draft.get('city'))
-        draft['lat'], draft['lon'] = venue.get('lat'), venue.get('lon')
-        draft['drive_min'] = venue.get('drive_min')
-        draft['coords_source'] = venue.get('coords_source')
-        record = normalize.record(draft)
-        if record is not None:
-            records.append(record)
+    records = _normalized(registry, kept)
+    human_records = _normalized(registry, human_kept)
 
     counts, states = _tally(status, records, failures)   # before dedup: an absorbed row still counts
-    records = classify.apply(dedup.merge(records), _labels(root, labels_path))
+    records = classify.apply(dedup.merge(records + human_records), _labels(root, labels_path))
     touring = derive.touring(records)           # the whole payload, not the served subset
     served = derive.signals(window(records, today), touring=touring, registry=registry)
 
     for record in records:                      # scanned today, even when its next event is far out
+        # A manual post is not a scan: one human row must not mask a broken adapter for a major venue.
+        if (record.get('source') or {}).get('class') == 'human':
+            continue
         venue = registry.get(record['venue_id'])
         if isinstance(venue, dict):
             venue['seen_last'] = today

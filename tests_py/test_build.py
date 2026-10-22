@@ -1,5 +1,5 @@
 import json, os, shutil, tempfile, unittest
-from tools.getup import archive, build, write
+from tools.getup import archive, build, human, venues, write
 
 CAPTURE = 'docs/research/2026-10-21'
 TODAY = '2026-10-21'
@@ -19,6 +19,81 @@ def snapshot(root):
 
 def no_network(url, **kw):
     raise AssertionError(f'network call in cassette mode: {url}')
+
+def served(root):
+    return {ev['id']: ev for day in write.data_files(f'{root}/data')
+            for ev in json.load(open(write.date_file(root, day), encoding='utf-8'))}
+
+def human_draft(root, base, **overrides):
+    venue = venues.load(root)[base['venue_id']]['name']
+    draft = {'class': 'human', 'source': 'github', 'title': base['title'],
+             'venue': venue, 'city': base['city'], 'start': base['start'],
+             'url': 'https://github.com/roy/getup/issues/7',
+             'tickets': None, 'community': None,
+             'price_from': base['price_from'], 'desc': ''}
+    return {**draft, **overrides}
+
+class HumanPrecedenceTest(unittest.TestCase):
+    def test_a_human_correction_survives_the_next_scan_and_is_not_duplicated(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            args = dict(sources=('leaan',), from_dir=CAPTURE, fetch=no_network, now=NOW)
+            build.run(root, TODAY, **args)
+            base = next(ev for ev in served(root).values() if ev['day'] == '2026-10-22')
+            correction = human_draft(root, base, title='תיקון אנושי', price_from=7)
+            write.write_json(human.store_file(root), {'7': correction})
+            build.run(root, TODAY, **args)
+            rows = [ev for ev in served(root).values() if ev['id'] == base['id']]
+            self.assertEqual(len(rows), 1)
+            self.assertEqual((rows[0]['title'], rows[0]['price_from']), ('תיקון אנושי', 7))
+            self.assertEqual(rows[0]['source'], {'class': 'human', 'name': 'github'})
+            self.assertEqual(rows[0]['urls']['source'], 'https://github.com/roy/getup/issues/7')
+            self.assertTrue(any(n.startswith(base['source']['name'])
+                                for n in rows[0]['enrichment']))
+            build.run(root, TODAY, **args)
+            self.assertEqual(len([ev for ev in served(root).values()
+                                  if ev['id'] == base['id']]), 1)
+
+    def test_a_human_draft_gets_coordinates_when_its_new_venue_is_seeded(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            write.write_json(human.store_file(root), {'7': {
+                'class': 'human', 'source': 'github', 'title': 'ערב ג׳אז במועדון החדש',
+                'venue': 'מועדון חדש לגמרי', 'city': 'חיפה', 'start': 1794686400,
+                'url': 'https://github.com/roy/getup/issues/7',
+                'tickets': None, 'community': None, 'price_from': None, 'desc': ''}})
+            build.run(root, TODAY, sources=('leaan',), from_dir=CAPTURE,
+                      fetch=no_network, now=NOW)
+            row = next(ev for ev in served(root).values()
+                       if ev['title'] == 'ערב ג׳אז במועדון החדש')
+            self.assertIsNotNone(row['lat'])          # provisioned, then geo.seed filled it
+            self.assertIsNotNone(row['drive_min'])
+
+    def test_a_human_row_never_stamps_seen_last(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            draft = {'class': 'human', 'source': 'github', 'title': 'ערב ג׳אז',
+                     'venue': 'מועדון ללא סריקה', 'city': 'חיפה',
+                     'start': 1794686400, 'url': 'https://github.com/roy/getup/issues/7',
+                     'tickets': None, 'community': None, 'price_from': None, 'desc': ''}
+            write.write_json(human.store_file(root), {'7': draft})
+            build.run(root, TODAY, sources=('leaan',), from_dir=CAPTURE,
+                      fetch=no_network, now=NOW)
+            venue = next(v for v in venues.load(root).values()
+                         if v.get('name') == 'מועדון ללא סריקה')
+            self.assertNotEqual(venue.get('seen_last'), TODAY)
+
+    def test_two_issues_for_one_event_are_one_row(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            args = dict(sources=('leaan',), from_dir=CAPTURE, fetch=no_network, now=NOW)
+            build.run(root, TODAY, **args)
+            base = next(ev for ev in served(root).values() if ev['day'] == '2026-10-22')
+            draft = human_draft(root, base)
+            write.write_json(human.store_file(root), {'7': draft, '8': dict(draft)})
+            build.run(root, TODAY, **args)
+            self.assertEqual(len([ev for ev in served(root).values()
+                                  if ev['id'] == base['id']]), 1)
 
 class BuildTest(unittest.TestCase):
     def setUp(self):

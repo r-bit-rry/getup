@@ -64,6 +64,35 @@ class MergeTest(unittest.TestCase):
         self.assertEqual(dedup.merge([b, a])[0]['id'], 'a')
 
 
+class HumanTest(unittest.TestCase):
+    def test_a_human_correction_beats_the_seller_and_keeps_its_fields(self):
+        human_rec = rec(id='h1', title='ערב ג׳אז — תיקון', price_from=1,
+                        source={'class': 'human', 'name': 'github'},
+                        urls={'tickets': 'https://t', 'community': None,
+                              'source': 'https://github.com/roy/getup/issues/7'})
+        seller = rec(id='t1', price_from=174, soldout=True)
+        out = dedup.merge([seller, human_rec])
+        self.assertEqual(len(out), 1)
+        self.assertEqual(out[0]['id'], 'h1')
+        self.assertEqual(out[0]['title'], 'ערב ג׳אז — תיקון')
+        self.assertEqual(out[0]['price_from'], 1)
+        self.assertEqual(out[0]['source'], {'class': 'human', 'name': 'github'})
+        self.assertEqual(out[0]['urls']['source'], 'https://github.com/roy/getup/issues/7')
+        self.assertEqual(out[0]['enrichment'], ['leaan: d'])
+        self.assertEqual(dedup.merge([human_rec, seller]), out)   # order cannot change the winner
+
+    def test_a_human_record_is_never_absorbed_into_a_machine_row(self):
+        human_rec = rec(id='h1', source={'class': 'human', 'name': 'github'})
+        out = dedup.merge([rec(id='a1', start=1792780200 + 1200,
+                               source={'class': 'aggregator', 'name': 'biluim'}), human_rec])
+        self.assertEqual([r['source']['class'] for r in out], ['human'])
+        self.assertEqual(out[0]['id'], 'h1')
+
+    def test_thirty_one_minutes_away_is_still_a_second_event(self):
+        human_rec = rec(id='h1', source={'class': 'human', 'name': 'github'})
+        self.assertEqual(len(dedup.merge([human_rec, rec(id='t2', start=1792780200 + 1861)])), 2)
+
+
 class SameSourceTest(unittest.TestCase):
     def test_two_rows_from_one_source_do_not_enrich_each_other(self):
         first = rec(id='a', start=1792780200, desc='הראשון')

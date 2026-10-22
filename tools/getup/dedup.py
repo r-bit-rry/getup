@@ -12,7 +12,8 @@ import json
 from .normalize import norm_title
 
 WINDOW = 1800
-RANK = {'ticketing': 3, 'aggregator': 2, 'nightlife': 1}
+# human = 4: a person who read the room outranks a seller's row (ruling 2, intake wave 2)
+RANK = {'human': 4, 'ticketing': 3, 'aggregator': 2, 'nightlife': 1}
 NOTE_LIMIT = 200
 
 

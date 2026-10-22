@@ -24,11 +24,16 @@ const GEO_LABEL = 'המיקום שלי';
 const round3 = n => Math.round(n * 1000) / 1000;
 
 const dateFmt = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' });
+const hourFmt = new Intl.DateTimeFormat('en-GB', { timeZone: TZ, hour: 'numeric', hourCycle: 'h23' });
 let today = dateFmt.format(new Date()); // Asia/Jerusalem calendar date, refreshed when the tab comes back
 const addDays = (iso, n) => {
   const [y, m, d] = iso.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
 };
+// Before 06:00 last night is still running: an event bucketed to yesterday (§7.4.1) must be
+// served and shown, or the portal is empty at the hour it is used.
+const windowStartFor = iso => (Number(hourFmt.format(new Date())) < 6 ? addDays(iso, -1) : iso);
+let windowStart = windowStartFor(today);
 let monthEnd = addDays(today, 30); // served horizon: 30 days
 
 // A manifest that cannot be fetched must not leave a blank page: keep the shell and say so.
@@ -59,7 +64,7 @@ if (ok && manifest.dates?.length && !dates.length) ok = false;
 let days = [];
 try {
   days = ok
-    ? await Promise.all(dates.filter(d => d.date >= today).map(d => loadDate('.', d.date)))
+    ? await Promise.all(dates.filter(d => d.date >= windowStart).map(d => loadDate('.', d.date)))
     : [];
 } catch (err) {
   console.warn('getup: bulk load failed', err?.message ?? err);
@@ -102,10 +107,10 @@ const withDrive = list => (drive.size
   : list);
 // A running show is still on offer; the cut-off is its end, not its start.
 const live = now => dropStarted(withDrive(all), now);
-const visible = now => sortEvents(applyFilters(live(now), state, today));
+const visible = now => sortEvents(applyFilters(live(now), state, today, windowStart));
 // The drive limit must not hide an event whose real drive is short: recompute over
 // everything the other filters allow, then let render() apply maxDriveMin.
-const forDistances = () => sortEvents(applyFilters(live(Date.now()), { ...state, maxDriveMin: null }, today));
+const forDistances = () => sortEvents(applyFilters(live(Date.now()), { ...state, maxDriveMin: null }, today, windowStart));
 
 const NOTE = 'זמני הנסיעה יחסית לנתניה';
 const distEl = document.createElement('p');
@@ -154,10 +159,11 @@ function render() {
   if (!ok) return;
   const now = Date.now();
   const events = visible(now);
-  const hidden = excludedByDrive(live(now), state, today);
+  const hidden = excludedByDrive(live(now), state, today, windowStart);
   const { html, count } = listHTML(events, today, venues, document.body.dataset.view);
   farEl.innerHTML = hiddenHTML(hidden);
-  $('#list').innerHTML = events.length ? html : emptyHTML(manifest, today);
+  // the empty-state count is a count of the same window, so it must open with it
+  $('#list').innerHTML = events.length ? html : emptyHTML(manifest, windowStart);
   $('#status').textContent = `${count} אירועים בתצוגה`;
   syncNote(!isDefaultCentre(state.centre) && events.some(ev => !drive.has(ev.id)));
   syncControls();
@@ -445,8 +451,10 @@ $('#where-geo').addEventListener('click', () => {
 // A tab resumed the next morning must not keep yesterday under היום.
 const refreshToday = () => {
   const now = dateFmt.format(new Date());
-  if (now === today) return;
+  const start = windowStartFor(now); // 06:00 crosses out of last night without a new date
+  if (now === today && start === windowStart) return;
   today = now;
+  windowStart = start;
   monthEnd = addDays(today, 30);
   render();
 };

@@ -25,15 +25,22 @@ export function defaultState() {
   };
 }
 
-export function applyFilters(events, state, today) {
+// `windowStart` is the day the window opens on: yesterday before 06:00, while last night's
+// events bucketed to it (spec §7.4.1) are still running; every other edge follows `today`.
+export function applyFilters(events, state, today, windowStart = today) {
   const t = dayIndex(today);
+  const start = dayIndex(windowStart);
   const [lo, hi] = WINDOW_DAYS[state.dateWindow] ?? [];
+  // a window that opens today opens at windowStart instead; the far edge stays today + hi
+  const loDay = lo === 0 ? start : t + lo;
   return events.filter(ev => {
     if (state.dateWindow === 'range' && state.range) {
-      if (ev.day < state.range.from || ev.day > state.range.to) return false;
+      // a range opening today also opens at windowStart, so the running night is not lost
+      const from = state.range.from === today ? windowStart : state.range.from;
+      if (ev.day < from || ev.day > state.range.to) return false;
     } else if (lo !== undefined) {
-      const n = dayIndex(ev.day) - t;
-      if (n < lo || n > hi) return false;
+      const d = dayIndex(ev.day);
+      if (d < loDay || d - t > hi) return false;
     }
     if (state.maxDriveMin != null && ev.drive_min != null && ev.drive_min > state.maxDriveMin) return false;
     if (state.maxPrice != null && ev.price_from != null && ev.price_from > state.maxPrice) return false;
@@ -54,9 +61,9 @@ export const dropStarted = (events, nowMs) => (events ?? []).filter(ev =>
   Number.isFinite(ev.start) && nowMs < endOf(ev) * 1000);
 
 // What the drive cap alone removed, so the page can say so instead of hiding it.
-export const excludedByDrive = (events, state, today) => (state.maxDriveMin == null
+export const excludedByDrive = (events, state, today, windowStart = today) => (state.maxDriveMin == null
   ? []
-  : applyFilters(events, { ...state, maxDriveMin: null }, today)
+  : applyFilters(events, { ...state, maxDriveMin: null }, today, windowStart)
     .filter(ev => ev.drive_min != null && ev.drive_min > state.maxDriveMin));
 
 export function sortEvents(events) {

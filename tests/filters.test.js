@@ -2,6 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { defaultState, applyFilters, sortEvents, serializeState, deserializeState, clampStaleRange, dropStarted, excludedByDrive } from '../src/filters.js';
+import { relDay } from '../src/format.js';
 
 const TODAY = '2026-10-18';
 const ev = (o = {}) => ({ id: 'x', title: 't', venue_id: 'v', city: 'c', day: '2026-10-20',
@@ -158,4 +159,48 @@ test('the drive diff counts only what the cap removed and spans its minutes', ()
   const priced = {...defaultState(), maxPrice: 50};
   const pricedRows = [ev({ id: 'far-pricy', drive_min: 90, price_from: 200 })];
   assert.deepEqual(excludedByDrive(pricedRows, priced, TODAY), []);
+});
+
+// ── fix wave D: the window opens at windowStart, the labels stay on today ─
+
+const YESTERDAY = '2026-10-17';
+
+test('at 00:30 the window opens on yesterday, so last night is not lost', () => {
+  const rows = [
+    ev({ id: 'club', day: YESTERDAY }),
+    ev({ id: 'older', day: '2026-10-16' }),
+    ev({ id: 'today', day: TODAY }),
+    ev({ id: 'edge', day: '2026-10-25' }),
+    ev({ id: 'past-edge', day: '2026-10-26' }),
+  ];
+  // yesterday and two days back are added here only to prove which one survives
+  assert.deepEqual(applyFilters(rows, defaultState(), TODAY, YESTERDAY).map(e => e.id),
+    ['club', 'today', 'edge'], 'yesterday is in, two days back is out, both edges of the week hold');
+});
+
+test('with the default windowStart yesterday stays out', () => {
+  assert.deepEqual(applyFilters([ev({ day: YESTERDAY })], defaultState(), TODAY), []);
+});
+
+test('the היום window keeps today and last night, not the day before', () => {
+  const s = { ...defaultState(), dateWindow: 'today' };
+  const rows = [ev({ id: 'club', day: YESTERDAY }), ev({ id: 'today', day: TODAY }),
+    ev({ id: 'older', day: '2026-10-16' }), ev({ id: 'tomorrow', day: '2026-10-19' })];
+  assert.deepEqual(applyFilters(rows, s, TODAY, YESTERDAY).map(e => e.id), ['club', 'today']);
+  assert.deepEqual(applyFilters(rows, s, TODAY).map(e => e.id), ['today']);
+});
+
+test('a range opening today and the drive cap follow the same window', () => {
+  const s = { ...defaultState(), dateWindow: 'range', range: { from: TODAY, to: '2026-10-25' } };
+  const club = ev({ id: 'club', day: YESTERDAY });
+  assert.deepEqual(applyFilters([club], s, TODAY, YESTERDAY).map(e => e.id), ['club']);
+  assert.deepEqual(applyFilters([club], s, TODAY), []);
+  const far = ev({ id: 'far', day: YESTERDAY, drive_min: 60 });
+  assert.deepEqual(excludedByDrive([far], defaultState(), TODAY, YESTERDAY).map(e => e.id), ['far']);
+  assert.deepEqual(excludedByDrive([far], defaultState(), TODAY), []);
+});
+
+test('relative labels stay keyed to today, not to windowStart', () => {
+  assert.equal(relDay(TODAY, TODAY), 'היום');
+  assert.equal(relDay(YESTERDAY, TODAY), null, 'yesterday is not היום');
 });

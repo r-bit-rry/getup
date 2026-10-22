@@ -1,0 +1,38 @@
+name: מקור חדש
+description: הצעה למקור שעדיין לא נסרק
+title: "[מקור] "
+labels: ["intake"]
+body:
+  - type: input
+    id: source-name
+    attributes:
+      label: שם המקור
+      placeholder: בילום
+    validations:
+      required: true
+  - type: input
+    id: source-url
+    attributes:
+      label: כתובת המקור
+      description: הכתובת שממנה אפשר לקרוא את האירועים. חייבת להתחיל ב-https
+      placeholder: https://
+    validations:
+      required: true
+  - type: dropdown
+    id: source-kind
+    attributes:
+      label: סוג המקור
+      options:
+        - לוח מכירות
+        - אגרגטור
+        - לילה
+        - אתר של מקום
+        - רשת חברתית
+    validations:
+      required: true
+  - type: textarea
+    id: source-gap
+    attributes:
+      label: מה חסר היום
+      description: מה המקור הזה יוסיף לאתר
+      render: text

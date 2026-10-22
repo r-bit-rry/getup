@@ -10,10 +10,18 @@ from . import geo, venues
 
 log = logging.getLogger('getup')
 
-try:
-    TZ = ZoneInfo('Asia/Jerusalem')
-except Exception as exc:                     # a silent UTC fallback would misfile every night
-    raise RuntimeError('getup: no tz data for Asia/Jerusalem') from exc
+TZ = None
+
+
+def tz():
+    """Asia/Jerusalem, loaded on first use so a missing tzdata is a caught error, never a UTC fallback."""
+    global TZ
+    if TZ is None:
+        try:
+            TZ = ZoneInfo('Asia/Jerusalem')
+        except Exception as exc:
+            raise RuntimeError('getup: no tz data for Asia/Jerusalem') from exc
+    return TZ
 
 SERVE_DAYS = 30
 MIN_START = 946684800                        # 2000-01-01T00:00:00Z
@@ -38,7 +46,7 @@ def norm_title(text) -> str:
 
 
 def bucket_day(start: int) -> str:
-    moment = datetime.fromtimestamp(start, TZ)
+    moment = datetime.fromtimestamp(start, tz())
     day = moment.date()
     if moment.hour < NIGHT_END:
         day -= timedelta(days=1)
@@ -52,7 +60,7 @@ def horizon(today: str) -> list[str]:
 
 
 def id_for(venue_id: str, day: str, start: int) -> str:
-    return f'{venue_id}|{day}|{datetime.fromtimestamp(start, TZ):%H:%M}'
+    return f'{venue_id}|{day}|{datetime.fromtimestamp(start, tz()):%H:%M}'
 
 
 def desc_cap(text, limit: int = DESC_LIMIT) -> str:

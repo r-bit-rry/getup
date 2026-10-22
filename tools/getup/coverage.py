@@ -27,13 +27,23 @@ def last_seen_by_venue(records) -> dict:
 
 
 def check(registry, records, today) -> dict:
-    """Every major venue whose latest sighting is older than the lookback, sorted by name."""
+    """Every major venue whose latest sighting is older than the lookback, sorted by name.
+
+    A venue's own ``seen_last`` (stamped by every build that scanned it) wins, so a hall read
+    today with nothing in the next 30 days is seen. The file scan is the fallback for a venue
+    that has never been through a build.
+    """
     cutoff = (date.fromisoformat(today) - timedelta(days=LOOKBACK_DAYS)).isoformat()
     latest = last_seen_by_venue(records)
     majors = [(venue_id, venue) for venue_id, venue in (registry or {}).items()
               if isinstance(venue, dict) and venue.get('tier') == 'major']
-    missed = [{'venue_id': venue_id, 'name': venue.get('name') or ''}
-              for venue_id, venue in majors if latest.get(venue_id, '') < cutoff]
+    missed = []
+    for venue_id, venue in majors:
+        mark = venue.get('seen_last')
+        if not isinstance(mark, str) or not mark:
+            mark = latest.get(venue_id, '')
+        if mark < cutoff:
+            missed.append({'venue_id': venue_id, 'name': venue.get('name') or ''})
     return {'checked': len(majors), 'missed': sorted(missed, key=lambda m: m['name'])}
 
 

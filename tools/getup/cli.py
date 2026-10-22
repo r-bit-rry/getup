@@ -5,11 +5,13 @@ import json
 import logging
 import os
 import sys
-from datetime import datetime
+from datetime import date, datetime
 
 from . import archive, build, classify, coverage, dedup, normalize, scan, venues, write
 
 SOURCES = ('leaan', 'popit', 'biluim')
+EXIT_CODES = ('exit codes: 0 ok, 1 bad arguments, 2 a source failed/partial or a bad --sources/'
+              '--today value, 3 coverage missed a major venue, 4 tz data missing')
 log = logging.getLogger('getup')
 
 
@@ -22,7 +24,7 @@ def _shared(sub, scanning=False):
 
 
 def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog='getup')
+    parser = argparse.ArgumentParser(prog='getup', epilog=EXIT_CODES)
     subs = parser.add_subparsers(dest='command', required=True)
     _shared(subs.add_parser('build'), scanning=True)
     _shared(subs.add_parser('pending'), scanning=True)
@@ -35,7 +37,13 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def _today(args) -> str:
-    return args.today or datetime.now(normalize.TZ).date().isoformat()
+    if not args.today:
+        return datetime.now(normalize.tz()).date().isoformat()
+    try:
+        date.fromisoformat(args.today)
+    except ValueError as exc:
+        raise ValueError(f'--today {args.today}: {exc}') from exc
+    return args.today
 
 
 def _drafts(args):
@@ -59,7 +67,7 @@ def _build(args) -> int:
 
 
 def _pending(args) -> int:
-    drafts, _, failures, _ = _drafts(args)
+    drafts, _, failures, status = _drafts(args)
     for line in failures:
         print(line, file=sys.stderr)
     registry = venues.load(args.root)          # in memory only: no geocode, no save
@@ -70,7 +78,7 @@ def _pending(args) -> int:
     write.write_bytes(path, ''.join(json.dumps(p, ensure_ascii=False) + '\n'
                                     for p in batch).encode('utf-8'))
     print(f'{len(batch)} titles pending from {len(records)} records: {path}')
-    return 0
+    return 2 if status and set(status.values()) == {'failed'} else 0
 
 
 def _labels(args) -> int:
@@ -95,7 +103,7 @@ def _coverage(args) -> int:
     print(f'coverage: {out["checked"]} major venues checked, {len(missed)} missed')
     for miss in missed:
         print(f'missed: {miss["venue_id"]} {miss["name"]}')
-    return 0
+    return 3 if missed else 0
 
 
 def _archive(args) -> int:
@@ -113,8 +121,11 @@ def main(argv: list) -> int:
                'coverage': _coverage, 'archive': _archive}[args.command]
     try:
         return handler(args)
+    except ValueError as exc:                  # --sources nope, a bad --today
+        print(f'getup: {exc}', file=sys.stderr)
+        return 2
     except RuntimeError as exc:
         if 'tz data' not in str(exc):
             raise
-        print(f'getup: {exc}', file=sys.stderr)
+        print(f'{exc}', file=sys.stderr)
         return 4

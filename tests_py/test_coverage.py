@@ -1,5 +1,7 @@
+import os
+import tempfile
 import unittest
-from tools.getup import coverage
+from tools.getup import archive, coverage, write
 
 REG = {'v_major': {'id': 'v_major', 'name': 'היכל גדול', 'tier': 'major'},
        'v_quiet': {'id': 'v_quiet', 'name': 'אולם שקט', 'tier': 'major'},
@@ -7,6 +9,16 @@ REG = {'v_major': {'id': 'v_major', 'name': 'היכל גדול', 'tier': 'major'
 
 def rec(venue_id, day, last):
     return {'venue_id': venue_id, 'day': day, 'seen': {'first': last, 'last': last}}
+
+def archive_report(last):
+    """A root whose only sighting of v_major is inside one archived member."""
+    with tempfile.TemporaryDirectory() as root:
+        write.write_json(f'{root}/venue/venues.json', REG)
+        path = archive.month_file(root, '2026-09')
+        payload = {'2026-09-20': [rec('v_major', '2026-09-20', last)]}
+        write.write_bytes(path, archive.compress(write.dumps(payload).encode('utf-8'),
+                                                 os.path.splitext(path)[1]))
+        return coverage.report(root, '2026-10-21')
 
 class CoverageTest(unittest.TestCase):
     def test_a_major_venue_with_no_recent_sighting_is_missed(self):
@@ -47,3 +59,20 @@ class CoverageTest(unittest.TestCase):
                 {'venue_id': 'v_major'}, {'venue_id': 'v_room', 'seen': {}}]
         self.assertEqual(coverage.last_seen_by_venue(recs),
                          {'v_major': '2026-10-20'})
+
+    def test_a_recent_sighting_inside_an_archive_member_is_not_missed(self):
+        missed = {m['venue_id'] for m in archive_report('2026-10-20')['missed']}
+        self.assertNotIn('v_major', missed)
+        self.assertIn('v_quiet', missed)
+
+    def test_an_old_sighting_inside_an_archive_member_is_missed(self):
+        missed = {m['venue_id'] for m in archive_report('2026-09-01')['missed']}
+        self.assertIn('v_major', missed)
+
+    def test_the_registry_scan_date_wins_and_the_file_scan_is_only_the_fallback(self):
+        seen_today = dict(REG['v_major'], seen_last='2026-10-21')
+        self.assertEqual(coverage.check({'v_major': seen_today}, [], '2026-10-21')['missed'], [])
+        stale = dict(REG['v_major'], seen_last='2026-09-01')       # the registry is the truth
+        self.assertEqual([m['venue_id'] for m in coverage.check(
+            {'v_major': stale}, [rec('v_major', '2026-10-21', '2026-10-21')], '2026-10-21')['missed']],
+            ['v_major'])

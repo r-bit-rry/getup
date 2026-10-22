@@ -166,9 +166,49 @@ class BuildTest(unittest.TestCase):
         with open(f'{self.root}/empty/popit.xml', 'w') as f:
             f.write('<rss><channel><item><title>מסיבה — נמל תל אביב</title>'
                     '<description>מסיבה, נמל תל אביב</description></item></channel></rss>')
+        write.write_json(write.date_file(self.root, '2026-11-30'), [{'id': 'stale'}])
+        before = snapshot(self.root)
         out = build.run(self.root, TODAY, sources=('popit',), from_dir=f'{self.root}/empty',
                         fetch=no_network, now=NOW)
         self.assertEqual(out['counts']['popit'], 0)
         self.assertEqual(out['sources']['popit']['status'], 'failed')
         self.assertEqual(len([f for f in out['sources']['popit']['failures']
                               if f.startswith('popit:')]), 1)
+        self.assertIsNone(out['pruned'])                           # the prune never ran
+        self.assertEqual(snapshot(self.root), before)              # nothing blanked, nothing deleted
+
+    def test_a_source_fully_absorbed_by_dedup_still_counts_from_its_survivors(self):
+        from unittest import mock
+        drafts = [{'title': 'הופעה', 'start': 1792954800, 'venue': 'בית נגלר קריית חיים',
+                   'city': 'חיפה', 'source': name, 'class': cls}
+                  for name, cls in (('leaan', 'aggregator'), ('popit', 'ticketing'))]
+        with mock.patch.object(build.scan, 'scan_from_dir',
+                               return_value=(drafts, {'leaan': 1, 'popit': 1}, [],
+                                             {'leaan': 'ok', 'popit': 'ok'})):
+            out = build.run(self.root, TODAY, sources=('leaan', 'popit'), from_dir=CAPTURE,
+                            fetch=no_network, now=NOW)
+        self.assertEqual(out['counts'], {'leaan': 1, 'popit': 1})  # counted before the merge
+        self.assertEqual({s['status'] for s in out['sources'].values()}, {'ok'})
+
+    def test_a_venue_scanned_with_no_event_in_the_window_is_still_seen(self):
+        from unittest import mock
+        draft = {'title': 'הופעה', 'start': 1796151600, 'venue': 'היכל התרבות ראשון לציון',
+                 'city': 'ראשון לציון', 'source': 'leaan', 'class': 'aggregator'}
+        with mock.patch.object(build.scan, 'scan_from_dir',
+                               return_value=([draft], {'leaan': 1}, [], {'leaan': 'ok'})):
+            out = build.run(self.root, TODAY, sources=('leaan',), from_dir=CAPTURE,
+                            fetch=no_network, now=NOW)
+        with open(f'{self.root}/venue/venues.json', encoding='utf-8') as f:
+            reg = json.load(f)
+        self.assertEqual(reg['v_heichal_tarbut_rishon']['seen_last'], TODAY)
+        self.assertEqual(out['coverage']['missed'], [])            # the hall was read this morning
+        self.assertTrue(all(not json.loads(body) for body in snapshot(self.root).values()))
+
+    def test_history_warns_on_a_corrupt_day_and_keeps_reading_the_rest(self):
+        write.write_bytes(write.date_file(self.root, '2026-10-22'), b'{nope')
+        write.write_json(write.date_file(self.root, '2026-10-23'),
+                         [{'id': 'a', 'seen': {'first': '2026-10-01', 'last': '2026-10-02'}}])
+        with self.assertLogs('getup', level='WARNING') as logs:
+            seen = build.history(self.root)['seen']
+        self.assertIn('2026-10-22', ' '.join(logs.output))
+        self.assertEqual(seen['a'], {'first': '2026-10-01', 'last': '2026-10-02'})

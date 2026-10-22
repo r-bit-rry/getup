@@ -38,11 +38,19 @@ def _archive_month(root, month) -> dict:
     return payload if isinstance(payload, dict) else {}
 
 
+def _day_records(root, day) -> list:
+    records = write.read_json(write.date_file(root, day), None)
+    if not isinstance(records, list):
+        log.warning('getup: history skipped unreadable day %s', day)
+        return []
+    return records
+
+
 def history(root) -> dict:
     """Every event id's first and last sighting, from day files and archived months alike."""
     seen = {}
     for day in write.data_files(os.path.join(root, 'data')):
-        _merge_day(seen, write.read_json(write.date_file(root, day), []))
+        _merge_day(seen, _day_records(root, day))
     for month in archive.archive_months(root):
         payload = _archive_month(root, month)
         for day in sorted(payload):
@@ -109,7 +117,6 @@ def run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None,
     if from_dir is None:
         geo.fill(registry, fetch=fetch)          # a geocode failure is not fatal
     geo.seed(registry)                          # offline too, so a captured city always has minutes
-    venues.save(root, registry)
 
     records = []
     for draft in kept:
@@ -123,9 +130,16 @@ def run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None,
         if record is not None:
             records.append(record)
 
+    counts, states = _tally(status, records, failures)   # before dedup: an absorbed row still counts
     records = classify.apply(dedup.merge(records), _labels(root, labels_path))
     touring = derive.touring(records)           # the whole payload, not the served subset
     served = derive.signals(window(records, today), touring=touring, registry=registry)
+
+    for record in records:                      # scanned today, even when its next event is far out
+        venue = registry.get(record['venue_id'])
+        if isinstance(venue, dict):
+            venue['seen_last'] = today
+    venues.save(root, registry)
 
     prior = history(root)['seen']
     for record in served:
@@ -135,15 +149,14 @@ def run(root, today, *, sources=('leaan', 'popit', 'biluim'), from_dir=None,
     by_day = {day: [] for day in normalize.horizon(today)}
     for record in served:
         by_day[record['day']].append(record)
-    written = ([] if set(status.values()) == {'failed'}
+    written = ([] if set(states.values()) == {'failed'}
                else write.write_days(root, by_day))
 
     pruned = None
-    if all(state == 'ok' for state in status.values()):
+    if all(state == 'ok' for state in states.values()):
         pruned = write.prune_future(root, set(by_day), today)
         archive.roll(root, today)
 
-    counts, states = _tally(status, records, failures)
     index_sources = {name: {'status': states[name], 'count': counts[name],
                             'failures': [f for f in failures if f.startswith(f'{name}:')]}
                      for name in status}

@@ -1,5 +1,6 @@
-import json, os, shutil, tempfile, unittest
-from tools.getup import cli
+import contextlib, io, json, os, shutil, tempfile, unittest
+from unittest import mock
+from tools.getup import cli, normalize, write
 
 CAPTURE = 'docs/research/2026-10-21'
 TODAY = '2026-10-21'
@@ -9,7 +10,7 @@ def fresh(root):
     shutil.copytree('data', f'{root}/data')
 
 class CliTest(unittest.TestCase):
-    def test_build_returns_zero_and_a_missing_tz_is_the_only_fatal_import(self):
+    def test_build_returns_zero_and_writes_the_day_files(self):
         with tempfile.TemporaryDirectory() as root:
             fresh(root)
             self.assertEqual(cli.main(['build', '--root', root, '--today', TODAY,
@@ -61,6 +62,46 @@ class CliTest(unittest.TestCase):
 
     def test_an_unknown_subcommand_is_an_argument_error(self):
         self.assertEqual(cli.main(['nope']), 1)
+
+    def test_a_missing_tz_is_exit_four_with_a_message(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            saved = normalize.TZ
+            normalize.TZ = None
+            self.addCleanup(setattr, normalize, 'TZ', saved)
+            with mock.patch.object(normalize, 'ZoneInfo', side_effect=RuntimeError('no tzdata')), \
+                    contextlib.redirect_stderr(io.StringIO()) as err:
+                code = cli.main(['build', '--root', root, '--today', TODAY,
+                                 '--from-dir', CAPTURE, '--sources', 'leaan'])
+            self.assertEqual(code, 4)
+            self.assertIn('tz data', err.getvalue())
+            self.assertIn('Asia/Jerusalem', err.getvalue())
+
+    def test_bad_argument_values_exit_two_with_one_line(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            with contextlib.redirect_stderr(io.StringIO()) as err:
+                self.assertEqual(cli.main(['build', '--root', root, '--today', TODAY,
+                                           '--from-dir', CAPTURE, '--sources', 'nope']), 2)
+            self.assertEqual(len(err.getvalue().strip().splitlines()), 1)
+            with contextlib.redirect_stderr(io.StringIO()) as err:
+                self.assertEqual(cli.main(['coverage', '--root', root, '--today', '2026-13-01']), 2)
+            self.assertIn('2026-13-01', err.getvalue())
+
+    def test_coverage_exits_three_when_a_major_venue_is_missed(self):
+        with tempfile.TemporaryDirectory() as root:
+            write.write_json(f'{root}/venue/venues.json',
+                             {'v_major': {'id': 'v_major', 'name': 'היכל', 'tier': 'major'}})
+            self.assertEqual(cli.main(['coverage', '--root', root, '--today', TODAY]), 3)
+
+    def test_pending_exits_nonzero_when_every_source_failed(self):
+        with tempfile.TemporaryDirectory() as root:
+            fresh(root)
+            os.makedirs(f'{root}/empty')
+            with open(f'{root}/empty/popit.xml', 'w') as f:
+                f.write('<rss><channel></channel></rss>')
+            self.assertEqual(cli.main(['pending', '--root', root, '--today', TODAY,
+                                       '--from-dir', f'{root}/empty', '--sources', 'popit']), 2)
 
     def test_coverage_and_archive_report_the_committed_state(self):
         with tempfile.TemporaryDirectory() as root:

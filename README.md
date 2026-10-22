@@ -41,6 +41,60 @@ PYTHONPATH=. python3 -m tools.getup pending          # titles awaiting classific
 PYTHONPATH=. python3 -m tools.getup labels           # apply the label cache
 ```
 
+## Intake: issues become drafts
+
+Anyone with write access opens one of the three forms in `.github/ISSUE_TEMPLATE/`:
+`event.yml` (an event nobody listed), `source.yml` (a source worth adding) and
+`prefs.json`'s own form, `prefs.yml` (a never/always rule). A stranger's issue is
+never processed and never answered.
+
+The poll reads open issues labelled `intake`, never the ones already labelled
+`processed`, and writes one canonical draft per issue to `data/human.json`. The
+receipt comment quotes that draft; the labels are the only state.
+
+One-time label bootstrap — the poll verifies these and refuses to run without
+them, because a form silently drops a label the repo does not have:
+
+```sh
+gh label create intake
+gh label create processed
+gh label create needs-info
+gh label create "intake:prefs"
+```
+
+Daily, after the scan:
+
+```sh
+PYTHONPATH=. python3 -m tools.getup build
+PYTHONPATH=. python3 -m tools.getup intake
+```
+
+To correct a processed issue, remove its `processed` label and edit the body; the
+next poll replaces that issue's draft, and the build puts the human row above the
+scanned one.
+
+## prefs.json
+
+The browser applies these rules on reload; the pipeline never evaluates one. Each
+entry is one rule, and a rule with both fields is an AND:
+
+```json
+{"never": [{"venue_id": "v_zionist_america_tlv"}], "always": [{"artist": "The Cure"}]}
+```
+
+| Field | Meaning |
+|---|---|
+| `venue_id` | a venue id from `venue/venues.json`, as written to the site |
+| `artist` | an event title, exact after normalization (no fuzzy match) |
+
+At least one field per rule is required. `never` hides the matching events;
+`always` keeps them and marks them notable. The file is read by `src/prefs.js` in
+the browser on reload — no rescan, no rebuild.
+
+A `prefs.yml` issue appends its rule to this file and confirms it in the issue.
+A rule naming a venue the registry does not know is not guessed: the issue is
+answered with `needs-info` instead.
+
 Exit codes: `0` ok · `1` bad arguments · `2` a source failed/partial or a bad
 `--sources`/`--today` · `3` coverage missed a major venue · `4` tz data missing
 · `5` GitHub API or token failure (intake).

@@ -135,8 +135,8 @@ def _provision(registry: dict, name: str, city: str) -> str:
     return venue_id
 
 
-def resolve(registry: dict, venue, city) -> str | None:
-    """The venue id for a source string, provisioning one when the registry does not know it."""
+def _read(venue, city):
+    """The name, the city and the two lookup forms; None when there is no name at all."""
     name = ' '.join(str(venue or '').split())
     if not name:
         return None
@@ -145,7 +145,15 @@ def resolve(registry: dict, venue, city) -> str | None:
         _, sep, tail = name.rpartition(', ')
         if sep and norm_city(tail) in known_cities():
             place = norm_city(tail)
-    candidates = [name, strip_city_suffix(name, place)]
+    return name, place, [name, strip_city_suffix(name, place)]
+
+
+def find(registry: dict, venue, city) -> str | None:
+    """The venue id for a source string, without provisioning: a prefs rule must not curate."""
+    read = _read(venue, city)
+    if read is None:
+        return None
+    name, place, candidates = read
     index = alias_index(registry)
     for text in candidates:
         for key in (norm_name(text), norm_name_loose(text)):
@@ -160,6 +168,18 @@ def resolve(registry: dict, venue, city) -> str | None:
                 found = unique.get(key)
                 if found:
                     return found
+    return None
+
+
+def resolve(registry: dict, venue, city) -> str | None:
+    """The venue id for a source string, provisioning one when the registry does not know it."""
+    found = find(registry, venue, city)
+    if found:
+        return found
+    read = _read(venue, city)
+    if read is None:
+        return None
+    name, place, _ = read
     return _provision(registry, name, place)
 
 

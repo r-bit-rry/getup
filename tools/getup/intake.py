@@ -6,10 +6,11 @@ gets stored, and what the issue is told.
 
 import html
 import json
+import os
 import re
 from datetime import date, datetime
 
-from . import dedup, human, normalize, venues
+from . import dedup, human, normalize, venues, write
 from .github import GithubError, client_from_env
 
 ASSOCIATIONS = frozenset({'OWNER', 'MEMBER'})
@@ -20,6 +21,7 @@ FAULT_MARK = '<!-- getup:fault -->'     # never a needs-info: a fault must not s
 MERGED_LEAD = 'מוזג לאירוע קיים. הרשומה הקנונית:'
 INGESTED_LEAD = 'נקלט. הרשומה הקנונית:'
 SOURCE_LEAD = 'נקלט. בקשת המקור:'
+PREFS_LEAD = 'נקלט. ההעדפה נוספה ל־prefs.json ותיכנס לתוקף ברענון הבא.'
 STATE_FAULT = 'לא נקלט. קובץ מצב פגום: '
 SAVE_FAULT = 'לא נקלט. כתיבת קובץ המצב נכשלה: '
 
@@ -36,6 +38,7 @@ PREFS_IDS = ('prefs-kind', 'prefs-venue', 'prefs-city', 'prefs-artist', 'prefs-r
 
 SOURCE_KINDS = {'לוח מכירות': 'ticketing', 'אגרגטור': 'aggregator', 'לילה': 'nightlife',
                 'אתר של מקום': 'venue', 'רשת חברתית': 'social'}
+PREFS_KINDS = {'לא להציג': 'never', 'תמיד להציג': 'always'}
 
 TITLE_LIMIT = 200
 
@@ -176,12 +179,71 @@ def source_record(fields: dict) -> tuple:
             'note': _text(fields.get('מה חסר היום'))}, []
 
 
+def prefs_rule(fields: dict, registry: dict) -> tuple:
+    """`{'kind', 'rule'}` for one preference form, or None plus every problem named.
+
+    A venue is resolved through `venues.find`, which never provisions: reading a preference must
+    not curate the registry. Both fields filled is one rule and therefore an AND.
+    """
+    problems = []
+    kind = PREFS_KINDS.get(_text(fields.get('סוג הכלל')))
+    if not kind:
+        problems.append('סוג הכלל')
+    rule = {}
+    venue = _text(fields.get('שם המקום'))
+    if venue:
+        venue_id = venues.find(registry, venue, fields.get('עיר'))
+        if venue_id is None:
+            problems.append('שם המקום (לא נמצא במאגר)')
+        else:
+            rule['venue_id'] = venue_id
+    artist = _text(fields.get('אמן או שם מופע'))
+    if artist:
+        rule['artist'] = artist
+    if not venue and not artist:
+        problems.append('שם המקום או אמן')
+    if problems:
+        return None, problems
+    return {'kind': kind, 'rule': rule}, []
+
+
+def prefs_file(root: str) -> str:
+    return os.path.join(root, 'prefs.json')
+
+
+def add_rule(root: str, kind: str, rule: dict) -> bool:
+    """Append a rule to prefs.json; True only when the file changed.
+
+    The browser applies the file; the pipeline only ever appends. A corrupt file raises instead
+    of being replaced, because rebuilding it would erase the owner's rules.
+    """
+    if kind not in ('never', 'always'):
+        raise ValueError(f'unknown prefs kind: {kind!r}')
+    if not isinstance(rule, dict) or not rule:
+        raise ValueError('prefs rule is empty')
+    path = prefs_file(root)
+    data = write.read_json_strict(path) if os.path.exists(path) else {}
+    if not isinstance(data, dict):
+        raise ValueError(f'{path}: prefs is not an object')
+    for name in ('never', 'always'):
+        data.setdefault(name, [])
+        if not isinstance(data[name], list):
+            raise ValueError(f'{path}: {name} is not a list')
+    if rule in data[kind]:
+        return False
+    data[kind].append(rule)
+    write.write_json(path, data)
+    return True
+
+
 def detect(fields: dict):
     """Which form a body is, from the headings it carries; None is a body nobody wrote a form for."""
     if 'שם האירוע' in fields:
         return 'event'
     if 'שם המקור' in fields:
         return 'source'
+    if 'סוג הכלל' in fields:
+        return 'prefs'
     return None
 
 
@@ -195,9 +257,12 @@ def info(problems: list) -> str:
 
 
 def receipt(payload: dict, lead: str) -> str:
-    """The record, escaped inside <pre>: a title with markup or backticks cannot break the comment."""
+    """The record, escaped inside <pre>: a title with markup or backticks cannot break the comment.
+
+    Quotes are not escaped: inside a text node they are literal, and the JSON stays copyable.
+    """
     body = json.dumps(payload, ensure_ascii=False, indent=1, sort_keys=True)
-    return f'{RECEIPT_MARK}\n{lead}\n<pre>{html.escape(body)}</pre>'
+    return f'{RECEIPT_MARK}\n{lead}\n<pre>{html.escape(body, quote=False)}</pre>'
 
 
 def _said(client, number: int, marker: str) -> bool:
@@ -294,6 +359,17 @@ def _source(number: int, fields: dict, client) -> dict:
     return {'number': number, 'result': 'source', 'problems': []}
 
 
+def _prefs(root: str, number: int, fields: dict, client) -> dict:
+    spec, problems = prefs_rule(fields, venues.load(root))   # a corrupt registry raises, and is named
+    if problems:
+        return _needs_info(client, number, problems)
+    changed = add_rule(root, spec['kind'], spec['rule'])
+    if changed or not _said(client, number, RECEIPT_MARK):
+        client.comment(number, receipt(spec, PREFS_LEAD))
+    client.add_label(number, 'processed')
+    return {'number': number, 'result': 'prefs', 'problems': []}
+
+
 def ingest(root: str, issue: dict, *, client, today: str) -> dict:
     """One issue, one result; never raises for a bad issue, a bad form or a corrupt state file."""
     number = (issue or {}).get('number')
@@ -306,9 +382,13 @@ def ingest(root: str, issue: dict, *, client, today: str) -> dict:
             return _needs_info(client, number, [UNKNOWN_FORM])
         if kind == 'source':
             return _source(number, fields, client)
+        if kind == 'prefs':
+            return _prefs(root, number, fields, client)
         return _event(root, number, issue, fields, client, today)
     except GithubError as exc:
         return {'number': number, 'result': 'failed', 'problems': [str(exc)]}
+    except ValueError as exc:           # a corrupt state file: the file is named on the issue
+        return _fault(client, number, STATE_FAULT, exc)
 
 
 def poll(root: str, *, client, today: str) -> list:

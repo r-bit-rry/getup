@@ -202,6 +202,16 @@ class ResolveTest(unittest.TestCase):
         self.assertEqual(vid, 'v_heichal_spi_rivlin_netanya')
 
 
+class FindTest(unittest.TestCase):
+    def test_find_answers_without_provisioning(self):
+        reg = venues.load('.')
+        before = len(reg)
+        self.assertEqual(venues.find(reg, 'בית ציוני אמריקה (מאירהוף)', 'תל אביב'),
+                         'v_zionist_america_tlv')
+        self.assertIsNone(venues.find(reg, 'מועדון שלא קיים', 'חיפה'))
+        self.assertEqual(len(reg), before)          # a prefs lookup must never curate the registry
+
+
 class RegistryTest(unittest.TestCase):
     def test_the_registry_city_wins_and_the_draft_city_is_the_fallback(self):
         reg = venues.load(ROOT)

@@ -100,6 +100,23 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(out['pruned'], ['2026-11-30'])
         self.assertNotIn('2026-11-30', snapshot(self.root))
 
+    def test_a_partial_source_writes_its_records_but_never_prunes(self):
+        from unittest import mock
+        from tools.getup import scan
+        drafts, counts, _, _ = scan.scan_from_dir(['leaan'], CAPTURE)
+        write.write_json(write.date_file(self.root, '2026-11-30'), [{'id': 'stale'}])
+        with mock.patch.object(build.scan, 'scan_from_dir',
+                               return_value=(drafts, counts, ['leaan: https://x: 503'],
+                                             {'leaan': 'partial'})):
+            out = build.run(self.root, TODAY, sources=('leaan',), from_dir=CAPTURE,
+                            fetch=no_network, now=NOW)
+        self.assertIsNone(out['pruned'])
+        self.assertEqual(out['sources']['leaan'],
+                         {'status': 'partial', 'count': len(drafts),
+                          'failures': ['leaan: https://x: 503']})
+        self.assertTrue(snapshot(self.root)['2026-10-22'])         # the survivors were still written
+        self.assertIn('2026-11-30', snapshot(self.root))           # the stale day was left alone
+
     def test_unpinned_and_venueless_events_are_counted_not_invented(self):
         out = build.run(self.root, TODAY, sources=('leaan', 'popit'), from_dir=CAPTURE,
                         fetch=no_network, now=NOW)

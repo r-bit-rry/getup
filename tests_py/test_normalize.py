@@ -147,3 +147,20 @@ class RecordTest(unittest.TestCase):
         for bad in (None, 'x', []):
             with self.assertLogs('getup', level='WARNING'):
                 self.assertIsNone(normalize.record(bad))
+
+
+class HumanUrlTest(unittest.TestCase):
+    def test_the_event_link_is_always_the_source_and_tickets_is_explicit(self):
+        rec = normalize.record({**DRAFT, 'class': 'human', 'source': 'github',
+                                'url': 'https://facebook.com/events/9',
+                                'tickets': 'https://t', 'community': None})
+        self.assertEqual(rec['urls'], {'tickets': 'https://t', 'community': None,
+                                       'source': 'https://facebook.com/events/9'})
+        rec = normalize.record({**DRAFT, 'class': 'human', 'source': 'github',
+                                'url': 'https://facebook.com/groups/x',
+                                'tickets': None, 'community': 'https://facebook.com/groups/x'})
+        self.assertEqual((rec['urls']['tickets'], rec['urls']['community']),
+                         (None, 'https://facebook.com/groups/x'))
+
+    def test_the_ticket_seller_rule_is_unchanged(self):
+        self.assertEqual(normalize.record(dict(DRAFT))['urls']['tickets'], DRAFT['url'])

@@ -116,6 +116,12 @@ def record(draft) -> dict | None:
     price_max = _int(draft.get('price_max'))
     url = draft.get('url')
     source_class = draft.get('class')
+    tickets = draft.get('tickets')
+    tickets = tickets if isinstance(tickets, str) and tickets.strip() else None
+    if tickets is None and source_class == 'ticketing':   # a seller's page is also its till
+        tickets = url
+    community = draft.get('community')
+    community = community if isinstance(community, str) and community.strip() else None
     day = bucket_day(start)
     return {
         'id': id_for(venue_id, day, start),
@@ -132,8 +138,7 @@ def record(draft) -> dict | None:
         'free_until': None,
         'desc': desc_cap(draft.get('desc')),
         'source': {'class': source_class, 'name': draft.get('source')},
-        'urls': {'tickets': url if source_class == 'ticketing' else None,
-                 'community': None, 'source': url},
+        'urls': {'tickets': tickets, 'community': community, 'source': url},
         'notes': [],
         'enrichment': [],
         'seen': {},

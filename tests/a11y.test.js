@@ -39,8 +39,7 @@ test('every button the renderer emits has an accessible name', () => {
 });
 
 test('the toggles expose pressed state', () => {
-  for (const id of ['v-desktop', 'v-mobile', 't-day', 't-night',
-    'f-free', 'f-tickets', 'f-minor', 'f-gated']) {
+  for (const id of ['t-day', 't-night', 'f-free', 'f-tickets', 'f-minor', 'f-gated']) {
     assert.match(html, new RegExp(`<button[^>]+id="${id}"[^>]+aria-pressed="(true|false)"`), id);
   }
 });

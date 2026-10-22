@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { tableHTML, cardsHTML, emptyHTML, listHTML } from '../src/render.js';
+import { tableHTML, cardsHTML, emptyHTML, listHTML, hiddenHTML } from '../src/render.js';
 
 const base = { venue_id: 'v', city: 'תל אביב', start: 1792780200, end: 1792787400,
   drive_min: 29, price_from: 174, free: false, soldout: false, notable: false,
@@ -181,7 +181,7 @@ test('the empty-state count is a number, not markup', () => {
   const m = { dates: [{ date: '2026-10-22', count: '0<img src=x onerror=alert(1)>' }] };
   const html = emptyHTML(m, '2026-10-18');
   assert.doesNotMatch(html, /<img|onerror/);
-  assert.match(html, /0 אירועים/);
+  assert.match(html, /אין אירועים בתקופה הקרובה/);
   // a numeric string is still a count
   assert.match(emptyHTML({ dates: [{ date: '2026-10-22', count: '6' }] }, '2026-10-18'), /6 אירועים/);
 });
@@ -244,4 +244,83 @@ test('the painted count counts only records that reached the list', () => {
 
 test('an empty list builds nothing, so the caller can paint its own empty state', () => {
   assert.deepEqual(listHTML([], '2026-10-18'), { html: '', count: 0 });
+});
+
+// ── fix wave B: the subtitle, one city, the cap, the empty way out ───────
+
+import { readFileSync } from 'node:fs';
+const css = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
+const desc = 'עופרה מחזמר מרגש בעקבות חייה ושיריה של כוכבת העל הישראלית שכבשה את העולם – עופרה חזה. מילדותה בשכונת התקווה ועד הבמות הגדולות.';
+
+test('the description answers "what is this?" under the title, escaped', () => {
+  const ev = { ...base, id: 'd', day: '2026-10-23', title: 'עפרה', desc };
+  const table = tableHTML([ev], '2026-10-18');
+  // the first clause only, not the whole description
+  assert.match(table, /<span class="desc">עופרה מחזמר[^<]*עופרה חזה\.<\/span>/);
+  assert.doesNotMatch(table, /מילדותה/);
+  const card = cardsHTML([ev], '2026-10-18');
+  assert.match(card, /<p class="desc">עופרה מחזמר/);
+
+  const nasty = { ...ev, id: 'e', desc: '<img src=x onerror=1> מחזמר' };
+  for (const html of [tableHTML([nasty], '2026-10-18'), cardsHTML([nasty], '2026-10-18')]) {
+    assert.doesNotMatch(html, /<img/);
+    assert.match(html, /&#60;img src=x onerror=1&#62;/);
+  }
+});
+
+test('a description longer than the line is cut at a word boundary with an ellipsis', () => {
+  const long = 'מילה '.repeat(60).trim();
+  const html = tableHTML([{ ...base, id: 'l', day: '2026-10-23', title: 'אירוע', desc: long }], '2026-10-18');
+  const text = html.match(/<span class="desc">([^<]*)<\/span>/)[1];
+  assert.ok(text.length <= 121, String(text.length));
+  assert.ok(text.endsWith('…'));
+  assert.ok(!/מילו…/.test(text), 'a word must not be cut in half');
+});
+
+test('an empty or missing description renders no subtitle line', () => {
+  for (const d of [undefined, null, '', '   ', 42]) {
+    const ev = { ...base, id: 'n', day: '2026-10-23', title: 'אירוע', desc: d };
+    for (const html of [tableHTML([ev], '2026-10-18'), cardsHTML([ev], '2026-10-18')]) {
+      assert.doesNotMatch(html, /class="desc"/, String(d));
+    }
+  }
+});
+
+test('a city already inside the venue name is not printed twice', () => {
+  const v = { v: { id: 'v', name: 'היכל התרבות, ראשון לציון' } };
+  const ev = { ...base, id: 'c', day: '2026-10-23', title: 'עפרה', city: 'ראשון לציון',
+    venue_id: 'v', drive_min: 42 };
+  for (const html of [tableHTML([ev], '2026-10-18', v), cardsHTML([ev], '2026-10-18', v)]) {
+    assert.equal((html.match(/ראשון לציון/g) || []).length, 1);
+    // the separator between the parts that remain is kept
+    assert.match(html, /<bdi>היכל התרבות, ראשון לציון<\/bdi><i aria-hidden="true">\|<\/i><bdi>42 דק׳ נסיעה<\/bdi>/);
+  }
+  // a venue that does not name the city still gets it
+  const other = { ...ev, venue_id: 'x' };
+  const html = tableHTML([other], '2026-10-18', { x: { name: 'אולם' } });
+  assert.match(html, /<bdi>אולם<\/bdi><i aria-hidden="true">\|<\/i><bdi>ראשון לציון<\/bdi>/);
+});
+
+test('a long title wraps to two lines instead of truncating from the start', () => {
+  // the renderer keeps the whole title; CSS is what clamps it
+  const title = 'MADONNA THE TRIBUTE SHOW - מופע מחווה למדונה';
+  assert.ok(tableHTML([{ ...base, id: 't', day: '2026-10-23', title }], '2026-10-18').includes(title));
+  assert.match(css, /\.what \.t \{[^}]*-webkit-line-clamp:\s*2/);
+  assert.doesNotMatch(css, /\.what \.t \{[^}]*(white-space:\s*nowrap|max-inline-size:\s*46ch)/);
+  assert.match(css, /\.card \.t2 \{[^}]*-webkit-line-clamp:\s*2/);
+});
+
+test('the drive cap reports what it hid, and says nothing when it hid nothing', () => {
+  assert.equal(hiddenHTML([]), '');
+  const far = [{ drive_min: 49 }, { drive_min: 57 }, { drive_min: 49 }];
+  assert.match(hiddenHTML(far), /^<p class="hiddennote">עוד 3 אירועים בין 49 ל־57 דק׳<\/p>$/);
+  assert.match(hiddenHTML([{ drive_min: 57 }]), /עוד אירוע אחד ב־57 דק׳/);
+  assert.equal(hiddenHTML([{ drive_min: null }]), '');
+});
+
+test('the empty state offers one way to widen instead of a database count', () => {
+  const html = emptyHTML({ dates: [{ date: '2026-10-22', count: 14 }] }, '2026-10-18');
+  assert.match(html, /יש 14 אירועים בתקופה הקרובה/);
+  assert.doesNotMatch(html, /במאגר/);
+  assert.match(html, /<button[^>]+id="f-widen"[^>]*>הצג את החודש הקרוב<\/button>/);
 });

@@ -1,14 +1,14 @@
 // Page shell: reads state, calls the pure modules, renders. No logic lives here.
 import { loadManifest, loadDate, loadVenues, validDates } from './src/data.js';
 import { loadPrefs, applyPrefs } from './src/prefs.js';
-import { applyFilters, sortEvents, defaultState, serializeState, deserializeState, clampStaleRange } from './src/filters.js';
-import { listHTML, emptyHTML } from './src/render.js';
+import { applyFilters, sortEvents, defaultState, serializeState, deserializeState, clampStaleRange, dropStarted, excludedByDrive } from './src/filters.js';
+import { listHTML, emptyHTML, hiddenHTML } from './src/render.js';
 import { dataAge } from './src/format.js';
 import { VOCAB } from './src/chips.js';
 import { recomputeDistances } from './src/distance.js';
 
 const TZ = 'Asia/Jerusalem';
-const KEY = { state: 'getup:state', view: 'getup:view', theme: 'getup:theme', centre: 'getup:centre' };
+const KEY = { state: 'getup:state', theme: 'getup:theme', centre: 'getup:centre' };
 const $ = (sel, root = document) => root.querySelector(sel);
 
 const read = k => { try { return localStorage.getItem(k); } catch { return null; } };
@@ -93,10 +93,12 @@ const currentPreset = () => (state.dateWindow !== 'range'
 const withDrive = list => (drive.size
   ? list.map(ev => (drive.has(ev.id) ? { ...ev, drive_min: drive.get(ev.id) } : ev))
   : list);
-const visible = () => sortEvents(applyFilters(withDrive(all), state, today));
+// An event that started more than 15 minutes ago cannot be left for; it is not a row.
+const live = now => dropStarted(withDrive(all), now);
+const visible = now => sortEvents(applyFilters(live(now), state, today));
 // The drive limit must not hide an event whose real drive is short: recompute over
 // everything the other filters allow, then let render() apply maxDriveMin.
-const forDistances = () => sortEvents(applyFilters(withDrive(all), { ...state, maxDriveMin: null }, today));
+const forDistances = () => sortEvents(applyFilters(live(Date.now()), { ...state, maxDriveMin: null }, today));
 
 const NOTE = 'זמני הנסיעה יחסית לנתניה';
 const distEl = document.createElement('p');
@@ -138,9 +140,11 @@ const persist = () => {
 
 function render() {
   if (!ok) return;
-  const events = visible();
+  const now = Date.now();
+  const events = visible(now);
+  const hidden = excludedByDrive(live(now), state, today);
   const { html, count } = listHTML(events, today, venues, document.body.dataset.view);
-  $('#list').innerHTML = events.length ? html : emptyHTML(manifest, today);
+  $('#list').innerHTML = (events.length ? html : emptyHTML(manifest, today)) + hiddenHTML(hidden);
   $('#status').textContent = `${count} אירועים בתצוגה`;
   syncNote(!isDefaultCentre(state.centre) && events.some(ev => !drive.has(ev.id)));
   syncControls();
@@ -301,6 +305,14 @@ $('#f-clear').addEventListener('click', () => {
   refreshDistances();
 });
 
+// The empty state offers one way out: widen to the whole served month, then paint it.
+$('#list').addEventListener('click', e => {
+  if (!e.target.closest('#f-widen')) return;
+  state.dateWindow = 'range';
+  state.range = { from: today, to: monthEnd };
+  refilter();
+});
+
 const facetButton = (kind, label) => {
   const b = document.createElement('button');
   b.type = 'button';
@@ -327,17 +339,12 @@ $('#facets').addEventListener('click', e => {
 });
 
 // ── chrome toggles ───────────────────────────────────────────────────────
-function applyView(view) {
-  document.body.dataset.view = view;
-  $('#v-desktop').setAttribute('aria-pressed', String(view === 'desktop'));
-  $('#v-mobile').setAttribute('aria-pressed', String(view === 'mobile'));
-}
-function setView(view) {
-  applyView(view);
-  write(KEY.view, view);
-  render(); // only the visible view is built, so switching must rebuild the list
-  // the map container was display:none in mobile view; measure it again once layout settles
-  requestAnimationFrame(() => map?.resize());
+// The view follows the screen: cards on a phone, table on anything wider. No demo toggle.
+const mobileMQ = matchMedia('(max-width: 640px)');
+function applyView() {
+  const mobile = mobileMQ.matches;
+  document.body.dataset.view = mobile ? 'mobile' : 'desktop';
+  $('#f-more').open = !mobile; // desktop needs the filters laid out in the row
 }
 function setTheme(theme) {
   document.body.dataset.theme = theme;
@@ -345,8 +352,12 @@ function setTheme(theme) {
   $('#t-night').setAttribute('aria-pressed', String(theme === 'night'));
   write(KEY.theme, theme);
 }
-$('#v-desktop').addEventListener('click', () => setView('desktop'));
-$('#v-mobile').addEventListener('click', () => setView('mobile'));
+mobileMQ.addEventListener('change', () => {
+  applyView();
+  render(); // only the visible view is built, so the switch must rebuild the list
+  // the map container was display:none in mobile view; measure it again once layout settles
+  requestAnimationFrame(() => map?.resize());
+});
 $('#t-day').addEventListener('click', () => setTheme('day'));
 $('#t-night').addEventListener('click', () => setTheme('night'));
 
@@ -362,9 +373,8 @@ $('#list').addEventListener('click', e => {
   syncControls();
 });
 
-// A phone gets cards until the user says otherwise; an explicit choice is remembered.
-const savedView = read(KEY.view);
-applyView(savedView ?? (matchMedia('(max-width: 900px)').matches ? 'mobile' : 'desktop'));
+// A phone gets cards; the breakpoint is the 640px media query the stylesheet uses.
+applyView();
 setTheme(read(KEY.theme) === 'night' ? 'night' : 'day');
 
 // The sticky map pane starts below the sticky header, whose height wraps.

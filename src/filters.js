@@ -45,6 +45,19 @@ export function applyFilters(events, state, today) {
   });
 }
 
+// A show that began 20 minutes ago is not something you can still leave for; one that began
+// 5 minutes ago may be. `start` is Unix seconds; the caller passes milliseconds. A record
+// with no start has no honest row at all.
+const START_GRACE_MS = 15 * 60000;
+export const dropStarted = (events, nowMs) => (events ?? []).filter(ev =>
+  Number.isFinite(ev.start) && ev.start * 1000 >= nowMs - START_GRACE_MS);
+
+// What the drive cap alone removed, so the page can say so instead of hiding it.
+export const excludedByDrive = (events, state, today) => (state.maxDriveMin == null
+  ? []
+  : applyFilters(events, { ...state, maxDriveMin: null }, today)
+    .filter(ev => ev.drive_min != null && ev.drive_min > state.maxDriveMin));
+
 export function sortEvents(events) {
   const drive = ev => ev.drive_min ?? Infinity;
   return [...events].sort((a, b) =>

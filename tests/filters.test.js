@@ -1,7 +1,7 @@
 // tests/filters.test.js
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { defaultState, applyFilters, sortEvents, serializeState, deserializeState, clampStaleRange } from '../src/filters.js';
+import { defaultState, applyFilters, sortEvents, serializeState, deserializeState, clampStaleRange, dropStarted, excludedByDrive } from '../src/filters.js';
 
 const TODAY = '2026-10-18';
 const ev = (o = {}) => ({ id: 'x', title: 't', venue_id: 'v', city: 'c', day: '2026-10-20',
@@ -98,4 +98,48 @@ test('a stored range that ended before today resets to the week window', () => {
   const endsToday = { ...defaultState(), dateWindow: 'range', range: { from: '2026-10-01', to: '2026-10-18' } };
   assert.deepEqual(clampStaleRange(endsToday, '2026-10-18'), endsToday);
   assert.deepEqual(clampStaleRange(defaultState(), '2026-10-18'), defaultState());
+});
+
+// ── fix wave B: a started show is not on offer; the hidden drive count ───
+
+const NOW_MS = Date.UTC(2026, 9, 22, 18, 0, 0);
+const startedMinAgo = min => (NOW_MS - min * 60000) / 1000;
+
+test('an event that started more than 15 minutes ago is dropped', () => {
+  const gone = ev({ id: 'gone', start: startedMinAgo(20) });
+  assert.deepEqual(dropStarted([gone], NOW_MS), []);
+});
+
+test('an event that started 5 minutes ago is kept — you can still catch it', () => {
+  const running = ev({ id: 'running', start: startedMinAgo(5) });
+  assert.deepEqual(dropStarted([running], NOW_MS).map(e => e.id), ['running']);
+});
+
+test('a future event is kept', () => {
+  const future = ev({ id: 'future', start: startedMinAgo(-180) });
+  assert.deepEqual(dropStarted([future], NOW_MS).map(e => e.id), ['future']);
+});
+
+test('a record with no finite start is dropped', () => {
+  const none = ev({ id: 'none', start: undefined });
+  const nan = ev({ id: 'nan', start: NaN });
+  assert.deepEqual(dropStarted([none, nan], NOW_MS), []);
+});
+
+test('the drive diff counts only what the cap removed and spans its minutes', () => {
+  const rows = [
+    ev({ id: 'near', drive_min: 20 }),
+    ev({ id: 'far50', drive_min: 50 }),
+    ev({ id: 'far60', drive_min: 60 }),
+    ev({ id: 'unknown', drive_min: null }),
+  ];
+  const hidden = excludedByDrive(rows, defaultState(), TODAY);
+  assert.deepEqual(hidden.map(e => e.id), ['far50', 'far60']);
+  assert.equal(hidden.length, 2);
+  // no cap, nothing is hidden
+  assert.deepEqual(excludedByDrive(rows, { ...defaultState(), maxDriveMin: null }, TODAY), []);
+  // a row another filter already removed is not attributed to the drive cap
+  const priced = {...defaultState(), maxPrice: 50};
+  const pricedRows = [ev({ id: 'far-pricy', drive_min: 90, price_from: 200 })];
+  assert.deepEqual(excludedByDrive(pricedRows, priced, TODAY), []);
 });

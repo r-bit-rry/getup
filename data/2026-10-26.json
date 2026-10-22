@@ -19,7 +19,7 @@
   "daypart": "night",
   "expensive": false,
   "notable": false,
-  "commitment": "plan_ahead",
+  "commitment": "jump_in",
   "source": {
    "class": "ticketing",
    "name": "leaan"

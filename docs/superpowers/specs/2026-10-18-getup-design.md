@@ -236,7 +236,7 @@ agent and **cached in the JSON**, never computed in the browser:
 | `daypart` | from start hour: day <17:00, evening 17:00–19:59, night ≥20:00 |
 | `expensive` | price ≥ p90 of the **retained 30-day set** (recomputed each scan, so the threshold is deterministic within a run), or ≥ ₪200 absolute. Never computed against the filtered view. |
 | `free_until` | parsed from prose (`חינם עד 22:00`, `free before 11pm`) |
-| `commitment` | `plan_ahead` if any: festival/rave format · drive ≥ 60 min · fixed-seat venue (theatre, orchestra) · ticketed and >48 h away. Else `jump_in` |
+| `commitment` | `plan_ahead` if any: festival/rave format · drive ≥ 60 min · fixed-seat venue (theatre, orchestra). Else `jump_in`. The "ticketed and >48 h away" clause was removed (2026-10-22): in a 7-day window it is true of every ticketed event, so it carries no information. |
 | `format` | LLM classification of title + description, from the fixed vocabulary in 7.7 |
 | `notable` | §7.6 |
 

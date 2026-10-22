@@ -27,8 +27,27 @@ const leaveLine = ev => (Number.isFinite(ev.drive_min)
 
 const venueName = (ev, venues) => (venues ?? {})[ev.venue_id]?.name ?? '';
 
-const location = (ev, venues) => [venueName(ev, venues), ev.city, driveLabel(ev)]
-  .filter(Boolean).map(part => `<bdi>${esc(part)}</bdi>`).join('<i aria-hidden="true">|</i>');
+const location = (ev, venues) => {
+  const venue = venueName(ev, venues);
+  const city = String(ev.city ?? '').trim();
+  // "היכל התרבות, ראשון לציון | ראשון לציון" says the city twice for no new fact.
+  const parts = [venue, venue.trim().endsWith(city) ? '' : city, driveLabel(ev)].filter(Boolean);
+  return parts.map(part => `<bdi>${esc(part)}</bdi>`).join('<i aria-hidden="true">|</i>');
+};
+
+// The record's own description is what answers "what is this?"; the first clause is enough.
+const DESC_MAX = 120;
+const descText = ev => {
+  const text = typeof ev.desc === 'string' ? ev.desc.replace(/\s+/g, ' ').trim() : '';
+  if (!text) return '';
+  const clause = (text.match(/^[^.!?…]*[.!?…]?/)?.[0] ?? text).trim() || text;
+  if (clause.length <= DESC_MAX) return esc(clause);
+  const cut = clause.slice(0, DESC_MAX);
+  const at = cut.search(/\s+\S*$/); // never cut a word in half
+  return esc(`${at > 0 ? cut.slice(0, at) : cut}…`);
+};
+
+const descLine = (ev, tag = 'span') => (descText(ev) ? `<${tag} class="desc">${descText(ev)}</${tag}>` : '');
 
 const notes = ev => (ev.notes ?? []).filter(Boolean);
 
@@ -67,7 +86,7 @@ const acts = ev => `<span class="acts">${links(ev)}${infoButton(ev)}</span>`;
 
 const rowHTML = (ev, venues) => `<tr class="row">
 <td><span class="when"><span class="h num">${timeLabel(ev)}</span><span class="r">${leaveLine(ev)}</span></span></td>
-<td><span class="what"><span class="t"><bdi>${esc(ev.title)}</bdi></span><span class="v">${location(ev, venues)}</span></span></td>
+<td><span class="what"><span class="t"><bdi>${esc(ev.title)}</bdi></span>${descLine(ev)}<span class="v">${location(ev, venues)}</span></span></td>
 <td><span class="vibe">${chipsHTML(ev)}</span></td>
 <td>${priceCell(ev)}</td>
 <td>${acts(ev)}${noteBlock(ev)}</td>
@@ -130,6 +149,7 @@ const cardHTML = (ev, today, venues) => {
   return `<article class="card">
 <div class="c1"><span class="rel2">${esc(relDay(ev.day, today) ?? dayLabel(ev.day))}</span><span class="time2 num">${timeLabel(ev)}</span><span class="p2 ${kind}">${esc(text)}</span></div>
 <h3 class="t2"><bdi>${esc(ev.title)}</bdi></h3>
+${descLine(ev, 'p')}
 <div class="v2"><span>${location(ev, venues)}</span><span class="leave">${leaveLine(ev)}</span></div>
 <div class="strip">${chipsHTML(ev, 3)}${infoButton(ev)}</div>
 ${ev.soldout ? '<div class="sold">אזלו הכרטיסים</div>' : ''}
@@ -163,10 +183,23 @@ export function listHTML(events, today, venues, view = 'desktop') {
   return painted ? { html: tableShell(body), count: painted } : { html: brokenHTML(), count: 0 };
 }
 
+// The drive cap is the default that hides most events; say how many and how far, so it is a choice.
+export function hiddenHTML(hidden) {
+  const list = hidden ?? [];
+  if (!list.length) return '';
+  const drives = list.map(ev => ev.drive_min).filter(Number.isFinite);
+  if (!drives.length) return '';
+  const lo = Math.min(...drives);
+  const hi = Math.max(...drives);
+  const span = lo === hi ? `ב־${lo} דק׳` : `בין ${lo} ל־${hi} דק׳`;
+  return `<p class="hiddennote">עוד ${countLabel(list.length)} ${span}</p>`;
+}
+
 export function emptyHTML(manifest, today) {
   const upcoming = (manifest.dates ?? []).filter(d => d.date >= today);
   const total = upcoming.reduce((n, d) => n + (Number(d.count) || 0), 0);
   return `<div class="empty"><h3>אין אירועים בטווח שבחרת</h3>
 <p>נסה טווח רחב יותר או נקה חלק מהסינונים.</p>
-<p class="rel">במאגר יש ${countLabel(total)} בטווח הקרוב</p></div>`;
+<p class="rel">${total ? `יש ${countLabel(total)} בתקופה הקרובה` : 'אין אירועים בתקופה הקרובה'}</p>
+<button type="button" class="f" id="f-widen">הצג את החודש הקרוב</button></div>`;
 }

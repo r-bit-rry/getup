@@ -18,10 +18,6 @@
     <p class="where"><span aria-hidden="true">📍</span> <strong id="where-centre">נתניה</strong> · <span id="where-drive">עד 45 דק׳ נסיעה</span></p>
     <button type="button" class="f" id="where-geo" aria-label="איתור המיקום שלי" title="איתור המיקום שלי">📍</button>
     <div class="spacer"></div>
-    <div class="seg" role="group" aria-label="תצוגה">
-      <button type="button" id="v-desktop" aria-pressed="true">מחשב</button>
-      <button type="button" id="v-mobile" aria-pressed="false">נייד</button>
-    </div>
     <div class="seg" role="group" aria-label="ערכת נושא">
       <button type="button" id="t-day" aria-pressed="true">יום</button>
       <button type="button" id="t-night" aria-pressed="false">לילה</button>
@@ -36,41 +32,46 @@
       <button type="button" data-window="month" aria-pressed="false">החודש</button>
     </div>
 
-    <div class="f range">
-      <input type="date" id="f-from" aria-label="מתאריך">
-      <span aria-hidden="true">–</span>
-      <input type="date" id="f-to" aria-label="עד תאריך">
-    </div>
+    <details class="morefilters" id="f-more" open>
+      <summary>סינון</summary>
+      <div class="morefilters-body">
+        <div class="f range">
+          <input type="date" id="f-from" aria-label="מתאריך">
+          <span aria-hidden="true">–</span>
+          <input type="date" id="f-to" aria-label="עד תאריך">
+        </div>
 
-    <button type="button" class="f" id="f-free" aria-pressed="false"><span class="k">מחיר</span> חינם בלבד</button>
+        <button type="button" class="f" id="f-free" aria-pressed="false"><span class="k">מחיר</span> חינם בלבד</button>
 
-    <div class="f">
-      <label class="k" for="f-price">מחיר עד</label>
-      <input type="range" id="f-price" min="40" max="250" step="10" aria-label="מחיר מרבי">
-      <output for="f-price" id="price-out">ללא הגבלה</output>
-    </div>
+        <div class="f">
+          <label class="k" for="f-price">מחיר עד</label>
+          <input type="range" id="f-price" min="40" max="250" step="10" aria-label="מחיר מרבי">
+          <output for="f-price" id="price-out">ללא הגבלה</output>
+        </div>
 
-    <div class="f">
-      <label class="k" for="f-drive">נסיעה</label>
-      <select id="f-drive" aria-label="זמן נסיעה מרבי">
-        <option value="15">עד 15 דק׳</option>
-        <option value="30">עד 30 דק׳</option>
-        <option value="45">עד 45 דק׳</option>
-        <option value="60">עד 60 דק׳</option>
-        <option value="90">עד 90 דק׳</option>
-        <option value="">ללא הגבלה</option>
-      </select>
-    </div>
+        <div class="f">
+          <label class="k" for="f-drive">נסיעה</label>
+          <select id="f-drive" aria-label="זמן נסיעה מרבי">
+            <option value="15">עד 15 דק׳</option>
+            <option value="30">עד 30 דק׳</option>
+            <option value="45">עד 45 דק׳</option>
+            <option value="60">עד 60 דק׳</option>
+            <option value="90">עד 90 דק׳</option>
+            <option value="">ללא הגבלה</option>
+          </select>
+        </div>
 
-    <button type="button" class="f" id="f-tickets" aria-pressed="false"><span class="k">כרטיסים</span> יש במלאי</button>
-    <button type="button" class="f" id="f-minor" aria-pressed="false"><span class="k">גיל</span> מתאים לקטינים</button>
-    <button type="button" class="f" id="f-gated" aria-pressed="true"><span class="k">קהילות</span> סגורות</button>
+        <button type="button" class="f" id="f-tickets" aria-pressed="false"><span class="k">כרטיסים</span> יש במלאי</button>
+        <button type="button" class="f" id="f-minor" aria-pressed="false"><span class="k">גיל</span> מתאים לקטינים</button>
+        <button type="button" class="f" id="f-gated" aria-pressed="true"><span class="k">קהילות</span> סגורות</button>
 
-    <details class="facets" id="facets-bar">
-      <summary>סצנה וקהל <span id="facet-count" class="n"></span></summary>
-      <div class="facets-body">
-        <div id="facets"></div>
-        <button type="button" class="f" id="f-clear">ניקוי הסינון</button>
+        <details class="facets" id="facets-bar">
+          <summary>סצנה וקהל <span id="facet-count" class="n"></span></summary>
+          <div class="facets-body">
+            <div id="facets"></div>
+            <button type="button" class="f" id="f-clear">ניקוי הסינון</button>
+          </div>
+        </details>
       </div>
     </details>
   </div>
@@ -89,7 +90,6 @@
   <div class="mapwrap">
     <div id="map"></div>
     <p class="mapnote">המפה תופיע כאן</p>
-    <p class="maplabel">© OpenStreetMap · OpenFreeMap</p>
   </div>
 </main>
 

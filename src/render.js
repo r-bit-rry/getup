@@ -240,6 +240,13 @@ export function hiddenHTML(hidden) {
   return `<button type="button" class="f hiddenbtn" id="f-far" data-cap="${cap}">עוד ${countLabel(list.length)} ${span} · הצג עד ${cap} דק׳ נסיעה</button>`;
 }
 
+// ADR-0006: a cap cannot hide what it cannot measure, so rows with no drive_min stay. Say so
+// next to the cap line instead of letting a "radius" look like it covered them.
+export function noDriveHTML(events, cap) {
+  const n = cap == null ? 0 : (events ?? []).filter(ev => ev.drive_min == null).length;
+  return n ? `<p class="nodrive">${countLabel(n)} ללא זמן נסיעה</p>` : '';
+}
+
 // When the cap is what emptied the page, saying "there is nothing" contradicts the button above it.
 export function emptyHTML(manifest, today, { capHidden = 0, filters = 0 } = {}) {
   const upcoming = (manifest.dates ?? []).filter(d => d.date >= today);

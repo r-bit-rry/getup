@@ -196,8 +196,8 @@
   "title": "דרור קרן",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a6714beaa1b54232bba2339",
-   "tickets": "https://www.leaan.co.il/event/6a6714beaa1b54232bba2339"
+   "source": "https://www.leaan.co.il/events/event/6998",
+   "tickets": "https://www.leaan.co.il/events/event/6998"
   },
   "venue_id": "v_adb5d182d3"
  },
@@ -282,8 +282,8 @@
   "title": "אהבה בהפתעה",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/696d35e009a2be839bbc6d5b",
-   "tickets": "https://www.leaan.co.il/event/696d35e009a2be839bbc6d5b"
+   "source": "https://www.leaan.co.il/events/event/5444",
+   "tickets": "https://www.leaan.co.il/events/event/5444"
   },
   "venue_id": "v_1ab053f766"
  },
@@ -324,8 +324,8 @@
   "title": "אורי ברויר",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a5809abd0138df1e9be4ea4",
-   "tickets": "https://www.leaan.co.il/event/6a5809abd0138df1e9be4ea4"
+   "source": "https://www.leaan.co.il/events/event/6942",
+   "tickets": "https://www.leaan.co.il/events/event/6942"
   },
   "venue_id": "v_628f3c7ff5"
  },
@@ -372,6 +372,48 @@
   "venue_id": "v_ozen_tlv"
  },
  {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "MAINSTREAM FRIDAY היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-30 באוקטובר — לוקיישן פתוח על הים תחת כיפת השמיים עם פתיחת שערים ב-23:00. מסיבת MAINSTREAM FRIDAY פונה לקהל 18+ ומביאה קו קבוע של 100% Mainstream. על הליין אפ של הערב חתומים ODED, ASHER ELL, MIA B2B MIKA ו-SEAN ALONI. זה ער",
+  "drive_approx": false,
+  "drive_min": 28,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_0fc867be8e|2026-10-30|23:00",
+  "lat": 32.0986505,
+  "lon": 34.775517,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793394000,
+  "title": "MAINSTREAM FRIDAY | 30.10",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/mainstream-friday-30-10-2120",
+   "tickets": null
+  },
+  "venue_id": "v_0fc867be8e"
+ },
+ {
   "city": null,
   "commitment": "jump_in",
   "crowd": [],
@@ -412,47 +454,5 @@
    "tickets": null
   },
   "venue_id": "v_62d487d7e4"
- },
- {
-  "city": "תל אביב",
-  "commitment": "jump_in",
-  "crowd": [],
-  "day": "2026-10-30",
-  "desc": "MAINSTREAM FRIDAY היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-30 באוקטובר — לוקיישן פתוח על הים תחת כיפת השמיים עם פתיחת שערים ב-23:00. מסיבת MAINSTREAM FRIDAY פונה לקהל 18+ ומביאה קו קבוע של 100% Mainstream. על הליין אפ של הערב חתומים ODED, ASHER ELL, MIA B2B MIKA ו-SEAN ALONI. זה ער",
-  "drive_approx": true,
-  "drive_min": 29,
-  "end": null,
-  "enrichment": [],
-  "expensive": false,
-  "format": "dj_set",
-  "free": false,
-  "free_until": null,
-  "id": "v_bff99ec2e8|2026-10-30|23:00",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
-  "notable": false,
-  "notes": [],
-  "price_from": null,
-  "price_max": null,
-  "scene": [
-   "אלקטרונית/טכנו"
-  ],
-  "seen": {
-   "first": "2026-10-22",
-   "last": "2026-10-22"
-  },
-  "soldout": false,
-  "source": {
-   "class": "nightlife",
-   "name": "popit"
-  },
-  "start": 1793394000,
-  "title": "MAINSTREAM FRIDAY | 30.10",
-  "urls": {
-   "community": null,
-   "source": "https://popit.events/event/mainstream-friday-30-10-2120",
-   "tickets": null
-  },
-  "venue_id": "v_bff99ec2e8"
  }
 ]

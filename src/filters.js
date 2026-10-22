@@ -44,7 +44,7 @@ export function applyFilters(events, state, today, windowStart = today) {
     }
     if (state.maxDriveMin != null && ev.drive_min != null && ev.drive_min > state.maxDriveMin) return false;
     if (state.maxPrice != null && ev.price_from != null && ev.price_from > state.maxPrice) return false;
-    if (state.freeOnly && !(ev.free || ev.price_from == null || ev.price_from === 0)) return false;
+    if (state.freeOnly && ev.free !== true) return false;
     if (state.hasTickets && ev.soldout === true) return false;
     if (!state.includeGated && ev.urls?.community) return false;
     if (state.age != null && state.age < 18 && (ev.crowd ?? []).includes('18+')) return false;

@@ -19,6 +19,11 @@ Absence of a chip is the "unknown" state.
 
 Applied to age, availability, price and crowd alike.
 
+One exception: a positive claim requires the fact. "Free only" asserts that an event is
+free, so an unknown price does not pass it — the filter cannot claim what no source said.
+That is still not hiding for missing data: the event is absent from that *claim*, not from
+the unfiltered page, and ADR-0003/dedup and the drive cap keep treating it normally.
+
 ## Consequences
 
 Filters are advisory rather than absolute: setting an age filter will not hide an event

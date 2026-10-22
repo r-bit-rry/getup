@@ -2,7 +2,7 @@
 import { loadManifest, loadDate, loadVenues, validDates } from './src/data.js';
 import { loadPrefs, applyPrefs } from './src/prefs.js';
 import { applyFilters, sortEvents, defaultState, serializeState, deserializeState, clampStaleRange, dropStarted, excludedByDrive } from './src/filters.js';
-import { listHTML, emptyHTML, hiddenHTML } from './src/render.js';
+import { listHTML, emptyHTML, hiddenHTML, noDriveHTML } from './src/render.js';
 import { dataAge } from './src/format.js';
 import { VOCAB } from './src/chips.js';
 import { recomputeDistances } from './src/distance.js';
@@ -169,7 +169,7 @@ function render() {
   const events = visible(now);
   const hidden = excludedByDrive(live(now), state, today, windowStart);
   const { html, count } = listHTML(events, today, venues, viewName());
-  farEl.innerHTML = hiddenHTML(hidden);
+  farEl.innerHTML = hiddenHTML(hidden) + noDriveHTML(events, state.maxDriveMin);
   // the empty state must name what emptied it: the cap first, then the filters
   $('#list').innerHTML = events.length
     ? html

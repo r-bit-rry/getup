@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { tableHTML, cardsHTML, emptyHTML, listHTML, hiddenHTML, capFor } from '../src/render.js';
+import { tableHTML, cardsHTML, emptyHTML, listHTML, hiddenHTML, capFor, noDriveHTML } from '../src/render.js';
 
 const base = { venue_id: 'v', city: 'תל אביב', start: 1792780200, end: 1792787400,
   drive_min: 29, price_from: 174, free: false, soldout: false, notable: false,
@@ -353,6 +353,16 @@ test('the drive cap reports what it hid, and says nothing when it hid nothing', 
   assert.match(html, /הצג עד 60 דק׳ נסיעה/);
   assert.match(hiddenHTML([{ drive_min: 57 }]), /עוד אירוע אחד ב־57 דק׳/);
   assert.equal(hiddenHTML([{ drive_min: null }]), '');
+});
+
+test('the drive cap names the rows it could not measure', () => {
+  const rows = [{ drive_min: null }, { drive_min: 20 }, { drive_min: null }];
+  assert.match(noDriveHTML(rows, 15), /<p class="nodrive">2 אירועים ללא זמן נסיעה<\/p>/);
+  assert.match(noDriveHTML([{ drive_min: null }], 15), /אירוע אחד ללא זמן נסיעה/);
+  // no cap, nothing is being claimed as a radius
+  assert.equal(noDriveHTML(rows, null), '');
+  // every row measured: nothing to confess
+  assert.equal(noDriveHTML([{ drive_min: 20 }], 15), '');
 });
 
 test('the cap rises to the furthest hidden event, so one press always reveals it', () => {

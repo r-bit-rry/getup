@@ -24,6 +24,11 @@ WHEN = re.compile(BET + r'(\d{1,2})\s+ב(' + '|'.join(MONTHS) + ')')
 # "בשעה 14:00", "פתיחת שערים ב-23:00", "מהשעה 14:00": the first clock in the prose is the start.
 CLOCK = re.compile(r'(?<!\d)(\d{1,2}):(\d{2})(?!\d)')
 BET_WORD = re.compile(BET)
+# A leading ב is only a preposition when it opens a place phrase. When the remainder starts
+# with a known place prefix the ב may be the word's own first letter ("בינלאומי"), so leave
+# it whole and take the next ב that does not. Rule: never strip a ב whose remainder begins
+# with one of these prefixes.
+INWORD = ('ינלאומי', 'אולם', 'בית', 'באר')
 # The venue phrase follows "…היא מסיבת <style>"; a ב inside the event name before it is not the venue.
 FETE = re.compile(r'היא מסיב(?:ה|ת)')
 
@@ -75,7 +80,8 @@ def _place_from_description(text: str) -> tuple[str | None, str | None]:
         return None
     clause = parts[-2]
     phrase = FETE.search(clause)
-    bets = list(BET_WORD.finditer(clause, phrase.end() if phrase else 0))
+    bets = [b for b in BET_WORD.finditer(clause, phrase.end() if phrase else 0)
+            if not clause[b.end():].startswith(INWORD)]
     if not bets:
         return None
     venue, city = clause[bets[0].end():].strip(), parts[-1]

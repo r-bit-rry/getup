@@ -200,6 +200,8 @@ main {
 }
 /* the default drive cap hid rows: the count is a button that raises it */
 .hiddenbtn { font-size: 12px; color: var(--primary-text); margin-block-end: 10px; inline-size: fit-content }
+/* rows the cap cannot measure stay, and say so (ADR-0006) */
+.nodrive { font-size: 12px; color: var(--muted); margin-block-end: 10px }
 
 /* ── day headers + table ──────────────────────────────────────────────── */
 .dayhead { display: flex; align-items: baseline; gap: 9px; position: relative }

@@ -301,24 +301,6 @@
   "tier": "room",
   "transport": null
  },
- "v_2bf1d6edb3": {
-  "access": null,
-  "aliases": [],
-  "city": "תל אביב",
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "drive_min": 29,
-  "id": "v_2bf1d6edb3",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
-  "name": "ינלאומי במועדון קפלה",
-  "parking": null,
-  "social": {
-   "facebook": null,
-   "instagram": null
-  },
-  "tier": "room",
-  "transport": null
- },
  "v_2ccb6316ca": {
   "access": null,
   "aliases": [],
@@ -1714,6 +1696,24 @@
   "tier": "room",
   "transport": null
  },
+ "v_b3acc0ff1c": {
+  "access": null,
+  "aliases": [],
+  "city": "תל אביב",
+  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
+  "drive_min": 29,
+  "id": "v_b3acc0ff1c",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "name": "מועדון קפלה",
+  "parking": null,
+  "social": {
+   "facebook": null,
+   "instagram": null
+  },
+  "tier": "room",
+  "transport": null
+ },
  "v_b6c478fb78": {
   "access": null,
   "aliases": [],
@@ -1883,25 +1883,6 @@
   "lat": 31.7788472,
   "lon": 35.2257856,
   "name": "תיאטרון מיקרו, ירושלים",
-  "parking": null,
-  "seen_last": "2026-10-22",
-  "social": {
-   "facebook": null,
-   "instagram": null
-  },
-  "tier": "room",
-  "transport": null
- },
- "v_bff99ec2e8": {
-  "access": null,
-  "aliases": [],
-  "city": "תל אביב",
-  "coords_source": "shortcut: city centroid, upgrade when venue geocodes exist",
-  "drive_min": 29,
-  "id": "v_bff99ec2e8",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
-  "name": "ינלאומי בנמל תל אביב",
   "parking": null,
   "seen_last": "2026-10-22",
   "social": {

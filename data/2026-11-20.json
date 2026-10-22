@@ -36,8 +36,8 @@
   "title": "Music of Miyazaki World performed by The Symphonians",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a7858c6f6453ff7d8581037",
-   "tickets": "https://www.leaan.co.il/event/6a7858c6f6453ff7d8581037"
+   "source": "https://www.leaan.co.il/events/event/7118",
+   "tickets": "https://www.leaan.co.il/events/event/7118"
   },
   "venue_id": "v_e60b62f0a1"
  },
@@ -47,17 +47,17 @@
   "crowd": [],
   "day": "2026-11-20",
   "desc": "FRIDAY MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-20 בנובמבר — רחבה פתוחה תחת כיפת השמיים עם פתיחת שערים ב-23:00, מול הים ובאווירת open air קבועה של ימי שישי. מסיבת FRIDAY MAINSTREAM נשענת על ליין אפ קבוע של TAIR ALON, OFEK ASAF, AMIT ORIN ו-MAX DAVID, עם 100% Mainstream,",
-  "drive_approx": true,
-  "drive_min": 29,
+  "drive_approx": false,
+  "drive_min": 28,
   "end": null,
   "enrichment": [],
   "expensive": false,
   "format": "dj_set",
   "free": false,
   "free_until": null,
-  "id": "v_bff99ec2e8|2026-11-20|23:00",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
+  "id": "v_0fc867be8e|2026-11-20|23:00",
+  "lat": 32.0986505,
+  "lon": 34.775517,
   "notable": false,
   "notes": [],
   "price_from": null,
@@ -81,6 +81,6 @@
    "source": "https://popit.events/event/friday-mainstream-20-11-1953",
    "tickets": null
   },
-  "venue_id": "v_bff99ec2e8"
+  "venue_id": "v_0fc867be8e"
  }
 ]

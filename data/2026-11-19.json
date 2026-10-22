@@ -34,8 +34,8 @@
   "title": "מוזיאון אורי גלר",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6ad5cfdca4361850ed30d708",
-   "tickets": "https://www.leaan.co.il/event/6ad5cfdca4361850ed30d708"
+   "source": "https://www.leaan.co.il/events/event/7967",
+   "tickets": "https://www.leaan.co.il/events/event/7967"
   },
   "venue_id": "v_urigeller_museum_tlv"
  },
@@ -76,8 +76,8 @@
   "title": "עידן אלתרמן",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a899b9aca3d3cbe50dc89f5",
-   "tickets": "https://www.leaan.co.il/event/6a899b9aca3d3cbe50dc89f5"
+   "source": "https://www.leaan.co.il/events/event/7370",
+   "tickets": "https://www.leaan.co.il/events/event/7370"
   },
   "venue_id": "v_ozen_tlv"
  },
@@ -118,8 +118,8 @@
   "title": "חגית גינזבורג",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6aabb5f3b287b31770ab3a0e",
-   "tickets": "https://www.leaan.co.il/event/6aabb5f3b287b31770ab3a0e"
+   "source": "https://www.leaan.co.il/events/event/7653",
+   "tickets": "https://www.leaan.co.il/events/event/7653"
   },
   "venue_id": "v_2d907dc232"
  },
@@ -160,8 +160,8 @@
   "title": "עידן ניידיץ",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a6fb30ed073cdf9bf0a39a6",
-   "tickets": "https://www.leaan.co.il/event/6a6fb30ed073cdf9bf0a39a6"
+   "source": "https://www.leaan.co.il/events/event/7039",
+   "tickets": "https://www.leaan.co.il/events/event/7039"
   },
   "venue_id": "v_beit_negler_haifa"
  },
@@ -202,8 +202,8 @@
   "title": "אסף מור יוסף במופע סטנדאפ",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a58cf9517c455fa8ec2fc7a",
-   "tickets": "https://www.leaan.co.il/event/6a58cf9517c455fa8ec2fc7a"
+   "source": "https://www.leaan.co.il/events/event/6951",
+   "tickets": "https://www.leaan.co.il/events/event/6951"
   },
   "venue_id": "v_d493f3d97a"
  },
@@ -244,8 +244,8 @@
   "title": "אמירם טובים סטנדאפ",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a743b4a3ddb5ec3ed4b3a38",
-   "tickets": "https://www.leaan.co.il/event/6a743b4a3ddb5ec3ed4b3a38"
+   "source": "https://www.leaan.co.il/events/event/7104",
+   "tickets": "https://www.leaan.co.il/events/event/7104"
   },
   "venue_id": "v_2ccb6316ca"
  },
@@ -255,17 +255,17 @@
   "crowd": [],
   "day": "2026-11-19",
   "desc": "THURSDAY MOON MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-19 בנובמבר — ערב open air עם רחבה פתוחה על הים, פתיחת שערים ב-22:30 וקו מוזיקלי של 100% Mainstream. מסיבת THURSDAY MOON MAINSTREAM נשענת על ליין קבוע של Mainstream ו-EDM עם IDO YOSEF, SEAN ALONI, DOR HADAD ו-MAX DAVI",
-  "drive_approx": true,
-  "drive_min": 29,
+  "drive_approx": false,
+  "drive_min": 28,
   "end": null,
   "enrichment": [],
   "expensive": false,
   "format": "dj_set",
   "free": false,
   "free_until": null,
-  "id": "v_bff99ec2e8|2026-11-19|22:30",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
+  "id": "v_0fc867be8e|2026-11-19|22:30",
+  "lat": 32.0986505,
+  "lon": 34.775517,
   "notable": false,
   "notes": [],
   "price_from": null,
@@ -289,7 +289,7 @@
    "source": "https://popit.events/event/thursday-moon-mainstream-19-11-1948",
    "tickets": null
   },
-  "venue_id": "v_bff99ec2e8"
+  "venue_id": "v_0fc867be8e"
  },
  {
   "city": "תל אביב",

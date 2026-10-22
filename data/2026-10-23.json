@@ -36,8 +36,8 @@
   "title": "אהבה בהפתעה",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a2ac6216d783007d606d2d0",
-   "tickets": "https://www.leaan.co.il/event/6a2ac6216d783007d606d2d0"
+   "source": "https://www.leaan.co.il/events/event/6557",
+   "tickets": "https://www.leaan.co.il/events/event/6557"
   },
   "venue_id": "v_heichal_tarbut_rishon"
  },
@@ -121,8 +121,8 @@
   "title": "MADONNA THE TRIBUTE SHOW - מופע מחווה למדונה",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a09fd5b11fdb3a20e2dae8a",
-   "tickets": "https://www.leaan.co.il/event/6a09fd5b11fdb3a20e2dae8a"
+   "source": "https://www.leaan.co.il/events/event/6289",
+   "tickets": "https://www.leaan.co.il/events/event/6289"
   },
   "venue_id": "v_zionist_america_tlv"
  },
@@ -205,8 +205,8 @@
   "title": "דב נבון",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a046bd2af72ccfb80c4bc81",
-   "tickets": "https://www.leaan.co.il/event/6a046bd2af72ccfb80c4bc81"
+   "source": "https://www.leaan.co.il/events/event/6256",
+   "tickets": "https://www.leaan.co.il/events/event/6256"
   },
   "venue_id": "v_abbb77c465"
  },
@@ -249,10 +249,52 @@
   "title": "ארז שלם",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a591641e08de319900d8f86",
-   "tickets": "https://www.leaan.co.il/event/6a591641e08de319900d8f86"
+   "source": "https://www.leaan.co.il/events/event/6959",
+   "tickets": "https://www.leaan.co.il/events/event/6959"
   },
   "venue_id": "v_adb5d182d3"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-23",
+  "desc": "FRIDAY MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-23 באוקטובר — רחבת open air על הים עם פתיחת שערים ב-23:00 וליין קבוע של 100% Mainstream. מסיבת FRIDAY MAINSTREAM נשענת על ליין אפ שכולל את TAIROS, OHANA, DAVIDA ו-SHAYELLA, עם דגש על להיטים שמחזיקים את הרחבה כל הלילה, קהל מ",
+  "drive_approx": false,
+  "drive_min": 28,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_0fc867be8e|2026-10-23|23:00",
+  "lat": 32.0986505,
+  "lon": 34.775517,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1792785600,
+  "title": "FRIDAY MAINSTREAM | 23.10",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/friday-mainstream-23-10-1957",
+   "tickets": null
+  },
+  "venue_id": "v_0fc867be8e"
  },
  {
   "city": "חיפה",
@@ -295,47 +337,5 @@
    "tickets": null
   },
   "venue_id": "v_bar_shtenfeld_haifa"
- },
- {
-  "city": "תל אביב",
-  "commitment": "jump_in",
-  "crowd": [],
-  "day": "2026-10-23",
-  "desc": "FRIDAY MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-23 באוקטובר — רחבת open air על הים עם פתיחת שערים ב-23:00 וליין קבוע של 100% Mainstream. מסיבת FRIDAY MAINSTREAM נשענת על ליין אפ שכולל את TAIROS, OHANA, DAVIDA ו-SHAYELLA, עם דגש על להיטים שמחזיקים את הרחבה כל הלילה, קהל מ",
-  "drive_approx": true,
-  "drive_min": 29,
-  "end": null,
-  "enrichment": [],
-  "expensive": false,
-  "format": "dj_set",
-  "free": false,
-  "free_until": null,
-  "id": "v_bff99ec2e8|2026-10-23|23:00",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
-  "notable": false,
-  "notes": [],
-  "price_from": null,
-  "price_max": null,
-  "scene": [
-   "אלקטרונית/טכנו"
-  ],
-  "seen": {
-   "first": "2026-10-22",
-   "last": "2026-10-22"
-  },
-  "soldout": false,
-  "source": {
-   "class": "nightlife",
-   "name": "popit"
-  },
-  "start": 1792785600,
-  "title": "FRIDAY MAINSTREAM | 23.10",
-  "urls": {
-   "community": null,
-   "source": "https://popit.events/event/friday-mainstream-23-10-1957",
-   "tickets": null
-  },
-  "venue_id": "v_bff99ec2e8"
  }
 ]

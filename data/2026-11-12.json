@@ -74,8 +74,8 @@
   "title": "מוזיאון אורי גלר",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6ad5cfad877b3f35b4272ea2",
-   "tickets": "https://www.leaan.co.il/event/6ad5cfad877b3f35b4272ea2"
+   "source": "https://www.leaan.co.il/events/event/7965",
+   "tickets": "https://www.leaan.co.il/events/event/7965"
   },
   "venue_id": "v_urigeller_museum_tlv"
  },
@@ -118,8 +118,8 @@
   "title": "הקומפלקס",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a9d11badca14a178e925d02",
-   "tickets": "https://www.leaan.co.il/event/6a9d11badca14a178e925d02"
+   "source": "https://www.leaan.co.il/events/event/7470",
+   "tickets": "https://www.leaan.co.il/events/event/7470"
   },
   "venue_id": "v_fab1fa2369"
  },
@@ -158,8 +158,8 @@
   "title": "שראל",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a54bf961b5f467d07db3d26",
-   "tickets": "https://www.leaan.co.il/event/6a54bf961b5f467d07db3d26"
+   "source": "https://www.leaan.co.il/events/event/6925",
+   "tickets": "https://www.leaan.co.il/events/event/6925"
   },
   "venue_id": "v_59c0596738"
  },
@@ -200,8 +200,8 @@
   "title": "חגית גינזבורג",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6aabb7438ba5d36def923cb4",
-   "tickets": "https://www.leaan.co.il/event/6aabb7438ba5d36def923cb4"
+   "source": "https://www.leaan.co.il/events/event/7654",
+   "tickets": "https://www.leaan.co.il/events/event/7654"
   },
   "venue_id": "v_9030be94d6"
  },
@@ -242,8 +242,8 @@
   "title": "ארז שלם",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a591902ca1279d9e1dd2d53",
-   "tickets": "https://www.leaan.co.il/event/6a591902ca1279d9e1dd2d53"
+   "source": "https://www.leaan.co.il/events/event/6961",
+   "tickets": "https://www.leaan.co.il/events/event/6961"
   },
   "venue_id": "v_260d836e40"
  },
@@ -284,8 +284,8 @@
   "title": "מיקי גבע",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/69fc69b14661bc80b023a39a",
-   "tickets": "https://www.leaan.co.il/event/69fc69b14661bc80b023a39a"
+   "source": "https://www.leaan.co.il/events/event/6182",
+   "tickets": "https://www.leaan.co.il/events/event/6182"
   },
   "venue_id": "v_2ccb6316ca"
  },
@@ -295,17 +295,17 @@
   "crowd": [],
   "day": "2026-11-12",
   "desc": "THURSDAY MOON MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-12 בנובמבר — חוויית open air על הים עם פתיחת שערים ב-22:30 וליין קבוע של 100% Mainstream. מסיבת THURSDAY MOON MAINSTREAM נשענת על רחבה פתוחה תחת כיפת השמיים, מול הבריזה והגלים, עם Main Stage של Mainstream ו-EDM. בליי",
-  "drive_approx": true,
-  "drive_min": 29,
+  "drive_approx": false,
+  "drive_min": 28,
   "end": null,
   "enrichment": [],
   "expensive": false,
   "format": "dj_set",
   "free": false,
   "free_until": null,
-  "id": "v_bff99ec2e8|2026-11-12|22:30",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
+  "id": "v_0fc867be8e|2026-11-12|22:30",
+  "lat": 32.0986505,
+  "lon": 34.775517,
   "notable": false,
   "notes": [],
   "price_from": null,
@@ -329,6 +329,6 @@
    "source": "https://popit.events/event/thursday-moon-mainstream-12-11-1947",
    "tickets": null
   },
-  "venue_id": "v_bff99ec2e8"
+  "venue_id": "v_0fc867be8e"
  }
 ]

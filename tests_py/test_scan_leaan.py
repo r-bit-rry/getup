@@ -5,6 +5,7 @@ from tools.getup.adapters import leaan
 CAPTURE = 'docs/research/2026-10-21/leaan-events.json'
 
 RAW_EVENT = {
+    'id': 6289,
     'event_id': 'raw1',
     'event_name': 'MADONNA THE TRIBUTE SHOW',
     'location': {'name': 'בית ציוני אמריקה (מאירהוף), תל אביב',
@@ -28,17 +29,17 @@ def events():
 class ShapeTest(unittest.TestCase):
     def test_the_capture_is_a_bare_event_list(self):
         drafts = leaan.parse(events())
-        self.assertEqual(len(drafts), 215)
+        self.assertEqual(len(drafts), 217)
 
     def test_the_raw_next_data_dict_is_accepted(self):
         payload = {'props': {'pageProps': {'initialState': {'pageData': {'events': events()}}}}}
-        self.assertEqual(len(leaan.parse(payload)), 215)
+        self.assertEqual(len(leaan.parse(payload)), 217)
 
     def test_an_html_page_is_read_through_the_script_tag(self):
         payload = ('<html><body><script id="__NEXT_DATA__" type="application/json">'
                    + json.dumps({'props': {'pageProps': {'initialState': {'pageData': {'events': events()}}}}}))
         payload += '</script></body></html>'
-        self.assertEqual(len(leaan.parse(payload)), 215)
+        self.assertEqual(len(leaan.parse(payload)), 217)
 
     def test_an_empty_event_list_is_a_quiet_zero(self):
         html = ('<html><body><script id="__NEXT_DATA__" type="application/json">'
@@ -83,7 +84,7 @@ class RawKeyTest(unittest.TestCase):
         self.assertIs(d['soldout'], True)
         self.assertEqual(d['desc'], '<p>מופע מחווה</p>')
         self.assertEqual(d['tags'], ['בידור וסטנדאפ', 'מוזיקה'])   # sorted by category id
-        self.assertEqual(d['url'], 'https://www.leaan.co.il/event/raw1')
+        self.assertEqual(d['url'], 'https://www.leaan.co.il/events/event/6289')
 
     def test_a_record_with_renamed_keys_is_dropped_and_its_neighbour_survives(self):
         good = dict(RAW_EVENT, event_id='ok1', has_multiple_prices=False)
@@ -103,15 +104,24 @@ class RawKeyTest(unittest.TestCase):
         self.assertTrue(failures)
 
 class DraftTest(unittest.TestCase):
-    def test_the_real_capture_yields_215_ticket_seller_drafts(self):
+    def test_the_real_capture_yields_217_ticket_seller_drafts(self):
         first = leaan.parse(events())[0]
         self.assertEqual((first['class'], first['source']), ('ticketing', 'leaan'))
-        self.assertEqual(first['source_id'], '6a1be86c43116ffad6fea591')
-        self.assertEqual(first['venue'], 'מרכז עזריאלי')
+        self.assertEqual(first['source_id'], '6a09fd5b11fdb3a20e2dae8a')
+        self.assertEqual(first['venue'], 'בית ציוני אמריקה (מאירהוף), תל אביב')
         self.assertEqual(first['city'], 'תל אביב')
-        self.assertEqual(first['start'], 1780988400)
-        self.assertEqual(first['tags'], ['הצגות והרצאות'])
-        self.assertEqual(first['url'], 'https://www.leaan.co.il/event/6a1be86c43116ffad6fea591')
+        self.assertEqual(first['start'], 1792780200)
+        self.assertEqual(first['tags'], ['מוזיקה'])
+        self.assertEqual(first['url'], 'https://www.leaan.co.il/events/event/6289')
+
+    def test_a_captured_draft_links_to_the_numeric_event_page(self):
+        for draft in leaan.parse(events()):
+            self.assertRegex(draft['url'], r'^https://www\.leaan\.co\.il/events/event/\d+$')
+
+    def test_no_numeric_id_means_no_ticket_url_rather_than_a_404(self):
+        without_id = {k: v for k, v in RAW_EVENT.items() if k != 'id'}
+        [draft] = leaan.parse(raw_payload([without_id]))
+        self.assertIsNone(draft['url'])
 
 @unittest.skipUnless(os.environ.get('GETUP_LIVE') == '1', 'live source; set GETUP_LIVE=1')
 class LeaanLiveTest(unittest.TestCase):

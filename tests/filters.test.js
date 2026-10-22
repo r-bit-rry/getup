@@ -35,9 +35,12 @@ test('unknown price survives a max-price filter', () => {
   assert.equal(applyFilters([ev({ price_from: null })], { ...defaultState(), maxPrice: 100 }, TODAY).length, 1);
 });
 
-test('free-only keeps free events and drops priced ones', () => {
-  const r = applyFilters([ev({ id: 'free', free: true, price_from: 0 }), ev({ price_from: 50 })],
-    { ...defaultState(), freeOnly: true }, TODAY);
+test('free-only requires the fact; an unknown price does not pass it', () => {
+  const r = applyFilters([
+    ev({ id: 'free', free: true, price_from: 0 }),
+    ev({ id: 'priced', price_from: 50 }),
+    ev({ id: 'unknown', price_from: null, free: false }),
+  ], { ...defaultState(), freeOnly: true }, TODAY);
   assert.deepEqual(r.map(e => e.id), ['free']);
 });
 

@@ -65,6 +65,17 @@ class PopitTest(unittest.TestCase):
                            'ב-31 בדצמבר בשעה 21:00')
         self.assertEqual((d['venue'], d['city']), ('מרכז ביאליק', 'קרית ביאליק'))
 
+    def test_a_preposition_is_not_cut_out_of_a_word_that_starts_with_bet(self):
+        d = one('FRIDAY MAINSTREAM',
+                'FRIDAY MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, '
+                'תל אביב-יפו, ב-23 באוקטובר בשעה 23:00')
+        self.assertEqual((d['venue'], d['city']), ('נמל תל אביב', 'תל אביב-יפו'))
+
+    def test_the_same_guard_keeps_a_club_name_whole(self):
+        d = one('FUEGO', 'FUEGO היא מסיבת מיינסטרים בינלאומי במועדון קפלה, '
+                         'תל אביב-יפו, ב-23 באוקטובר בשעה 23:00')
+        self.assertEqual((d['venue'], d['city']), ('מועדון קפלה', 'תל אביב-יפו'))
+
     def test_a_month_that_wraps_into_january_belongs_to_the_next_year(self):
         published = datetime(2026, 12, 30, 12, tzinfo=timezone.utc)
         self.assertEqual(popit.parse_hebrew_when('מסיבה ב-2 בינואר בשעה 23:00', published),

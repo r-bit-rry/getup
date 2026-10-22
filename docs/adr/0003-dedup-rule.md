@@ -28,3 +28,12 @@ stay separate.
 
 Under-merging (a visible duplicate) is preferred to over-merging (a silently deleted
 event). Genuine overlap at one venue will occasionally show two rows. Accepted.
+
+## Known limitation
+
+`חגית גינזבורג`, 2026-10-24 21:00 — Leaan sells it at `צוותא 2` for ₪89 and Biluim at
+`צוותא תל אביב` for ₪119. The venue strings provision two different `venue_id`s
+(`v_abbb77c465` and `v_f12491f371`), so the venue-key rule cannot see them as one event;
+record ids are `v_abbb77c465|2026-10-24|21:00` and `v_f12491f371|2026-10-24|21:00`.
+Both rows are left visible. Loosening the venue rule (fuzzy hall names) would merge the
+many genuinely different halls that share a building, so under-merging stands.

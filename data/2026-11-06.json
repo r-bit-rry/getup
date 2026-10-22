@@ -34,8 +34,8 @@
   "title": "מוזיאון אורי גלר",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6ad5cf2e4114175d295a2d91",
-   "tickets": "https://www.leaan.co.il/event/6ad5cf2e4114175d295a2d91"
+   "source": "https://www.leaan.co.il/events/event/7963",
+   "tickets": "https://www.leaan.co.il/events/event/7963"
   },
   "venue_id": "v_urigeller_museum_tlv"
  },
@@ -76,8 +76,8 @@
   "title": "ארז שלם",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a98119f2434873d8a1165a4",
-   "tickets": "https://www.leaan.co.il/event/6a98119f2434873d8a1165a4"
+   "source": "https://www.leaan.co.il/events/event/7452",
+   "tickets": "https://www.leaan.co.il/events/event/7452"
   },
   "venue_id": "v_babdf14f28"
  },
@@ -127,17 +127,17 @@
   "crowd": [],
   "day": "2026-11-06",
   "desc": "FRIDAY MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-6 בנובמבר — חוויית open air על הים עם רחבה פתוחה, פתיחת שערים ב-23:00 וקונספט של 100% Mainstream תחת כיפת השמיים. מסיבת FRIDAY MAINSTREAM נשענת על ליין אפ קבוע שכולל את TAIR ALON, OFEK ASAF, AMIT ORIN ו-MAX DAVID. זה ערב שמ",
-  "drive_approx": true,
-  "drive_min": 29,
+  "drive_approx": false,
+  "drive_min": 28,
   "end": null,
   "enrichment": [],
   "expensive": false,
   "format": "dj_set",
   "free": false,
   "free_until": null,
-  "id": "v_bff99ec2e8|2026-11-06|23:00",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
+  "id": "v_0fc867be8e|2026-11-06|23:00",
+  "lat": 32.0986505,
+  "lon": 34.775517,
   "notable": false,
   "notes": [],
   "price_from": null,
@@ -161,6 +161,6 @@
    "source": "https://popit.events/event/friday-mainstream-06-11-1950",
    "tickets": null
   },
-  "venue_id": "v_bff99ec2e8"
+  "venue_id": "v_0fc867be8e"
  }
 ]

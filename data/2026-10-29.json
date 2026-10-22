@@ -74,8 +74,8 @@
   "title": "מוזיאון אורי גלר",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6aa7f5726fb915263b71dcf4",
-   "tickets": "https://www.leaan.co.il/event/6aa7f5726fb915263b71dcf4"
+   "source": "https://www.leaan.co.il/events/event/7566",
+   "tickets": "https://www.leaan.co.il/events/event/7566"
   },
   "venue_id": "v_urigeller_museum_tlv"
  },
@@ -116,8 +116,8 @@
   "title": "אסף מור יוסף במופע סטנדאפ",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a85599526fe396180036742",
-   "tickets": "https://www.leaan.co.il/event/6a85599526fe396180036742"
+   "source": "https://www.leaan.co.il/events/event/7359",
+   "tickets": "https://www.leaan.co.il/events/event/7359"
   },
   "venue_id": "v_59a4244eda"
  },
@@ -158,8 +158,8 @@
   "title": "עידן ניידיץ",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a7086aac0ad8649d485678f",
-   "tickets": "https://www.leaan.co.il/event/6a7086aac0ad8649d485678f"
+   "source": "https://www.leaan.co.il/events/event/7052",
+   "tickets": "https://www.leaan.co.il/events/event/7052"
   },
   "venue_id": "v_99f91d4343"
  },
@@ -200,8 +200,8 @@
   "title": "משה אשכנזי במופע סטנדאפ",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6ad87ee2628f68ce54cd9d03",
-   "tickets": "https://www.leaan.co.il/event/6ad87ee2628f68ce54cd9d03"
+   "source": "https://www.leaan.co.il/events/event/7999",
+   "tickets": "https://www.leaan.co.il/events/event/7999"
   },
   "venue_id": "v_zionist_america_tlv"
  },
@@ -284,8 +284,8 @@
   "title": "מיקי גבע",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/69f702c31a53cf7410996d66",
-   "tickets": "https://www.leaan.co.il/event/69f702c31a53cf7410996d66"
+   "source": "https://www.leaan.co.il/events/event/6139",
+   "tickets": "https://www.leaan.co.il/events/event/6139"
   },
   "venue_id": "v_adb5d182d3"
  },
@@ -326,8 +326,8 @@
   "title": "אמירם טובים סטנדאפ",
   "urls": {
    "community": null,
-   "source": "https://www.leaan.co.il/event/6a06fdf77bb68b17b242fabd",
-   "tickets": "https://www.leaan.co.il/event/6a06fdf77bb68b17b242fabd"
+   "source": "https://www.leaan.co.il/events/event/6265",
+   "tickets": "https://www.leaan.co.il/events/event/6265"
   },
   "venue_id": "v_beit_negler_haifa"
  },
@@ -337,17 +337,17 @@
   "crowd": [],
   "day": "2026-10-29",
   "desc": "THURSDAY MOON MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-29 באוקטובר — חוויית open air על הים עם רחבה פתוחה, פתיחת שערים ב-22:30 וליין קבוע של 100% Mainstream ו-EDM. מסיבת THURSDAY MOON MAINSTREAM פונה לגילאי 18+. בליין אפ של הערב על הבמה המרכזית: ZALTZ, DOR HADAD, OFEK AS",
-  "drive_approx": true,
-  "drive_min": 29,
+  "drive_approx": false,
+  "drive_min": 28,
   "end": null,
   "enrichment": [],
   "expensive": false,
   "format": "dj_set",
   "free": false,
   "free_until": null,
-  "id": "v_bff99ec2e8|2026-10-29|22:30",
-  "lat": 32.0852997,
-  "lon": 34.7818064,
+  "id": "v_0fc867be8e|2026-10-29|22:30",
+  "lat": 32.0986505,
+  "lon": 34.775517,
   "notable": false,
   "notes": [],
   "price_from": null,
@@ -371,7 +371,7 @@
    "source": "https://popit.events/event/thursday-moon-mainstream-halloween-1943",
    "tickets": null
   },
-  "venue_id": "v_bff99ec2e8"
+  "venue_id": "v_0fc867be8e"
  },
  {
   "city": "תל אביב",

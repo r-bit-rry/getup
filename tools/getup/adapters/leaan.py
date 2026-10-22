@@ -65,6 +65,7 @@ def _draft(event) -> dict:
     # Live pages still carry the raw API keys; the committed capture is pre-flattened.
     location = event.get('location') if isinstance(event.get('location'), dict) else {}
     event_id = event.get('event_id')
+    numeric_id = event.get('id')                # the page key: /event/<hex> is a 404
     price = _first(event.get('price'), event.get('starting_price'))
     multi = _first(event.get('multi_price'), event.get('has_multiple_prices'))
     return {
@@ -82,7 +83,8 @@ def _draft(event) -> dict:
         'soldout': _first(event.get('soldout'), event.get('is_soldout')),
         'desc': _first(event.get('desc'), event.get('description')),
         'url': _first(event.get('url'),
-                      f'https://www.leaan.co.il/event/{event_id}' if event_id else None),
+                      f'https://www.leaan.co.il/events/event/{numeric_id}'
+                      if numeric_id is not None else None),
         'tags': _categories(event),
     }
 

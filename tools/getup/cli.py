@@ -7,11 +7,15 @@ import os
 import sys
 from datetime import date, datetime
 
-from . import archive, build, classify, coverage, dedup, normalize, scan, venues, write
+from . import (archive, build, classify, coverage, dedup, github, intake, normalize, scan,
+               venues, write)
 
 SOURCES = ('leaan', 'popit', 'biluim')
-EXIT_CODES = ('exit codes: 0 ok, 1 bad arguments, 2 a source failed/partial or a bad --sources/'
-              '--today value, 3 coverage missed a major venue, 4 tz data missing')
+EXIT_CODES = ('exit codes: 0 ok — a per-issue intake failure is still 0, 1 bad arguments, '
+              '2 a source failed/partial or a bad --sources/--today value, '
+              '3 coverage missed a major venue, 4 tz data missing, '
+              '5 intake: GitHub API or token failure, or a corrupt '
+              'prefs.json/venues.json/human.json')
 log = logging.getLogger('getup')
 
 
@@ -33,6 +37,7 @@ def _parser() -> argparse.ArgumentParser:
     labels.add_argument('--labels', required=True)
     _shared(subs.add_parser('coverage'))
     _shared(subs.add_parser('archive'))
+    _shared(subs.add_parser('intake', epilog=EXIT_CODES))   # its own exit codes on its own help
     return parser
 
 
@@ -112,13 +117,30 @@ def _archive(args) -> int:
     return 0
 
 
+def _intake(args) -> int:
+    today = _today(args)
+    try:
+        intake.check_state(args.root)          # before any network: a corrupt store never polls
+        client = intake.client_from_env()      # resolved at call time, never at import
+        rows = intake.poll(args.root, client=client, today=today)
+    except (github.GithubError, ValueError) as exc:
+        print(f'getup: {exc}', file=sys.stderr)
+        return 5
+    for row in rows:                           # a failed issue is one line, not this command's failure
+        line = f'#{row["number"]}: {row["result"]}'
+        if row['problems']:
+            line += ' — ' + ' · '.join(row['problems'])
+        print(line)
+    return 0
+
+
 def main(argv: list) -> int:
     try:
         args = _parser().parse_args(list(argv))
     except SystemExit as exc:                  # argparse owns --help and the usage errors
         return 0 if exc.code == 0 else 1
     handler = {'build': _build, 'pending': _pending, 'labels': _labels,
-               'coverage': _coverage, 'archive': _archive}[args.command]
+               'coverage': _coverage, 'archive': _archive, 'intake': _intake}[args.command]
     try:
         return handler(args)
     except ValueError as exc:                  # --sources nope, a bad --today

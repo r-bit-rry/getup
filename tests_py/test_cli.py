@@ -1,6 +1,9 @@
 import contextlib, io, json, os, shutil, tempfile, unittest
 from unittest import mock
-from tools.getup import cli, normalize, write
+from tools.getup import cli, github, human, normalize, write
+from tests_py.github_fake import Fake, issue
+from tests_py.test_intake import fresh as intake_fresh
+from tests_py.test_intake_parse import EVENT
 
 CAPTURE = 'docs/research/2026-10-21'
 TODAY = '2026-10-21'
@@ -109,3 +112,52 @@ class CliTest(unittest.TestCase):
             fresh(root)
             self.assertEqual(cli.main(['coverage', '--root', root, '--today', TODAY]), 0)
             self.assertEqual(cli.main(['archive', '--root', root, '--today', TODAY]), 0)
+
+
+class IntakeCliTest(unittest.TestCase):
+    def test_a_polled_issue_is_written_by_the_command(self):
+        with tempfile.TemporaryDirectory() as root:
+            intake_fresh(root)
+            write.write_json(human.store_file(root), {})
+            client = Fake([issue(7, EVENT)])
+            with mock.patch('tools.getup.intake.client_from_env', return_value=client):
+                self.assertEqual(cli.main(['intake', '--root', root, '--today', TODAY]), 0)
+            self.assertEqual(len(human.load(root)), 1)
+
+    def test_a_failed_api_call_is_exit_five(self):
+        with mock.patch('tools.getup.intake.client_from_env',
+                        side_effect=github.GithubError(401, 'Bad credentials')):
+            self.assertEqual(cli.main(['intake']), 5)
+
+    def test_a_per_issue_failure_is_still_exit_zero(self):
+        with tempfile.TemporaryDirectory() as root:
+            intake_fresh(root)
+            client = Fake([issue(7, EVENT), issue(8, EVENT.replace('2026-11-14', '2026-11-15'))])
+            real = client.comment
+
+            def broken(n, body):
+                if n == 7:
+                    raise github.GithubError(500, 'server error')
+                real(n, body)
+
+            client.comment = broken
+            with mock.patch('tools.getup.intake.client_from_env', return_value=client):
+                self.assertEqual(cli.main(['intake', '--root', root, '--today', TODAY]), 0)
+
+    def test_a_corrupt_state_file_is_exit_five_before_any_poll(self):
+        with tempfile.TemporaryDirectory() as root:
+            intake_fresh(root)
+            write.write_bytes(os.path.join(root, 'prefs.json'), b'{')
+            client = Fake([issue(7, EVENT)])
+            with mock.patch('tools.getup.intake.client_from_env', return_value=client) as made:
+                self.assertEqual(cli.main(['intake', '--root', root, '--today', TODAY]), 5)
+            self.assertEqual(made.call_count, 0)      # checked before the client is built
+            self.assertEqual(client.ensured, 0)
+
+    def test_a_missing_token_is_exit_five_and_never_network(self):
+        with mock.patch.dict(os.environ, {}, clear=True):
+            self.assertEqual(cli.main(['intake']), 5)
+
+
+if __name__ == '__main__':
+    unittest.main()

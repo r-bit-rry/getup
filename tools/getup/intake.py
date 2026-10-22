@@ -396,3 +396,17 @@ def poll(root: str, *, client, today: str) -> list:
     client.ensure_labels()
     rows = sorted(client.issues(), key=lambda row: (row or {}).get('number') or 0)
     return [ingest(root, row, client=client, today=today) for row in rows]
+
+
+def check_state(root: str) -> None:
+    """Strictly read every state file before a run can read it half-way or overwrite it.
+
+    A corrupt store is a startup fault, not one issue's problem: the command exits 5 before polling.
+    """
+    human.load(root)
+    venues.load(root)
+    path = prefs_file(root)
+    if os.path.exists(path):
+        data = write.read_json_strict(path)     # names the file and the fault
+        if not isinstance(data, dict):
+            raise ValueError(f'{path}: prefs is not an object')

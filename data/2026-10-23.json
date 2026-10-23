@@ -1,5 +1,245 @@
 [
  {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-23",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_a794f8af4d|2026-10-23|14:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 139,
+  "price_max": 164,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792753200,
+  "title": "יזהר אשדות",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/87-%D7%99%D7%96%D7%94%D7%A8-%D7%90%D7%A9%D7%93%D7%95%D7%AA",
+   "tickets": null
+  },
+  "venue_id": "v_a794f8af4d"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-23",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-23|14:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 70,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792755000,
+  "title": "יותם אולמר",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/7685-%D7%99%D7%95%D7%AA%D7%9D-%D7%90%D7%95%D7%9C%D7%9E%D7%A8",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-23",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_c7de7396a5|2026-10-23|14:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 139,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792755000,
+  "title": "אביתר אדיר ולהקתו",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/62270-%D7%90%D7%91%D7%99%D7%AA%D7%A8-%D7%90%D7%93%D7%99%D7%A8-%D7%95%D7%9C%D7%94%D7%A7%D7%AA%D7%95",
+   "tickets": null
+  },
+  "venue_id": "v_c7de7396a5"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-23",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_e96ecd303e|2026-10-23|20:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792774800,
+  "title": "קידס אינסיין, סון אין היר ודאסט",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/37683-%D7%A7%D7%99%D7%93%D7%A1-%D7%90%D7%99%D7%A0%D7%A1%D7%99%D7%99%D7%9F-%D7%A1%D7%95%D7%9F-%D7%90%D7%99%D7%9F-%D7%94%D7%99%D7%A8-%D7%95%D7%93%D7%90%D7%A1%D7%98",
+   "tickets": null
+  },
+  "venue_id": "v_e96ecd303e"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-23",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_11095fde4b|2026-10-23|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 140,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792778400,
+  "title": "מרסדס בנד",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/32-%D7%9E%D7%A8%D7%A1%D7%93%D7%A1-%D7%91%D7%A0%D7%93",
+   "tickets": null
+  },
+  "venue_id": "v_11095fde4b"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-23",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-23|21:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 60,
+  "price_max": 75,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792780200,
+  "title": "בנות לוציפר",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/26274-%D7%91%D7%A0%D7%95%D7%AA-%D7%9C%D7%95%D7%A6%D7%99%D7%A4%D7%A8",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
   "city": "ראשון לציון",
   "commitment": "plan_ahead",
   "crowd": [],
@@ -25,7 +265,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -67,7 +307,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -92,7 +332,9 @@
   "drive_approx": true,
   "drive_min": 29,
   "end": 1792787400,
-  "enrichment": [],
+  "enrichment": [
+   "biluim: https://biluim.co.il/events/e/1977-madonna-the-tribute-show-%D7%9E%D7%95%D7%A4%D7%A2-%D7%9E%D7%97%D7%95%D7%95%D7%94-%D7%9C%D7%9E%D7%93%D7%95%D7%A0%D7%94"
+  ],
   "expensive": false,
   "format": "tribute",
   "free": false,
@@ -110,7 +352,7 @@
   ],
   "seen": {
    "first": "2026-10-21",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -150,7 +392,7 @@
   "scene": [],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -194,9 +436,9 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
-  "soldout": false,
+  "soldout": true,
   "source": {
    "class": "ticketing",
    "name": "leaan"
@@ -238,7 +480,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -280,7 +522,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -322,7 +564,7 @@
   ],
   "seen": {
    "first": "2026-10-21",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {

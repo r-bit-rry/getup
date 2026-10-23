@@ -23,7 +23,7 @@
   "scene": [],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -63,7 +63,7 @@
   "scene": [],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -89,7 +89,7 @@
   "drive_min": 17,
   "end": 1793307600,
   "enrichment": [],
-  "expensive": false,
+  "expensive": true,
   "format": "standup",
   "free": false,
   "free_until": null,
@@ -105,7 +105,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -147,7 +147,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -189,7 +189,7 @@
   ],
   "seen": {
    "first": "2026-10-21",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -231,7 +231,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -273,7 +273,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -299,7 +299,7 @@
   "drive_min": 53,
   "end": 1793309400,
   "enrichment": [],
-  "expensive": false,
+  "expensive": true,
   "format": "standup",
   "free": false,
   "free_until": null,
@@ -315,7 +315,7 @@
   ],
   "seen": {
    "first": "2026-10-21",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -357,7 +357,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -399,7 +399,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {

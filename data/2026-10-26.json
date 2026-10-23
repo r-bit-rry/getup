@@ -4,6 +4,86 @@
   "commitment": "jump_in",
   "crowd": [],
   "day": "2026-10-26",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-10-26|20:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793037600,
+  "title": "סטנדאפ. לירית בלבן",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/68791-%D7%A1%D7%98%D7%A0%D7%93%D7%90%D7%A4-%D7%9C%D7%99%D7%A8%D7%99%D7%AA-%D7%91%D7%9C%D7%91%D7%9F",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-26",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_f12491f371|2026-10-26|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 89,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793041200,
+  "title": "נגה ד'אנג'לי - בדיקת חומרים",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/51926-%D7%A0%D7%92%D7%94-%D7%93%D7%90%D7%A0%D7%92%D7%9C%D7%99-%D7%91%D7%93%D7%99%D7%A7%D7%AA-%D7%97%D7%95%D7%9E%D7%A8%D7%99%D7%9D",
+   "tickets": null
+  },
+  "venue_id": "v_f12491f371"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-26",
   "desc": "לירית בלבן- בדיקת חומרים מופע ציני, חד ומטריף עם קטעים קורעים על החיים שלה ושל כולנו שמועברים בדרך ייחודית ביותר. אם יש דמות טלוויזיונית שאי אפשר לשכוח – זו נעמי כפית מ\"הבורר\" אם תרצו, אז תכלס גם פזית חכם מ\"חברות\" מאחורי הדמויות האלה עומדת האישה שהפכה אותן לבלתי נשכחות: לירית בלבן במופע ציני, חד ומטריף עם קטעים קורעים על החיים שלה ושל כולנו שמועברים בדרך ייחודית ביותר. יַאלְלָה בַּלָּבָן !!! משך המופע: כשעה ורבע מגיל 18 ומעלה פתיחת דלתות 20:00 !",
   "drive_approx": true,
   "drive_min": 29,
@@ -27,7 +107,7 @@
   ],
   "seen": {
    "first": "2026-10-21",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -42,6 +122,46 @@
    "tickets": "https://www.leaan.co.il/events/event/7035"
   },
   "venue_id": "v_ozen_tlv"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-26",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_c9b2496495|2026-10-26|21:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793043000,
+  "title": "נו מה עכשיו?! Live – צח רוקח ונועם אונגר",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/4776-%D7%A0%D7%95-%D7%9E%D7%94-%D7%A2%D7%9B%D7%A9%D7%99%D7%95-live-%D7%A6%D7%97-%D7%A8%D7%95%D7%A7%D7%97-%D7%95%D7%A0%D7%95%D7%A2%D7%9D-%D7%90%D7%95%D7%A0%D7%92%D7%A8",
+   "tickets": null
+  },
+  "venue_id": "v_c9b2496495"
  },
  {
   "city": "תל אביב",
@@ -69,7 +189,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {

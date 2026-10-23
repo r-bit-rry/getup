@@ -9,11 +9,11 @@
    "date": "2026-10-22"
   },
   {
-   "count": 8,
+   "count": 14,
    "date": "2026-10-23"
   },
   {
-   "count": 8,
+   "count": 14,
    "date": "2026-10-24"
   },
   {
@@ -21,7 +21,7 @@
    "date": "2026-10-25"
   },
   {
-   "count": 2,
+   "count": 5,
    "date": "2026-10-26"
   },
   {
@@ -123,18 +123,22 @@
   {
    "count": 2,
    "date": "2026-11-20"
+  },
+  {
+   "count": 9,
+   "date": "2026-11-21"
   }
  ],
- "dropped_no_venue": 26,
- "generated_at": "2026-10-22T18:59:05Z",
+ "dropped_no_venue": 23,
+ "generated_at": "2026-10-23T13:01:49Z",
  "sources": {
   "biluim": {
-   "count": 66,
+   "count": 65,
    "failures": [],
    "status": "ok"
   },
   "leaan": {
-   "count": 217,
+   "count": 214,
    "failures": [],
    "status": "ok"
   },

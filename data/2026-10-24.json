@@ -25,7 +25,7 @@
   "scene": [],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -40,6 +40,46 @@
    "tickets": "https://www.leaan.co.il/events/event/7565"
   },
   "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_d85146c5ca|2026-10-24|19:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 37,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792859400,
+  "title": "Jam Be Lve",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/63295-jam-be-lve",
+   "tickets": null
+  },
+  "venue_id": "v_d85146c5ca"
  },
  {
   "city": null,
@@ -67,7 +107,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -82,6 +122,126 @@
    "tickets": null
   },
   "venue_id": "v_39b0baeedf"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_e96ecd303e|2026-10-24|20:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792861200,
+  "title": "בחזרה אל הדיוות הגדולות של שנות ה 60",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/143-%D7%91%D7%97%D7%96%D7%A8%D7%94-%D7%90%D7%9C-%D7%94%D7%93%D7%99%D7%95%D7%95%D7%AA-%D7%94%D7%92%D7%93%D7%95%D7%9C%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A9%D7%A0%D7%95%D7%AA-%D7%94-60",
+   "tickets": null
+  },
+  "venue_id": "v_e96ecd303e"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_11095fde4b|2026-10-24|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 130,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792864800,
+  "title": "לולה מארש אורח-מאור כהן",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/33-%D7%9C%D7%95%D7%9C%D7%94-%D7%9E%D7%90%D7%A8%D7%A9-%D7%90%D7%95%D7%A8%D7%97-%D7%9E%D7%90%D7%95%D7%A8-%D7%9B%D7%94%D7%9F",
+   "tickets": null
+  },
+  "venue_id": "v_11095fde4b"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": true,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_5afac701a8|2026-10-24|21:00",
+  "lat": 32.1050861,
+  "lon": 34.7790248,
+  "notable": false,
+  "notes": [],
+  "price_from": 149,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792864800,
+  "title": "חוגגים 30 שנים להיי פייב",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/348-%D7%97%D7%95%D7%92%D7%92%D7%99%D7%9D-30-%D7%A9%D7%A0%D7%99%D7%9D-%D7%9C%D7%94%D7%99%D7%99-%D7%A4%D7%99%D7%99%D7%91",
+   "tickets": null
+  },
+  "venue_id": "v_5afac701a8"
  },
  {
   "city": "תל אביב",
@@ -111,7 +271,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -137,7 +297,7 @@
   "drive_min": null,
   "end": 1792872000,
   "enrichment": [],
-  "expensive": false,
+  "expensive": true,
   "format": "standup",
   "free": false,
   "free_until": null,
@@ -153,7 +313,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -195,7 +355,7 @@
   ],
   "seen": {
    "first": "2026-10-21",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -237,7 +397,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -252,6 +412,48 @@
    "tickets": null
   },
   "venue_id": "v_c28ccf8bdc"
+ },
+ {
+  "city": null,
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_c310b0accd|2026-10-24|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 59,
+  "price_max": 220,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792864800,
+  "title": "רינגו - תיאטרון הקאמרי",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/28779-%D7%A8%D7%99%D7%A0%D7%92%D7%95-%D7%AA%D7%99%D7%90%D7%98%D7%A8%D7%95%D7%9F-%D7%94%D7%A7%D7%90%D7%9E%D7%A8%D7%99",
+   "tickets": null
+  },
+  "venue_id": "v_c310b0accd"
  },
  {
   "city": null,
@@ -279,7 +481,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -294,6 +496,46 @@
    "tickets": null
   },
   "venue_id": "v_f12491f371"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-24",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-24|21:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-23",
+   "last": "2026-10-23"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792866600,
+  "title": "דפנה והעוגיות",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/249-%D7%93%D7%A4%D7%A0%D7%94-%D7%95%D7%94%D7%A2%D7%95%D7%92%D7%99%D7%95%D7%AA",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
  },
  {
   "city": null,
@@ -321,7 +563,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {

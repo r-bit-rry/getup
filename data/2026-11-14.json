@@ -23,7 +23,7 @@
   "scene": [],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -63,7 +63,7 @@
   "scene": [],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -91,7 +91,7 @@
   "enrichment": [
    "biluim: https://biluim.co.il/events/e/1960-%D7%96%D7%95%D7%92%D7%99%D7%95%D7%AA-ai"
   ],
-  "expensive": false,
+  "expensive": true,
   "format": "theatre",
   "free": false,
   "free_until": null,
@@ -107,7 +107,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -149,7 +149,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -191,7 +191,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -233,7 +233,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -275,7 +275,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {
@@ -317,7 +317,7 @@
   ],
   "seen": {
    "first": "2026-10-22",
-   "last": "2026-10-22"
+   "last": "2026-10-23"
   },
   "soldout": false,
   "source": {

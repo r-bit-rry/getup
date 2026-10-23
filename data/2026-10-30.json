@@ -1,0 +1,458 @@
+[
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-30|12:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 35,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793354400,
+  "title": "פשוט משפחה",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/55276-%D7%A4%D7%A9%D7%95%D7%98-%D7%9E%D7%A9%D7%A4%D7%97%D7%94",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-30|14:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 35,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793361600,
+  "title": "פשוט בינהם: הקרנה בנושא יחסים",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/55275-%D7%A4%D7%A9%D7%95%D7%98-%D7%91%D7%99%D7%A0%D7%94%D7%9D-%D7%94%D7%A7%D7%A8%D7%A0%D7%94-%D7%91%D7%A0%D7%95%D7%A9%D7%90-%D7%99%D7%97%D7%A1%D7%99%D7%9D",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-30|16:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 35,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793368800,
+  "title": "הקרנה של הסרט \"כמה הערות על המצב\" + שיחה עם הבמאי ערן קולירין",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/55274-%D7%94%D7%A7%D7%A8%D7%A0%D7%94-%D7%A9%D7%9C-%D7%94%D7%A1%D7%A8%D7%98-%D7%9B%D7%9E%D7%94-%D7%94%D7%A2%D7%A8%D7%95%D7%AA-%D7%A2%D7%9C-%D7%94%D7%9E%D7%A6%D7%91-%D7%A9%D7%99%D7%97%D7%94-%D7%A2%D7%9D-%D7%94%D7%91%D7%9E%D7%90%D7%99-%D7%A2%D7%A8%D7%9F-%D7%A7%D7%95%D7%9C%D7%99%D7%A8%D7%99%D7%9F",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-30|19:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 35,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793379600,
+  "title": "פחות פשוט: הקרנה בנושא מורכבויות החיים",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/55273-%D7%A4%D7%97%D7%95%D7%AA-%D7%A4%D7%A9%D7%95%D7%98-%D7%94%D7%A7%D7%A8%D7%A0%D7%94-%D7%91%D7%A0%D7%95%D7%A9%D7%90-%D7%9E%D7%95%D7%A8%D7%9B%D7%91%D7%95%D7%99%D7%95%D7%AA-%D7%94%D7%97%D7%99%D7%99%D7%9D",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "דרור קרן במופע סטנדאפ חדש! דרור קרן במופע סטנדאפ חדש שרק רוצה להבהיר- אם הכל בסדר אצלכם, החיים מחייכים אליכם ואתם ישנים טוב, בבקשה לא להגיע. לא רגועים? לא ישנים? החיים זה לא מה שהבטיחו? יש על מה לדבר. כרטיסים להופעות סטנדאפ של דרור קרן - לצפייה בלוח המלא לחצו כאן",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1793394000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_adb5d182d3|2026-10-30|21:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": true,
+  "notes": [],
+  "price_from": 89,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793386800,
+  "title": "דרור קרן",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6998",
+   "tickets": "https://www.leaan.co.il/events/event/6998"
+  },
+  "venue_id": "v_adb5d182d3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_11095fde4b|2026-10-30|21:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793388600,
+  "title": "תל אביב חוזרת לשנות ה2000 - מסיבת האלווין",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/4124-%D7%AA%D7%9C-%D7%90%D7%91%D7%99%D7%91-%D7%97%D7%95%D7%96%D7%A8%D7%AA-%D7%9C%D7%A9%D7%A0%D7%95%D7%AA-%D7%942000-%D7%9E%D7%A1%D7%99%D7%91%D7%AA-%D7%94%D7%90%D7%9C%D7%95%D7%95%D7%99%D7%9F",
+   "tickets": null
+  },
+  "venue_id": "v_11095fde4b"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "אהבה בהפתעה – קומדיה משפחתית פרועה על אהבה וזהות במהלך ביקור פתע בניו יורק, בן מגלה שהמשפחה שהשאיר מאחור השתנתה – ובגדול. בנו היחיד, נורמן, חי חיים שהוא לא תיאר לעצמו, עם סודות שנשמרו עמוק בארון עם אינטרקומים תקועים, מערכות יחסים מתפוררות, ויפיפיה אחת עם תזמון מושלם – והכל הכל מתערבב בסחרור של צחוק, ואהבה. קומדיה מרגשת ומצחיקה בטירוף – שמוכיחה שאף פעם לא מאוחר לשחרר שליטה, ובעיקר – להתאהב מחדש. יוצרים : בימוי- גדי צדקה, תפאורה- במבי ע פרדימן, תרגום- עמית גור, תאורה- זיו וולשין. משתתפים: טוביה צפיר, יעל עמית,ניר שיבר, אודי רוטשילד ודניאל היב",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1793395800,
+  "enrichment": [
+   "biluim: https://biluim.co.il/events/e/1946-%D7%90%D7%94%D7%91%D7%94-%D7%91%D7%94%D7%A4%D7%AA%D7%A2%D7%94"
+  ],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_1ab053f766|2026-10-30|21:30",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": true,
+  "notes": [],
+  "price_from": 69,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793388600,
+  "title": "אהבה בהפתעה",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/5444",
+   "tickets": "https://www.leaan.co.il/events/event/5444"
+  },
+  "venue_id": "v_1ab053f766"
+ },
+ {
+  "city": "ראשון לציון",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "אורי ברויר במופע סטנדאפ מקורי, מבריק ובעיקר מצחיק! עם המראה החנוני הקלאסי והסגנון הייחודי, אורי לוקח אותנו אל תוך חייו האישיים והמצחיקים! עם הומור עצמי, איכויות במה ואלתורים הוא סוחף את הקהל לפרצי צחוק בלתי נגמרים... אורי ברויר מוכר לנו מתכניות הטלוויזיה הרבות בהן השתתף, ביניהן: \"היפה החנון\", \"צחוק מהעבודה\" \"החברים של נאור\" ועוד. משך המופע : 75 דק כרטיסים להופעות סטנדאפ של אורי ברויר - כל התאריכים בלוח המלא",
+  "drive_approx": true,
+  "drive_min": 42,
+  "end": 1793397600,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_628f3c7ff5|2026-10-30|22:00",
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "notable": true,
+  "notes": [],
+  "price_from": 140,
+  "price_max": 140,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793390400,
+  "title": "אורי ברויר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6942",
+   "tickets": "https://www.leaan.co.il/events/event/6942"
+  },
+  "venue_id": "v_628f3c7ff5"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-10-30|22:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793390400,
+  "title": "הלוואין 2026 שנות ה־80 וה־90 + רחבת גל חדש ודארק אייטיז",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/43128-%D7%94%D7%9C%D7%95%D7%95%D7%90%D7%99%D7%9F-2026-%D7%A9%D7%A0%D7%95%D7%AA-%D7%94-80-%D7%95%D7%94-90-%D7%A8%D7%97%D7%91%D7%AA-%D7%92%D7%9C-%D7%97%D7%93%D7%A9-%D7%95%D7%93%D7%90%D7%A8%D7%A7-%D7%90%D7%99%D7%99%D7%98%D7%99%D7%96",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "MAINSTREAM FRIDAY היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-30 באוקטובר — לוקיישן פתוח על הים תחת כיפת השמיים עם פתיחת שערים ב-23:00. מסיבת MAINSTREAM FRIDAY פונה לקהל 18+ ומביאה קו קבוע של 100% Mainstream. על הליין אפ של הערב חתומים ODED, ASHER ELL, MIA B2B MIKA ו-SEAN ALONI. זה ער",
+  "drive_approx": false,
+  "drive_min": 28,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_0fc867be8e|2026-10-30|23:00",
+  "lat": 32.0986505,
+  "lon": 34.775517,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793394000,
+  "title": "MAINSTREAM FRIDAY | 30.10",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/mainstream-friday-30-10-2120",
+   "tickets": null
+  },
+  "venue_id": "v_0fc867be8e"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-30",
+  "desc": "הלאווין היא מסיבת מיינסטרים בינלאומי ב-30 באוקטובר בשעה 23:00 — חגיגת תחפושות ייחודית מבית ZE NOSTALGIA שמחזירה לרחבה את להיטי הפופ של שנות ה-2010. הערב מיועד לקהל בגילאי 18+ ומציע מתחם הכולל חלל ססגוני ואזור פתוח תחת כיפת השמיים. על העמדה ינגנו האמנים ITAMAR CARMEL, LØR, MARZUK ו-KIPI, שיספקו סטים",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_62d487d7e4|2026-10-30|23:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793394000,
+  "title": "🎃 הלאווין 30/10",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/הלאווין-30-10-2206",
+   "tickets": null
+  },
+  "venue_id": "v_62d487d7e4"
+ }
+]

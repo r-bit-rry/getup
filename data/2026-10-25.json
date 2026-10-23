@@ -1,0 +1,126 @@
+[
+ {
+  "city": null,
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-25",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-25|19:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 20,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792949400,
+  "title": "ארץ אוכלת יוצריה",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/15561-%D7%90%D7%A8%D7%A5-%D7%90%D7%95%D7%9B%D7%9C%D7%AA-%D7%99%D7%95%D7%A6%D7%A8%D7%99%D7%94",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-25",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_21c8301b6c|2026-10-25|20:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792953000,
+  "title": "מבט מבפנים – ממסעותיו של כתב באזורי מלחמה (3 מפגשים) איתי אנגל",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/1342-%D7%9E%D7%91%D7%98-%D7%9E%D7%91%D7%A4%D7%A0%D7%99%D7%9D-%D7%9E%D7%9E%D7%A1%D7%A2%D7%95%D7%AA%D7%99%D7%95-%D7%A9%D7%9C-%D7%9B%D7%AA%D7%91-%D7%91%D7%90%D7%96%D7%95%D7%A8%D7%99-%D7%9E%D7%9C%D7%97%D7%9E%D7%94-3-%D7%9E%D7%A4%D7%92%D7%A9%D7%99%D7%9D-%D7%90%D7%99%D7%AA%D7%99-%D7%90%D7%A0%D7%92%D7%9C",
+   "tickets": null
+  },
+  "venue_id": "v_21c8301b6c"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-25",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-10-25|20:30",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792953000,
+  "title": "סטנדאפ ובניו",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/34801-%D7%A1%D7%98%D7%A0%D7%93%D7%90%D7%A4-%D7%95%D7%91%D7%A0%D7%99%D7%95",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ }
+]

@@ -1,0 +1,494 @@
+[
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-31|12:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 35,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793440800,
+  "title": "פשוט אני: סרטים העוקבים אחרי מסע אישי",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/55272-%D7%A4%D7%A9%D7%95%D7%98-%D7%90%D7%A0%D7%99-%D7%A1%D7%A8%D7%98%D7%99%D7%9D-%D7%94%D7%A2%D7%95%D7%A7%D7%91%D7%99%D7%9D-%D7%90%D7%97%D7%A8%D7%99-%D7%9E%D7%A1%D7%A2-%D7%90%D7%99%D7%A9%D7%99",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנוסף: -העברת השראה חיובית לילדים ולמבוגרים. -תוכלו לשאול את אורי שאלות, והוא יענה לכם באופן אישי על שאלותיכם. - בתום הסיור תהיה לכם הזדמנות לראות במו עיניכם ובזמן אמת מופע בלתי נשכח של אורי, כזה אשר…",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1793449847,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_urigeller_museum_tlv|2026-10-31|13:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793444400,
+  "title": "מוזיאון אורי גלר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7567",
+   "tickets": "https://www.leaan.co.il/events/event/7567"
+  },
+  "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-31|14:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 35,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793448000,
+  "title": "פשוט אנימציה: הקרנת סרטי אנימציה + גלוג: צפיה בסרט האנימציה עטור הפרסים ושיחה עם היוצר",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/55271-%D7%A4%D7%A9%D7%95%D7%98-%D7%90%D7%A0%D7%99%D7%9E%D7%A6%D7%99%D7%94-%D7%94%D7%A7%D7%A8%D7%A0%D7%AA-%D7%A1%D7%A8%D7%98%D7%99-%D7%90%D7%A0%D7%99%D7%9E%D7%A6%D7%99%D7%94-%D7%92%D7%9C%D7%95%D7%92-%D7%A6%D7%A4%D7%99%D7%94-%D7%91%D7%A1%D7%A8%D7%98-%D7%94%D7%90%D7%A0%D7%99%D7%9E%D7%A6%D7%99%D7%94-%D7%A2%D7%98%D7%95%D7%A8",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": "ראשון לציון",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "Urban Music היא מסיבה ב-Altalena St 8, ראשון לציון, ב-31 באוקטובר החל מהשעה 14:00 — מפגש צהריים המיועד לקהל גילאי 26+ עם סאונד מבוסס מערכת ליין אריי, ציליות, טפטפות ופינות ישיבה. הליין אפ של מסיבת Urban Music צפוי להתפרסם בקרוב, כאשר הדגש בהפקה מושם על תנאי רחבה מוצלים וסאונד מוקפד. הכניסה מוגבלת",
+  "drive_approx": false,
+  "drive_min": 38,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_d5c82c169d|2026-10-31|14:00",
+  "lat": 31.9905696,
+  "lon": 34.7627203,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793448000,
+  "title": "Urban Music 31/10",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/urban-music-31-10-2241",
+   "tickets": null
+  },
+  "venue_id": "v_d5c82c169d"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "פֶּלֶא HALLOWEEN היא מסיבת טכנו ב-31 באוקטובר — מפגש שקיעה פתוח שמחבר בין מוזיקה אלקטרונית עמוקה לבריזה מול הים. הערב מתחיל בשעה 17:30 ומציע צלילי techno שנבנים בהדרגה אל תוך הלילה כחלק מסצנת מסיבות גג בישראל. הליין אפ של מסיבת פֶּלֶא HALLOWEEN מפגיש נבחרת תקליטנים שנעה בין צלילים מהפנטים לקטעים עמ",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_5949a3aa29|2026-10-31|17:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793460600,
+  "title": "פֶּלֶא - HALLOWEEN",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/פלא-halloween-2264",
+   "tickets": null
+  },
+  "venue_id": "v_5949a3aa29"
+ },
+ {
+  "city": null,
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "festival",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-31|19:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 35,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793466000,
+  "title": "הקרנבל: הקרנת סרטי התחרות של פסטיבל \"פשוט\" 202",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/55270-%D7%94%D7%A7%D7%A8%D7%A0%D7%91%D7%9C-%D7%94%D7%A7%D7%A8%D7%A0%D7%AA-%D7%A1%D7%A8%D7%98%D7%99-%D7%94%D7%AA%D7%97%D7%A8%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A4%D7%A1%D7%98%D7%99%D7%91%D7%9C-%D7%A4%D7%A9%D7%95%D7%98-202",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": "רעננה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "מופע \"Piano Man\" - הצדעה ל\"בילי ג'ואל\" להקת \"קרניבנד\" המופלאה מגיעה עם מופע מחווה ענק לאומן בילי ג'ואל !!! מופע לייב עצום שלא היה כמותו בישראל לזמר, פסנתרן ומלחין יהודי אמריקאי שנקרא \"בילי ג'ואל\". להקת קרניבנד בכיכובו של הזמר המרגש IDAN TENDLER. מופע חלומי עם העיבודים המקוריים של השירים. שעתיים של עונג אמיתי. מופע מושקע ועם מיטב השירים הכי גדולים והכי אהובים של בילי ג'ואל. בואו לשיר ולהינות איתנו במופע קסום ומחשמל. מבטיחים שתהנו יחד איתנו ולא תצליחו להפסיק לזמזם שירים אהובים אלו הרבה אחרי שההופעה תסתיים. בין השירים שיבוצעו במופע: Honesty * Just The Way You Are * New York State Of Mind * Piano…",
+  "drive_approx": true,
+  "drive_min": 22,
+  "end": 1793478600,
+  "enrichment": [],
+  "expensive": false,
+  "format": "tribute",
+  "free": false,
+  "free_until": null,
+  "id": "v_beit_yad_labanim_raanana|2026-10-31|20:30",
+  "lat": 32.1860244,
+  "lon": 34.8678359,
+  "notable": false,
+  "notes": [],
+  "price_from": 125,
+  "price_max": null,
+  "scene": [
+   "מופע מחווה"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793471400,
+  "title": "קרניבנד במחווה לבילי ג'ואל",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/5816",
+   "tickets": "https://www.leaan.co.il/events/event/5816"
+  },
+  "venue_id": "v_beit_yad_labanim_raanana"
+ },
+ {
+  "city": "אור עקיבא",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "שושנה – בכיכובה של גל דה פז ״שושנה״ - הוא מחזמר ישראלי חדש ומרגש, המבוסס על סיפור חייה ושיריה של מלכת הזמר העברי שושנה דמארי. ההצגה מספרת על הדרך הקשה והמפרכת שעברה מילדותה בתימן עלייתה לארץ בדרך חתחתים , עזיבת בית הוריה , נישואיה ועד שהפכה לאחת הזמרות הגדולות והאהובות בכל הזמנים. לאורך המחזמר משולבים להיטיה הגדולים של שושנה דמארי, במופע מוזיקלי סוחף עם תזמורת חיה ורגעים דרמטיים ומרגשים עם הרבה הומור וקסם ישראלי. רשימת השירים במחזמר: כלניות, שני שושנים, החמור הקטן בלעם, רכב אש, היו זמנים, אור, יא אמי יא אבי, לשיר איתך, צריך לצלצל פעמיים, בכרמי תימן וכל להיטיה הגדולים של שושנה דמארי. כתיבה…",
+  "drive_approx": true,
+  "drive_min": 22,
+  "end": 1793478600,
+  "enrichment": [],
+  "expensive": true,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_heichal_tarbut_or_akiva|2026-10-31|20:30",
+  "lat": 32.5090151,
+  "lon": 34.9195677,
+  "notable": true,
+  "notes": [],
+  "price_from": 199,
+  "price_max": 199,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793471400,
+  "title": "שושנה - בכיכובה של גל דה פז",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7375",
+   "tickets": "https://www.leaan.co.il/events/event/7375"
+  },
+  "venue_id": "v_heichal_tarbut_or_akiva"
+ },
+ {
+  "city": "פתח תקווה",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "קומדיה מטורפת בכיכובו של יגאל עדיקא, שצוחקת על כל מה שהולך לקרות לזוגיות שלנו בעידן ה AI. גבר שנימצא בהליכי פרידה מאשתו, מחליט לרכוש לעצמו אשה מכאנית שמבוססת על בינה מלאכותית. אחת כזו שרק תשמח אותו, שתעשה כל מה שהוא רוצה ובעיקר לא תתלונן כל היום. אך המציאות יוצאת מכלל שליטה, והאשה המלאכותית מטריפה את כל מי שנימצא בסביבה. משתתפים: יגאל עדיקא, דין הפנר, שרון מלכי, פיני טבגר, מיכאל וילוז׳ני. מאת: עוזי וייל ורוני סיני בימוי: אריק אביגדור תאורה: זיו וולושין תפאורה: במבי פרידמן תלבושות: לי אביטל קרדיט צילום : פיני סילוק",
+  "drive_approx": true,
+  "drive_min": 34,
+  "end": 1793478600,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_heichal_tarbut_petah_tikva|2026-10-31|20:30",
+  "lat": 32.0877639,
+  "lon": 34.8859985,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793471400,
+  "title": "זוגיות AI",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7098",
+   "tickets": "https://www.leaan.co.il/events/event/7098"
+  },
+  "venue_id": "v_heichal_tarbut_petah_tikva"
+ },
+ {
+  "city": "נווה ירק",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "אסף מור יוסף בסטנדאפ אסף מור יוסף במופע סטנדאפ אסף מור יוסף הוא אחד השמות החמים בסצינת הסטנד אפ המבעבעת. סטנדאפיסט שנון מקורי וקורע מצחוק! אסף מחליף מימיקות בקצב מסחרר ומעביר את הקהל חוויה קומית עוצמתית שקורעת מצחוק! משך המופע: כשעה ורבע קרדיט צילום: רונן פדידה",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": 1793480400,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_92691db17c|2026-10-31|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": 149,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793473200,
+  "title": "אסף מור יוסף במופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7360",
+   "tickets": "https://www.leaan.co.il/events/event/7360"
+  },
+  "venue_id": "v_92691db17c"
+ },
+ {
+  "city": "נתניה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "יש אנשים שלא צריך להציג - שלומי קוריאט הוא אחד כזה! ועכשיו הוא חוזר עם מופע סטנד אפ חדש, שנון וחושפני שלא דופק חשבון לאף אחד ובעיקר מצחיק בטירוף! שלומי מביא לבמה את החוויה האישית שלו ובעצם של כולנו מחיי הנישואין, זוגיות, הורות, ילדים ובכלל מהאבחנות הקטנות והמדויקות של חיי היום יום והכל בדרכו המיוחדת עם המון חן אישי, קצב ואנרגיה מטורפת מופע מצחיק ומומלץ! המופע מיועד לגילאי 18 ומעלה כרטיסים להופעות סטנדאפ של שלומי קוריאט - לצפייה בלוח המלא לחצו כאן",
+  "drive_approx": true,
+  "drive_min": 0,
+  "end": 1793480400,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_heichal_spi_rivlin_netanya|2026-10-31|21:00",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "notable": true,
+  "notes": [],
+  "price_from": 115,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793473200,
+  "title": "שלומי קוריאט",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6541",
+   "tickets": "https://www.leaan.co.il/events/event/6541"
+  },
+  "venue_id": "v_heichal_spi_rivlin_netanya"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-31",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-10-31|21:30",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "פופ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793475000,
+  "title": "GAGAWEEN- 100% GAGA HALLOWEEN",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/48786-gagaween-100-gaga-halloween",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ }
+]

@@ -1,0 +1,35 @@
+name: העדפה
+description: כלל הצגה או הסתרה שנשמר ב-prefs.json
+title: "[העדפה] "
+labels: ["intake", "intake:prefs"]
+body:
+  - type: dropdown
+    id: prefs-kind
+    attributes:
+      label: סוג הכלל
+      options:
+        - לא להציג
+        - תמיד להציג
+    validations:
+      required: true
+  - type: input
+    id: prefs-venue
+    attributes:
+      label: שם המקום
+      description: שם המקום כפי שהוא מופיע באתר
+  - type: input
+    id: prefs-city
+    attributes:
+      label: עיר
+      placeholder: תל אביב
+  - type: input
+    id: prefs-artist
+    attributes:
+      label: אמן או שם מופע
+      description: התאמה מדויקת לשם המופע
+  - type: textarea
+    id: prefs-reason
+    attributes:
+      label: למה
+      description: משפט קצר שיסביר את הכלל
+      render: text

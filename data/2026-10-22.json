@@ -1,0 +1,870 @@
+[
+ {
+  "city": "גבעתיים",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_bb07bbf590|2026-10-22|20:00",
+  "lat": 32.0671919,
+  "lon": 34.8039491,
+  "notable": false,
+  "notes": [],
+  "price_from": 90,
+  "price_max": 110,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792688400,
+  "title": "הללויה לעולם -קובי אשרת",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/61791-%D7%94%D7%9C%D7%9C%D7%95%D7%99%D7%94-%D7%9C%D7%A2%D7%95%D7%9C%D7%9D-%D7%A7%D7%95%D7%91%D7%99-%D7%90%D7%A9%D7%A8%D7%AA",
+   "tickets": null
+  },
+  "venue_id": "v_bb07bbf590"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_d38eacf6c2|2026-10-22|20:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 95,
+  "scene": [
+   "ג׳אז"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792688400,
+  "title": "גיא מינטוס טריו: מסע בין עולמות",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/1395-%D7%92%D7%99%D7%90-%D7%9E%D7%99%D7%A0%D7%98%D7%95%D7%A1-%D7%98%D7%A8%D7%99%D7%95-%D7%9E%D7%A1%D7%A2-%D7%91%D7%99%D7%9F-%D7%A2%D7%95%D7%9C%D7%9E%D7%95%D7%AA",
+   "tickets": null
+  },
+  "venue_id": "v_d38eacf6c2"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_e020b6967e|2026-10-22|20:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 100,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792688400,
+  "title": "יונתן אבישי",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/1393-%D7%99%D7%95%D7%A0%D7%AA%D7%9F-%D7%90%D7%91%D7%99%D7%A9%D7%99",
+   "tickets": null
+  },
+  "venue_id": "v_e020b6967e"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_e96ecd303e|2026-10-22|20:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792688400,
+  "title": "אמרג'ם, ליין הג'ם של אלי",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/44568-%D7%90%D7%9E%D7%A8%D7%92%D7%9D-%D7%9C%D7%99%D7%99%D7%9F-%D7%94%D7%92%D7%9D-%D7%A9%D7%9C-%D7%90%D7%9C%D7%99",
+   "tickets": null
+  },
+  "venue_id": "v_e96ecd303e"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": true,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_8f755e0a71|2026-10-22|20:15",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 199,
+  "price_max": 499,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792689300,
+  "title": "NEXT - אין מופע כזה!",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/60862-next-%D7%90%D7%99%D7%9F-%D7%9E%D7%95%D7%A4%D7%A2-%D7%9B%D7%96%D7%94",
+   "tickets": null
+  },
+  "venue_id": "v_8f755e0a71"
+ },
+ {
+  "city": null,
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_21b7ba984b|2026-10-22|20:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792690200,
+  "title": "אפס ביחסי אנוש - אירוע Sing along",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/25660-%D7%90%D7%A4%D7%A1-%D7%91%D7%99%D7%97%D7%A1%D7%99-%D7%90%D7%A0%D7%95%D7%A9-%D7%90%D7%99%D7%A8%D7%95%D7%A2-sing-along",
+   "tickets": null
+  },
+  "venue_id": "v_21b7ba984b"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_28eaf5467c|2026-10-22|20:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "רוק"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792690200,
+  "title": "שלום חנוך עם משה לוי ועומרי אגמון - \"יציאה\"",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/61858-%D7%A9%D7%9C%D7%95%D7%9D-%D7%97%D7%A0%D7%95%D7%9A-%D7%A2%D7%9D-%D7%9E%D7%A9%D7%94-%D7%9C%D7%95%D7%99-%D7%95%D7%A2%D7%95%D7%9E%D7%A8%D7%99-%D7%90%D7%92%D7%9E%D7%95%D7%9F-%D7%99%D7%A6%D7%99%D7%90%D7%94",
+   "tickets": null
+  },
+  "venue_id": "v_28eaf5467c"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": 31,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_9361d5f4a3|2026-10-22|20:30",
+  "lat": 32.0494956,
+  "lon": 34.7891323,
+  "notable": false,
+  "notes": [],
+  "price_from": 99,
+  "price_max": 179,
+  "scene": [
+   "מחול"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792690200,
+  "title": "SELAS - מופע חדש מבית מיומנה",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/49043-selas-%D7%9E%D7%95%D7%A4%D7%A2-%D7%97%D7%93%D7%A9-%D7%9E%D7%91%D7%99%D7%AA-%D7%9E%D7%99%D7%95%D7%9E%D7%A0%D7%94",
+   "tickets": null
+  },
+  "venue_id": "v_9361d5f4a3"
+ },
+ {
+  "city": "ראשון לציון",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "עופרה מחזמר מרגש בעקבות חייה ושיריה של כוכבת העל הישראלית שכבשה את העולם – עופרה חזה. מילדותה בשכונת התקווה ועד הבמות הגדולות של אירופה, מהצלחות ענק כמו \"תפילה\", \"אם ננעלו\", \"גלבי\" \"חי\" ועד הסיפור האישי שנגע בלב של כולנו – זהו מחזמר שמביא את הפסקול של המדינה אל הבמה, כמו שלא שמעתם מעולם. \" זהו מכתב אהבה לעופרה חזה, דמות שהפכה לסמל, ולפסקול של דור שלם. כתיבה ובימוי: גדי צדקה ומיכל אמדורסקי ניהול מוסיקאלי ועיבודים: גיא מנור ייעוץ מוזיקלי: יהונתן פרלמן הדרכת שחקנים: פנינה ברט צדקה כוריאוגרפיה: מיכל אמדורסקי ע. כוראוגרף : לי – חי דהן עיצוב תפאורה: בנו פרידל עיצוב ועריכת וידאו: אריק אביגדור עיצוב…",
+  "drive_approx": true,
+  "drive_min": 42,
+  "end": 1792697400,
+  "enrichment": [],
+  "expensive": true,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_heichal_tarbut_rishon|2026-10-22|20:30",
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "notable": true,
+  "notes": [],
+  "price_from": 249,
+  "price_max": 249,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1792690200,
+  "title": "עפרה",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6558",
+   "tickets": "https://www.leaan.co.il/events/event/6558"
+  },
+  "venue_id": "v_heichal_tarbut_rishon"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": true,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_4cd9ce27b0|2026-10-22|20:45",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 199,
+  "price_max": 349,
+  "scene": [
+   "מזרחית"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792691100,
+  "title": "דודו אהרון",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/344-%D7%93%D7%95%D7%93%D7%95-%D7%90%D7%94%D7%A8%D7%95%D7%9F",
+   "tickets": null
+  },
+  "venue_id": "v_4cd9ce27b0"
+ },
+ {
+  "city": null,
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_c310b0accd|2026-10-22|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792692000,
+  "title": "רינגו - תיאטרון הקאמרי",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/28898-%D7%A8%D7%99%D7%A0%D7%92%D7%95-%D7%AA%D7%99%D7%90%D7%98%D7%A8%D7%95%D7%9F-%D7%94%D7%A7%D7%90%D7%9E%D7%A8%D7%99",
+   "tickets": null
+  },
+  "venue_id": "v_c310b0accd"
+ },
+ {
+  "city": "יבנה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ השחקן והקומיקאי דניאל סטיופין (אנטולי \"קופה ראשית\") מגיע לקדמת הבמה עם מופע סטנדאפ מיוחד, מרגש וקורע מצחוק. דניאל לוקח את הקהל למסע של לילה אחד מטורף ששינה את חייו מקצה לקצה, מספר על הילדות באוקראינה, על ההצלחה של \"קופה ראשית\", תחושת זרות, חרדות וזוגיות – והכל בתיאטרליות ויכולת הגשה קומית הייחודיות רק לו. משך המופע כ-70 דקות המופע מיועד לגילאי 18 ומעלה כרטיסים להופעות סטנדאפ של דניאל סטיופין - כל התאריכים בלוח המלא",
+  "drive_approx": true,
+  "drive_min": 49,
+  "end": 1792699200,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_cinematheque_yavne|2026-10-22|21:00",
+  "lat": 31.8768863,
+  "lon": 34.7382974,
+  "notable": true,
+  "notes": [],
+  "price_from": 89,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1792692000,
+  "title": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6730",
+   "tickets": "https://www.leaan.co.il/events/event/6730"
+  },
+  "venue_id": "v_cinematheque_yavne"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_f12491f371|2026-10-22|21:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 140,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792692000,
+  "title": "תום יער",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/49049-%D7%AA%D7%95%D7%9D-%D7%99%D7%A2%D7%A8",
+   "tickets": null
+  },
+  "venue_id": "v_f12491f371"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-10-22|21:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "רוק"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792692000,
+  "title": "מסיבת 20 שנה ל-\"THE BLACK PARADE\"",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/4149-%D7%9E%D7%A1%D7%99%D7%91%D7%AA-20-%D7%A9%D7%A0%D7%94-%D7%9C-the-black-parade",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_zionist_america_tlv|2026-10-22|21:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 135,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792692000,
+  "title": "יונתן ברק",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/1358-%D7%99%D7%95%D7%A0%D7%AA%D7%9F-%D7%91%D7%A8%D7%A7",
+   "tickets": null
+  },
+  "venue_id": "v_zionist_america_tlv"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_11095fde4b|2026-10-22|21:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792693800,
+  "title": "תל אביב חוזרת לניינטיז",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/33232-%D7%AA%D7%9C-%D7%90%D7%91%D7%99%D7%91-%D7%97%D7%95%D7%96%D7%A8%D7%AA-%D7%9C%D7%A0%D7%99%D7%99%D7%A0%D7%98%D7%99%D7%96",
+   "tickets": null
+  },
+  "venue_id": "v_11095fde4b"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_5ae7dc2659|2026-10-22|21:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 150,
+  "price_max": 159,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792693800,
+  "title": "Tomer celebrates",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/62340-tomer-celebrates",
+   "tickets": null
+  },
+  "venue_id": "v_5ae7dc2659"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_71a9b6bfe5|2026-10-22|21:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792693800,
+  "title": "דניאל חן",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/65104-%D7%93%D7%A0%D7%99%D7%90%D7%9C-%D7%97%D7%9F",
+   "tickets": null
+  },
+  "venue_id": "v_71a9b6bfe5"
+ },
+ {
+  "city": "אשדוד",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "יש אנשים שלא צריך להציג - שלומי קוריאט הוא אחד כזה! ועכשיו הוא חוזר עם מופע סטנד אפ חדש, שנון וחושפני שלא דופק חשבון לאף אחד ובעיקר מצחיק בטירוף! שלומי מביא לבמה את החוויה האישית שלו ובעצם של כולנו מחיי הנישואין, זוגיות, הורות, ילדים ובכלל מהאבחנות הקטנות והמדויקות של חיי היום יום והכל בדרכו המיוחדת עם המון חן אישי, קצב ואנרגיה מטורפת מופע מצחיק ומומלץ! המופע מיועד לגילאי 18 ומעלה כרטיסים להופעות סטנדאפ של שלומי קוריאט - לצפייה בלוח המלא לחצו כאן",
+  "drive_approx": true,
+  "drive_min": 57,
+  "end": 1792701000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_matnas_dyune_ashdod|2026-10-22|21:30",
+  "lat": 31.7977314,
+  "lon": 34.6529922,
+  "notable": true,
+  "notes": [],
+  "price_from": 115,
+  "price_max": null,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1792693800,
+  "title": "שלומי קוריאט",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6236",
+   "tickets": "https://www.leaan.co.il/events/event/6236"
+  },
+  "venue_id": "v_matnas_dyune_ashdod"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_61d4321fd3|2026-10-22|22:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792695600,
+  "title": "רוני כספי",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/250-%D7%A8%D7%95%D7%A0%D7%99-%D7%9B%D7%A1%D7%A4%D7%99",
+   "tickets": null
+  },
+  "venue_id": "v_61d4321fd3"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-22",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": true,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_a794f8af4d|2026-10-22|22:00",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 174,
+  "price_max": 189,
+  "scene": [
+   "מזרחית"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1792695600,
+  "title": "חיים משה, לילות תל אביב",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/89-%D7%97%D7%99%D7%99%D7%9D-%D7%9E%D7%A9%D7%94-%D7%9C%D7%99%D7%9C%D7%95%D7%AA-%D7%AA%D7%9C-%D7%90%D7%91%D7%99%D7%91",
+   "tickets": null
+  },
+  "venue_id": "v_a794f8af4d"
+ }
+]

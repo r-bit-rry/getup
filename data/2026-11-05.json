@@ -1,0 +1,128 @@
+[
+ {
+  "city": "רחובות",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-05",
+  "desc": "אהבה בהפתעה – קומדיה משפחתית פרועה על אהבה וזהות במהלך ביקור פתע בניו יורק, בן מגלה שהמשפחה שהשאיר מאחור השתנתה – ובגדול. בנו היחיד, נורמן, חי חיים שהוא לא תיאר לעצמו, עם סודות שנשמרו עמוק בארון עם אינטרקומים תקועים, מערכות יחסים מתפוררות, ויפיפיה אחת עם תזמון מושלם – והכל הכל מתערבב בסחרור של צחוק, ואהבה. קומדיה מרגשת ומצחיקה בטירוף – שמוכיחה שאף פעם לא מאוחר לשחרר שליטה, ובעיקר – להתאהב מחדש. יוצרים : בימוי- גדי צדקה, תפאורה- במבי ע פרדימן, תרגום- עמית גור, תאורה- זיו וולשין. משתתפים: טוביה צפיר, יעל עמית,ניר שיבר, אודי רוטשילד ודניאל היב",
+  "drive_approx": false,
+  "drive_min": 50,
+  "end": 1793910600,
+  "enrichment": [],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_67379289bc|2026-11-05|20:30",
+  "lat": 31.9053601,
+  "lon": 34.8237978,
+  "notable": true,
+  "notes": [],
+  "price_from": 139,
+  "price_max": null,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793903400,
+  "title": "אהבה בהפתעה",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7096",
+   "tickets": "https://www.leaan.co.il/events/event/7096"
+  },
+  "venue_id": "v_67379289bc"
+ },
+ {
+  "city": "נס ציונה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-05",
+  "desc": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ השחקן והקומיקאי דניאל סטיופין (אנטולי \"קופה ראשית\") מגיע לקדמת הבמה עם מופע סטנדאפ מיוחד, מרגש וקורע מצחוק. דניאל לוקח את הקהל למסע של לילה אחד מטורף ששינה את חייו מקצה לקצה, מספר על הילדות באוקראינה, על ההצלחה של \"קופה ראשית\", תחושת זרות, חרדות וזוגיות – והכל בתיאטרליות ויכולת הגשה קומית הייחודיות רק לו. משך המופע כ-70 דקות המופע מיועד לגילאי 18 ומעלה כרטיסים להופעות סטנדאפ של דניאל סטיופין - כל התאריכים בלוח המלא",
+  "drive_approx": true,
+  "drive_min": 44,
+  "end": 1793912400,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_b24fc18af1|2026-11-05|21:00",
+  "lat": 31.9295577,
+  "lon": 34.7990609,
+  "notable": true,
+  "notes": [],
+  "price_from": 129,
+  "price_max": 129,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793905200,
+  "title": "דניאל סטיופין (\"קופה ראשית\") - מופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6679",
+   "tickets": "https://www.leaan.co.il/events/event/6679"
+  },
+  "venue_id": "v_b24fc18af1"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-05",
+  "desc": "THURSDAY MOON MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-5 בנובמבר — חוויית open air עם רחבה פתוחה על הים, פתיחת שערים ב-22:30 ו-100% Mainstream. מסיבת THURSDAY MOON MAINSTREAM מביאה ליין אפ קבוע על הבמה המרכזית עם DANINO, RON LEVY, ARIVVA ו-MAX DAVID, בערב של Mainstream ו",
+  "drive_approx": false,
+  "drive_min": 28,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_0fc867be8e|2026-11-05|22:30",
+  "lat": 32.0986505,
+  "lon": 34.775517,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793910600,
+  "title": "THURSDAY MOON | MAINSTREAM | 05.11",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/thursday-moon-mainstream-05-11-1944",
+   "tickets": null
+  },
+  "venue_id": "v_0fc867be8e"
+ }
+]

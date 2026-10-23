@@ -1,0 +1,126 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { relDay, dayLabel, timeRange, startTime, leaveBy, leaveText, endOf, priceLabel, dataAge, opsLine } from '../src/format.js';
+
+const T0 = Date.UTC(2026, 9, 18, 21, 0); // 2026-10-18 21:00Z
+
+test('relDay names the near days and counts the rest', () => {
+  assert.equal(relDay('2026-10-18', '2026-10-18'), 'היום');
+  assert.equal(relDay('2026-10-19', '2026-10-18'), 'מחר');
+  assert.equal(relDay('2026-10-20', '2026-10-18'), 'מחרתיים');
+  assert.equal(relDay('2026-10-23', '2026-10-18'), 'בעוד 5 ימים');
+  assert.equal(relDay('2026-11-30', '2026-10-18'), null);
+});
+
+test('leaveBy subtracts drive time and a 30 minute buffer', () => {
+  // 21:30 Asia/Jerusalem on 2026-10-23 = 18:30Z; 29 min drive + 30 buffer => 20:31 local
+  const start = Math.floor(new Date('2026-10-23T18:30:00Z').getTime() / 1000);
+  assert.equal(leaveBy(start, 29), '20:31');
+});
+
+test('timeRange never renders a negative span', () => {
+  assert.equal(timeRange(T0 / 1000, T0 / 1000 + 7200), '00:00–02:00');
+  assert.equal(timeRange(T0 / 1000, T0 / 1000), '00:00–00:00');
+});
+
+test('startTime renders one clock reading in Asia/Jerusalem', () => {
+  // 2026-10-23T18:30Z = 21:30 Asia/Jerusalem
+  assert.equal(startTime(Math.floor(new Date('2026-10-23T18:30:00Z').getTime() / 1000)), '21:30');
+});
+
+test('priceLabel distinguishes free, paid and unknown', () => {
+  assert.deepEqual(priceLabel({ free: true, price_from: 0 }), { text: 'חינם', kind: 'free' });
+  assert.deepEqual(priceLabel({ price_from: 174 }), { text: '₪174', kind: 'paid' });
+  assert.deepEqual(priceLabel({}), { text: 'מחיר לא ידוע', kind: 'unknown' });
+  assert.deepEqual(priceLabel({ price_from: null }), { text: 'מחיר לא ידוע', kind: 'unknown' });
+});
+
+test('dayLabel is Hebrew and date-stable', () => {
+  assert.equal(dayLabel('2026-10-23'), 'יום שישי, 23 באוקטובר');
+});
+
+test('leaveText gives a started show one line and never invents an end', () => {
+  const now = Date.now();
+  const start = Math.floor(now / 1000) - 600;
+  // running with a published end: the when-cell carries it, so this line is empty
+  assert.equal(leaveText({ start, end: start + 3600, drive_min: 20 }, now), '');
+  // running with no published end: no "עד" hour we do not have
+  const open = leaveText({ start, end: null, drive_min: 20 }, now);
+  assert.equal(open, 'מתקיים כעת');
+  assert.doesNotMatch(open, /עד/);
+  // not started: the leave-by line is still the useful one
+  const later = Math.floor(now / 1000) + 7200;
+  assert.match(leaveText({ start: later, end: later + 3600, drive_min: 20 }, now), /^צא /);
+});
+
+test('an unpinned event says the drive time is unknown instead of inventing one', () => {
+  const later = Math.floor(Date.now() / 1000) + 7200;
+  assert.equal(leaveText({ start: later, end: null, drive_min: null }, Date.now()), 'זמן נסיעה לא ידוע');
+});
+
+test('endOf is an expiry rule only: six hours past a start with no end', () => {
+  assert.equal(endOf({ start: 1000, end: null }), 1000 + 6 * 3600);
+  assert.equal(endOf({ start: 1000, end: 2000 }), 2000);
+});
+
+test('dataAge speaks Hebrew and never goes negative', () => {
+  const now = new Date('2026-10-18T18:00:00Z');
+  assert.equal(dataAge('2026-10-18T15:00:00Z', now), 'עודכן לפני 3 שעות');
+  assert.equal(dataAge('2026-10-18T19:00:00Z', now), 'עודכן עכשיו');
+  assert.equal(dataAge('2026-10-18T17:00:00Z', now), 'עודכן לפני שעה');
+  assert.equal(dataAge('2026-10-18T16:00:00Z', now), 'עודכן לפני שעתיים');
+  assert.equal(dataAge(null, now), '');
+  assert.equal(dataAge(undefined, now), '');
+  assert.equal(dataAge('not a date', now), '');
+});
+
+test('a failed source is named in the footer', () => {
+  assert.equal(
+    opsLine({ sources: { leaan: { status: 'failed' } }, coverage: { checked: 3, missed: [] } }),
+    'מקור שנכשל: leaan',
+  );
+});
+
+test('partial and failed sources share one line with the misses', () => {
+  assert.equal(
+    opsLine({
+      sources: { leaan: { status: 'failed' }, biluim: { status: 'partial' }, popit: { status: 'ok' } },
+      coverage: { checked: 3, missed: [{ venue_id: 'v', name: 'היכל התרבות' }] },
+    }),
+    'מקור שנכשל: leaan · מקור חלקי: biluim · לא נבדקו ב־14 הימים האחרונים: היכל התרבות',
+  );
+});
+
+test('a failure suppresses the all-clear sentence', () => {
+  assert.equal(
+    opsLine({ sources: { popit: { status: 'failed' } }, coverage: { checked: 3, missed: [] } }),
+    'מקור שנכשל: popit',
+  );
+});
+
+test('the all-clear names venues, not sources, and needs every source ok', () => {
+  assert.equal(
+    opsLine({ sources: { leaan: { status: 'ok' }, popit: { status: 'ok' } },
+             coverage: { checked: 3, missed: [] } }),
+    'כל 3 המקומות נבדקו',
+  );
+});
+
+test('an unknown source status is not an all-clear', () => {
+  assert.equal(
+    opsLine({ sources: { x: { status: 'ok-ish' }, y: 'failed' }, coverage: { checked: 3, missed: [] } }),
+    '',
+  );
+});
+
+test('an older index without sources does not claim the coverage was checked', () => {
+  assert.equal(opsLine({}), 'אין מידע על כיסוי המקורות');
+  assert.equal(opsLine({ coverage: { checked: 3, missed: [] } }), '');
+  assert.equal(opsLine({ coverage: { checked: 3, missed: ['שם'] } }),
+    'לא נבדקו ב־14 הימים האחרונים: שם');
+});
+
+test('the page still has the footer slot the writer targets', () => {
+  assert.match(readFileSync(new URL('../index.html', import.meta.url), 'utf8'), /id="coverage"/);
+});

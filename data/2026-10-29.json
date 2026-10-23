@@ -1,0 +1,418 @@
+[
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "NOAM NEHAMIA BIRTHDAY! היא מסיבה במועדון אטלנטה, שדרות שאול המלך 2 בתל אביב, ב-29 באוקטובר בשעה 12:30 — חגיגות יום ההולדת של נועם נחמיה. מסיבת NOAM NEHAMIA BIRTHDAY! מיועדת לקהל בגילאי 18 ומעלה, וניתן להבטיח מקום עם הזמנת כרטיסים ל-NOAM NEHAMIA BIRTHDAY! מראש. --- ביו מקורי חגיגות יום ההולדת של נ",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_afca215078|2026-10-29|12:30",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793269800,
+  "title": "NOAM NEHAMIA BIRTHDAY! 29.10",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/noam-nehamia-birthday-29-10-2254",
+   "tickets": null
+  },
+  "venue_id": "v_afca215078"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנוסף: -העברת השראה חיובית לילדים ולמבוגרים. -תוכלו לשאול את אורי שאלות, והוא יענה לכם באופן אישי על שאלותיכם. - בתום הסיור תהיה לכם הזדמנות לראות במו עיניכם ובזמן אמת מופע בלתי נשכח של אורי, כזה אשר…",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1793295047,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_urigeller_museum_tlv|2026-10-29|18:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793289600,
+  "title": "מוזיאון אורי גלר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7566",
+   "tickets": "https://www.leaan.co.il/events/event/7566"
+  },
+  "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": "חדרה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "אסף מור יוסף במופע סטנדאפ אסף מור יוסף הוא אחד השמות החמים בסצינת הסטנד אפ המבעבעת. סטנדאפיסט שנון מקורי וקורע מצחוק! אסף מחליף מימיקות בקצב מסחרר ומעביר את הקהל חוויה קומית עוצמתית שקורעת מצחוק! משך המופע: כשעה ורבע קרדיט צילום: רונן פדידה כרטיסים להופעות הסטנדאפ של אסף מור יוסף - כל התאריכים בלוח המלא",
+  "drive_approx": false,
+  "drive_min": 17,
+  "end": 1793307600,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_59a4244eda|2026-10-29|21:00",
+  "lat": 32.4392438,
+  "lon": 34.9139189,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": 149,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793300400,
+  "title": "אסף מור יוסף במופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7359",
+   "tickets": "https://www.leaan.co.il/events/event/7359"
+  },
+  "venue_id": "v_59a4244eda"
+ },
+ {
+  "city": "ראשון לציון",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "עידן ניידיץ במופע סטנדאפ חדש! לכל אחד מאיתנו יש סוללה, והחיים… שואבים לנו אותה בלי בושה. עידן ניידיץ חוזר לבמה עם מופע חדש, אישי וחד, שבודק איך ההורות, הזוגיות, וקבוצות הווטסאפ שאף אחד לא ביקש, מרוקנות לנו את הסוללה פיזית ונפשית. זה מופע על החיים עצמם, על ההיגיון העקום שאנחנו מתעקשים לקרוא לו “שגרה”, ועל החיפוש אחר רגע אחד של שקט שיטעין אותנו מחדש, או לפחות ישאיר אותנו קצת פחות מרוקנים",
+  "drive_approx": true,
+  "drive_min": 42,
+  "end": 1793307600,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_99f91d4343|2026-10-29|21:00",
+  "lat": 31.9635712,
+  "lon": 34.8101149,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793300400,
+  "title": "עידן ניידיץ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7052",
+   "tickets": "https://www.leaan.co.il/events/event/7052"
+  },
+  "venue_id": "v_99f91d4343"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "משה אשכנזי (כוכב הסדרות הבלתי נשכחות \"מטומטמת\", \"בשבילה גיבורים עפים\") במופע סטנד אפ מבריק! מסע קורע מצחוק החל מהילדות והחומוס של עכו ועד להורות בתל אביב. משה מביא לבמה את יכולותיו הוירטואוזיות והקומיות כשחקן בנוסף לאבחנות חדות והכל נשזר במדויק במופע מצחיק עד דמעות. כותב ראשי: רן לוי כותבים נוספים: משה אשכנזי ודניאל חן",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1793307600,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_zionist_america_tlv|2026-10-29|21:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793300400,
+  "title": "משה אשכנזי במופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7999",
+   "tickets": "https://www.leaan.co.il/events/event/7999"
+  },
+  "venue_id": "v_zionist_america_tlv"
+ },
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_2fa28ee1b3|2026-10-29|21:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": 76,
+  "price_max": 120,
+  "scene": [
+   "מזרחית"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793302200,
+  "title": "חפלה מרוקאית עם אריק משעלי ולהקתו",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/49471-%D7%97%D7%A4%D7%9C%D7%94-%D7%9E%D7%A8%D7%95%D7%A7%D7%90%D7%99%D7%AA-%D7%A2%D7%9D-%D7%90%D7%A8%D7%99%D7%A7-%D7%9E%D7%A9%D7%A2%D7%9C%D7%99-%D7%95%D7%9C%D7%94%D7%A7%D7%AA%D7%95",
+   "tickets": null
+  },
+  "venue_id": "v_2fa28ee1b3"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "מיקי גבע שורף את הבמה במופע סטנדאפ חדש וקורע ובתוספת מיטב החיקויים כמו שרק הוא יודע. יוצר הסדרות ׳ מלבי אקספרס׳ ו׳נפלת חזק׳, שמככב בימים אלה בהצגה המצליחה צ׳ארלי וחצי, מגיש מופע נקי ואינטילגנטי על החיים שלו ובתוכם החיים של כולנו. אל תפספסו.",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1793309400,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_adb5d182d3|2026-10-29|21:30",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": true,
+  "notes": [],
+  "price_from": 129,
+  "price_max": 129,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793302200,
+  "title": "מיקי גבע",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6139",
+   "tickets": "https://www.leaan.co.il/events/event/6139"
+  },
+  "venue_id": "v_adb5d182d3"
+ },
+ {
+  "city": "חיפה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "אמירם טובים לוקח אתכם למסע מצחיק בזמן מתקופת הילדות ועד זוגיות מופע סטנדאפ שחובה להיות בו. צילום: אושר עדן פשינסקי כרטיסים להופעות הסטנדאפ של אמירם טובים - כל התאריכים בלוח המלא",
+  "drive_approx": true,
+  "drive_min": 53,
+  "end": 1793309400,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_beit_negler_haifa|2026-10-29|21:30",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": 149,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-21",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1793302200,
+  "title": "אמירם טובים סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6265",
+   "tickets": "https://www.leaan.co.il/events/event/6265"
+  },
+  "venue_id": "v_beit_negler_haifa"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "THURSDAY MOON MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-29 באוקטובר — חוויית open air על הים עם רחבה פתוחה, פתיחת שערים ב-22:30 וליין קבוע של 100% Mainstream ו-EDM. מסיבת THURSDAY MOON MAINSTREAM פונה לגילאי 18+. בליין אפ של הערב על הבמה המרכזית: ZALTZ, DOR HADAD, OFEK AS",
+  "drive_approx": false,
+  "drive_min": 28,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_0fc867be8e|2026-10-29|22:30",
+  "lat": 32.0986505,
+  "lon": 34.775517,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1793305800,
+  "title": "THURSDAY MOON | MAINSTREAM | HALLOWEEN 🎃",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/thursday-moon-mainstream-halloween-1943",
+   "tickets": null
+  },
+  "venue_id": "v_0fc867be8e"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-10-29",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-10-29|23:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1793307600,
+  "title": "מילניום האלווין מסיבת שנות ה2000",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/45922-%D7%9E%D7%99%D7%9C%D7%A0%D7%99%D7%95%D7%9D-%D7%94%D7%90%D7%9C%D7%95%D7%95%D7%99%D7%9F-%D7%9E%D7%A1%D7%99%D7%91%D7%AA-%D7%A9%D7%A0%D7%95%D7%AA-%D7%942000",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ }
+]

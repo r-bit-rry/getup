@@ -1,0 +1,334 @@
+[
+ {
+  "city": null,
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-12",
+  "desc": "",
+  "drive_approx": false,
+  "drive_min": null,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_494546a38d|2026-11-12|17:30",
+  "lat": null,
+  "lon": null,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1794497400,
+  "title": "קווים לתולדות הגיהנום, פרופ' אריאל הירשפלד",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/1377-%D7%A7%D7%95%D7%95%D7%99%D7%9D-%D7%9C%D7%AA%D7%95%D7%9C%D7%93%D7%95%D7%AA-%D7%94%D7%92%D7%99%D7%94%D7%A0%D7%95%D7%9D-%D7%A4%D7%A8%D7%95%D7%A4-%D7%90%D7%A8%D7%99%D7%90%D7%9C-%D7%94%D7%99%D7%A8%D7%A9%D7%A4%D7%9C%D7%93",
+   "tickets": null
+  },
+  "venue_id": "v_494546a38d"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-12",
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנוסף: -העברת השראה חיובית לילדים ולמבוגרים. -תוכלו לשאול את אורי שאלות, והוא יענה לכם באופן אישי על שאלותיכם. - בתום הסיור תהיה לכם הזדמנות לראות במו עיניכם ובזמן אמת מופע בלתי נשכח של אורי, כזה אשר…",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1794504647,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_urigeller_museum_tlv|2026-11-12|18:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794499200,
+  "title": "מוזיאון אורי גלר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7965",
+   "tickets": "https://www.leaan.co.il/events/event/7965"
+  },
+  "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-12",
+  "desc": "ברוכים הבאים ל״הקומפלקס״ – מחזמר ישראלי מקורי על התבגרות, חלומות והחיפוש אחר משמעות בעידן ה‑AI. לאחר גיוס המונים והשקה מוצלחת בתיאטרון הבימה, ״לאן״ מביא את המחזמר לבמת תיאטרון האקספו תל‑אביב. טיפול חדשני בבינה מלאכותית מבטיח לנבדקיו לגלות את הייעוד שלהם בחיים בתוך שבוע אחד בלבד. אליס, תום, בר וגבריאל מתנדבים להשתתף בניסוי חדשני, בו הם מתגוררים במשך שבוע במתחם ״הקומפלקס״ תחת שליטתה של חדווא – מערכת AI. בסיום הניסוי מובטח להם לקבל תשובות לכל השאלות שמלוות אותם. המופע משלב חוויה אימרסיבית, מטפלת AI חדשנית, וידאו‑ארט מהשורה הראשונה ופסקול מקורי שישוחרר עם מופע הבכורה.",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1794515400,
+  "enrichment": [
+   "biluim: https://biluim.co.il/events/e/1842-%D7%94%D7%A7%D7%95%D7%9E%D7%A4%D7%9C%D7%A7%D7%A1"
+  ],
+  "expensive": false,
+  "format": "theatre",
+  "free": false,
+  "free_until": null,
+  "id": "v_fab1fa2369|2026-11-12|20:30",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 129,
+  "price_max": 129,
+  "scene": [
+   "תיאטרון"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794508200,
+  "title": "הקומפלקס",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7470",
+   "tickets": "https://www.leaan.co.il/events/event/7470"
+  },
+  "venue_id": "v_fab1fa2369"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-12",
+  "desc": "שראל חוזר לבמה הגדולה – הופעה חגיגית בהאנגר תל אביב. אחרי תקופה של עשייה מוזיקלית מחודשת, הזמר שראל חוזר לקדמת הבמה עם מופע מלא בליווי נגנים, ומציג את השירים המוכרים לצד חומרים חדשים. נוסטלגיה אמיתית שאנחנו אוהבים ולהיטים עדכניים. המופע יתקיים ב־12/11/26 בהאנגר 11",
+  "drive_approx": false,
+  "drive_min": 28,
+  "end": 1794517200,
+  "enrichment": [],
+  "expensive": false,
+  "format": "live_band",
+  "free": false,
+  "free_until": null,
+  "id": "v_59c0596738|2026-11-12|21:00",
+  "lat": 32.098389,
+  "lon": 34.774496,
+  "notable": false,
+  "notes": [],
+  "price_from": 145,
+  "price_max": 145,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794510000,
+  "title": "שראל",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6925",
+   "tickets": "https://www.leaan.co.il/events/event/6925"
+  },
+  "venue_id": "v_59c0596738"
+ },
+ {
+  "city": "חיפה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-12",
+  "desc": "חגית גינזבורג, אשפית האלתורים והמבטא הארגנטינאי, מביאה לבמה סטנדאפ אחר מכל שאתם מכירים, מסע נטול זיעה במסעות חייה עם השם הבלתי נסבל חגית, מחשבות על העולם והחיים, גיל 40, רווקות מאוחרת, חברות עם ילדים, דימוי גוף, בחירות גרועות, סקס כושל, התמכרות לזארה, הורים מטורללים והרבה שיחות ספונטניות עם הקהל. תכינו אדוויל כי למחרת תכאב לכם הלסת מרוב צחוק וגם כי אתם סתם מבוגרים. משך המופע: 90 דקות גילאי 18+ קרדיט לצילום - שריי עוז",
+  "drive_approx": true,
+  "drive_min": 53,
+  "end": 1794517200,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_9030be94d6|2026-11-12|21:00",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794510000,
+  "title": "חגית גינזבורג",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7654",
+   "tickets": "https://www.leaan.co.il/events/event/7654"
+  },
+  "venue_id": "v_9030be94d6"
+ },
+ {
+  "city": "ירושלים",
+  "commitment": "plan_ahead",
+  "crowd": [],
+  "day": "2026-11-12",
+  "desc": "ארז שלם המוכר לכם כארז שלם ! סטנדאפיסט שחקן ויוצר. השתתף וכתב בתוכניות ״הנחלה״, \"צחוק מעבודה״ ועוד תוכניות רבות במהלך השנים. מופיע על במות הסטנד-אפ מעל לעשרים שנה ומשחק במקביל בהצגה ״שוקו וניל ״ ו״זוג משמיים״ כיום רץ עם מופע סטנד-אפ חדש שמשלב בתוכו אלתורים אקטואליה זוגיות ועוד הרבה נושאים. במופע ארז לא מדבר על סקס אלא על מחסור בסקס😝 המופעים מצולמים מתאים לגילאי 18+",
+  "drive_approx": true,
+  "drive_min": 79,
+  "end": 1794519000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_260d836e40|2026-11-12|21:30",
+  "lat": 31.7788472,
+  "lon": 35.2257856,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794511800,
+  "title": "ארז שלם",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6961",
+   "tickets": "https://www.leaan.co.il/events/event/6961"
+  },
+  "venue_id": "v_260d836e40"
+ },
+ {
+  "city": "הוד השרון",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-12",
+  "desc": "מיקי גבע שורף את הבמה במופע סטנדאפ חדש וקורע ובתוספת מיטב החיקויים כמו שרק הוא יודע. יוצר הסדרות ׳ מלבי אקספרס׳ ו׳נפלת חזק׳, שמככב בימים אלה בהצגה המצליחה צ׳ארלי וחצי, מגיש מופע נקי ואינטילגנטי על החיים שלו ובתוכם החיים של כולנו. אל תפספסו.",
+  "drive_approx": false,
+  "drive_min": 23,
+  "end": 1794519000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_2ccb6316ca|2026-11-12|21:30",
+  "lat": 32.1575626,
+  "lon": 34.8958345,
+  "notable": true,
+  "notes": [],
+  "price_from": 129,
+  "price_max": 129,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794511800,
+  "title": "מיקי גבע",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6182",
+   "tickets": "https://www.leaan.co.il/events/event/6182"
+  },
+  "venue_id": "v_2ccb6316ca"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-12",
+  "desc": "THURSDAY MOON MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-12 בנובמבר — חוויית open air על הים עם פתיחת שערים ב-22:30 וליין קבוע של 100% Mainstream. מסיבת THURSDAY MOON MAINSTREAM נשענת על רחבה פתוחה תחת כיפת השמיים, מול הבריזה והגלים, עם Main Stage של Mainstream ו-EDM. בליי",
+  "drive_approx": false,
+  "drive_min": 28,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_0fc867be8e|2026-11-12|22:30",
+  "lat": 32.0986505,
+  "lon": 34.775517,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1794515400,
+  "title": "THURSDAY MOON | MAINSTREAM | 12.11",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/thursday-moon-mainstream-12-11-1947",
+   "tickets": null
+  },
+  "venue_id": "v_0fc867be8e"
+ }
+]

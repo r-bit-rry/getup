@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GetUp — אירועים סביבך</title>
+<meta name="description" content="פורטל אירועים באזור נתניה: מה קורה היום, מחר ובשבוע הקרוב, עם זמני נסיעה, מחירים וקישורים לכרטיסים.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="./assets/maplibre/maplibre-gl.css">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body data-theme="day" data-view="desktop" data-full="0">
+
+<header class="bar">
+  <div class="top">
+    <h1 class="wordmark">Get<span>Up</span></h1>
+    <p class="where"><span aria-hidden="true">📍</span> <strong id="where-centre">נתניה</strong> · <span id="where-drive">עד 45 דק׳ נסיעה</span></p>
+    <button type="button" class="f" id="where-geo" aria-label="איתור המיקום שלי" title="איתור המיקום שלי"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+    <div class="spacer"></div>
+    <div class="seg" role="group" aria-label="ערכת נושא">
+      <button type="button" id="t-day" aria-pressed="true">יום</button>
+      <button type="button" id="t-night" aria-pressed="false">לילה</button>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="seg" role="group" aria-label="טווח תאריכים">
+      <button type="button" data-window="today" aria-pressed="false">היום</button>
+      <button type="button" data-window="tomorrow" aria-pressed="false">מחר</button>
+      <button type="button" data-window="week" aria-pressed="true">השבוע</button>
+      <button type="button" data-window="month" aria-pressed="false">החודש</button>
+    </div>
+
+    <details class="morefilters" id="f-more" open>
+      <summary>סינון <span id="filter-count" class="n"></span></summary>
+      <div class="morefilters-body">
+        <div class="f range">
+          <input type="date" id="f-from" aria-label="מתאריך">
+          <span aria-hidden="true">–</span>
+          <input type="date" id="f-to" aria-label="עד תאריך">
+        </div>
+
+        <button type="button" class="f" id="f-free" aria-pressed="false"><span class="k">מחיר</span> חינם בלבד</button>
+
+        <div class="f">
+          <label class="k" for="f-price">מחיר עד</label>
+          <input type="range" id="f-price" min="40" max="250" step="10" aria-label="מחיר מרבי">
+          <output for="f-price" id="price-out">ללא הגבלה</output>
+        </div>
+
+        <div class="f">
+          <label class="k" for="f-drive">נסיעה</label>
+          <select id="f-drive" aria-label="זמן נסיעה מרבי">
+            <option value="15">עד 15 דק׳</option>
+            <option value="30">עד 30 דק׳</option>
+            <option value="45">עד 45 דק׳</option>
+            <option value="60">עד 60 דק׳</option>
+            <option value="90">עד 90 דק׳</option>
+            <option value="">ללא הגבלה</option>
+          </select>
+        </div>
+
+        <button type="button" class="f" id="f-tickets" aria-pressed="false"><span class="k">כרטיסים</span> יש במלאי</button>
+        <button type="button" class="f" id="f-minor" aria-pressed="false"><span class="k">גיל</span> מתאים לקטינים</button>
+        <button type="button" class="f" id="f-gated" aria-pressed="true">הצג קהילות</button>
+
+        <details class="facets" id="facets-bar">
+          <summary>סצנה וקהל <span id="facet-count" class="n"></span></summary>
+          <div class="facets-body">
+            <div id="facets"></div>
+            <button type="button" class="f" id="f-clear">ניקוי הסינון</button>
+          </div>
+        </details>
+      </div>
+    </details>
+  </div>
+</header>
+
+<main>
+  <div class="listcol">
+    <p id="status" class="sr-only" role="status"></p>
+    <div id="list"></div>
+    <noscript><p class="empty">האתר זקוק ל-JavaScript כדי להציג את האירועים.</p></noscript>
+    <footer class="foot">
+      <span id="data-age"></span> · <span id="coverage"></span>
+    </footer>
+  </div>
+
+  <div class="mapwrap">
+    <div id="map"></div>
+    <p class="mapnote">המפה תופיע כאן</p>
+  </div>
+</main>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+[
+ {
+  "city": "מודיעין מכבים רעות",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-17",
+  "desc": "אסף מור יוסף בסטנדאפ אסף מור יוסף במופע סטנדאפ אסף מור יוסף הוא אחד השמות החמים בסצינת הסטנד אפ המבעבעת. סטנדאפיסט שנון מקורי וקורע מצחוק! אסף מחליף מימיקות בקצב מסחרר ומעביר את הקהל חוויה קומית עוצמתית שקורעת מצחוק! משך המופע: כשעה ורבע קרדיט צילום: רונן פדידה ישיבה סביב שולחנות פתיחת דלתות: 19:30",
+  "drive_approx": false,
+  "drive_min": 53,
+  "end": 1794951000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_04696c6f37|2026-11-17|21:30",
+  "lat": 31.902839,
+  "lon": 35.0092245,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": 149,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1794943800,
+  "title": "אסף מור יוסף במופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/8007",
+   "tickets": "https://www.leaan.co.il/events/event/8007"
+  },
+  "venue_id": "v_04696c6f37"
+ }
+]

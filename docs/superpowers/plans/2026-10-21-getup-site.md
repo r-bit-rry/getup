@@ -165,7 +165,9 @@ git commit -m "feat: project skeleton and pure formatting module"
 
 - [ ] **Step 1: Generate fixtures from the research capture**
 
-Source: `docs/research/2026-10-21/leaan-events.json` and `geo-drive.json`. Select 13 records with distinct titles across ≥8 cities, preserving real titles, venues, prices and drive minutes. Add one Popit free event from `popit.xml` and one record whose fields are almost entirely absent (used by Task 5's sparse test).
+Source: `docs/research/2026-10-21/leaan-events.json` and `geo-drive.json`. Select 13 records with distinct titles across ≥8 cities, preserving real titles, venues, prices and drive minutes. Add one Popit event from `popit.xml`.
+
+**Do not invent data** (controller rulings R-A/R-B): no record may set `free: true` unless the source states it — the capture never does, so the Popit record carries `free: false` and `price_from: null`. Do not manufacture a sparse record by nulling real fields; Task 5 builds its own sparse object inside its test. `expensive` is p90 of the fixture set at `Math.floor(0.9 * n)`, or ≥ ₪200.
 
 Write them into `data/<date>.json` grouped by **the date the event belongs to** — its start date in `Asia/Jerusalem`, except a start between 00:00 and 05:59, which belongs to the previous day (spec §7.4.1). Then write `data/index.json` listing those dates with counts and `generated_at`. Venue identity comes from `venue/venues.json`; do not invent a venue that is not in it.
 
@@ -438,11 +440,13 @@ git commit -m "feat: closed-vocabulary chip rendering"
 - Create: `src/render.js`, `tests/render.test.js`
 
 **Interfaces:**
-- Consumes: `relDay`, `dayLabel`, `timeRange`, `leaveBy`, `priceLabel`, `dataAge` (Task 1); `chipsHTML` (Task 4).
+- Consumes: `relDay`, `dayLabel`, `timeRange`, `startTime`, `leaveBy`, `priceLabel` (Task 1); `chipsHTML` (Task 4).
 - Produces:
-  - `tableHTML(events: Event[], today: string): string`
-  - `cardsHTML(events: Event[], today: string): string`
+  - `tableHTML(events: Event[], today: string, venues: Record<string, Venue>): string`
+  - `cardsHTML(events: Event[], today: string, venues: Record<string, Venue>): string`
   - `emptyHTML(manifest: Manifest, today: string): string`
+
+  **Amended after review (R-D/R-E/R-F):** the location slot renders venue + city + distance from the registry (never `source.name`), each part in `<bdi>`; an unknown `end` renders the start clock alone via `startTime`; cards emit a real `<p class="note">` and the info affordance is a focusable `<button aria-label="מידע נוסף">`; every `href` goes through `safeUrl` (http/https or in-site only).
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -596,7 +600,9 @@ Tokens as CSS custom properties on `:root` and `[data-theme="night"]`, exact val
 
 - [ ] **Step 4: Write `app.js`**
 
-Boot: `loadManifest` → `loadDate` for every manifest date → `loadVenues`, `loadPrefs` → `applyPrefs` → `applyFilters` → `sortEvents` → render into `#list`; paint the footer from `dataAge`. Every filter control writes state through `serializeState` to `localStorage` and re-renders. View toggle flips `document.body.dataset.view`; theme flips `data-theme`.
+Boot: `loadManifest` → `loadDate` for every manifest date → `loadVenues`, `loadPrefs` → `applyPrefs` → `applyFilters` → `sortEvents` → render into `#list`, **passing the venues map as the third argument to `tableHTML`/`cardsHTML`**; paint the footer from `dataAge`.
+
+Build filter state only from `defaultState()` (a partial state silently hides gated events — see the Task 3 ledger note), and wire the info `<button>` so tapping a card reveals its `.note`. Every filter control writes state through `serializeState` to `localStorage` and re-renders. View toggle flips `document.body.dataset.view`; theme flips `data-theme`.
 
 - [ ] **Step 5: Verify by hand**
 

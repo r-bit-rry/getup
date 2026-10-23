@@ -1,0 +1,74 @@
+name: אירוע חדש
+description: הצעה לאירוע שלא מופיע באתר
+title: "[אירוע] "
+labels: ["intake"]
+body:
+  - type: input
+    id: event-title
+    attributes:
+      label: שם האירוע
+      placeholder: ערב ג׳אז
+    validations:
+      required: true
+  - type: input
+    id: event-venue
+    attributes:
+      label: שם המקום
+      description: השם כפי שהוא מופיע אצל המוכר או על השלט
+      placeholder: בית ציוני אמריקה (מאירהוף)
+    validations:
+      required: true
+  - type: input
+    id: event-city
+    attributes:
+      label: עיר
+      placeholder: תל אביב
+    validations:
+      required: true
+  - type: input
+    id: event-date
+    attributes:
+      label: תאריך
+      description: שנה-חודש-יום, למשל 2026-11-14
+      placeholder: "2026-11-14"
+    validations:
+      required: true
+  - type: input
+    id: event-time
+    attributes:
+      label: שעה
+      description: שעה-דקות, למשל 22:00
+      placeholder: "22:00"
+    validations:
+      required: true
+  - type: input
+    id: event-price
+    attributes:
+      label: מחיר
+      description: מספר בשקלים או חינם. ריק אם המחיר לא ידוע
+      placeholder: "80"
+  - type: input
+    id: event-url
+    attributes:
+      label: קישור לאירוע
+      description: הקישור שממנו נלקח המידע. חייב להתחיל ב-https
+      placeholder: https://
+  - type: input
+    id: event-tickets
+    attributes:
+      label: קישור לכרטיסים
+      description: רק אם יש עמוד כרטיסים נפרד מעמוד האירוע
+      placeholder: https://
+  - type: checkboxes
+    id: event-gated
+    attributes:
+      label: קהילה סגורה (קישור לקבוצה)
+      description: סמן רק אם הקישור הוא לקבוצה סגורה ולא לאירוע פתוח
+      options:
+        - label: קהילה סגורה (קישור לקבוצה)
+  - type: textarea
+    id: event-desc
+    attributes:
+      label: תיאור
+      description: שורה או שתיים על האירוע, בלי קישורים
+      render: text

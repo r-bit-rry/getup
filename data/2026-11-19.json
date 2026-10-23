@@ -1,0 +1,336 @@
+[
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-19",
+  "desc": "המוזיאון מציג אוסף לא יאומן של פריטים מקוריים בבעלות אורי. מבקרים יכולים לראות מקרוב חפצים שהתעקמו ע\"י אורי, מתנות מסלבריטאים מפורסמים ברחבי העולם ומגוון פריטים מיוחדים במינם שנאספו לאורך הקריירה של אורי הכוללים גם את ה\"קאדילק\" מכוסה הכפיות האייקוני של אורי, יש גם את האופציה לקחת תמונות - וכאשר כל הסיורים נעשים על ידי אורי בעצמו תוכלו לפגוש אותו. מלבד הסיור המרתק שאורי עצמו מעביר באופן אישי, יש בנוסף: -העברת השראה חיובית לילדים ולמבוגרים. -תוכלו לשאול את אורי שאלות, והוא יענה לכם באופן אישי על שאלותיכם. - בתום הסיור תהיה לכם הזדמנות לראות במו עיניכם ובזמן אמת מופע בלתי נשכח של אורי, כזה אשר…",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1795109447,
+  "enrichment": [],
+  "expensive": false,
+  "format": "unknown",
+  "free": false,
+  "free_until": null,
+  "id": "v_urigeller_museum_tlv|2026-11-19|18:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": 80,
+  "price_max": 80,
+  "scene": [],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1795104000,
+  "title": "מוזיאון אורי גלר",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7967",
+   "tickets": "https://www.leaan.co.il/events/event/7967"
+  },
+  "venue_id": "v_urigeller_museum_tlv"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-19",
+  "desc": "המופע של עידן אלתרמן הוא חוויה ייחודית שמשלבת הומור חד, סיפורים מרגשים ומוזיקה חיה שנוגעת בלב. מופע זה מתאים לכל מי שאוהב לצחוק וליהנות מערב תרבותי ומבדר. מושלם לקהל הרחב ולכל המשפחה. כרטיסים להופעות סטנדאפ של עידן אלתרמן - לצפייה בלוח המלא לחצו כאן",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": 1795120200,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-11-19|20:30",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": true,
+  "notes": [],
+  "price_from": 129,
+  "price_max": 129,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1795113000,
+  "title": "עידן אלתרמן",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7370",
+   "tickets": "https://www.leaan.co.il/events/event/7370"
+  },
+  "venue_id": "v_ozen_tlv"
+ },
+ {
+  "city": "נתניה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-19",
+  "desc": "חגית גינזבורג, אשפית האלתורים והמבטא הארגנטינאי, מביאה לבמה סטנדאפ אחר מכל שאתם מכירים, מסע נטול זיעה במסעות חייה עם השם הבלתי נסבל חגית, מחשבות על העולם והחיים, גיל 40, רווקות מאוחרת, חברות עם ילדים, דימוי גוף, בחירות גרועות, סקס כושל, התמכרות לזארה, הורים מטורללים והרבה שיחות ספונטניות עם הקהל. תכינו אדוויל כי למחרת תכאב לכם הלסת מרוב צחוק וגם כי אתם סתם מבוגרים. משך המופע: 90 דקות גילאי 18+ קרדיט לצילום - שריי עוז",
+  "drive_approx": true,
+  "drive_min": 0,
+  "end": 1795122000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_2d907dc232|2026-11-19|21:00",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1795114800,
+  "title": "חגית גינזבורג",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7653",
+   "tickets": "https://www.leaan.co.il/events/event/7653"
+  },
+  "venue_id": "v_2d907dc232"
+ },
+ {
+  "city": "חיפה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-19",
+  "desc": "עידן ניידיץ במופע סטנדאפ חדש! לכל אחד מאיתנו יש סוללה, והחיים… שואבים לנו אותה בלי בושה. עידן ניידיץ חוזר לבמה עם מופע חדש, אישי וחד, שבודק איך ההורות, הזוגיות, וקבוצות הווטסאפ שאף אחד לא ביקש, מרוקנות לנו את הסוללה פיזית ונפשית. זה מופע על החיים עצמם, על ההיגיון העקום שאנחנו מתעקשים לקרוא לו “שגרה”, ועל החיפוש אחר רגע אחד של שקט שיטעין אותנו מחדש, או לפחות ישאיר אותנו קצת פחות מרוקנים",
+  "drive_approx": true,
+  "drive_min": 53,
+  "end": 1795122000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_beit_negler_haifa|2026-11-19|21:00",
+  "lat": 32.8191218,
+  "lon": 34.9983856,
+  "notable": true,
+  "notes": [],
+  "price_from": 119,
+  "price_max": 119,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1795114800,
+  "title": "עידן ניידיץ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7039",
+   "tickets": "https://www.leaan.co.il/events/event/7039"
+  },
+  "venue_id": "v_beit_negler_haifa"
+ },
+ {
+  "city": "נתניה",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-19",
+  "desc": "אסף מור יוסף בסטנדאפ אסף מור יוסף במופע סטנדאפ אסף מור יוסף הוא אחד השמות החמים בסצינת הסטנד אפ המבעבעת. סטנדאפיסט שנון מקורי וקורע מצחוק! אסף מחליף מימיקות בקצב מסחרר ומעביר את הקהל חוויה קומית עוצמתית שקורעת מצחוק! משך המופע: כשעה ורבע קרדיט צילום: רונן פדידה",
+  "drive_approx": true,
+  "drive_min": 0,
+  "end": 1795122000,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_d493f3d97a|2026-11-19|21:00",
+  "lat": 32.3286181,
+  "lon": 34.8566246,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": 149,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1795114800,
+  "title": "אסף מור יוסף במופע סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/6951",
+   "tickets": "https://www.leaan.co.il/events/event/6951"
+  },
+  "venue_id": "v_d493f3d97a"
+ },
+ {
+  "city": "הוד השרון",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-19",
+  "desc": "אמירם טובים לוקח אתכם למסע מצחיק בזמן מתקופת הילדות ועד זוגיות מופע סטנדאפ שחובה להיות בו. צילום: אושר עדן פשינסקי כרטיסים להופעות הסטנדאפ של אמירם טובים - כל התאריכים בלוח המלא",
+  "drive_approx": false,
+  "drive_min": 23,
+  "end": 1795123800,
+  "enrichment": [],
+  "expensive": false,
+  "format": "standup",
+  "free": false,
+  "free_until": null,
+  "id": "v_2ccb6316ca|2026-11-19|21:30",
+  "lat": 32.1575626,
+  "lon": 34.8958345,
+  "notable": true,
+  "notes": [],
+  "price_from": 149,
+  "price_max": 149,
+  "scene": [
+   "סטנדאפ"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "ticketing",
+   "name": "leaan"
+  },
+  "start": 1795116600,
+  "title": "אמירם טובים סטנדאפ",
+  "urls": {
+   "community": null,
+   "source": "https://www.leaan.co.il/events/event/7104",
+   "tickets": "https://www.leaan.co.il/events/event/7104"
+  },
+  "venue_id": "v_2ccb6316ca"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-19",
+  "desc": "THURSDAY MOON MAINSTREAM היא מסיבת מיינסטרים בינלאומי בנמל תל אביב, תל אביב-יפו, ב-19 בנובמבר — ערב open air עם רחבה פתוחה על הים, פתיחת שערים ב-22:30 וקו מוזיקלי של 100% Mainstream. מסיבת THURSDAY MOON MAINSTREAM נשענת על ליין קבוע של Mainstream ו-EDM עם IDO YOSEF, SEAN ALONI, DOR HADAD ו-MAX DAVI",
+  "drive_approx": false,
+  "drive_min": 28,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_0fc867be8e|2026-11-19|22:30",
+  "lat": 32.0986505,
+  "lon": 34.775517,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "nightlife",
+   "name": "popit"
+  },
+  "start": 1795120200,
+  "title": "THURSDAY MOON | MAINSTREAM | 19.11",
+  "urls": {
+   "community": null,
+   "source": "https://popit.events/event/thursday-moon-mainstream-19-11-1948",
+   "tickets": null
+  },
+  "venue_id": "v_0fc867be8e"
+ },
+ {
+  "city": "תל אביב",
+  "commitment": "jump_in",
+  "crowd": [],
+  "day": "2026-11-19",
+  "desc": "",
+  "drive_approx": true,
+  "drive_min": 29,
+  "end": null,
+  "enrichment": [],
+  "expensive": false,
+  "format": "dj_set",
+  "free": false,
+  "free_until": null,
+  "id": "v_ozen_tlv|2026-11-19|23:00",
+  "lat": 32.0852997,
+  "lon": 34.7818064,
+  "notable": false,
+  "notes": [],
+  "price_from": null,
+  "price_max": null,
+  "scene": [
+   "אלקטרונית/טכנו"
+  ],
+  "seen": {
+   "first": "2026-10-22",
+   "last": "2026-10-22"
+  },
+  "soldout": false,
+  "source": {
+   "class": "aggregator",
+   "name": "biluim"
+  },
+  "start": 1795122000,
+  "title": "SWAMP RAVE TEL AVIV",
+  "urls": {
+   "community": null,
+   "source": "https://biluim.co.il/events/e/48787-swamp-rave-tel-aviv",
+   "tickets": null
+  },
+  "venue_id": "v_ozen_tlv"
+ }
+]

@@ -21,6 +21,10 @@ CITY_FIX = {
     'פתח תקוה': 'פתח תקווה',
 }
 
+# A city a venue name states that the capture has no centroid for: the name still places it,
+# the centroid shortcut cannot, and geo.fill geocodes it like any other venue.
+NAME_ONLY_CITIES = ('רמת השרון',)
+
 NIQQUD = re.compile('[\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7]')
 QUOTES = str.maketrans({'״': '"', '”': '"', '“': '"', '„': '"',
                         '׳': "'", '’': "'", '‘': "'"})
@@ -35,7 +39,7 @@ def known_cities() -> frozenset:
         data = write.read_json(CITY_CAPTURE, {}) or {}
         geo = data.get('geo') if isinstance(data, dict) else None
         _known = frozenset(map(norm_city, geo if isinstance(geo, dict) else ())) \
-            | frozenset(CITY_FIX.values())
+            | frozenset(CITY_FIX.values()) | frozenset(NAME_ONLY_CITIES)
     return _known
 
 
@@ -77,6 +81,26 @@ def strip_city_suffix(venue, city) -> str:
     if tail and (tail == norm_city(city) or tail in known_cities()):
         return head
     return text
+
+
+def city_in_name(venue) -> str:
+    """A known city spelled as the last words of the venue name: ``זאפה תל אביב`` is Tel Aviv.
+
+    Longest suffix wins, so ``תל אביב`` is not read as a city that happens to be its last word.
+    The name keeps the city: only the city slot gains it.
+    """
+    forms = {}
+    for city in known_cities():
+        key = tuple(norm_name(city).split())
+        if key:
+            forms.setdefault(key, city)
+    if not forms:
+        return ''
+    tokens = norm_name(venue).split()
+    for size in range(min(len(tokens), max(map(len, forms))), 0, -1):
+        if tuple(tokens[-size:]) in forms:
+            return forms[tuple(tokens[-size:])]
+    return ''
 
 
 def provisional_id(name, city) -> str:
@@ -145,6 +169,8 @@ def _read(venue, city):
         _, sep, tail = name.rpartition(', ')
         if sep and norm_city(tail) in known_cities():
             place = norm_city(tail)
+    if place not in known_cities():     # an absent or unplaceable city may be spelled in the name
+        place = city_in_name(name) or place
     return name, place, [name, strip_city_suffix(name, place)]
 
 
@@ -180,6 +206,15 @@ def resolve(registry: dict, venue, city) -> str | None:
     if read is None:
         return None
     name, place, _ = read
+    if place and city_in_name(name) == place:
+        # A city the name just proved: a cityless entry of that name gains it rather than a twin,
+        # so the ids the events already carry keep pointing at the same hall.
+        cityless = [venue_id for venue_id, entry in registry.items()
+                    if not norm_city(entry.get('city'))
+                    and norm_name(entry.get('name')) == norm_name(name)]
+        if len(cityless) == 1:
+            registry[cityless[0]]['city'] = place
+            return cityless[0]
     return _provision(registry, name, place)
 
 

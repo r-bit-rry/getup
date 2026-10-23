@@ -130,7 +130,7 @@
   }
  ],
  "dropped_no_venue": 23,
- "generated_at": "2026-10-23T13:01:49Z",
+ "generated_at": "2026-10-23T13:10:16Z",
  "sources": {
   "biluim": {
    "count": 65,
@@ -148,5 +148,5 @@
    "status": "ok"
   }
  },
- "unpinned": 41
+ "unpinned": 32
 }

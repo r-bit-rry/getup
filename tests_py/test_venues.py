@@ -212,6 +212,37 @@ class FindTest(unittest.TestCase):
         self.assertEqual(len(reg), before)          # a prefs lookup must never curate the registry
 
 
+class CityInNameTest(unittest.TestCase):
+    """A city the source put in the venue name instead of the city slot."""
+
+    def resolve(self, name, city=None):
+        reg = {}
+        return reg, venues.resolve(reg, name, city)
+
+    def test_a_trailing_city_in_the_venue_name_is_the_city(self):
+        for name, place in (('זאפה תל אביב', 'תל אביב'),
+                            ('צוותא תל אביב', 'תל אביב'),
+                            ('בית יד לבנים רמת השרון', 'רמת השרון')):
+            reg, vid = self.resolve(name)
+            self.assertEqual(reg[vid]['city'], place, name)
+            self.assertEqual(reg[vid]['name'], name)     # published name keeps the city
+
+    def test_a_venue_with_no_city_in_its_name_stays_unpinned(self):
+        reg, vid = self.resolve('היכל התרבות')
+        self.assertEqual(reg[vid]['city'], '')
+        self.assertIsNone(reg[vid]['lat'])
+        self.assertEqual(reg[vid]['coords_source'], 'unresolved')
+
+    def test_a_tail_that_is_not_a_known_city_is_still_not_a_city(self):
+        reg, vid = self.resolve('אולם בר-אוריין, קשת אילון')
+        self.assertEqual(reg[vid]['name'], 'אולם בר-אוריין, קשת אילון')
+        self.assertEqual(reg[vid]['city'], '')
+
+    def test_an_explicit_city_is_not_overridden_by_the_name(self):
+        reg, vid = self.resolve('זאפה תל אביב', 'חיפה')
+        self.assertEqual(reg[vid]['city'], 'חיפה')
+
+
 class RegistryTest(unittest.TestCase):
     def test_the_registry_city_wins_and_the_draft_city_is_the_fallback(self):
         reg = venues.load(ROOT)

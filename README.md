@@ -68,20 +68,20 @@ gh label create needs-info
 gh label create "intake:prefs"
 ```
 
-Daily, after the scan. The poll needs the repo and a token (`gh auth token`
+Daily, one command. The poll needs the repo and a token (`gh auth token`
 prints one):
 
 ```sh
 export GETUP_REPO=owner/name
 export GETUP_GITHUB_TOKEN=...
-PYTHONPATH=. python3 -m tools.getup build
-PYTHONPATH=. python3 -m tools.getup intake
-git add data prefs.json && git commit -m "data: daily poll" && git push
+scripts/daily.sh --dry-run   # four steps, prints what it would stage
+scripts/daily.sh             # intake → build → coverage → archive → commit → push
 ```
 
 The poll only edits the working tree: the page changes when its output is
-committed and pushed. `intake` writes drafts, not day files, so if it runs after
-`build`, the new event first appears on the next day's build — a day later.
+committed and pushed, which is what the script does. `intake` runs before
+`build`, so a new event appears on the same day. Scheduling it on the phone,
+and what a failure looks like, is in `docs/operations.md`.
 
 To correct a processed issue, remove its `processed` label and edit the body; the
 next poll replaces that issue's draft, or its prefs rule, and the build puts the

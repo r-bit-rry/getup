@@ -1,12 +1,13 @@
 # GetUp — Design
 
 Date: 2026-10-18
-Status: DRAFT for approval. Supersedes nothing.
+Status: APPROVED and deployed 2026-10-23. Supersedes nothing. Amendments made after
+approval are recorded in "As built — deviations from this document" at the end.
 Scope: v1, personal radar. Everything here was decided in a brainstorming session on
 2026-10-18; the decisions are also recorded as ADRs in `docs/adr/`. Where this document
 and an ADR disagree, the ADR is newer and wins.
 
-> **Status:** deployed 2026-10-23 at https://r-bit-rry.github.io/getup/ (GitHub Pages,
+> **Deployed:** 2026-10-23 at https://r-bit-rry.github.io/getup/ (GitHub Pages,
 > `main` / root, no build step; repo `r-bit-rry/getup`, public). 141 client tests,
 > 284 Python tests (2 live-gated). Live data: 31 dates, 155 events, 147 venues; sources
 > `leaan`, `popit`, `biluim` all `ok`. The daily schedule is not installed. What shipped

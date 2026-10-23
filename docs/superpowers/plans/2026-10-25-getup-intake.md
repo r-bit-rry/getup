@@ -1,5 +1,9 @@
 # GetUp Intake and Ops Implementation Plan
 
+**Status: executed** — intake + ops, in the same merged history `0506b55..d552d02`.
+Final: **284** Python tests and **141** client tests, all passing. Task bodies below are
+the plan as written, not a report.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Turn a GitHub issue into one canonical event record (or one preference rule, or one source request) exactly once, with the `author_association` guard, a receipt comment and the `processed`/`needs-info` labels; keep a human record authoritative over every scan; and surface failed sources and coverage misses as one quiet Hebrew footer line.

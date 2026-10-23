@@ -4,6 +4,7 @@
 - **Date:** 2026-10-18
 - **Supersedes:** —
 - **Superseded by:** —
+- **Confirmed:** 2026-10-23 — live on GitHub Pages from `main` root, no build step.
 
 ## Context
 

@@ -1,5 +1,9 @@
 # GetUp Site Implementation Plan
 
+**Status: executed** — the client, completed in branch `feat/getup-site` and merged as
+PR #1 (`748f08e`); history `0506b55..d552d02`. Final: **141** client tests
+(`node --test`), all passing. Task bodies below are the plan as written, not a report.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Ship the GetUp portal as a dependency-free static site that renders real event data from committed JSON — table + map on desktop, one card per event on mobile.

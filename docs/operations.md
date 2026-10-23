@@ -8,6 +8,12 @@ Python that is already on the phone.
 Intake runs first so a new issue is placed by the build that follows it, on the
 same day.
 
+## Deployed
+
+Live at https://r-bit-rry.github.io/getup/, served by GitHub Pages from `main` /
+root (repo `r-bit-rry/getup`, public). No build step and no CI workflow: a push to
+`main` is the deploy.
+
 ## Termux
 
 ```sh
@@ -40,6 +46,10 @@ Optional: `GETUP_ROOT` (default: the repo containing the script), `GETUP_PYTHON`
 (default `python3`).
 
 ## Schedule
+
+**Remaining step.** The schedule below is not installed on the host yet; until it
+is, nothing runs the script and the site only changes when someone runs it by
+hand.
 
 `termux-job-scheduler` is the preferred trigger: Android may kill a `crond` in
 the background, and the job scheduler survives reboots with `--persisted`.

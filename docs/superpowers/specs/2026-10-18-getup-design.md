@@ -6,6 +6,13 @@ Scope: v1, personal radar. Everything here was decided in a brainstorming sessio
 2026-10-18; the decisions are also recorded as ADRs in `docs/adr/`. Where this document
 and an ADR disagree, the ADR is newer and wins.
 
+> **Status:** deployed 2026-10-23 at https://r-bit-rry.github.io/getup/ (GitHub Pages,
+> `main` / root, no build step; repo `r-bit-rry/getup`, public). 141 client tests,
+> 284 Python tests (2 live-gated). Live data: 31 dates, 155 events, 147 venues; sources
+> `leaan`, `popit`, `biluim` all `ok`. The daily schedule is not installed. What shipped
+> differs from this text in places — see "As built — deviations from this document" at
+> the end, which is the record.
+
 ---
 
 ## 1. Intent and why
@@ -423,6 +430,9 @@ property of the run, not of the user's filters.
 | 0011 | Design system: Rubik + Secular One, orange/blue, dense rows, two-colour chip axes |
 | 0012 | Notability composed from touring × venue tier × price; weekly coverage alarm |
 
+Shipped afterwards: 0013 (`data/human.json` for human contributions) and 0014 (one daily
+script, no CI) — both are recorded in the deviations section below.
+
 ## 10. Left to the builder
 
 - Per-source adapters and parse recipes (start from the `israeli-events` skill's
@@ -444,3 +454,39 @@ property of the run, not of the user's filters.
   dead agent visible. Out of scope here, but it must exist before the daily cadence is real.
 - The empty state copy for quiet weekdays.
 - Deferred: report-back loop, English UI, dark map base style, PWA/offline.
+
+---
+
+## As built — deviations from this document
+
+Deployed 2026-10-23. Only what differs from the text above; everything not listed
+shipped as written.
+
+1. **Three issue forms, not two** — `אירוע חדש`, `מקור חדש`, `העדפה`. A preference had
+   to be authored the same way as an event, with a receipt and an undo.
+2. **Human-contributed records live in `data/human.json`**, are placed on every build,
+   win over a scan for the same event, and are retracted by closing the issue. A day
+   file is overwritten by the next scan, so drafts need a store that survives it.
+3. **`prefs.json` rules are authored by issue, retractable, and global to all readers** —
+   hand-editing the file on the phone was the only path the design offered, and it left
+   no record of who asked for the rule.
+4. **Geolocation is opt-in and rounded**, not requested on load. A permission prompt on
+   first paint is friction, and the default centre is already Netanya.
+5. **The `מחשב/נייד` demo toggle was removed**; mobile is driven by a 900px breakpoint.
+   The toggle duplicated what the viewport already says, and two ways to be mobile
+   meant one of them was always wrong.
+6. **A `desc` subtitle answers "what is this"**; `drive_approx` renders `~` for centroid
+   minutes; a `נייד`/`ניווט` directions link exists on every row and card. §7.2 had no
+   subtitle field, the map was honest about centroids but the table was not, and the
+   last step to the door was missing.
+7. **The footer reports failed sources and coverage misses.** A partial or failed source
+   was only visible in `index.json`, i.e. invisible.
+8. **`daypart` is not emitted** — nothing reads it. A derived field no one consumes is a
+   lie you maintain.
+9. **An unknown `end` renders the start clock alone.** An invented end time is worse than
+   no end time.
+10. **`week` is today + 7 days (8 calendar days).** The label says a week and the filter
+    now shows the day it names plus seven.
+11. **The ops layer is one POSIX shell script, not CI.** No GitHub Actions, no runner:
+    the host is a phone on Termux, and the no-build rule (ADR-0001) extends to ops
+    (ADR-0014).

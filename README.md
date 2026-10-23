@@ -1,5 +1,14 @@
 # GetUp
 
+**Live:** https://r-bit-rry.github.io/getup/ · **Repo:**
+https://github.com/r-bit-rry/getup (public, default branch `main`).
+
+Served from `main` / root by GitHub Pages — no build step, no CI. Merged as PR
+#1 (`748f08e`). Today: 31 dates, 155 events, 147 venues; sources `leaan`,
+`popit` and `biluim` all `ok`. Tests: 141 client, 284 Python. The daily schedule
+is **not installed yet** — `scripts/daily.sh` exists and nothing invokes it
+(`docs/operations.md`).
+
 A Hebrew, RTL live-events portal for Israel. List-first: a dense table and a
 sticky map on desktop, one card per event on mobile.
 
@@ -140,7 +149,7 @@ python3 -m unittest discover -s tests_py     # pipeline
 ## Decisions
 
 `docs/superpowers/specs/2026-10-18-getup-design.md` is the design;
-`docs/adr/` holds the twelve decisions it rests on. Two carry dated
+`docs/adr/` holds the decisions it rests on. Two carry dated
 amendments recorded against real measurements: ADR-0007 (`plan_ahead`) and
 ADR-0012 (`notable`).
 

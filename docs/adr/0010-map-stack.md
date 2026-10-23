@@ -4,6 +4,7 @@
 - **Date:** 2026-10-18
 - **Supersedes:** —
 - **Superseded by:** —
+- **Confirmed:** 2026-10-23 — MapLibre 6 + OpenFreeMap rendering in the deployed page, Hebrew labels correct RTL.
 
 ## Context
 

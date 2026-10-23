@@ -1,5 +1,9 @@
 # GetUp Pipeline Implementation Plan
 
+**Status: executed** — the pipeline, in the same merged history `0506b55..d552d02`.
+Final: **284** Python tests (`python3 -m unittest discover -s tests_py`), 2 live-gated,
+all passing. Task bodies below are the plan as written, not a report.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** A stdlib-only Python pipeline that scans the first three sources, normalizes, dedups, derives every signal the client reads, and writes `data/YYYY-MM-DD.json`, `data/index.json` and `venue/venues.json` byte-identically on every re-run — on an Android phone with no pip and no state store. A broken adapter is reported, never fatal: the portal must not go dark because one source changed shape.

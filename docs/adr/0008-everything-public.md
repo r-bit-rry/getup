@@ -4,6 +4,7 @@
 - **Date:** 2026-10-18
 - **Supersedes:** —
 - **Superseded by:** —
+- **Confirmed:** 2026-10-23 — the repo and the site are public; intake is guarded on `author_association`.
 
 ## Context
 
